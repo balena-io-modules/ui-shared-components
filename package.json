@@ -1,6 +1,6 @@
 {
   "name": "@balena/ui-shared-components",
-  "version": "0.1.0",
+  "version": "0.0.2",
   "main": "./dist/index.js",
   "module": "./dist_esm5/index.js",
   "sideEffects": false,
@@ -75,5 +75,8 @@
   "bugs": {
     "url": "https://github.com/balena-io/ui-shared-components/issues"
   },
-  "homepage": "https://github.com/balena-io/ui-shared-components#readme"
+  "homepage": "https://github.com/balena-io/ui-shared-components#readme",
+  "versionist": {
+    "publishedAt": "2023-04-03T14:47:50.517Z"
+  }
 }
