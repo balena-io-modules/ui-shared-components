@@ -1,0 +1,22 @@
+This will collapse a long list and allow to expand it click the "expand" button.
+
+```jsx
+<CollapsedList
+  list={[
+    { name: "item1", logo: null },
+    { name: "item2", logo: null },
+    { name: "item3", logo: null },
+    { name: "item4", logo: null },
+    { name: "item5", logo: null },
+    { name: "item6", logo: null },
+    { name: "item7", logo: null },
+    { name: "item8", logo: null },
+    { name: "item9", logo: null },
+    { name: "item10", logo: null },
+    { name: "item11", logo: null },
+    { name: "item12", logo: null },
+    { name: "item13", logo: null },
+    { name: "item14", logo: null },
+  ]}
+/>
+```
