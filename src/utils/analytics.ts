@@ -1,16 +1,16 @@
-import { AnalyticsUrlParams } from "analytics-client";
+import { AnalyticsUrlParams } from 'analytics-client';
 
 export const trackBalenaNavigation = (
-  url: string,
-  urlParamsHandler: AnalyticsUrlParams
+	url: string,
+	urlParamsHandler: AnalyticsUrlParams,
 ) => {
-  const baseUrl = new URL(url);
-  const deviceIdQuery = urlParamsHandler.getQueryString(baseUrl);
-  if (!baseUrl.search) {
-    baseUrl.search = deviceIdQuery;
-  } else {
-    baseUrl.search = baseUrl.search + `&${deviceIdQuery}`;
-  }
+	const baseUrl = new URL(url);
+	const deviceIdQuery = urlParamsHandler.getQueryString(baseUrl);
+	if (!baseUrl.search) {
+		baseUrl.search = deviceIdQuery;
+	} else {
+		baseUrl.search = baseUrl.search + `&${deviceIdQuery}`;
+	}
 
-  return baseUrl.toString();
+	return baseUrl.toString();
 };
