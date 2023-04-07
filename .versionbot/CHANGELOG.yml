@@ -1,4 +1,15 @@
 - commits:
+    - subject: Add husky
+      hash: 5b8161bf492c67d93725289b2b517794b3c8ff09
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: JSReds
+  version: 0.0.4
+  title: ""
+  date: 2023-04-07T11:40:43.590Z
+- commits:
     - subject: Rename custom colors and add linter
       hash: 80ecb6df68fe135ddbda4c4d6c425950e9e9718b
       body: ""
