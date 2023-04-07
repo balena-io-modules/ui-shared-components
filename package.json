@@ -35,6 +35,7 @@
     "typescript": "^4.9.5"
   },
   "devDependencies": {
+    "@balena/lint": "^6.2.2",
     "react-docgen-typescript": "^2.2.2",
     "react-styleguidist": "^13.1.1",
     "ts-loader": "^9.4.2"
@@ -46,7 +47,9 @@
     "build": "npm run build:cjs && npm run build:esm5",
     "test": "react-scripts test --passWithNoTests",
     "eject": "react-scripts eject",
-    "prepack": "npm run build"
+    "prepack": "npm run build",
+    "lint": "balena-lint --typescript src",
+    "lint:fix": "balena-lint --typescript --fix src"
   },
   "eslintConfig": {
     "extends": [

@@ -2,6 +2,23 @@ import type { Theme } from '@mui/material';
 
 type CustomPaletteColor = PaletteColor & { xlight: string };
 type CustomPaletteColorOptions = PaletteColorOptions & { xlight: string };
+
+declare module '@mui/material/styles/createPalette' {
+	interface Palette {
+		customBlue?: CustomPaletteColor;
+		customYellow?: CustomPaletteColor;
+		customGreen?: CustomPaletteColor;
+		customPurple?: CustomPaletteColor;
+		customGrey?: CustomPaletteColor;
+	}
+	interface PaletteOptions {
+		customBlue?: CustomPaletteColorOptions;
+		customYellow?: CustomPaletteColorOptions;
+		customGreen?: CustomPaletteColorOptions;
+		customPurple?: CustomPaletteColorOptions;
+		customGrey?: CustomPaletteColorOptions;
+	}
+}
 declare module '@mui/material/styles' {
 	interface TypographyVariants {
 		bodyLarge?: TypographyStyle;
@@ -33,30 +50,33 @@ declare module '@mui/material/Typography' {
 }
 
 declare module '@mui/material/Button' {
-	interface ButtonPropsColorOverrides {
-		hubBlue?: CustomPaletteColor;
-		hubYellow?: CustomPaletteColor;
-		hubGreen?: CustomPaletteColor;
-		hubPurple?: CustomPaletteColor;
-		hubGrey?: CustomPaletteColor;
-	}
+	type ButtonPropsColorOverrides = Palette;
 }
 
-declare module '@mui/material/styles/createPalette' {
-	interface Palette {
-		hubBlue?: CustomPaletteColor;
-		hubYellow?: CustomPaletteColor;
-		hubGreen?: CustomPaletteColor;
-		hubPurple?: CustomPaletteColor;
-		hubGrey?: CustomPaletteColor;
-	}
-	interface PaletteOptions {
-		hubBlue?: CustomPaletteColorOptions;
-		hubYellow?: CustomPaletteColorOptions;
-		hubGreen?: CustomPaletteColorOptions;
-		hubPurple?: CustomPaletteColorOptions;
-		hubGrey?: CustomPaletteColorOptions;
-	}
+declare module '@mui/material/ButtonGroup' {
+	type ButtonGroupPropsColorOverrides = Palette;
+}
+declare module '@mui/material/Badge' {
+	type BadgePropsColorOverrides = Palette;
+}
+
+declare module '@mui/material/Chip' {
+	type ChipPropsColorOverrides = Palette;
+}
+declare module '@mui/material/Icon' {
+	type IconPropsColorOverrides = Palette;
+}
+declare module '@mui/material/IconButton' {
+	type IconButtonPropsColorOverrides = Palette;
+}
+declare module '@mui/material/Tab' {
+	type TabPropsColorOverrides = Palette;
+}
+declare module '@mui/material/TextField' {
+	type TextFieldPropsColorOverrides = Palette;
+}
+declare module '@mui/material/SvgIcon' {
+	type SvgIconPropsColorOverrides = Palette;
 }
 
 export { Theme };
