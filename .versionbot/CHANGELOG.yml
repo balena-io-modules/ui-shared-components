@@ -1,4 +1,15 @@
 - commits:
+    - subject: Rename custom colors and add linter
+      hash: 80ecb6df68fe135ddbda4c4d6c425950e9e9718b
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: JSReds
+  version: 0.0.3
+  title: ""
+  date: 2023-04-07T09:26:22.786Z
+- commits:
     - subject: Add main setup and starter shared components
       hash: 4962ded45eb9ebb4c614bb05536de0fb61a6f2e4
       body: ""
