@@ -1,5 +1,4 @@
 export { theme } from './theme';
-export type { Theme } from './theme.d';
 export type { AnimatedTextProps } from './components/AnimatedText';
 export { AnimatedText } from './components/AnimatedText';
 export type { ButtonWithTrackingProps } from './components/ButtonWithTracking';
@@ -24,3 +23,5 @@ export {
 	AnalyticsContextProvider,
 	useAnalyticsContext,
 } from './contexts/AnalyticsContext';
+export * as Material from '@mui/material';
+export * as IconsMaterial from '@mui/icons-material';
