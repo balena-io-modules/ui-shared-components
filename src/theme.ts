@@ -1,7 +1,147 @@
-import { createTheme } from '@mui/material/styles';
-import { Theme } from './theme.d';
+import {
+	PaletteColor,
+	PaletteColorOptions,
+	TypographyStyle,
+	createTheme,
+} from '@mui/material';
+import { TypographyStyleOptions } from '@mui/material/styles/createTypography';
 
-export const theme: Theme = createTheme({
+type CustomPaletteColor = PaletteColor & { xlight: string };
+type CustomPaletteColorOptions = PaletteColorOptions & { xlight: string };
+
+declare module '@mui/material/styles' {
+	interface Palette {
+		customBlue: CustomPaletteColor;
+		customYellow: CustomPaletteColor;
+		customGreen: CustomPaletteColor;
+		customPurple: CustomPaletteColor;
+		customGrey: CustomPaletteColor;
+	}
+	interface PaletteOptions {
+		customBlue: CustomPaletteColorOptions;
+		customYellow: CustomPaletteColorOptions;
+		customGreen: CustomPaletteColorOptions;
+		customPurple: CustomPaletteColorOptions;
+		customGrey: CustomPaletteColorOptions;
+	}
+	interface PaletteColor {
+		xlight?: string;
+		light: string;
+		main: string;
+		dark: string;
+		contrastText: string;
+	}
+	interface TypographyVariants {
+		bodyLarge: TypographyStyle;
+		smallText: TypographyStyle;
+		link: TypographyStyle;
+	}
+
+	interface TypographyVariantsOptions {
+		bodyLarge: TypographyStyleOptions | undefined;
+		smallText: TypographyStyleOptions | undefined;
+		link: TypographyStyleOptions | undefined;
+	}
+
+	interface TypeText {
+		primary: string;
+		secondary: string;
+		tertiary: string;
+		disabled: string;
+	}
+}
+declare module '@mui/material/Typography' {
+	interface TypographyPropsVariantOverrides {
+		bodyLarge: true;
+		smallText: true;
+		link: true;
+	}
+}
+
+declare module '@mui/material/Button' {
+	interface ButtonPropsColorOverrides {
+		customBlue: true;
+		customYellow: true;
+		customGreen: true;
+		customPurple: true;
+		customGrey: true;
+	}
+}
+declare module '@mui/material/ButtonGroup' {
+	interface ButtonGroupPropsColorOverrides {
+		customBlue: true;
+		customYellow: true;
+		customGreen: true;
+		customPurple: true;
+		customGrey: true;
+	}
+}
+declare module '@mui/material/Badge' {
+	interface BadgePropsColorOverrides {
+		customBlue: true;
+		customYellow: true;
+		customGreen: true;
+		customPurple: true;
+		customGrey: true;
+	}
+}
+
+declare module '@mui/material/Chip' {
+	interface ChipPropsColorOverrides {
+		customBlue: true;
+		customYellow: true;
+		customGreen: true;
+		customPurple: true;
+		customGrey: true;
+	}
+}
+declare module '@mui/material/Icon' {
+	interface IconPropsColorOverrides {
+		customBlue: true;
+		customYellow: true;
+		customGreen: true;
+		customPurple: true;
+		customGrey: true;
+	}
+}
+declare module '@mui/material/IconButton' {
+	interface IconButtonPropsColorOverrides {
+		customBlue: true;
+		customYellow: true;
+		customGreen: true;
+		customPurple: true;
+		customGrey: true;
+	}
+}
+declare module '@mui/material/Tab' {
+	interface TabPropsColorOverrides {
+		customBlue: true;
+		customYellow: true;
+		customGreen: true;
+		customPurple: true;
+		customGrey: true;
+	}
+}
+declare module '@mui/material/TextField' {
+	interface TextFieldPropsColorOverrides {
+		customBlue: true;
+		customYellow: true;
+		customGreen: true;
+		customPurple: true;
+		customGrey: true;
+	}
+}
+declare module '@mui/material/SvgIcon' {
+	interface SvgIconPropsColorOverrides {
+		customBlue: true;
+		customYellow: true;
+		customGreen: true;
+		customPurple: true;
+		customGrey: true;
+	}
+}
+
+export const theme = createTheme({
 	typography: {
 		fontFamily: '"Source Sans Pro", Helvetica, sans-serif',
 		h1: {
@@ -79,6 +219,7 @@ export const theme: Theme = createTheme({
 			dark: '#2A506F',
 		},
 		customYellow: {
+			xlight: '#F8DD88',
 			main: '#FFC100',
 			contrastText: '#FFFFFF',
 		},
