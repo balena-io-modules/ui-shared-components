@@ -266,6 +266,17 @@ export const theme = createTheme({
 				},
 			},
 		},
+		MuiCardActionArea: {
+			styleOverrides: {
+				root: ({ theme }) => ({
+					'&:hover': {
+						boxShadow: `0 0 0 3px ${theme.palette.primary.light}`,
+					},
+					borderRadius: '10px',
+					fontFamily: 'inherit',
+				}),
+			},
+		},
 		MuiCardHeader: {
 			styleOverrides: {
 				root: {
