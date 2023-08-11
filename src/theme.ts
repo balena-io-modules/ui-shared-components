@@ -344,5 +344,15 @@ export const theme = createTheme({
 				},
 			},
 		},
+		MuiTooltip: {
+			styleOverrides: {
+				tooltip: {
+					backgroundColor: 'black',
+				},
+				arrow: {
+					color: 'black',
+				},
+			},
+		},
 	},
 });
