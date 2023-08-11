@@ -1,4 +1,15 @@
 - commits:
+    - subject: Add MUI Tooltip style overrides
+      hash: 14cf8946cda40a86535aa023cf5db7e5e65ec98c
+      body: ""
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: myarmolinsky
+  version: 0.3.0
+  title: ""
+  date: 2023-08-11T13:16:34.605Z
+- commits:
     - subject: Add MUI CardActionArea style overrides
       hash: 88733a035763802a9af4fb0a5fedd8ae774a0950
       body: ""
