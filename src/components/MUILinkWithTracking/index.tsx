@@ -15,6 +15,7 @@ export const MUILinkWithTracking: React.FC<MUILinkWithTrackingProps> = ({
 	...rest
 }) => {
 	const { state } = useAnalyticsContext();
+	console.log('lINK');
 
 	const handleClick = (event: any) => {
 		if (!state.webTracker) {
