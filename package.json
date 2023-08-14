@@ -37,6 +37,7 @@
   "devDependencies": {
     "@balena/lint": "^6.2.2",
     "husky": "^8.0.3",
+    "lint-staged": "^14.0.0",
     "react-docgen-typescript": "^2.2.2",
     "react-styleguidist": "^13.1.1",
     "ts-loader": "^9.4.2"
