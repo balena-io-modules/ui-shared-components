@@ -245,7 +245,7 @@ export const theme = createTheme({
 			tertiary: '#8F9297',
 		},
 	},
-	spacing: [0, 4, 8, 16, 32, 64, 128],
+	spacing: [0, 4, 8, 16, 32, 64, 129],
 	components: {
 		MuiAvatar: {
 			styleOverrides: {
