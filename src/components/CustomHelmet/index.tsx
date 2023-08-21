@@ -6,6 +6,10 @@ export interface CustomHelmetProps {
 	properties?: { [key: string]: string };
 }
 
+/**
+ * This is just a customization of [react-helmet](https://www.npmjs.com/package/react-helmet) to allow passing
+ * metadata using an object instead of manually writing all the HTML.
+ */
 export const CustomHelmet = ({
 	title,
 	description,

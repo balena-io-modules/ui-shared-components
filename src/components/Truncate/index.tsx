@@ -6,6 +6,9 @@ export interface TruncateProps {
 	tooltip?: boolean;
 }
 
+/**
+ * This component will truncate text depending on the settings passed by props.
+ */
 export const Truncate: React.FC<React.PropsWithChildren<TruncateProps>> = ({
 	children,
 	lineCamp,

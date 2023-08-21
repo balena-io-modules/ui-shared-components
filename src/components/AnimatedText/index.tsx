@@ -7,6 +7,9 @@ export interface AnimatedTextProps {
 	animationTimeout?: number;
 }
 
+/**
+ * This component will animate the array of strings passed as words.
+ */
 export const AnimatedText: React.FC<AnimatedTextProps> = ({
 	words,
 	animationType,

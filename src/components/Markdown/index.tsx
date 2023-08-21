@@ -6,6 +6,9 @@ import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
 import { theme } from '../../theme';
 
+/**
+ * This component will render a Markdown text.
+ */
 export const Markdown: React.FC<ReactMarkdownOptions> = (props) => {
 	return (
 		<ReactMarkdown

@@ -7,6 +7,9 @@ export interface ButtonWithTrackingProps extends ButtonProps {
 	eventProperties?: { [key: string]: any };
 }
 
+/**
+ * This button will send analytics in case the analytics context is passed through the provider (AnalyticsProvider).
+ */
 export const ButtonWithTracking: React.FC<ButtonWithTrackingProps> = ({
 	eventName,
 	eventProperties,

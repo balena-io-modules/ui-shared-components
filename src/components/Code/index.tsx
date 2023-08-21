@@ -1,6 +1,9 @@
 import { Box, BoxProps } from '@mui/material';
 import { theme } from '../../theme';
 
+/**
+ * This component will display a text as code.
+ */
 export const Code = ({ children, ...props }: BoxProps) => (
 	<Box
 		sx={{
