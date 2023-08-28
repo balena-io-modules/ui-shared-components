@@ -1,4 +1,15 @@
 - commits:
+    - subject: Remove unused react-scripts
+      hash: 7663b79c209d99037864f8a6c2a6e6392085451e
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: JSReds
+  version: 0.3.2
+  title: ""
+  date: 2023-08-28T08:36:12.800Z
+- commits:
     - subject: Add missing lint-staged lib
       hash: c8d2067d1c78ca7457ce0cbca29b8e408feaf36a
       body: ""
