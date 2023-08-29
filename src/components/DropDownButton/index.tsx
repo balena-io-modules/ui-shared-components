@@ -26,6 +26,10 @@ export interface DropDownButtonProps extends Omit<ButtonGroupProps, 'onClick'> {
 	) => void;
 }
 
+/**
+ * This component implements a Dropdown button using MUI (This can be removed as soon as MUI implements it. Check
+ * progress: https://mui.com/material-ui/discover-more/roadmap/#new-components)
+ */
 export const DropDownButton: React.FC<DropDownButtonProps> = ({
 	items,
 	selectedItemIndex = 0,

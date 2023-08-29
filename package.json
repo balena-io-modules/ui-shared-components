@@ -1,6 +1,6 @@
 {
   "name": "@balena/ui-shared-components",
-  "version": "0.3.2",
+  "version": "0.3.1",
   "main": "./dist/index.js",
   "module": "./dist_esm5/index.js",
   "sideEffects": false,
@@ -28,6 +28,7 @@
     "react-helmet": "^6.1.0",
     "react-markdown": "^8.0.7",
     "react-router-dom": "^6.10.0",
+    "react-scripts": "5.0.1",
     "rehype-raw": "^6.1.1",
     "remark-gfm": "^3.0.1",
     "rimraf": "^5.0.0",
@@ -35,27 +36,45 @@
   },
   "devDependencies": {
     "@balena/lint": "^6.2.2",
+    "@storybook/addon-essentials": "^7.3.2",
+    "@storybook/addon-interactions": "^7.3.2",
+    "@storybook/addon-links": "^7.3.2",
+    "@storybook/addon-onboarding": "^1.0.8",
+    "@storybook/blocks": "^7.3.2",
+    "@storybook/preset-create-react-app": "^7.3.2",
+    "@storybook/react": "^7.3.2",
+    "@storybook/react-webpack5": "^7.3.2",
+    "@storybook/testing-library": "^0.2.0",
+    "babel-plugin-named-exports-order": "^0.0.2",
+    "eslint-plugin-storybook": "^0.6.13",
     "husky": "^8.0.3",
     "lint-staged": "^14.0.0",
+    "prop-types": "^15.8.1",
     "react-docgen-typescript": "^2.2.2",
-    "react-styleguidist": "^13.1.1",
-    "ts-loader": "^9.4.2"
+    "storybook": "^7.3.2",
+    "ts-loader": "^9.4.2",
+    "webpack": "^5.88.2"
   },
   "scripts": {
-    "start": "styleguidist server",
+    "start": "npm run storybook",
     "build:cjs": "rimraf dist && tsc",
     "build:esm5": "rimraf dist_esm5 && tsc -p ./tsconfig.esm5.json",
     "build": "npm run build:cjs && npm run build:esm5",
-    "test": "echo there are no test",
+    "test": "react-scripts test --passWithNoTests",
+    "eject": "react-scripts eject",
     "prepack": "npm run build",
     "lint": "balena-lint --typescript src",
     "lint:fix": "balena-lint --typescript --fix src",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
+    "deploy-docs": "npm ci && storybook build && mv storybook-static build"
   },
   "eslintConfig": {
     "extends": [
       "react-app",
-      "react-app/jest"
+      "react-app/jest",
+      "plugin:storybook/recommended"
     ]
   },
   "browserslist": {
@@ -81,6 +100,6 @@
   },
   "homepage": "https://github.com/balena-io/ui-shared-components#readme",
   "versionist": {
-    "publishedAt": "2023-08-28T08:36:12.888Z"
+    "publishedAt": "2023-08-14T14:39:39.538Z"
   }
 }

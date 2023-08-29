@@ -13,6 +13,9 @@ export interface CollapsedListProps {
 	collapseItems?: number;
 }
 
+/**
+ * This will collapse a long list and allow to expand it by clicking the "expand" button.
+ */
 export const CollapsedList: React.FC<CollapsedListProps> = ({
 	list,
 	collapseItems = 3,

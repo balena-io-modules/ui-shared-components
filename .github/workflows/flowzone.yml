@@ -4,11 +4,14 @@ on:
   pull_request:
     types: [opened, synchronize, closed]
     branches:
-      - "main"
-      - "master"
+      - 'master'
+      - 'main'
 
 jobs:
   flowzone:
     name: Flowzone
     uses: product-os/flowzone/.github/workflows/flowzone.yml@master
     secrets: inherit
+    with:
+      cloudflare_website: balena-design-system
+      docusaurus_website: false

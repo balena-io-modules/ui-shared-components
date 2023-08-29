@@ -6,6 +6,10 @@ export interface RouterLinkWithTrackingProps extends LinkProps {
 	eventProperties?: { [key: string]: string };
 }
 
+/**
+ * This Link will send analytics in case the analytics context is
+ * passed through the provider (AnalyticsProvider).
+ */
 export const RouterLinkWithTracking: React.FC<RouterLinkWithTrackingProps> = ({
 	eventName,
 	eventProperties,
