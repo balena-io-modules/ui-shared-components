@@ -1,4 +1,15 @@
 - commits:
+    - subject: Replace Styleguidist with Storybook
+      hash: 8253ac2429357722398cb8172339c7c9a854b33a
+      body: ""
+      footer:
+        Change-Type: minor
+        change-type: minor
+      author: Jonathan Berger
+  version: 0.4.0
+  title: ""
+  date: 2023-08-29T07:55:44.073Z
+- commits:
     - subject: Remove unused react-scripts
       hash: 7663b79c209d99037864f8a6c2a6e6392085451e
       body: ""
