@@ -24,8 +24,8 @@ type Dispatch = (action: Action) => void;
 type AnalyticsContext = {
 	analyticsClient: Client | null;
 	webTracker: WebTracker | null;
-	urlParamsHandler: AnalyticsUrlParams | null;
-	trackBalenaNavigation: (url: string) => string;
+	urlParamsHandler?: AnalyticsUrlParams | null;
+	trackBalenaNavigation?: (url: string) => string;
 };
 
 const AnalyticsStateContext = createContext<
@@ -94,10 +94,17 @@ const contextReducer = (state: AnalyticsContext, { type, payload }: Action) => {
 	}
 };
 
+interface AnalyticsContextProviderProps {
+	initialState?: AnalyticsContext;
+}
+
 export const AnalyticsContextProvider: React.FC<
-	React.PropsWithChildren<{}>
-> = ({ children }) => {
-	const [state, dispatch] = useReducer(contextReducer, initialContext);
+	React.PropsWithChildren<AnalyticsContextProviderProps>
+> = ({ initialState, children }) => {
+	const [state, dispatch] = useReducer(
+		contextReducer,
+		initialState ?? initialContext,
+	);
 	const value = { state, dispatch };
 	return (
 		<AnalyticsStateContext.Provider value={value}>

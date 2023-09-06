@@ -182,13 +182,13 @@ export const theme = createTheme({
 		h6: {
 			fontSize: '1rem',
 			'@media (min-width:600px)': {
-				fontSize: '1.125 rem',
+				fontSize: '1.125rem',
 			},
 		},
 		bodyLarge: {
 			fontSize: '1.125rem',
 			'@media (min-width:600px)': {
-				fontSize: '1.25 rem',
+				fontSize: '1.25rem',
 			},
 		},
 		body1: {
@@ -499,6 +499,34 @@ export const theme = createTheme({
 					fontSize: 12,
 					transform: 'none',
 					position: 'relative',
+				},
+			},
+		},
+		MuiFormLabel: {
+			styleOverrides: {
+				root: {
+					fontSize: 12,
+					transform: 'none',
+					position: 'relative',
+				},
+			},
+		},
+		MuiLink: {
+			styleOverrides: {
+				root: {
+					color: '#00AEEF',
+					textDecoration: 'none',
+					'&:hover': {
+						color: '#008bbf',
+					},
+				},
+			},
+		},
+		MuiListItemIcon: {
+			styleOverrides: {
+				root: {
+					minWidth: 'auto',
+					marginRight: '.5rem',
 				},
 			},
 		},

@@ -1,0 +1,845 @@
+import type { Meta, StoryObj } from '@storybook/react';
+import { DownloadImageDialog, DownloadImageDialogProps } from '.';
+import { useState } from 'react';
+import { Button } from '@mui/material';
+import { DeviceType } from './models';
+
+const deviceTypes: any[] = [
+	{
+		imageDownloadAlerts: [
+			{
+				type: 'warning',
+				message:
+					'The Raspberry Pi 3 is not capable of connecting to 5GHz WiFi networks unless you use an external WiFi adapter that supports it.',
+			},
+		],
+		instructions: [
+			'Insert the SD card to the host machine.',
+			'Write the balenaOS file you downloaded to the SD card. We recommend using <a href="http://www.etcher.io/">Etcher</a>.',
+			'Wait for writing of balenaOS to complete.',
+			'Remove the SD card from the host machine.',
+			'Insert the freshly flashed SD card into the Raspberry Pi 3 (using 64bit OS).',
+			'Connect power to the Raspberry Pi 3 (using 64bit OS) to boot the device.',
+		],
+		options: [
+			{
+				isGroup: true,
+				name: 'network',
+				message: 'Network',
+				options: [
+					{
+						message: 'Network Connection',
+						name: 'network',
+						type: 'list',
+						choices: ['ethernet', 'wifi'],
+					},
+					{
+						message: 'Wifi SSID',
+						name: 'wifiSsid',
+						type: 'text',
+						when: {
+							network: 'wifi',
+						},
+					},
+					{
+						message: 'Wifi Passphrase',
+						name: 'wifiKey',
+						type: 'password',
+						when: {
+							network: 'wifi',
+						},
+					},
+				],
+			},
+			{
+				isGroup: true,
+				isCollapsible: true,
+				collapsed: true,
+				name: 'advanced',
+				message: 'Advanced',
+				options: [
+					{
+						message: 'Check for updates every X minutes',
+						name: 'appUpdatePollInterval',
+						type: 'number',
+						min: 10,
+						default: 10,
+					},
+				],
+			},
+		],
+		yocto: {
+			machine: 'raspberrypi3-64',
+			image: 'balena-image',
+			fstype: 'balenaos-img',
+			version: 'yocto-honister',
+			deployArtifact: 'balena-image-raspberrypi3-64.balenaos-img',
+			compressed: true,
+		},
+		is_default_for__application: [
+			{
+				application_tag: [
+					{
+						value: 'esr',
+					},
+				],
+				should_be_running__release: [
+					{
+						release_tag: [
+							{
+								tag_key: 'meta-balena-base',
+								value: 'v2.114.25',
+							},
+							{
+								tag_key: 'version',
+								value: '2023.7.0',
+							},
+						],
+					},
+				],
+				is_archived: false,
+			},
+			{
+				application_tag: [],
+				should_be_running__release: [
+					{
+						release_tag: [
+							{
+								tag_key: 'version',
+								value: '3.2.7+rev1',
+							},
+						],
+					},
+				],
+				is_archived: false,
+			},
+		],
+		is_of__cpu_architecture: [
+			{
+				slug: 'aarch64',
+			},
+		],
+		slug: 'raspberrypi3-64',
+		name: 'Raspberry Pi 3 (using 64bit OS)',
+		contract: {
+			data: {
+				led: true,
+				arch: 'aarch64',
+				hdmi: true,
+				media: {
+					altBoot: ['usb_mass_storage', 'network'],
+					defaultBoot: 'sdcard',
+				},
+				storage: {
+					internal: false,
+				},
+				is_private: false,
+				connectivity: {
+					wifi: true,
+					bluetooth: true,
+				},
+			},
+			name: 'Raspberry Pi 3 (using 64bit OS)',
+			slug: 'raspberrypi3-64',
+			type: 'hw.device-type',
+			assets: {
+				logo: {
+					url: 'data:image/svg+xml;base64,PHN2ZyBpZD0iTGF5ZXJfMSIgZGF0YS1uYW1lPSJMYXllciAxIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0MCA0MCI+PGRlZnM+PHN0eWxlPi5jbHMtMXtmaWxsOiM3NWE5Mjg7fS5jbHMtMntmaWxsOiNiYzExNDI7fS5jbHMtM3tmaWxsOiNmZmY7fS5jbHMtNHtmaWxsOiMxYTFhMWE7fTwvc3R5bGU+PC9kZWZzPjxwYXRoIGQ9Ik0xMiwuNWExLjExLDEuMTEsMCwwLDAtLjY1LjI3QTEuNDgsMS40OCwwLDAsMCw5LjY3LjkzYy0uNzktLjExLTEsLjExLTEuMjQuMzUtLjE3LDAtMS4zLS4xOC0xLjgxLjU5LTEuMy0uMTUtMS43MS43Ny0xLjI0LDEuNjJhMS4xMSwxLjExLDAsMCwwLC4wOCwxLjU5Yy0uMjIuNDQtLjA5LjkxLjQzLDEuNDhBMS4yNCwxLjI0LDAsMCwwLDYuNSw3Ljk0Yy0uMDkuODQuNzcsMS4zMywxLDEuNS4xLjQ5LjMxLDEsMS4yOSwxLjIuMTYuNzMuNzUuODUsMS4zMiwxYTYuMTUsNi4xNSwwLDAsMC0zLjQ5LDYuMDZsLS4yOC41YTYsNiwwLDAsMC0xLjA2LDksMTYuMjksMTYuMjksMCwwLDAsLjgzLDIuNyw2LjU2LDYuNTYsMCwwLDAsNC4wOSw1LjI0LDE0LDE0LDAsMCwwLDMuOTIsMi4yM0E2LjU0LDYuNTQsMCwwLDAsMTksMzkuNUgxOWE2LjU0LDYuNTQsMCwwLDAsNC44Mi0yLjE2LDE0LDE0LDAsMCwwLDMuOTItMi4yMyw2LjU2LDYuNTYsMCwwLDAsNC4wOS01LjI0LDE2LjI5LDE2LjI5LDAsMCwwLC44My0yLjcsNiw2LDAsMCwwLTEuMDYtOWwtLjI4LS41YTYuMTUsNi4xNSwwLDAsMC0zLjQ5LTYuMDZjLjU3LS4xNiwxLjE2LS4yOCwxLjMyLTEsMS0uMjUsMS4xOS0uNzEsMS4yOS0xLjIuMjUtLjE3LDEuMTEtLjY2LDEtMS41YTEuMjQsMS4yNCwwLDAsMCwuNjEtMS4zOGMuNTItLjU3LjY1LTEsLjQzLTEuNDhhMS4xMSwxLjExLDAsMCwwLC4wOC0xLjU5Yy40Ny0uODUuMDYtMS43Ny0xLjI0LTEuNjItLjUxLS43Ny0xLjY0LS41OS0xLjgxLS41OS0uMi0uMjQtLjQ1LS40Ni0xLjI0LS4zNUExLjQ4LDEuNDgsMCwwLDAsMjYuNjUuNzdDMjYsLjIyLDI1LjQ5LjY2LDI1LC44M2MtLjg1LS4yOC0xLC4xLTEuNDYuMjUtLjkzLS4xOS0xLjIxLjIzLTEuNjUuNjhoLS41MkE1LjksNS45LDAsMCwwLDE5LDUuMTFhNiw2LDAsMCwwLTIuMzMtMy4zNmgtLjUyYy0uNDQtLjQ1LS43Mi0uODctMS42NS0uNjhDMTQuMDguOTMsMTMuODkuNTUsMTMsLjgzQTMuMzIsMy4zMiwwLDAsMCwxMiwuNVoiLz48cGF0aCBjbGFzcz0iY2xzLTEiIGQ9Ik05LjIyLDQuMTJjMy43LDEuOTEsNS44NSwzLjQ1LDcsNC43Ny0uNiwyLjQyLTMuNzUsMi41My00LjksMi40NmEuODguODgsMCwwLDAsLjUtLjQ0Yy0uMjktLjIxLTEuMzEsMC0yLS40M2EuNjYuNjYsMCwwLDAsLjUzLS4zMSw1LjkzLDUuOTMsMCwwLDEtMS44My0uNzYsMS4wNSwxLjA1LDAsMCwwLC43NS0uMTZBNy4yNCw3LjI0LDAsMCwxLDcuNTEsOC4xN2MuMzIsMCwuNjYsMCwuNzUtLjEyQTcuMDksNy4wOSwwLDAsMSw2Ljg1LDYuOTFhMS4wOCwxLjA4LDAsMCwwLC43My0uMDcsNS41Myw1LjUzLDAsMCwxLTEuMi0xLjMyLjkxLjkxLDAsMCwwLC44NCwwYy0uMTQtLjMyLS43NS0uNTEtMS4xLTEuMjYuMzQsMCwuNy4wNy43NywwYTMuNjEsMy42MSwwLDAsMC0uNy0xLjM5QTEyLjY2LDEyLjY2LDAsMCwwLDgsMi44bC0uNDYtLjQ2YTMuNTYsMy41NiwwLDAsMSwyLC4xOWMuMjQtLjE5LDAtLjQyLS4yOS0uNjdhNi42NCw2LjY0LDAsMCwxLDEuNjUuNDJjLjI3LS4yNC0uMTctLjQ4LS4zOC0uNzJhNC4yMSw0LjIxLDAsMCwxLDEuNzMuNjhjLjI5LS4yOCwwLS41MS0uMTctLjc1YTQuMTcsNC4xNywwLDAsMSwxLjQ1LjkzYy4xMy0uMTcuMzQtLjMuMDktLjcyYTMuNjgsMy42OCwwLDAsMSwxLjE3LDFjLjMxLS4yLjE4LS40Ny4xOC0uNzJBMTEsMTEsMCwwLDEsMTYuMiwzLjMxYy4wOS0uMDYuMTYtLjI2LjIyLS41OCwxLjI1LDEuMjEsMyw0LjI2LjQ1LDUuNDdBMjMuODgsMjMuODgsMCwwLDAsOS4yMiw0LjEyWiIvPjxwYXRoIGNsYXNzPSJjbHMtMSIgZD0iTTI4Ljg2LDQuMTJDMjUuMTYsNiwyMyw3LjU3LDIxLjgzLDguODljLjYsMi40MiwzLjc1LDIuNTMsNC45MSwyLjQ2YS44Ny44NywwLDAsMS0uNTEtLjQ0Yy4yOS0uMjEsMS4zMiwwLDItLjQzYS42Ni42NiwwLDAsMS0uNTMtLjMxLDUuNzMsNS43MywwLDAsMCwxLjgzLS43NiwxLDEsMCwwLDEtLjc0LS4xNiw3LjE5LDcuMTksMCwwLDAsMS43NS0xLjA4Yy0uMzEsMC0uNjUsMC0uNzUtLjEyYTcuMDksNy4wOSwwLDAsMCwxLjQxLTEuMTQsMS4xLDEuMSwwLDAsMS0uNzMtLjA3LDUuNTMsNS41MywwLDAsMCwxLjItMS4zMi45MS45MSwwLDAsMS0uODQsMEMzMSw1LjE5LDMxLjYyLDUsMzIsNC4yNWExLjkxLDEuOTEsMCwwLDEtLjc4LDAsMy42MSwzLjYxLDAsMCwxLC43LTEuMzlBMTIuNTgsMTIuNTgsMCwwLDEsMzAuMSwyLjhsLjQ1LS40NmEzLjU2LDMuNTYsMCwwLDAtMiwuMTljLS4yNC0uMTksMC0uNDIuMjktLjY3YTYuODgsNi44OCwwLDAsMC0xLjY1LjQyYy0uMjctLjI0LjE3LS40OC4zOC0uNzJhNC4yOCw0LjI4LDAsMCwwLTEuNzMuNjhjLS4yOS0uMjgsMC0uNTEuMTgtLjc1YTQuMjMsNC4yMywwLDAsMC0xLjQ2LjkzYy0uMTMtLjE3LS4zMy0uMy0uMDktLjcyYTMuNzQsMy43NCwwLDAsMC0xLjE2LDFjLS4zMS0uMi0uMTktLjQ3LS4xOS0uNzJhMTIuODQsMTIuODQsMCwwLDAtMS4yNiwxLjMyLDEuMTgsMS4xOCwwLDAsMS0uMjItLjU4Yy0xLjI0LDEuMjEtMyw0LjI2LS40NSw1LjQ3YTI0LDI0LDAsMCwxLDcuNjUtNC4wOFoiLz48cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik0yMy41MywyOC43NmE0LjI4LDQuMjgsMCwwLDEtNC40NCw0LjA5LDQuMjcsNC4yNywwLDAsMS00LjQzLTQuMDksNC4yNyw0LjI3LDAsMCwxLDQuNDMtNC4wOEE0LjI3LDQuMjcsMCwwLDEsMjMuNTMsMjguNzZaIi8+PHBhdGggY2xhc3M9ImNscy0yIiBkPSJNMTYuNTIsMTcuMDhjMS44NCwxLjIxLDIuMTcsMy45My43NCw2LjFzLTQuMDcsMi45NC01LjkxLDEuNzNoMGMtMS44NC0xLjItMi4xNy0zLjkzLS43NC02LjA5czQuMDgtMi45NCw1LjkxLTEuNzRaIi8+PHBhdGggY2xhc3M9ImNscy0yIiBkPSJNMjEuNDgsMTYuODZjLTEuODMsMS4yMS0yLjE2LDMuOTQtLjc0LDYuMXM0LjA4LDIuOTQsNS45MiwxLjczaDBjMS44NC0xLjIsMi4xNy0zLjkzLjc0LTYuMDlzLTQuMDgtMi45NC01LjkyLTEuNzRaIi8+PHBhdGggY2xhc3M9ImNscy0yIiBkPSJNNy4zNCwxOS4wNWMyLS41My42Nyw4LjIxLS45NCw3LjQ5QTQuNzIsNC43MiwwLDAsMSw3LjM0LDE5LjA1WiIvPjxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTMwLjI3LDE4Ljk0Yy0yLS41My0uNjcsOC4yMS45NCw3LjQ5QTQuNzIsNC43MiwwLDAsMCwzMC4yNywxOC45NFoiLz48cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik0yMy41MywxMi40M2MzLjQyLS41Nyw2LjI3LDEuNDYsNi4xNiw1LjE3LS4xMiwxLjQzLTcuNDItNS02LjE2LTUuMTdaIi8+PHBhdGggY2xhc3M9ImNscy0yIiBkPSJNMTQuMDcsMTIuMzJjLTMuNDMtLjU3LTYuMjgsMS40Ni02LjE2LDUuMTdDOCwxOC45MiwxNS4zMywxMi41NCwxNC4wNywxMi4zMloiLz48cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik0xOSwxMS40NmMtMi0uMDUtNCwxLjUyLTQsMi40MywwLDEuMSwxLjYxLDIuMjMsNCwyLjI2czQtLjksNC0yLTIuMjMtMi42Ni00LTIuNjRaIi8+PHBhdGggY2xhc3M9ImNscy0yIiBkPSJNMTkuMTEsMzQuMTVjMS43OC0uMDgsNC4xNy41Nyw0LjE4LDEuNDNzLTIuMTcsMi43NC00LjMsMi43LTQuMzYtMS44LTQuMzMtMi40NkMxNC42MiwzNC44NiwxNy4zNCwzNC4xLDE5LjExLDM0LjE1WiIvPjxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTEyLjUzLDI5YzEuMjcsMS41MywxLjg1LDQuMjIuNzksNS0xLC42LTMuNDQuMzUtNS4xNi0yLjEzLTEuMTctMi4wOC0xLTQuMi0uMi00LjgzQzkuMTgsMjYuMzMsMTEuMDcsMjcuMzMsMTIuNTMsMjlaIi8+PHBhdGggY2xhc3M9ImNscy0yIiBkPSJNMjUuNDQsMjguNTRDMjQuMDYsMzAuMTUsMjMuMywzMy4wOCwyNC4zLDM0YzEsLjc0LDMuNTMuNjMsNS40My0yLDEuMzgtMS43Ny45MS00LjcyLjEzLTUuNTFDMjguNjksMjUuNjEsMjcsMjYuNzcsMjUuNDQsMjguNTRaIi8+PGNpcmNsZSBjbGFzcz0iY2xzLTMiIGN4PSIyOS40NCIgY3k9IjI2LjQ4IiByPSI5LjE3Ii8+PHBhdGggZD0iTTI5LjQ0LDE4YTguNTMsOC41MywwLDEsMS04LjUyLDguNTNBOC41Myw4LjUzLDAsMCwxLDI5LjQ0LDE4bTAtMS4yOGE5LjgxLDkuODEsMCwxLDAsOS44MSw5LjgxLDkuODIsOS44MiwwLDAsMC05LjgxLTkuODFaIi8+PHBhdGggY2xhc3M9ImNscy00IiBkPSJNMjYuNDMsMzAuNTVhMi44NywyLjg3LDAsMCwxLTEuMDctLjIxLDIuNTYsMi41NiwwLDAsMS0uOTEtLjY3LDMuMjYsMy4yNiwwLDAsMS0uNjQtMS4xNyw1LjM0LDUuMzQsMCwwLDEtLjI0LTEuNzFBNS45Myw1LjkzLDAsMCwxLDIzLjgyLDI1YTMuODgsMy44OCwwLDAsMSwuNjgtMS4yOCwyLjc3LDIuNzcsMCwwLDEsMS0uNzQsMi45LDIuOSwwLDAsMSwxLjE1LS4yNSwyLjk0LDIuOTQsMCwwLDEsMS4zMS4yNywzLjIzLDMuMjMsMCwwLDEsLjkuNjRsLS45MiwxLjA1YTEuNzMsMS43MywwLDAsMC0uNTItLjM3LDEuNDEsMS40MSwwLDAsMC0xLjI0LS4wNSwxLjI0LDEuMjQsMCwwLDAtLjQ5LjQsMi42OSwyLjY5LDAsMCwwLS4zNC43NCw0LjczLDQuNzMsMCwwLDAtLjE1LDEuMTEsMS43NywxLjc3LDAsMCwxLC4zMy0uMzQsMi40MiwyLjQyLDAsMCwxLC40LS4yNSwyLjIzLDIuMjMsMCwwLDEsLjQtLjE2LDEuODksMS44OSwwLDAsMSwuMzksMCwyLjkzLDIuOTMsMCwwLDEsLjkuMTQsMiwyLDAsMCwxLC43MS40MywxLjc3LDEuNzcsMCwwLDEsLjQ3LjczLDMuMDcsMy4wNywwLDAsMSwwLDIuMSwyLjUzLDIuNTMsMCwwLDEtLjU1LjgsMi4zNCwyLjM0LDAsMCwxLS43OS41MUEyLjkzLDIuOTMsMCwwLDEsMjYuNDMsMzAuNTVabTAtMS4zMWEuOTIuOTIsMCwwLDAsLjY3LS4yOSwxLjMyLDEuMzIsMCwwLDAsLjI4LS45NCwxLjEsMS4xLDAsMCwwLS4yOC0uODYsMS4wNSwxLjA1LDAsMCwwLS43MS0uMjQsMS4yNCwxLjI0LDAsMCwwLS42LjE3LDEuNTUsMS41NSwwLDAsMC0uNTUuNTgsMy4xNywzLjE3LDAsMCwwLC4xOC43NSwxLjc1LDEuNzUsMCwwLDAsLjI4LjQ5Ljg0Ljg0LDAsMCwwLC4zNC4yNkExLDEsMCwwLDAsMjYuNCwyOS4yNFoiLz48cGF0aCBjbGFzcz0iY2xzLTQiIGQ9Ik0zMi44OSwzMC40MVYyOC41OUgyOS42MXYtMS4ybDIuNzctNC41NmgyLjE1djQuNDNoLjg3djEuMzNoLS44N3YxLjgyWm0tMS42LTMuMTVoMS42VjI2YzAtLjI1LDAtLjUzLDAtLjg2czAtLjYuMDUtLjg0aC0uMDVjLS4wOS4yMS0uMTkuNDItLjI5LjYzbC0uMzMuNjVaIi8+PC9zdmc+',
+					name: 'logo',
+				},
+			},
+			aliases: ['raspberrypi3-64'],
+			version: '1',
+			partials: {
+				bootDevice: ['Connect power to the Raspberry Pi 3 (using 64bit OS)'],
+			},
+		},
+		logo: 'data:image/svg+xml;base64,PHN2ZyBpZD0iTGF5ZXJfMSIgZGF0YS1uYW1lPSJMYXllciAxIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0MCA0MCI+PGRlZnM+PHN0eWxlPi5jbHMtMXtmaWxsOiM3NWE5Mjg7fS5jbHMtMntmaWxsOiNiYzExNDI7fS5jbHMtM3tmaWxsOiNmZmY7fS5jbHMtNHtmaWxsOiMxYTFhMWE7fTwvc3R5bGU+PC9kZWZzPjxwYXRoIGQ9Ik0xMiwuNWExLjExLDEuMTEsMCwwLDAtLjY1LjI3QTEuNDgsMS40OCwwLDAsMCw5LjY3LjkzYy0uNzktLjExLTEsLjExLTEuMjQuMzUtLjE3LDAtMS4zLS4xOC0xLjgxLjU5LTEuMy0uMTUtMS43MS43Ny0xLjI0LDEuNjJhMS4xMSwxLjExLDAsMCwwLC4wOCwxLjU5Yy0uMjIuNDQtLjA5LjkxLjQzLDEuNDhBMS4yNCwxLjI0LDAsMCwwLDYuNSw3Ljk0Yy0uMDkuODQuNzcsMS4zMywxLDEuNS4xLjQ5LjMxLDEsMS4yOSwxLjIuMTYuNzMuNzUuODUsMS4zMiwxYTYuMTUsNi4xNSwwLDAsMC0zLjQ5LDYuMDZsLS4yOC41YTYsNiwwLDAsMC0xLjA2LDksMTYuMjksMTYuMjksMCwwLDAsLjgzLDIuNyw2LjU2LDYuNTYsMCwwLDAsNC4wOSw1LjI0LDE0LDE0LDAsMCwwLDMuOTIsMi4yM0E2LjU0LDYuNTQsMCwwLDAsMTksMzkuNUgxOWE2LjU0LDYuNTQsMCwwLDAsNC44Mi0yLjE2LDE0LDE0LDAsMCwwLDMuOTItMi4yMyw2LjU2LDYuNTYsMCwwLDAsNC4wOS01LjI0LDE2LjI5LDE2LjI5LDAsMCwwLC44My0yLjcsNiw2LDAsMCwwLTEuMDYtOWwtLjI4LS41YTYuMTUsNi4xNSwwLDAsMC0zLjQ5LTYuMDZjLjU3LS4xNiwxLjE2LS4yOCwxLjMyLTEsMS0uMjUsMS4xOS0uNzEsMS4yOS0xLjIuMjUtLjE3LDEuMTEtLjY2LDEtMS41YTEuMjQsMS4yNCwwLDAsMCwuNjEtMS4zOGMuNTItLjU3LjY1LTEsLjQzLTEuNDhhMS4xMSwxLjExLDAsMCwwLC4wOC0xLjU5Yy40Ny0uODUuMDYtMS43Ny0xLjI0LTEuNjItLjUxLS43Ny0xLjY0LS41OS0xLjgxLS41OS0uMi0uMjQtLjQ1LS40Ni0xLjI0LS4zNUExLjQ4LDEuNDgsMCwwLDAsMjYuNjUuNzdDMjYsLjIyLDI1LjQ5LjY2LDI1LC44M2MtLjg1LS4yOC0xLC4xLTEuNDYuMjUtLjkzLS4xOS0xLjIxLjIzLTEuNjUuNjhoLS41MkE1LjksNS45LDAsMCwwLDE5LDUuMTFhNiw2LDAsMCwwLTIuMzMtMy4zNmgtLjUyYy0uNDQtLjQ1LS43Mi0uODctMS42NS0uNjhDMTQuMDguOTMsMTMuODkuNTUsMTMsLjgzQTMuMzIsMy4zMiwwLDAsMCwxMiwuNVoiLz48cGF0aCBjbGFzcz0iY2xzLTEiIGQ9Ik05LjIyLDQuMTJjMy43LDEuOTEsNS44NSwzLjQ1LDcsNC43Ny0uNiwyLjQyLTMuNzUsMi41My00LjksMi40NmEuODguODgsMCwwLDAsLjUtLjQ0Yy0uMjktLjIxLTEuMzEsMC0yLS40M2EuNjYuNjYsMCwwLDAsLjUzLS4zMSw1LjkzLDUuOTMsMCwwLDEtMS44My0uNzYsMS4wNSwxLjA1LDAsMCwwLC43NS0uMTZBNy4yNCw3LjI0LDAsMCwxLDcuNTEsOC4xN2MuMzIsMCwuNjYsMCwuNzUtLjEyQTcuMDksNy4wOSwwLDAsMSw2Ljg1LDYuOTFhMS4wOCwxLjA4LDAsMCwwLC43My0uMDcsNS41Myw1LjUzLDAsMCwxLTEuMi0xLjMyLjkxLjkxLDAsMCwwLC44NCwwYy0uMTQtLjMyLS43NS0uNTEtMS4xLTEuMjYuMzQsMCwuNy4wNy43NywwYTMuNjEsMy42MSwwLDAsMC0uNy0xLjM5QTEyLjY2LDEyLjY2LDAsMCwwLDgsMi44bC0uNDYtLjQ2YTMuNTYsMy41NiwwLDAsMSwyLC4xOWMuMjQtLjE5LDAtLjQyLS4yOS0uNjdhNi42NCw2LjY0LDAsMCwxLDEuNjUuNDJjLjI3LS4yNC0uMTctLjQ4LS4zOC0uNzJhNC4yMSw0LjIxLDAsMCwxLDEuNzMuNjhjLjI5LS4yOCwwLS41MS0uMTctLjc1YTQuMTcsNC4xNywwLDAsMSwxLjQ1LjkzYy4xMy0uMTcuMzQtLjMuMDktLjcyYTMuNjgsMy42OCwwLDAsMSwxLjE3LDFjLjMxLS4yLjE4LS40Ny4xOC0uNzJBMTEsMTEsMCwwLDEsMTYuMiwzLjMxYy4wOS0uMDYuMTYtLjI2LjIyLS41OCwxLjI1LDEuMjEsMyw0LjI2LjQ1LDUuNDdBMjMuODgsMjMuODgsMCwwLDAsOS4yMiw0LjEyWiIvPjxwYXRoIGNsYXNzPSJjbHMtMSIgZD0iTTI4Ljg2LDQuMTJDMjUuMTYsNiwyMyw3LjU3LDIxLjgzLDguODljLjYsMi40MiwzLjc1LDIuNTMsNC45MSwyLjQ2YS44Ny44NywwLDAsMS0uNTEtLjQ0Yy4yOS0uMjEsMS4zMiwwLDItLjQzYS42Ni42NiwwLDAsMS0uNTMtLjMxLDUuNzMsNS43MywwLDAsMCwxLjgzLS43NiwxLDEsMCwwLDEtLjc0LS4xNiw3LjE5LDcuMTksMCwwLDAsMS43NS0xLjA4Yy0uMzEsMC0uNjUsMC0uNzUtLjEyYTcuMDksNy4wOSwwLDAsMCwxLjQxLTEuMTQsMS4xLDEuMSwwLDAsMS0uNzMtLjA3LDUuNTMsNS41MywwLDAsMCwxLjItMS4zMi45MS45MSwwLDAsMS0uODQsMEMzMSw1LjE5LDMxLjYyLDUsMzIsNC4yNWExLjkxLDEuOTEsMCwwLDEtLjc4LDAsMy42MSwzLjYxLDAsMCwxLC43LTEuMzlBMTIuNTgsMTIuNTgsMCwwLDEsMzAuMSwyLjhsLjQ1LS40NmEzLjU2LDMuNTYsMCwwLDAtMiwuMTljLS4yNC0uMTksMC0uNDIuMjktLjY3YTYuODgsNi44OCwwLDAsMC0xLjY1LjQyYy0uMjctLjI0LjE3LS40OC4zOC0uNzJhNC4yOCw0LjI4LDAsMCwwLTEuNzMuNjhjLS4yOS0uMjgsMC0uNTEuMTgtLjc1YTQuMjMsNC4yMywwLDAsMC0xLjQ2LjkzYy0uMTMtLjE3LS4zMy0uMy0uMDktLjcyYTMuNzQsMy43NCwwLDAsMC0xLjE2LDFjLS4zMS0uMi0uMTktLjQ3LS4xOS0uNzJhMTIuODQsMTIuODQsMCwwLDAtMS4yNiwxLjMyLDEuMTgsMS4xOCwwLDAsMS0uMjItLjU4Yy0xLjI0LDEuMjEtMyw0LjI2LS40NSw1LjQ3YTI0LDI0LDAsMCwxLDcuNjUtNC4wOFoiLz48cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik0yMy41MywyOC43NmE0LjI4LDQuMjgsMCwwLDEtNC40NCw0LjA5LDQuMjcsNC4yNywwLDAsMS00LjQzLTQuMDksNC4yNyw0LjI3LDAsMCwxLDQuNDMtNC4wOEE0LjI3LDQuMjcsMCwwLDEsMjMuNTMsMjguNzZaIi8+PHBhdGggY2xhc3M9ImNscy0yIiBkPSJNMTYuNTIsMTcuMDhjMS44NCwxLjIxLDIuMTcsMy45My43NCw2LjFzLTQuMDcsMi45NC01LjkxLDEuNzNoMGMtMS44NC0xLjItMi4xNy0zLjkzLS43NC02LjA5czQuMDgtMi45NCw1LjkxLTEuNzRaIi8+PHBhdGggY2xhc3M9ImNscy0yIiBkPSJNMjEuNDgsMTYuODZjLTEuODMsMS4yMS0yLjE2LDMuOTQtLjc0LDYuMXM0LjA4LDIuOTQsNS45MiwxLjczaDBjMS44NC0xLjIsMi4xNy0zLjkzLjc0LTYuMDlzLTQuMDgtMi45NC01LjkyLTEuNzRaIi8+PHBhdGggY2xhc3M9ImNscy0yIiBkPSJNNy4zNCwxOS4wNWMyLS41My42Nyw4LjIxLS45NCw3LjQ5QTQuNzIsNC43MiwwLDAsMSw3LjM0LDE5LjA1WiIvPjxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTMwLjI3LDE4Ljk0Yy0yLS41My0uNjcsOC4yMS45NCw3LjQ5QTQuNzIsNC43MiwwLDAsMCwzMC4yNywxOC45NFoiLz48cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik0yMy41MywxMi40M2MzLjQyLS41Nyw2LjI3LDEuNDYsNi4xNiw1LjE3LS4xMiwxLjQzLTcuNDItNS02LjE2LTUuMTdaIi8+PHBhdGggY2xhc3M9ImNscy0yIiBkPSJNMTQuMDcsMTIuMzJjLTMuNDMtLjU3LTYuMjgsMS40Ni02LjE2LDUuMTdDOCwxOC45MiwxNS4zMywxMi41NCwxNC4wNywxMi4zMloiLz48cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik0xOSwxMS40NmMtMi0uMDUtNCwxLjUyLTQsMi40MywwLDEuMSwxLjYxLDIuMjMsNCwyLjI2czQtLjksNC0yLTIuMjMtMi42Ni00LTIuNjRaIi8+PHBhdGggY2xhc3M9ImNscy0yIiBkPSJNMTkuMTEsMzQuMTVjMS43OC0uMDgsNC4xNy41Nyw0LjE4LDEuNDNzLTIuMTcsMi43NC00LjMsMi43LTQuMzYtMS44LTQuMzMtMi40NkMxNC42MiwzNC44NiwxNy4zNCwzNC4xLDE5LjExLDM0LjE1WiIvPjxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTEyLjUzLDI5YzEuMjcsMS41MywxLjg1LDQuMjIuNzksNS0xLC42LTMuNDQuMzUtNS4xNi0yLjEzLTEuMTctMi4wOC0xLTQuMi0uMi00LjgzQzkuMTgsMjYuMzMsMTEuMDcsMjcuMzMsMTIuNTMsMjlaIi8+PHBhdGggY2xhc3M9ImNscy0yIiBkPSJNMjUuNDQsMjguNTRDMjQuMDYsMzAuMTUsMjMuMywzMy4wOCwyNC4zLDM0YzEsLjc0LDMuNTMuNjMsNS40My0yLDEuMzgtMS43Ny45MS00LjcyLjEzLTUuNTFDMjguNjksMjUuNjEsMjcsMjYuNzcsMjUuNDQsMjguNTRaIi8+PGNpcmNsZSBjbGFzcz0iY2xzLTMiIGN4PSIyOS40NCIgY3k9IjI2LjQ4IiByPSI5LjE3Ii8+PHBhdGggZD0iTTI5LjQ0LDE4YTguNTMsOC41MywwLDEsMS04LjUyLDguNTNBOC41Myw4LjUzLDAsMCwxLDI5LjQ0LDE4bTAtMS4yOGE5LjgxLDkuODEsMCwxLDAsOS44MSw5LjgxLDkuODIsOS44MiwwLDAsMC05LjgxLTkuODFaIi8+PHBhdGggY2xhc3M9ImNscy00IiBkPSJNMjYuNDMsMzAuNTVhMi44NywyLjg3LDAsMCwxLTEuMDctLjIxLDIuNTYsMi41NiwwLDAsMS0uOTEtLjY3LDMuMjYsMy4yNiwwLDAsMS0uNjQtMS4xNyw1LjM0LDUuMzQsMCwwLDEtLjI0LTEuNzFBNS45Myw1LjkzLDAsMCwxLDIzLjgyLDI1YTMuODgsMy44OCwwLDAsMSwuNjgtMS4yOCwyLjc3LDIuNzcsMCwwLDEsMS0uNzQsMi45LDIuOSwwLDAsMSwxLjE1LS4yNSwyLjk0LDIuOTQsMCwwLDEsMS4zMS4yNywzLjIzLDMuMjMsMCwwLDEsLjkuNjRsLS45MiwxLjA1YTEuNzMsMS43MywwLDAsMC0uNTItLjM3LDEuNDEsMS40MSwwLDAsMC0xLjI0LS4wNSwxLjI0LDEuMjQsMCwwLDAtLjQ5LjQsMi42OSwyLjY5LDAsMCwwLS4zNC43NCw0LjczLDQuNzMsMCwwLDAtLjE1LDEuMTEsMS43NywxLjc3LDAsMCwxLC4zMy0uMzQsMi40MiwyLjQyLDAsMCwxLC40LS4yNSwyLjIzLDIuMjMsMCwwLDEsLjQtLjE2LDEuODksMS44OSwwLDAsMSwuMzksMCwyLjkzLDIuOTMsMCwwLDEsLjkuMTQsMiwyLDAsMCwxLC43MS40MywxLjc3LDEuNzcsMCwwLDEsLjQ3LjczLDMuMDcsMy4wNywwLDAsMSwwLDIuMSwyLjUzLDIuNTMsMCwwLDEtLjU1LjgsMi4zNCwyLjM0LDAsMCwxLS43OS41MUEyLjkzLDIuOTMsMCwwLDEsMjYuNDMsMzAuNTVabTAtMS4zMWEuOTIuOTIsMCwwLDAsLjY3LS4yOSwxLjMyLDEuMzIsMCwwLDAsLjI4LS45NCwxLjEsMS4xLDAsMCwwLS4yOC0uODYsMS4wNSwxLjA1LDAsMCwwLS43MS0uMjQsMS4yNCwxLjI0LDAsMCwwLS42LjE3LDEuNTUsMS41NSwwLDAsMC0uNTUuNTgsMy4xNywzLjE3LDAsMCwwLC4xOC43NSwxLjc1LDEuNzUsMCwwLDAsLjI4LjQ5Ljg0Ljg0LDAsMCwwLC4zNC4yNkExLDEsMCwwLDAsMjYuNCwyOS4yNFoiLz48cGF0aCBjbGFzcz0iY2xzLTQiIGQ9Ik0zMi44OSwzMC40MVYyOC41OUgyOS42MXYtMS4ybDIuNzctNC41NmgyLjE1djQuNDNoLjg3djEuMzNoLS44N3YxLjgyWm0tMS42LTMuMTVoMS42VjI2YzAtLjI1LDAtLjUzLDAtLjg2czAtLjYuMDUtLjg0aC0uMDVjLS4wOS4yMS0uMTkuNDItLjI5LjYzbC0uMzMuNjVaIi8+PC9zdmc+',
+	},
+	{
+		instructions: [
+			'Insert the SD card to the host machine.',
+			'Write the balenaOS file you downloaded to the SD card. We recommend using <a href="http://www.etcher.io/">Etcher</a>.',
+			'Wait for writing of balenaOS to complete.',
+			'Remove the SD card from the host machine.',
+			'Insert the freshly flashed SD card into the Raspberry Pi 4 (using 64bit OS).',
+			'Connect power to the Raspberry Pi 4 (using 64bit OS) to boot the device.',
+		],
+		options: [
+			{
+				isGroup: true,
+				name: 'network',
+				message: 'Network',
+				options: [
+					{
+						message: 'Network Connection',
+						name: 'network',
+						type: 'list',
+						choices: ['ethernet', 'wifi'],
+					},
+					{
+						message: 'Wifi SSID',
+						name: 'wifiSsid',
+						type: 'text',
+						when: {
+							network: 'wifi',
+						},
+					},
+					{
+						message: 'Wifi Passphrase',
+						name: 'wifiKey',
+						type: 'password',
+						when: {
+							network: 'wifi',
+						},
+					},
+				],
+			},
+			{
+				isGroup: true,
+				isCollapsible: true,
+				collapsed: true,
+				name: 'advanced',
+				message: 'Advanced',
+				options: [
+					{
+						message: 'Check for updates every X minutes',
+						name: 'appUpdatePollInterval',
+						type: 'number',
+						min: 10,
+						default: 10,
+					},
+				],
+			},
+		],
+		yocto: {
+			machine: 'raspberrypi4-64',
+			image: 'balena-image',
+			fstype: 'balenaos-img',
+			version: 'yocto-honister',
+			deployArtifact: 'balena-image-raspberrypi4-64.balenaos-img',
+			compressed: true,
+		},
+		is_default_for__application: [
+			{
+				application_tag: [
+					{
+						value: 'esr',
+					},
+				],
+				should_be_running__release: [
+					{
+						release_tag: [
+							{
+								tag_key: 'meta-balena-base',
+								value: 'v2.114.25',
+							},
+							{
+								tag_key: 'version',
+								value: '2023.7.0',
+							},
+						],
+					},
+				],
+				is_archived: false,
+			},
+			{
+				application_tag: [],
+				should_be_running__release: [
+					{
+						release_tag: [
+							{
+								tag_key: 'version',
+								value: '3.2.7+rev1',
+							},
+						],
+					},
+				],
+				is_archived: false,
+			},
+		],
+		is_of__cpu_architecture: [
+			{
+				slug: 'aarch64',
+			},
+		],
+		slug: 'raspberrypi4-64',
+		name: 'Raspberry Pi 4 (using 64bit OS)',
+		contract: {
+			data: {
+				led: true,
+				arch: 'aarch64',
+				hdmi: true,
+				media: {
+					altBoot: ['usb_mass_storage', 'network'],
+					defaultBoot: 'sdcard',
+				},
+				storage: {
+					internal: false,
+				},
+				is_private: false,
+				connectivity: {
+					wifi: true,
+					bluetooth: true,
+				},
+			},
+			name: 'Raspberry Pi 4 (using 64bit OS)',
+			slug: 'raspberrypi4-64',
+			type: 'hw.device-type',
+			assets: {
+				logo: {
+					url: 'data:image/svg+xml;base64,PHN2ZyBpZD0iTGF5ZXJfMSIgZGF0YS1uYW1lPSJMYXllciAxIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0MCA0MCI+PGRlZnM+PHN0eWxlPi5jbHMtMXtmaWxsOiM3NWE5Mjg7fS5jbHMtMntmaWxsOiNiYzExNDI7fS5jbHMtM3tmaWxsOiNmZmY7fS5jbHMtNHtpc29sYXRpb246aXNvbGF0ZTt9LmNscy01e2ZpbGw6I2Q4MjI0Yzt9PC9zdHlsZT48L2RlZnM+PHBhdGggZD0iTTEyLC41YTEuMTEsMS4xMSwwLDAsMC0uNjUuMjdBMS40OCwxLjQ4LDAsMCwwLDkuNjcuOTNjLS43OS0uMTEtMSwuMTEtMS4yNC4zNS0uMTcsMC0xLjMtLjE4LTEuODEuNTktMS4zLS4xNS0xLjcxLjc3LTEuMjQsMS42MmExLjExLDEuMTEsMCwwLDAsLjA4LDEuNTljLS4yMi40NC0uMDkuOTEuNDMsMS40OEExLjI0LDEuMjQsMCwwLDAsNi41LDcuOTRjLS4wOS44NC43NywxLjMzLDEsMS41LjEuNDkuMzEsMSwxLjI5LDEuMi4xNi43My43NS44NSwxLjMyLDFhNi4xNSw2LjE1LDAsMCwwLTMuNDksNi4wNmwtLjI4LjVhNiw2LDAsMCwwLTEuMDYsOSwxNi4yOSwxNi4yOSwwLDAsMCwuODMsMi43LDYuNTYsNi41NiwwLDAsMCw0LjA5LDUuMjQsMTQsMTQsMCwwLDAsMy45MiwyLjIzQTYuNTQsNi41NCwwLDAsMCwxOSwzOS41SDE5YTYuNTQsNi41NCwwLDAsMCw0LjgyLTIuMTYsMTQsMTQsMCwwLDAsMy45Mi0yLjIzLDYuNTYsNi41NiwwLDAsMCw0LjA5LTUuMjQsMTYuMjksMTYuMjksMCwwLDAsLjgzLTIuNyw2LDYsMCwwLDAtMS4wNi05bC0uMjgtLjVhNi4xNSw2LjE1LDAsMCwwLTMuNDktNi4wNmMuNTctLjE2LDEuMTYtLjI4LDEuMzItMSwxLS4yNSwxLjE5LS43MSwxLjI5LTEuMi4yNS0uMTcsMS4xMS0uNjYsMS0xLjVhMS4yNCwxLjI0LDAsMCwwLC42MS0xLjM4Yy41Mi0uNTcuNjUtMSwuNDMtMS40OGExLjExLDEuMTEsMCwwLDAsLjA4LTEuNTljLjQ3LS44NS4wNi0xLjc3LTEuMjQtMS42Mi0uNTEtLjc3LTEuNjQtLjU5LTEuODEtLjU5LS4yLS4yNC0uNDUtLjQ2LTEuMjQtLjM1QTEuNDgsMS40OCwwLDAsMCwyNi42NS43N0MyNiwuMjIsMjUuNDkuNjYsMjUsLjgzYy0uODUtLjI4LTEsLjEtMS40Ni4yNS0uOTMtLjE5LTEuMjEuMjMtMS42NS42OGgtLjUyQTUuOSw1LjksMCwwLDAsMTksNS4xMWE2LDYsMCwwLDAtMi4zMy0zLjM2aC0uNTJjLS40NC0uNDUtLjcyLS44Ny0xLjY1LS42OEMxNC4wOC45MywxMy44OS41NSwxMywuODNBMy4zMiwzLjMyLDAsMCwwLDEyLC41WiIvPjxwYXRoIGNsYXNzPSJjbHMtMSIgZD0iTTkuMjIsNC4xMmMzLjcsMS45MSw1Ljg1LDMuNDUsNyw0Ljc3LS42LDIuNDItMy43NSwyLjUzLTQuOSwyLjQ2YS44OC44OCwwLDAsMCwuNS0uNDRjLS4yOS0uMjEtMS4zMSwwLTItLjQzYS42Ni42NiwwLDAsMCwuNTMtLjMxLDUuOTMsNS45MywwLDAsMS0xLjgzLS43NiwxLjA1LDEuMDUsMCwwLDAsLjc1LS4xNkE3LjI0LDcuMjQsMCwwLDEsNy41MSw4LjE3Yy4zMiwwLC42NiwwLC43NS0uMTJBNy4wOSw3LjA5LDAsMCwxLDYuODUsNi45MWExLjA4LDEuMDgsMCwwLDAsLjczLS4wNyw1LjUzLDUuNTMsMCwwLDEtMS4yLTEuMzIuOTEuOTEsMCwwLDAsLjg0LDBjLS4xNC0uMzItLjc1LS41MS0xLjEtMS4yNi4zNCwwLC43LjA3Ljc3LDBhMy42MSwzLjYxLDAsMCwwLS43LTEuMzlBMTIuNjYsMTIuNjYsMCwwLDAsOCwyLjhsLS40Ni0uNDZhMy41NiwzLjU2LDAsMCwxLDIsLjE5Yy4yNC0uMTksMC0uNDItLjI5LS42N2E2LjY0LDYuNjQsMCwwLDEsMS42NS40MmMuMjctLjI0LS4xNy0uNDgtLjM4LS43MmE0LjIxLDQuMjEsMCwwLDEsMS43My42OGMuMjktLjI4LDAtLjUxLS4xNy0uNzVhNC4xNyw0LjE3LDAsMCwxLDEuNDUuOTNjLjEzLS4xNy4zNC0uMy4wOS0uNzJhMy42OCwzLjY4LDAsMCwxLDEuMTcsMWMuMzEtLjIuMTgtLjQ3LjE4LS43MkExMSwxMSwwLDAsMSwxNi4yLDMuMzFjLjA5LS4wNi4xNi0uMjYuMjItLjU4LDEuMjUsMS4yMSwzLDQuMjYuNDUsNS40N0EyMy44OCwyMy44OCwwLDAsMCw5LjIyLDQuMTJaIi8+PHBhdGggY2xhc3M9ImNscy0xIiBkPSJNMjguODYsNC4xMkMyNS4xNiw2LDIzLDcuNTcsMjEuODMsOC44OWMuNiwyLjQyLDMuNzUsMi41Myw0LjkxLDIuNDZhLjg3Ljg3LDAsMCwxLS41MS0uNDRjLjI5LS4yMSwxLjMyLDAsMi0uNDNhLjY2LjY2LDAsMCwxLS41My0uMzEsNS43Myw1LjczLDAsMCwwLDEuODMtLjc2LDEsMSwwLDAsMS0uNzQtLjE2LDcuMTksNy4xOSwwLDAsMCwxLjc1LTEuMDhjLS4zMSwwLS42NSwwLS43NS0uMTJhNy4wOSw3LjA5LDAsMCwwLDEuNDEtMS4xNCwxLjEsMS4xLDAsMCwxLS43My0uMDcsNS41Myw1LjUzLDAsMCwwLDEuMi0xLjMyLjkxLjkxLDAsMCwxLS44NCwwQzMxLDUuMTksMzEuNjIsNSwzMiw0LjI1YTEuOTEsMS45MSwwLDAsMS0uNzgsMCwzLjYxLDMuNjEsMCwwLDEsLjctMS4zOUExMi41OCwxMi41OCwwLDAsMSwzMC4xLDIuOGwuNDUtLjQ2YTMuNTYsMy41NiwwLDAsMC0yLC4xOWMtLjI0LS4xOSwwLS40Mi4yOS0uNjdhNi44OCw2Ljg4LDAsMCwwLTEuNjUuNDJjLS4yNy0uMjQuMTctLjQ4LjM4LS43MmE0LjI4LDQuMjgsMCwwLDAtMS43My42OGMtLjI5LS4yOCwwLS41MS4xOC0uNzVhNC4yMyw0LjIzLDAsMCwwLTEuNDYuOTNjLS4xMy0uMTctLjMzLS4zLS4wOS0uNzJhMy43NCwzLjc0LDAsMCwwLTEuMTYsMWMtLjMxLS4yLS4xOS0uNDctLjE5LS43MmExMi44NCwxMi44NCwwLDAsMC0xLjI2LDEuMzIsMS4xOCwxLjE4LDAsMCwxLS4yMi0uNThjLTEuMjQsMS4yMS0zLDQuMjYtLjQ1LDUuNDdhMjQsMjQsMCwwLDEsNy42NS00LjA4WiIvPjxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTIzLjUzLDI4Ljc2YTQuMjgsNC4yOCwwLDAsMS00LjQ0LDQuMDksNC4yNyw0LjI3LDAsMCwxLTQuNDMtNC4wOSw0LjI3LDQuMjcsMCwwLDEsNC40My00LjA4QTQuMjcsNC4yNywwLDAsMSwyMy41MywyOC43NloiLz48cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik0xNi41MiwxNy4wOGMxLjg0LDEuMjEsMi4xNywzLjkzLjc0LDYuMXMtNC4wNywyLjk0LTUuOTEsMS43M2gwYy0xLjg0LTEuMi0yLjE3LTMuOTMtLjc0LTYuMDlzNC4wOC0yLjk0LDUuOTEtMS43NFoiLz48cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik0yMS40OCwxNi44NmMtMS44MywxLjIxLTIuMTYsMy45NC0uNzQsNi4xczQuMDgsMi45NCw1LjkyLDEuNzNoMGMxLjg0LTEuMiwyLjE3LTMuOTMuNzQtNi4wOXMtNC4wOC0yLjk0LTUuOTItMS43NFoiLz48cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik03LjM0LDE5LjA1YzItLjUzLjY3LDguMjEtLjk0LDcuNDlBNC43Miw0LjcyLDAsMCwxLDcuMzQsMTkuMDVaIi8+PHBhdGggY2xhc3M9ImNscy0yIiBkPSJNMzAuMjcsMTguOTRjLTItLjUzLS42Nyw4LjIxLjk0LDcuNDlBNC43Miw0LjcyLDAsMCwwLDMwLjI3LDE4Ljk0WiIvPjxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTIzLjUzLDEyLjQzYzMuNDItLjU3LDYuMjcsMS40Niw2LjE2LDUuMTctLjEyLDEuNDMtNy40Mi01LTYuMTYtNS4xN1oiLz48cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik0xNC4wNywxMi4zMmMtMy40My0uNTctNi4yOCwxLjQ2LTYuMTYsNS4xN0M4LDE4LjkyLDE1LjMzLDEyLjU0LDE0LjA3LDEyLjMyWiIvPjxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTE5LDExLjQ2Yy0yLS4wNS00LDEuNTItNCwyLjQzLDAsMS4xLDEuNjEsMi4yMyw0LDIuMjZzNC0uOSw0LTItMi4yMy0yLjY2LTQtMi42NFoiLz48cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik0xOS4xMSwzNC4xNWMxLjc4LS4wOCw0LjE3LjU3LDQuMTgsMS40M3MtMi4xNywyLjc0LTQuMywyLjctNC4zNi0xLjgtNC4zMy0yLjQ2QzE0LjYyLDM0Ljg2LDE3LjM0LDM0LjEsMTkuMTEsMzQuMTVaIi8+PHBhdGggY2xhc3M9ImNscy0yIiBkPSJNMTIuNTMsMjljMS4yNywxLjUzLDEuODUsNC4yMi43OSw1LTEsLjYtMy40NC4zNS01LjE2LTIuMTMtMS4xNy0yLjA4LTEtNC4yLS4yLTQuODNDOS4xOCwyNi4zMywxMS4wNywyNy4zMywxMi41MywyOVoiLz48cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik0yNS40NCwyOC41NEMyNC4wNiwzMC4xNSwyMy4zLDMzLjA4LDI0LjMsMzRjMSwuNzQsMy41My42Myw1LjQzLTIsMS4zOC0xLjc3LjkxLTQuNzIuMTMtNS41MUMyOC42OSwyNS42MSwyNywyNi43NywyNS40NCwyOC41NFoiLz48Y2lyY2xlIGNsYXNzPSJjbHMtMyIgY3g9IjI5LjQ0IiBjeT0iMjYuNDgiIHI9IjkuMTciLz48cGF0aCBkPSJNMjkuNDQsMThhOC41Myw4LjUzLDAsMSwxLTguNTIsOC41M0E4LjUzLDguNTMsMCwwLDEsMjkuNDQsMThtMC0xLjI4YTkuODEsOS44MSwwLDEsMCw5LjgxLDkuODEsOS44Miw5LjgyLDAsMCwwLTkuODEtOS44MVoiLz48ZyBjbGFzcz0iY2xzLTQiPjxwYXRoIGNsYXNzPSJjbHMtNSIgZD0iTTI5LjYzLDMxLjYyVjI5LjE4SDI1LjIyVjI3LjU2bDMuNzItNi4xM2gyLjg5djZIMzN2MS43OUgzMS44M3YyLjQ0Wm0tMi4xNS00LjIzaDIuMTVWMjUuNzNxMC0uNSwwLTEuMTRjMC0uNDQsMC0uODEuMDctMS4xNGgtLjA3Yy0uMTMuMjgtLjI2LjU3LS40Ljg1cy0uMjguNTgtLjQzLjg3WiIvPjwvZz48L3N2Zz4=',
+					name: 'logo',
+				},
+			},
+			aliases: ['raspberrypi4-64'],
+			version: '1',
+			partials: {
+				bootDevice: ['Connect power to the Raspberry Pi 4 (using 64bit OS)'],
+			},
+		},
+		logo: 'data:image/svg+xml;base64,PHN2ZyBpZD0iTGF5ZXJfMSIgZGF0YS1uYW1lPSJMYXllciAxIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0MCA0MCI+PGRlZnM+PHN0eWxlPi5jbHMtMXtmaWxsOiM3NWE5Mjg7fS5jbHMtMntmaWxsOiNiYzExNDI7fS5jbHMtM3tmaWxsOiNmZmY7fS5jbHMtNHtpc29sYXRpb246aXNvbGF0ZTt9LmNscy01e2ZpbGw6I2Q4MjI0Yzt9PC9zdHlsZT48L2RlZnM+PHBhdGggZD0iTTEyLC41YTEuMTEsMS4xMSwwLDAsMC0uNjUuMjdBMS40OCwxLjQ4LDAsMCwwLDkuNjcuOTNjLS43OS0uMTEtMSwuMTEtMS4yNC4zNS0uMTcsMC0xLjMtLjE4LTEuODEuNTktMS4zLS4xNS0xLjcxLjc3LTEuMjQsMS42MmExLjExLDEuMTEsMCwwLDAsLjA4LDEuNTljLS4yMi40NC0uMDkuOTEuNDMsMS40OEExLjI0LDEuMjQsMCwwLDAsNi41LDcuOTRjLS4wOS44NC43NywxLjMzLDEsMS41LjEuNDkuMzEsMSwxLjI5LDEuMi4xNi43My43NS44NSwxLjMyLDFhNi4xNSw2LjE1LDAsMCwwLTMuNDksNi4wNmwtLjI4LjVhNiw2LDAsMCwwLTEuMDYsOSwxNi4yOSwxNi4yOSwwLDAsMCwuODMsMi43LDYuNTYsNi41NiwwLDAsMCw0LjA5LDUuMjQsMTQsMTQsMCwwLDAsMy45MiwyLjIzQTYuNTQsNi41NCwwLDAsMCwxOSwzOS41SDE5YTYuNTQsNi41NCwwLDAsMCw0LjgyLTIuMTYsMTQsMTQsMCwwLDAsMy45Mi0yLjIzLDYuNTYsNi41NiwwLDAsMCw0LjA5LTUuMjQsMTYuMjksMTYuMjksMCwwLDAsLjgzLTIuNyw2LDYsMCwwLDAtMS4wNi05bC0uMjgtLjVhNi4xNSw2LjE1LDAsMCwwLTMuNDktNi4wNmMuNTctLjE2LDEuMTYtLjI4LDEuMzItMSwxLS4yNSwxLjE5LS43MSwxLjI5LTEuMi4yNS0uMTcsMS4xMS0uNjYsMS0xLjVhMS4yNCwxLjI0LDAsMCwwLC42MS0xLjM4Yy41Mi0uNTcuNjUtMSwuNDMtMS40OGExLjExLDEuMTEsMCwwLDAsLjA4LTEuNTljLjQ3LS44NS4wNi0xLjc3LTEuMjQtMS42Mi0uNTEtLjc3LTEuNjQtLjU5LTEuODEtLjU5LS4yLS4yNC0uNDUtLjQ2LTEuMjQtLjM1QTEuNDgsMS40OCwwLDAsMCwyNi42NS43N0MyNiwuMjIsMjUuNDkuNjYsMjUsLjgzYy0uODUtLjI4LTEsLjEtMS40Ni4yNS0uOTMtLjE5LTEuMjEuMjMtMS42NS42OGgtLjUyQTUuOSw1LjksMCwwLDAsMTksNS4xMWE2LDYsMCwwLDAtMi4zMy0zLjM2aC0uNTJjLS40NC0uNDUtLjcyLS44Ny0xLjY1LS42OEMxNC4wOC45MywxMy44OS41NSwxMywuODNBMy4zMiwzLjMyLDAsMCwwLDEyLC41WiIvPjxwYXRoIGNsYXNzPSJjbHMtMSIgZD0iTTkuMjIsNC4xMmMzLjcsMS45MSw1Ljg1LDMuNDUsNyw0Ljc3LS42LDIuNDItMy43NSwyLjUzLTQuOSwyLjQ2YS44OC44OCwwLDAsMCwuNS0uNDRjLS4yOS0uMjEtMS4zMSwwLTItLjQzYS42Ni42NiwwLDAsMCwuNTMtLjMxLDUuOTMsNS45MywwLDAsMS0xLjgzLS43NiwxLjA1LDEuMDUsMCwwLDAsLjc1LS4xNkE3LjI0LDcuMjQsMCwwLDEsNy41MSw4LjE3Yy4zMiwwLC42NiwwLC43NS0uMTJBNy4wOSw3LjA5LDAsMCwxLDYuODUsNi45MWExLjA4LDEuMDgsMCwwLDAsLjczLS4wNyw1LjUzLDUuNTMsMCwwLDEtMS4yLTEuMzIuOTEuOTEsMCwwLDAsLjg0LDBjLS4xNC0uMzItLjc1LS41MS0xLjEtMS4yNi4zNCwwLC43LjA3Ljc3LDBhMy42MSwzLjYxLDAsMCwwLS43LTEuMzlBMTIuNjYsMTIuNjYsMCwwLDAsOCwyLjhsLS40Ni0uNDZhMy41NiwzLjU2LDAsMCwxLDIsLjE5Yy4yNC0uMTksMC0uNDItLjI5LS42N2E2LjY0LDYuNjQsMCwwLDEsMS42NS40MmMuMjctLjI0LS4xNy0uNDgtLjM4LS43MmE0LjIxLDQuMjEsMCwwLDEsMS43My42OGMuMjktLjI4LDAtLjUxLS4xNy0uNzVhNC4xNyw0LjE3LDAsMCwxLDEuNDUuOTNjLjEzLS4xNy4zNC0uMy4wOS0uNzJhMy42OCwzLjY4LDAsMCwxLDEuMTcsMWMuMzEtLjIuMTgtLjQ3LjE4LS43MkExMSwxMSwwLDAsMSwxNi4yLDMuMzFjLjA5LS4wNi4xNi0uMjYuMjItLjU4LDEuMjUsMS4yMSwzLDQuMjYuNDUsNS40N0EyMy44OCwyMy44OCwwLDAsMCw5LjIyLDQuMTJaIi8+PHBhdGggY2xhc3M9ImNscy0xIiBkPSJNMjguODYsNC4xMkMyNS4xNiw2LDIzLDcuNTcsMjEuODMsOC44OWMuNiwyLjQyLDMuNzUsMi41Myw0LjkxLDIuNDZhLjg3Ljg3LDAsMCwxLS41MS0uNDRjLjI5LS4yMSwxLjMyLDAsMi0uNDNhLjY2LjY2LDAsMCwxLS41My0uMzEsNS43Myw1LjczLDAsMCwwLDEuODMtLjc2LDEsMSwwLDAsMS0uNzQtLjE2LDcuMTksNy4xOSwwLDAsMCwxLjc1LTEuMDhjLS4zMSwwLS42NSwwLS43NS0uMTJhNy4wOSw3LjA5LDAsMCwwLDEuNDEtMS4xNCwxLjEsMS4xLDAsMCwxLS43My0uMDcsNS41Myw1LjUzLDAsMCwwLDEuMi0xLjMyLjkxLjkxLDAsMCwxLS44NCwwQzMxLDUuMTksMzEuNjIsNSwzMiw0LjI1YTEuOTEsMS45MSwwLDAsMS0uNzgsMCwzLjYxLDMuNjEsMCwwLDEsLjctMS4zOUExMi41OCwxMi41OCwwLDAsMSwzMC4xLDIuOGwuNDUtLjQ2YTMuNTYsMy41NiwwLDAsMC0yLC4xOWMtLjI0LS4xOSwwLS40Mi4yOS0uNjdhNi44OCw2Ljg4LDAsMCwwLTEuNjUuNDJjLS4yNy0uMjQuMTctLjQ4LjM4LS43MmE0LjI4LDQuMjgsMCwwLDAtMS43My42OGMtLjI5LS4yOCwwLS41MS4xOC0uNzVhNC4yMyw0LjIzLDAsMCwwLTEuNDYuOTNjLS4xMy0uMTctLjMzLS4zLS4wOS0uNzJhMy43NCwzLjc0LDAsMCwwLTEuMTYsMWMtLjMxLS4yLS4xOS0uNDctLjE5LS43MmExMi44NCwxMi44NCwwLDAsMC0xLjI2LDEuMzIsMS4xOCwxLjE4LDAsMCwxLS4yMi0uNThjLTEuMjQsMS4yMS0zLDQuMjYtLjQ1LDUuNDdhMjQsMjQsMCwwLDEsNy42NS00LjA4WiIvPjxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTIzLjUzLDI4Ljc2YTQuMjgsNC4yOCwwLDAsMS00LjQ0LDQuMDksNC4yNyw0LjI3LDAsMCwxLTQuNDMtNC4wOSw0LjI3LDQuMjcsMCwwLDEsNC40My00LjA4QTQuMjcsNC4yNywwLDAsMSwyMy41MywyOC43NloiLz48cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik0xNi41MiwxNy4wOGMxLjg0LDEuMjEsMi4xNywzLjkzLjc0LDYuMXMtNC4wNywyLjk0LTUuOTEsMS43M2gwYy0xLjg0LTEuMi0yLjE3LTMuOTMtLjc0LTYuMDlzNC4wOC0yLjk0LDUuOTEtMS43NFoiLz48cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik0yMS40OCwxNi44NmMtMS44MywxLjIxLTIuMTYsMy45NC0uNzQsNi4xczQuMDgsMi45NCw1LjkyLDEuNzNoMGMxLjg0LTEuMiwyLjE3LTMuOTMuNzQtNi4wOXMtNC4wOC0yLjk0LTUuOTItMS43NFoiLz48cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik03LjM0LDE5LjA1YzItLjUzLjY3LDguMjEtLjk0LDcuNDlBNC43Miw0LjcyLDAsMCwxLDcuMzQsMTkuMDVaIi8+PHBhdGggY2xhc3M9ImNscy0yIiBkPSJNMzAuMjcsMTguOTRjLTItLjUzLS42Nyw4LjIxLjk0LDcuNDlBNC43Miw0LjcyLDAsMCwwLDMwLjI3LDE4Ljk0WiIvPjxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTIzLjUzLDEyLjQzYzMuNDItLjU3LDYuMjcsMS40Niw2LjE2LDUuMTctLjEyLDEuNDMtNy40Mi01LTYuMTYtNS4xN1oiLz48cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik0xNC4wNywxMi4zMmMtMy40My0uNTctNi4yOCwxLjQ2LTYuMTYsNS4xN0M4LDE4LjkyLDE1LjMzLDEyLjU0LDE0LjA3LDEyLjMyWiIvPjxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTE5LDExLjQ2Yy0yLS4wNS00LDEuNTItNCwyLjQzLDAsMS4xLDEuNjEsMi4yMyw0LDIuMjZzNC0uOSw0LTItMi4yMy0yLjY2LTQtMi42NFoiLz48cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik0xOS4xMSwzNC4xNWMxLjc4LS4wOCw0LjE3LjU3LDQuMTgsMS40M3MtMi4xNywyLjc0LTQuMywyLjctNC4zNi0xLjgtNC4zMy0yLjQ2QzE0LjYyLDM0Ljg2LDE3LjM0LDM0LjEsMTkuMTEsMzQuMTVaIi8+PHBhdGggY2xhc3M9ImNscy0yIiBkPSJNMTIuNTMsMjljMS4yNywxLjUzLDEuODUsNC4yMi43OSw1LTEsLjYtMy40NC4zNS01LjE2LTIuMTMtMS4xNy0yLjA4LTEtNC4yLS4yLTQuODNDOS4xOCwyNi4zMywxMS4wNywyNy4zMywxMi41MywyOVoiLz48cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik0yNS40NCwyOC41NEMyNC4wNiwzMC4xNSwyMy4zLDMzLjA4LDI0LjMsMzRjMSwuNzQsMy41My42Myw1LjQzLTIsMS4zOC0xLjc3LjkxLTQuNzIuMTMtNS41MUMyOC42OSwyNS42MSwyNywyNi43NywyNS40NCwyOC41NFoiLz48Y2lyY2xlIGNsYXNzPSJjbHMtMyIgY3g9IjI5LjQ0IiBjeT0iMjYuNDgiIHI9IjkuMTciLz48cGF0aCBkPSJNMjkuNDQsMThhOC41Myw4LjUzLDAsMSwxLTguNTIsOC41M0E4LjUzLDguNTMsMCwwLDEsMjkuNDQsMThtMC0xLjI4YTkuODEsOS44MSwwLDEsMCw5LjgxLDkuODEsOS44Miw5LjgyLDAsMCwwLTkuODEtOS44MVoiLz48ZyBjbGFzcz0iY2xzLTQiPjxwYXRoIGNsYXNzPSJjbHMtNSIgZD0iTTI5LjYzLDMxLjYyVjI5LjE4SDI1LjIyVjI3LjU2bDMuNzItNi4xM2gyLjg5djZIMzN2MS43OUgzMS44M3YyLjQ0Wm0tMi4xNS00LjIzaDIuMTVWMjUuNzNxMC0uNSwwLTEuMTRjMC0uNDQsMC0uODEuMDctMS4xNGgtLjA3Yy0uMTMuMjgtLjI2LjU3LS40Ljg1cy0uMjguNTgtLjQzLjg3WiIvPjwvZz48L3N2Zz4=',
+	},
+	{
+		instructions: [
+			'Put the device in recovery mode and connect to the host computer via USB',
+			'Unzip the balenaOS image and use the <a href="https://github.com/balena-os/jetson-flash">Jetson Flash tool</a> to flash the Nvidia Jetson Nano SD-CARD.',
+			'Wait for writing of balenaOS to complete.',
+			'Connect power to the Nvidia Jetson Nano SD-CARD to boot the device.',
+		],
+		options: [
+			{
+				isGroup: true,
+				name: 'network',
+				message: 'Network',
+				options: [
+					{
+						message: 'Network Connection',
+						name: 'network',
+						type: 'list',
+						choices: ['ethernet', 'wifi'],
+					},
+					{
+						message: 'Wifi SSID',
+						name: 'wifiSsid',
+						type: 'text',
+						when: {
+							network: 'wifi',
+						},
+					},
+					{
+						message: 'Wifi Passphrase',
+						name: 'wifiKey',
+						type: 'password',
+						when: {
+							network: 'wifi',
+						},
+					},
+				],
+			},
+			{
+				isGroup: true,
+				isCollapsible: true,
+				collapsed: true,
+				name: 'advanced',
+				message: 'Advanced',
+				options: [
+					{
+						message: 'Check for updates every X minutes',
+						name: 'appUpdatePollInterval',
+						type: 'number',
+						min: 10,
+						default: 10,
+					},
+				],
+			},
+		],
+		yocto: {
+			machine: 'jetson-nano',
+			image: 'balena-image',
+			fstype: 'balenaos-img',
+			version: 'yocto-honister',
+			deployArtifact: 'balena-image-jetson-nano.balenaos-img',
+			compressed: true,
+		},
+		is_default_for__application: [
+			{
+				application_tag: [
+					{
+						value: 'esr',
+					},
+				],
+				should_be_running__release: [],
+				is_archived: false,
+			},
+			{
+				application_tag: [],
+				should_be_running__release: [
+					{
+						release_tag: [
+							{
+								tag_key: 'version',
+								value: '2.103.2',
+							},
+						],
+					},
+				],
+				is_archived: false,
+			},
+		],
+		is_of__cpu_architecture: [
+			{
+				slug: 'aarch64',
+			},
+		],
+		slug: 'jetson-nano',
+		name: 'Nvidia Jetson Nano SD-CARD',
+		contract: {
+			data: {
+				led: false,
+				arch: 'aarch64',
+				hdmi: true,
+				media: {
+					defaultBoot: 'sdcard',
+				},
+				storage: {
+					internal: false,
+				},
+				is_private: false,
+				connectivity: {
+					wifi: false,
+					bluetooth: false,
+				},
+				flashProtocol: 'jetsonFlash',
+			},
+			name: 'Nvidia Jetson Nano SD-CARD',
+			slug: 'jetson-nano',
+			type: 'hw.device-type',
+			assets: {
+				logo: {
+					url: 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDIzLjAuMiwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IgoJIHZpZXdCb3g9IjAgMCA1MyA1NiIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNTMgNTY7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPHN0eWxlIHR5cGU9InRleHQvY3NzIj4KCS5zdDB7ZmlsbDojNzdCOTAwO30KPC9zdHlsZT4KPHRpdGxlPk52aWRpYV9sb2dvPC90aXRsZT4KPGRlc2M+Q3JlYXRlZCB3aXRoIFNrZXRjaC48L2Rlc2M+CjxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik01LjgsMTQuOGMwLDAsNC43LTYuOSwxNC03LjZWNC43QzkuNCw1LjYsMC41LDE0LjMsMC41LDE0LjNzNS4xLDE0LjcsMTkuMywxNnYtMi43QzkuMywyNi4zLDUuOCwxNC44LDUuOCwxNC44Cgl6Ii8+CjxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik0xOS44LDIyLjR2Mi40Yy03LjktMS40LTEwLjEtOS42LTEwLjEtOS42czMuOC00LjIsMTAuMS00LjlWMTNsMCwwYy0zLjMtMC40LTUuOSwyLjctNS45LDIuNwoJUzE1LjMsMjAuOSwxOS44LDIyLjRMMTkuOCwyMi40eiIvPgo8cGF0aCBjbGFzcz0ic3QwIiBkPSJNMTkuOCwwLjF2NC42YzAuMywwLDAuNiwwLDAuOS0wLjFjMTEuOC0wLjQsMTkuNCw5LjYsMTkuNCw5LjZTMzEuMywyNSwyMi4xLDI1Yy0wLjgsMC0xLjYtMC4xLTIuNC0wLjJ2Mi45CgljMC42LDAuMSwxLjMsMC4xLDIsMC4xYzguNSwwLDE0LjctNC40LDIwLjctOS41YzEsMC44LDUsMi43LDUuOSwzLjZjLTUuNyw0LjgtMTguOSw4LjYtMjYuNCw4LjZjLTAuNywwLTEuNCwwLTIuMS0wLjF2NGgzMi40VjAuMQoJSDE5Ljh6Ii8+CjxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik0xOS44LDEwLjNWNy4yYzAuMywwLDAuNiwwLDAuOSwwYzguNS0wLjMsMTQsNy4zLDE0LDcuM3MtNiw4LjMtMTIuNCw4LjNjLTAuOSwwLTEuOC0wLjEtMi41LTAuNFYxMwoJYzMuMywwLjQsNCwxLjksNS45LDUuMWw0LjQtMy43YzAsMC0zLjItNC4yLTguNi00LjJDMjAuOSwxMC4yLDIwLjMsMTAuMywxOS44LDEwLjNMMTkuOCwxMC4zeiIvPgo8Zz4KCTxwYXRoIGQ9Ik0xMiw1My4zSDkuMmwtNS41LTguOXY4LjlIMVYzOS43aDIuOGw1LjUsOXYtOUgxMlY1My4zeiIvPgoJPHBhdGggZD0iTTIyLjMsNTAuNWgtNC45bC0wLjksMi44aC0zbDUuMS0xMy42aDIuNmw1LjEsMTMuNmgtM0wyMi4zLDUwLjV6IE0xOC4yLDQ4LjJoMy40bC0xLjctNS4xTDE4LjIsNDguMnoiLz4KCTxwYXRoIGQ9Ik0zOC42LDUzLjNoLTIuOGwtNS41LTguOXY4LjloLTIuOFYzOS43aDIuOGw1LjUsOXYtOWgyLjhWNTMuM3oiLz4KCTxwYXRoIGQ9Ik01Mi4yLDQ2LjhjMCwxLTAuMSwyLTAuNCwyLjhjLTAuMywwLjgtMC43LDEuNS0xLjIsMi4xYy0wLjUsMC42LTEuMSwxLTEuOCwxLjNjLTAuNywwLjMtMS41LDAuNS0yLjMsMC41CgkJYy0wLjksMC0xLjYtMC4yLTIuMy0wLjVjLTAuNy0wLjMtMS4zLTAuNy0xLjgtMS4zYy0wLjUtMC42LTAuOS0xLjMtMS4yLTIuMXMtMC40LTEuOC0wLjQtMi44di0wLjZjMC0xLDAuMS0yLDAuNC0yLjgKCQlzMC43LTEuNSwxLjItMi4xYzAuNS0wLjYsMS4xLTEsMS44LTEuM2MwLjctMC4zLDEuNS0wLjUsMi4zLTAuNWMwLjksMCwxLjYsMC4yLDIuMywwLjVjMC43LDAuMywxLjMsMC44LDEuOCwxLjMKCQljMC41LDAuNiwwLjksMS4zLDEuMiwyLjFjMC4zLDAuOCwwLjQsMS44LDAuNCwyLjhWNDYuOHogTTQ5LjQsNDYuMmMwLTEuNC0wLjMtMi41LTAuOC0zLjJjLTAuNS0wLjctMS4yLTEuMS0yLjItMS4xCgkJcy0xLjcsMC40LTIuMiwxLjFjLTAuNSwwLjctMC44LDEuOC0wLjgsMy4ydjAuNmMwLDAuNywwLjEsMS4zLDAuMiwxLjljMC4xLDAuNSwwLjMsMSwwLjYsMS40YzAuMywwLjQsMC42LDAuNywwLjksMC44CgkJYzAuNCwwLjIsMC44LDAuMywxLjMsMC4zYzAuOSwwLDEuNy0wLjQsMi4yLTEuMWMwLjUtMC43LDAuOC0xLjgsMC44LTMuM1Y0Ni4yeiIvPgo8L2c+Cjwvc3ZnPgo=',
+					name: 'logo',
+				},
+			},
+			aliases: ['jetson-nano'],
+			version: '1',
+			partials: {
+				bootDevice: ['Connect power to the Nvidia Jetson Nano SD-CARD'],
+			},
+		},
+		logo: 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDIzLjAuMiwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IgoJIHZpZXdCb3g9IjAgMCA1MyA1NiIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNTMgNTY7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPHN0eWxlIHR5cGU9InRleHQvY3NzIj4KCS5zdDB7ZmlsbDojNzdCOTAwO30KPC9zdHlsZT4KPHRpdGxlPk52aWRpYV9sb2dvPC90aXRsZT4KPGRlc2M+Q3JlYXRlZCB3aXRoIFNrZXRjaC48L2Rlc2M+CjxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik01LjgsMTQuOGMwLDAsNC43LTYuOSwxNC03LjZWNC43QzkuNCw1LjYsMC41LDE0LjMsMC41LDE0LjNzNS4xLDE0LjcsMTkuMywxNnYtMi43QzkuMywyNi4zLDUuOCwxNC44LDUuOCwxNC44Cgl6Ii8+CjxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik0xOS44LDIyLjR2Mi40Yy03LjktMS40LTEwLjEtOS42LTEwLjEtOS42czMuOC00LjIsMTAuMS00LjlWMTNsMCwwYy0zLjMtMC40LTUuOSwyLjctNS45LDIuNwoJUzE1LjMsMjAuOSwxOS44LDIyLjRMMTkuOCwyMi40eiIvPgo8cGF0aCBjbGFzcz0ic3QwIiBkPSJNMTkuOCwwLjF2NC42YzAuMywwLDAuNiwwLDAuOS0wLjFjMTEuOC0wLjQsMTkuNCw5LjYsMTkuNCw5LjZTMzEuMywyNSwyMi4xLDI1Yy0wLjgsMC0xLjYtMC4xLTIuNC0wLjJ2Mi45CgljMC42LDAuMSwxLjMsMC4xLDIsMC4xYzguNSwwLDE0LjctNC40LDIwLjctOS41YzEsMC44LDUsMi43LDUuOSwzLjZjLTUuNyw0LjgtMTguOSw4LjYtMjYuNCw4LjZjLTAuNywwLTEuNCwwLTIuMS0wLjF2NGgzMi40VjAuMQoJSDE5Ljh6Ii8+CjxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik0xOS44LDEwLjNWNy4yYzAuMywwLDAuNiwwLDAuOSwwYzguNS0wLjMsMTQsNy4zLDE0LDcuM3MtNiw4LjMtMTIuNCw4LjNjLTAuOSwwLTEuOC0wLjEtMi41LTAuNFYxMwoJYzMuMywwLjQsNCwxLjksNS45LDUuMWw0LjQtMy43YzAsMC0zLjItNC4yLTguNi00LjJDMjAuOSwxMC4yLDIwLjMsMTAuMywxOS44LDEwLjNMMTkuOCwxMC4zeiIvPgo8Zz4KCTxwYXRoIGQ9Ik0xMiw1My4zSDkuMmwtNS41LTguOXY4LjlIMVYzOS43aDIuOGw1LjUsOXYtOUgxMlY1My4zeiIvPgoJPHBhdGggZD0iTTIyLjMsNTAuNWgtNC45bC0wLjksMi44aC0zbDUuMS0xMy42aDIuNmw1LjEsMTMuNmgtM0wyMi4zLDUwLjV6IE0xOC4yLDQ4LjJoMy40bC0xLjctNS4xTDE4LjIsNDguMnoiLz4KCTxwYXRoIGQ9Ik0zOC42LDUzLjNoLTIuOGwtNS41LTguOXY4LjloLTIuOFYzOS43aDIuOGw1LjUsOXYtOWgyLjhWNTMuM3oiLz4KCTxwYXRoIGQ9Ik01Mi4yLDQ2LjhjMCwxLTAuMSwyLTAuNCwyLjhjLTAuMywwLjgtMC43LDEuNS0xLjIsMi4xYy0wLjUsMC42LTEuMSwxLTEuOCwxLjNjLTAuNywwLjMtMS41LDAuNS0yLjMsMC41CgkJYy0wLjksMC0xLjYtMC4yLTIuMy0wLjVjLTAuNy0wLjMtMS4zLTAuNy0xLjgtMS4zYy0wLjUtMC42LTAuOS0xLjMtMS4yLTIuMXMtMC40LTEuOC0wLjQtMi44di0wLjZjMC0xLDAuMS0yLDAuNC0yLjgKCQlzMC43LTEuNSwxLjItMi4xYzAuNS0wLjYsMS4xLTEsMS44LTEuM2MwLjctMC4zLDEuNS0wLjUsMi4zLTAuNWMwLjksMCwxLjYsMC4yLDIuMywwLjVjMC43LDAuMywxLjMsMC44LDEuOCwxLjMKCQljMC41LDAuNiwwLjksMS4zLDEuMiwyLjFjMC4zLDAuOCwwLjQsMS44LDAuNCwyLjhWNDYuOHogTTQ5LjQsNDYuMmMwLTEuNC0wLjMtMi41LTAuOC0zLjJjLTAuNS0wLjctMS4yLTEuMS0yLjItMS4xCgkJcy0xLjcsMC40LTIuMiwxLjFjLTAuNSwwLjctMC44LDEuOC0wLjgsMy4ydjAuNmMwLDAuNywwLjEsMS4zLDAuMiwxLjljMC4xLDAuNSwwLjMsMSwwLjYsMS40YzAuMywwLjQsMC42LDAuNywwLjksMC44CgkJYzAuNCwwLjIsMC44LDAuMywxLjMsMC4zYzAuOSwwLDEuNy0wLjQsMi4yLTEuMWMwLjUtMC43LDAuOC0xLjgsMC44LTMuM1Y0Ni4yeiIvPgo8L2c+Cjwvc3ZnPgo=',
+	},
+	{
+		instructions: [
+			'Put the device in recovery mode and connect to the host computer via USB',
+			'Unzip the balenaOS image and use the <a href="https://github.com/balena-os/jetson-flash">Jetson Flash tool</a> to flash the Nvidia Jetson Xavier NX Devkit eMMC.',
+			'Wait for writing of balenaOS to complete.',
+			'Connect power to the Nvidia Jetson Xavier NX Devkit eMMC to boot the device.',
+		],
+		options: [
+			{
+				isGroup: true,
+				name: 'network',
+				message: 'Network',
+				options: [
+					{
+						message: 'Network Connection',
+						name: 'network',
+						type: 'list',
+						choices: ['ethernet', 'wifi'],
+					},
+					{
+						message: 'Wifi SSID',
+						name: 'wifiSsid',
+						type: 'text',
+						when: {
+							network: 'wifi',
+						},
+					},
+					{
+						message: 'Wifi Passphrase',
+						name: 'wifiKey',
+						type: 'password',
+						when: {
+							network: 'wifi',
+						},
+					},
+				],
+			},
+			{
+				isGroup: true,
+				isCollapsible: true,
+				collapsed: true,
+				name: 'advanced',
+				message: 'Advanced',
+				options: [
+					{
+						message: 'Check for updates every X minutes',
+						name: 'appUpdatePollInterval',
+						type: 'number',
+						min: 10,
+						default: 10,
+					},
+				],
+			},
+		],
+		yocto: {
+			machine: 'jetson-xavier-nx-devkit-emmc',
+			image: 'balena-image',
+			fstype: 'balenaos-img',
+			version: 'yocto-honister',
+			deployArtifact: 'balena-image-jetson-xavier-nx-devkit-emmc.balenaos-img',
+			compressed: true,
+		},
+		is_default_for__application: [
+			{
+				application_tag: [],
+				should_be_running__release: [
+					{
+						release_tag: [
+							{
+								tag_key: 'version',
+								value: '2.107.10',
+							},
+						],
+					},
+				],
+				is_archived: false,
+			},
+		],
+		is_of__cpu_architecture: [
+			{
+				slug: 'aarch64',
+			},
+		],
+		slug: 'jetson-xavier-nx-devkit-emmc',
+		name: 'Nvidia Jetson Xavier NX Devkit eMMC',
+		contract: {
+			data: {
+				led: false,
+				arch: 'aarch64',
+				hdmi: true,
+				media: {
+					defaultBoot: 'internal',
+				},
+				storage: {
+					internal: true,
+				},
+				is_private: false,
+				connectivity: {
+					wifi: false,
+					bluetooth: false,
+				},
+				flashProtocol: 'jetsonFlash',
+			},
+			name: 'Nvidia Jetson Xavier NX Devkit eMMC',
+			slug: 'jetson-xavier-nx-devkit-emmc',
+			type: 'hw.device-type',
+			assets: {
+				logo: {
+					url: 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDIzLjAuMSwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IgoJIHZpZXdCb3g9IjAgMCA1MyA1NiIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNTMgNTY7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPHN0eWxlIHR5cGU9InRleHQvY3NzIj4KCS5zdDB7ZmlsbDojNzdCOTAwO30KPC9zdHlsZT4KPHRpdGxlPk52aWRpYV9sb2dvPC90aXRsZT4KPGRlc2M+Q3JlYXRlZCB3aXRoIFNrZXRjaC48L2Rlc2M+CjxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik01LjgsMTQuOGMwLDAsNC43LTYuOSwxNC03LjZWNC43QzkuNCw1LjYsMC41LDE0LjMsMC41LDE0LjNzNS4xLDE0LjcsMTkuMywxNnYtMi43QzkuMywyNi4zLDUuOCwxNC44LDUuOCwxNC44Cgl6Ii8+CjxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik0xOS44LDIyLjR2Mi40Yy03LjktMS40LTEwLjEtOS42LTEwLjEtOS42czMuOC00LjIsMTAuMS00LjlWMTNsMCwwYy0zLjMtMC40LTUuOSwyLjctNS45LDIuNwoJUzE1LjMsMjAuOSwxOS44LDIyLjRMMTkuOCwyMi40eiIvPgo8cGF0aCBjbGFzcz0ic3QwIiBkPSJNMTkuOCwwLjF2NC42YzAuMywwLDAuNiwwLDAuOS0wLjFjMTEuOC0wLjQsMTkuNCw5LjYsMTkuNCw5LjZTMzEuMywyNSwyMi4xLDI1Yy0wLjgsMC0xLjYtMC4xLTIuNC0wLjJ2Mi45CgljMC42LDAuMSwxLjMsMC4xLDIsMC4xYzguNSwwLDE0LjctNC40LDIwLjctOS41YzEsMC44LDUsMi43LDUuOSwzLjZjLTUuNyw0LjgtMTguOSw4LjYtMjYuNCw4LjZjLTAuNywwLTEuNCwwLTIuMS0wLjF2NGgzMi40VjAuMQoJSDE5Ljh6Ii8+CjxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik0xOS44LDEwLjNWNy4yYzAuMywwLDAuNiwwLDAuOSwwYzguNS0wLjMsMTQsNy4zLDE0LDcuM3MtNiw4LjMtMTIuNCw4LjNjLTAuOSwwLTEuOC0wLjEtMi41LTAuNFYxMwoJYzMuMywwLjQsNCwxLjksNS45LDUuMWw0LjQtMy43YzAsMC0zLjItNC4yLTguNi00LjJDMjAuOSwxMC4yLDIwLjMsMTAuMywxOS44LDEwLjNMMTkuOCwxMC4zeiIvPgo8Zz4KCTxwYXRoIGQ9Ik01LjMsNDQuN2wyLjMtNGgyLjJsLTMuMyw1LjRsMy40LDUuNUg3LjdsLTIuNC00bC0yLjQsNEgwLjhsMy40LTUuNWwtMy4zLTUuNEgzTDUuMyw0NC43eiIvPgoJPHBhdGggZD0iTTE3LjQsNDkuMWgtNC4ybC0wLjksMi41aC0ybDQuMS0xMC45aDEuN2w0LjEsMTAuOWgtMkwxNy40LDQ5LjF6IE0xMy43LDQ3LjZoMy4yTDE1LjMsNDNMMTMuNyw0Ny42eiIvPgoJPHBhdGggZD0iTTI0LjgsNDkuM2wyLjgtOC42aDIuMWwtMy45LDEwLjloLTEuOEwyMCw0MC43aDIuMUwyNC44LDQ5LjN6Ii8+Cgk8cGF0aCBkPSJNMzIuOSw1MS42SDMxVjQwLjdoMS45VjUxLjZ6Ii8+Cgk8cGF0aCBkPSJNNDEuNiw0Ni44aC00LjV2My40aDUuMnYxLjVoLTcuMVY0MC43aDcuMXYxLjVoLTUuMnYzaDQuNVY0Ni44eiIvPgoJPHBhdGggZD0iTTQ4LDQ3LjRoLTIuMXY0LjJINDRWNDAuN2gzLjhjMC42LDAsMS4yLDAuMSwxLjcsMC4yYzAuNSwwLjEsMC45LDAuNCwxLjIsMC42YzAuMywwLjMsMC42LDAuNiwwLjgsMQoJCWMwLjIsMC40LDAuMywwLjksMC4zLDEuNGMwLDAuNy0wLjIsMS4zLTAuNSwxLjhjLTAuNCwwLjUtMC44LDAuOS0xLjUsMS4xbDIuNSw0LjZ2MC4xaC0yTDQ4LDQ3LjR6IE00NS45LDQ1LjloMgoJCWMwLjMsMCwwLjYsMCwwLjktMC4xYzAuMy0wLjEsMC41LTAuMiwwLjYtMC40YzAuMi0wLjIsMC4zLTAuNCwwLjQtMC42YzAuMS0wLjIsMC4xLTAuNSwwLjEtMC43YzAtMC4zLDAtMC41LTAuMS0wLjgKCQljLTAuMS0wLjItMC4yLTAuNC0wLjQtMC42Yy0wLjItMC4yLTAuNC0wLjMtMC42LTAuNGMtMC4zLTAuMS0wLjYtMC4xLTAuOS0wLjFoLTEuOVY0NS45eiIvPgo8L2c+Cjwvc3ZnPg==',
+					name: 'logo',
+				},
+			},
+			aliases: ['jetson-xavier-nx-devkit-emmc'],
+			version: '1',
+			partials: {
+				bootDevice: [
+					'Connect power to the Nvidia Jetson Xavier NX Devkit eMMC',
+				],
+			},
+		},
+		logo: 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDIzLjAuMSwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IgoJIHZpZXdCb3g9IjAgMCA1MyA1NiIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNTMgNTY7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPHN0eWxlIHR5cGU9InRleHQvY3NzIj4KCS5zdDB7ZmlsbDojNzdCOTAwO30KPC9zdHlsZT4KPHRpdGxlPk52aWRpYV9sb2dvPC90aXRsZT4KPGRlc2M+Q3JlYXRlZCB3aXRoIFNrZXRjaC48L2Rlc2M+CjxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik01LjgsMTQuOGMwLDAsNC43LTYuOSwxNC03LjZWNC43QzkuNCw1LjYsMC41LDE0LjMsMC41LDE0LjNzNS4xLDE0LjcsMTkuMywxNnYtMi43QzkuMywyNi4zLDUuOCwxNC44LDUuOCwxNC44Cgl6Ii8+CjxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik0xOS44LDIyLjR2Mi40Yy03LjktMS40LTEwLjEtOS42LTEwLjEtOS42czMuOC00LjIsMTAuMS00LjlWMTNsMCwwYy0zLjMtMC40LTUuOSwyLjctNS45LDIuNwoJUzE1LjMsMjAuOSwxOS44LDIyLjRMMTkuOCwyMi40eiIvPgo8cGF0aCBjbGFzcz0ic3QwIiBkPSJNMTkuOCwwLjF2NC42YzAuMywwLDAuNiwwLDAuOS0wLjFjMTEuOC0wLjQsMTkuNCw5LjYsMTkuNCw5LjZTMzEuMywyNSwyMi4xLDI1Yy0wLjgsMC0xLjYtMC4xLTIuNC0wLjJ2Mi45CgljMC42LDAuMSwxLjMsMC4xLDIsMC4xYzguNSwwLDE0LjctNC40LDIwLjctOS41YzEsMC44LDUsMi43LDUuOSwzLjZjLTUuNyw0LjgtMTguOSw4LjYtMjYuNCw4LjZjLTAuNywwLTEuNCwwLTIuMS0wLjF2NGgzMi40VjAuMQoJSDE5Ljh6Ii8+CjxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik0xOS44LDEwLjNWNy4yYzAuMywwLDAuNiwwLDAuOSwwYzguNS0wLjMsMTQsNy4zLDE0LDcuM3MtNiw4LjMtMTIuNCw4LjNjLTAuOSwwLTEuOC0wLjEtMi41LTAuNFYxMwoJYzMuMywwLjQsNCwxLjksNS45LDUuMWw0LjQtMy43YzAsMC0zLjItNC4yLTguNi00LjJDMjAuOSwxMC4yLDIwLjMsMTAuMywxOS44LDEwLjNMMTkuOCwxMC4zeiIvPgo8Zz4KCTxwYXRoIGQ9Ik01LjMsNDQuN2wyLjMtNGgyLjJsLTMuMyw1LjRsMy40LDUuNUg3LjdsLTIuNC00bC0yLjQsNEgwLjhsMy40LTUuNWwtMy4zLTUuNEgzTDUuMyw0NC43eiIvPgoJPHBhdGggZD0iTTE3LjQsNDkuMWgtNC4ybC0wLjksMi41aC0ybDQuMS0xMC45aDEuN2w0LjEsMTAuOWgtMkwxNy40LDQ5LjF6IE0xMy43LDQ3LjZoMy4yTDE1LjMsNDNMMTMuNyw0Ny42eiIvPgoJPHBhdGggZD0iTTI0LjgsNDkuM2wyLjgtOC42aDIuMWwtMy45LDEwLjloLTEuOEwyMCw0MC43aDIuMUwyNC44LDQ5LjN6Ii8+Cgk8cGF0aCBkPSJNMzIuOSw1MS42SDMxVjQwLjdoMS45VjUxLjZ6Ii8+Cgk8cGF0aCBkPSJNNDEuNiw0Ni44aC00LjV2My40aDUuMnYxLjVoLTcuMVY0MC43aDcuMXYxLjVoLTUuMnYzaDQuNVY0Ni44eiIvPgoJPHBhdGggZD0iTTQ4LDQ3LjRoLTIuMXY0LjJINDRWNDAuN2gzLjhjMC42LDAsMS4yLDAuMSwxLjcsMC4yYzAuNSwwLjEsMC45LDAuNCwxLjIsMC42YzAuMywwLjMsMC42LDAuNiwwLjgsMQoJCWMwLjIsMC40LDAuMywwLjksMC4zLDEuNGMwLDAuNy0wLjIsMS4zLTAuNSwxLjhjLTAuNCwwLjUtMC44LDAuOS0xLjUsMS4xbDIuNSw0LjZ2MC4xaC0yTDQ4LDQ3LjR6IE00NS45LDQ1LjloMgoJCWMwLjMsMCwwLjYsMCwwLjktMC4xYzAuMy0wLjEsMC41LTAuMiwwLjYtMC40YzAuMi0wLjIsMC4zLTAuNCwwLjQtMC42YzAuMS0wLjIsMC4xLTAuNSwwLjEtMC43YzAtMC4zLDAtMC41LTAuMS0wLjgKCQljLTAuMS0wLjItMC4yLTAuNC0wLjQtMC42Yy0wLjItMC4yLTAuNC0wLjMtMC42LTAuNGMtMC4zLTAuMS0wLjYtMC4xLTAuOS0wLjFoLTEuOVY0NS45eiIvPgo8L2c+Cjwvc3ZnPg==',
+	},
+];
+
+const initialDeviceType: any = {
+	instructions: [
+		'Insert the SD card to the host machine.',
+		'Write the balenaOS file you downloaded to the SD card. We recommend using <a href="http://www.etcher.io/">Etcher</a>.',
+		'Wait for writing of balenaOS to complete.',
+		'Remove the SD card from the host machine.',
+		'Insert the freshly flashed SD card into the Raspberry Pi 4 (using 64bit OS).',
+		'Connect power to the Raspberry Pi 4 (using 64bit OS) to boot the device.',
+	],
+	options: [
+		{
+			isGroup: true,
+			name: 'network',
+			message: 'Network',
+			options: [
+				{
+					message: 'Network Connection',
+					name: 'network',
+					type: 'list',
+					choices: ['ethernet', 'wifi'],
+				},
+				{
+					message: 'Wifi SSID',
+					name: 'wifiSsid',
+					type: 'text',
+					when: {
+						network: 'wifi',
+					},
+				},
+				{
+					message: 'Wifi Passphrase',
+					name: 'wifiKey',
+					type: 'password',
+					when: {
+						network: 'wifi',
+					},
+				},
+			],
+		},
+		{
+			isGroup: true,
+			isCollapsible: true,
+			collapsed: true,
+			name: 'advanced',
+			message: 'Advanced',
+			options: [
+				{
+					message: 'Check for updates every X minutes',
+					name: 'appUpdatePollInterval',
+					type: 'number',
+					min: 10,
+					default: 10,
+				},
+			],
+		},
+	],
+	yocto: {
+		machine: 'raspberrypi4-64',
+		image: 'balena-image',
+		fstype: 'balenaos-img',
+		version: 'yocto-honister',
+		deployArtifact: 'balena-image-raspberrypi4-64.balenaos-img',
+		compressed: true,
+	},
+	is_default_for__application: [
+		{
+			application_tag: [
+				{
+					value: 'esr',
+				},
+			],
+			should_be_running__release: [
+				{
+					release_tag: [
+						{
+							tag_key: 'meta-balena-base',
+							value: 'v2.114.25',
+						},
+						{
+							tag_key: 'version',
+							value: '2023.7.0',
+						},
+					],
+				},
+			],
+			is_archived: false,
+		},
+		{
+			application_tag: [],
+			should_be_running__release: [
+				{
+					release_tag: [
+						{
+							tag_key: 'version',
+							value: '3.2.7+rev1',
+						},
+					],
+				},
+			],
+			is_archived: false,
+		},
+	],
+	is_of__cpu_architecture: [
+		{
+			slug: 'aarch64',
+		},
+	],
+	slug: 'raspberrypi4-64',
+	name: 'Raspberry Pi 4 (using 64bit OS)',
+	contract: {
+		data: {
+			led: true,
+			arch: 'aarch64',
+			hdmi: true,
+			media: {
+				altBoot: ['usb_mass_storage', 'network'],
+				defaultBoot: 'sdcard',
+			},
+			storage: {
+				internal: false,
+			},
+			is_private: false,
+			connectivity: {
+				wifi: true,
+				bluetooth: true,
+			},
+		},
+		name: 'Raspberry Pi 4 (using 64bit OS)',
+		slug: 'raspberrypi4-64',
+		type: 'hw.device-type',
+		assets: {
+			logo: {
+				url: 'data:image/svg+xml;base64,PHN2ZyBpZD0iTGF5ZXJfMSIgZGF0YS1uYW1lPSJMYXllciAxIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0MCA0MCI+PGRlZnM+PHN0eWxlPi5jbHMtMXtmaWxsOiM3NWE5Mjg7fS5jbHMtMntmaWxsOiNiYzExNDI7fS5jbHMtM3tmaWxsOiNmZmY7fS5jbHMtNHtpc29sYXRpb246aXNvbGF0ZTt9LmNscy01e2ZpbGw6I2Q4MjI0Yzt9PC9zdHlsZT48L2RlZnM+PHBhdGggZD0iTTEyLC41YTEuMTEsMS4xMSwwLDAsMC0uNjUuMjdBMS40OCwxLjQ4LDAsMCwwLDkuNjcuOTNjLS43OS0uMTEtMSwuMTEtMS4yNC4zNS0uMTcsMC0xLjMtLjE4LTEuODEuNTktMS4zLS4xNS0xLjcxLjc3LTEuMjQsMS42MmExLjExLDEuMTEsMCwwLDAsLjA4LDEuNTljLS4yMi40NC0uMDkuOTEuNDMsMS40OEExLjI0LDEuMjQsMCwwLDAsNi41LDcuOTRjLS4wOS44NC43NywxLjMzLDEsMS41LjEuNDkuMzEsMSwxLjI5LDEuMi4xNi43My43NS44NSwxLjMyLDFhNi4xNSw2LjE1LDAsMCwwLTMuNDksNi4wNmwtLjI4LjVhNiw2LDAsMCwwLTEuMDYsOSwxNi4yOSwxNi4yOSwwLDAsMCwuODMsMi43LDYuNTYsNi41NiwwLDAsMCw0LjA5LDUuMjQsMTQsMTQsMCwwLDAsMy45MiwyLjIzQTYuNTQsNi41NCwwLDAsMCwxOSwzOS41SDE5YTYuNTQsNi41NCwwLDAsMCw0LjgyLTIuMTYsMTQsMTQsMCwwLDAsMy45Mi0yLjIzLDYuNTYsNi41NiwwLDAsMCw0LjA5LTUuMjQsMTYuMjksMTYuMjksMCwwLDAsLjgzLTIuNyw2LDYsMCwwLDAtMS4wNi05bC0uMjgtLjVhNi4xNSw2LjE1LDAsMCwwLTMuNDktNi4wNmMuNTctLjE2LDEuMTYtLjI4LDEuMzItMSwxLS4yNSwxLjE5LS43MSwxLjI5LTEuMi4yNS0uMTcsMS4xMS0uNjYsMS0xLjVhMS4yNCwxLjI0LDAsMCwwLC42MS0xLjM4Yy41Mi0uNTcuNjUtMSwuNDMtMS40OGExLjExLDEuMTEsMCwwLDAsLjA4LTEuNTljLjQ3LS44NS4wNi0xLjc3LTEuMjQtMS42Mi0uNTEtLjc3LTEuNjQtLjU5LTEuODEtLjU5LS4yLS4yNC0uNDUtLjQ2LTEuMjQtLjM1QTEuNDgsMS40OCwwLDAsMCwyNi42NS43N0MyNiwuMjIsMjUuNDkuNjYsMjUsLjgzYy0uODUtLjI4LTEsLjEtMS40Ni4yNS0uOTMtLjE5LTEuMjEuMjMtMS42NS42OGgtLjUyQTUuOSw1LjksMCwwLDAsMTksNS4xMWE2LDYsMCwwLDAtMi4zMy0zLjM2aC0uNTJjLS40NC0uNDUtLjcyLS44Ny0xLjY1LS42OEMxNC4wOC45MywxMy44OS41NSwxMywuODNBMy4zMiwzLjMyLDAsMCwwLDEyLC41WiIvPjxwYXRoIGNsYXNzPSJjbHMtMSIgZD0iTTkuMjIsNC4xMmMzLjcsMS45MSw1Ljg1LDMuNDUsNyw0Ljc3LS42LDIuNDItMy43NSwyLjUzLTQuOSwyLjQ2YS44OC44OCwwLDAsMCwuNS0uNDRjLS4yOS0uMjEtMS4zMSwwLTItLjQzYS42Ni42NiwwLDAsMCwuNTMtLjMxLDUuOTMsNS45MywwLDAsMS0xLjgzLS43NiwxLjA1LDEuMDUsMCwwLDAsLjc1LS4xNkE3LjI0LDcuMjQsMCwwLDEsNy41MSw4LjE3Yy4zMiwwLC42NiwwLC43NS0uMTJBNy4wOSw3LjA5LDAsMCwxLDYuODUsNi45MWExLjA4LDEuMDgsMCwwLDAsLjczLS4wNyw1LjUzLDUuNTMsMCwwLDEtMS4yLTEuMzIuOTEuOTEsMCwwLDAsLjg0LDBjLS4xNC0uMzItLjc1LS41MS0xLjEtMS4yNi4zNCwwLC43LjA3Ljc3LDBhMy42MSwzLjYxLDAsMCwwLS43LTEuMzlBMTIuNjYsMTIuNjYsMCwwLDAsOCwyLjhsLS40Ni0uNDZhMy41NiwzLjU2LDAsMCwxLDIsLjE5Yy4yNC0uMTksMC0uNDItLjI5LS42N2E2LjY0LDYuNjQsMCwwLDEsMS42NS40MmMuMjctLjI0LS4xNy0uNDgtLjM4LS43MmE0LjIxLDQuMjEsMCwwLDEsMS43My42OGMuMjktLjI4LDAtLjUxLS4xNy0uNzVhNC4xNyw0LjE3LDAsMCwxLDEuNDUuOTNjLjEzLS4xNy4zNC0uMy4wOS0uNzJhMy42OCwzLjY4LDAsMCwxLDEuMTcsMWMuMzEtLjIuMTgtLjQ3LjE4LS43MkExMSwxMSwwLDAsMSwxNi4yLDMuMzFjLjA5LS4wNi4xNi0uMjYuMjItLjU4LDEuMjUsMS4yMSwzLDQuMjYuNDUsNS40N0EyMy44OCwyMy44OCwwLDAsMCw5LjIyLDQuMTJaIi8+PHBhdGggY2xhc3M9ImNscy0xIiBkPSJNMjguODYsNC4xMkMyNS4xNiw2LDIzLDcuNTcsMjEuODMsOC44OWMuNiwyLjQyLDMuNzUsMi41Myw0LjkxLDIuNDZhLjg3Ljg3LDAsMCwxLS41MS0uNDRjLjI5LS4yMSwxLjMyLDAsMi0uNDNhLjY2LjY2LDAsMCwxLS41My0uMzEsNS43Myw1LjczLDAsMCwwLDEuODMtLjc2LDEsMSwwLDAsMS0uNzQtLjE2LDcuMTksNy4xOSwwLDAsMCwxLjc1LTEuMDhjLS4zMSwwLS42NSwwLS43NS0uMTJhNy4wOSw3LjA5LDAsMCwwLDEuNDEtMS4xNCwxLjEsMS4xLDAsMCwxLS43My0uMDcsNS41Myw1LjUzLDAsMCwwLDEuMi0xLjMyLjkxLjkxLDAsMCwxLS44NCwwQzMxLDUuMTksMzEuNjIsNSwzMiw0LjI1YTEuOTEsMS45MSwwLDAsMS0uNzgsMCwzLjYxLDMuNjEsMCwwLDEsLjctMS4zOUExMi41OCwxMi41OCwwLDAsMSwzMC4xLDIuOGwuNDUtLjQ2YTMuNTYsMy41NiwwLDAsMC0yLC4xOWMtLjI0LS4xOSwwLS40Mi4yOS0uNjdhNi44OCw2Ljg4LDAsMCwwLTEuNjUuNDJjLS4yNy0uMjQuMTctLjQ4LjM4LS43MmE0LjI4LDQuMjgsMCwwLDAtMS43My42OGMtLjI5LS4yOCwwLS41MS4xOC0uNzVhNC4yMyw0LjIzLDAsMCwwLTEuNDYuOTNjLS4xMy0uMTctLjMzLS4zLS4wOS0uNzJhMy43NCwzLjc0LDAsMCwwLTEuMTYsMWMtLjMxLS4yLS4xOS0uNDctLjE5LS43MmExMi44NCwxMi44NCwwLDAsMC0xLjI2LDEuMzIsMS4xOCwxLjE4LDAsMCwxLS4yMi0uNThjLTEuMjQsMS4yMS0zLDQuMjYtLjQ1LDUuNDdhMjQsMjQsMCwwLDEsNy42NS00LjA4WiIvPjxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTIzLjUzLDI4Ljc2YTQuMjgsNC4yOCwwLDAsMS00LjQ0LDQuMDksNC4yNyw0LjI3LDAsMCwxLTQuNDMtNC4wOSw0LjI3LDQuMjcsMCwwLDEsNC40My00LjA4QTQuMjcsNC4yNywwLDAsMSwyMy41MywyOC43NloiLz48cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik0xNi41MiwxNy4wOGMxLjg0LDEuMjEsMi4xNywzLjkzLjc0LDYuMXMtNC4wNywyLjk0LTUuOTEsMS43M2gwYy0xLjg0LTEuMi0yLjE3LTMuOTMtLjc0LTYuMDlzNC4wOC0yLjk0LDUuOTEtMS43NFoiLz48cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik0yMS40OCwxNi44NmMtMS44MywxLjIxLTIuMTYsMy45NC0uNzQsNi4xczQuMDgsMi45NCw1LjkyLDEuNzNoMGMxLjg0LTEuMiwyLjE3LTMuOTMuNzQtNi4wOXMtNC4wOC0yLjk0LTUuOTItMS43NFoiLz48cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik03LjM0LDE5LjA1YzItLjUzLjY3LDguMjEtLjk0LDcuNDlBNC43Miw0LjcyLDAsMCwxLDcuMzQsMTkuMDVaIi8+PHBhdGggY2xhc3M9ImNscy0yIiBkPSJNMzAuMjcsMTguOTRjLTItLjUzLS42Nyw4LjIxLjk0LDcuNDlBNC43Miw0LjcyLDAsMCwwLDMwLjI3LDE4Ljk0WiIvPjxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTIzLjUzLDEyLjQzYzMuNDItLjU3LDYuMjcsMS40Niw2LjE2LDUuMTctLjEyLDEuNDMtNy40Mi01LTYuMTYtNS4xN1oiLz48cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik0xNC4wNywxMi4zMmMtMy40My0uNTctNi4yOCwxLjQ2LTYuMTYsNS4xN0M4LDE4LjkyLDE1LjMzLDEyLjU0LDE0LjA3LDEyLjMyWiIvPjxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTE5LDExLjQ2Yy0yLS4wNS00LDEuNTItNCwyLjQzLDAsMS4xLDEuNjEsMi4yMyw0LDIuMjZzNC0uOSw0LTItMi4yMy0yLjY2LTQtMi42NFoiLz48cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik0xOS4xMSwzNC4xNWMxLjc4LS4wOCw0LjE3LjU3LDQuMTgsMS40M3MtMi4xNywyLjc0LTQuMywyLjctNC4zNi0xLjgtNC4zMy0yLjQ2QzE0LjYyLDM0Ljg2LDE3LjM0LDM0LjEsMTkuMTEsMzQuMTVaIi8+PHBhdGggY2xhc3M9ImNscy0yIiBkPSJNMTIuNTMsMjljMS4yNywxLjUzLDEuODUsNC4yMi43OSw1LTEsLjYtMy40NC4zNS01LjE2LTIuMTMtMS4xNy0yLjA4LTEtNC4yLS4yLTQuODNDOS4xOCwyNi4zMywxMS4wNywyNy4zMywxMi41MywyOVoiLz48cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik0yNS40NCwyOC41NEMyNC4wNiwzMC4xNSwyMy4zLDMzLjA4LDI0LjMsMzRjMSwuNzQsMy41My42Myw1LjQzLTIsMS4zOC0xLjc3LjkxLTQuNzIuMTMtNS41MUMyOC42OSwyNS42MSwyNywyNi43NywyNS40NCwyOC41NFoiLz48Y2lyY2xlIGNsYXNzPSJjbHMtMyIgY3g9IjI5LjQ0IiBjeT0iMjYuNDgiIHI9IjkuMTciLz48cGF0aCBkPSJNMjkuNDQsMThhOC41Myw4LjUzLDAsMSwxLTguNTIsOC41M0E4LjUzLDguNTMsMCwwLDEsMjkuNDQsMThtMC0xLjI4YTkuODEsOS44MSwwLDEsMCw5LjgxLDkuODEsOS44Miw5LjgyLDAsMCwwLTkuODEtOS44MVoiLz48ZyBjbGFzcz0iY2xzLTQiPjxwYXRoIGNsYXNzPSJjbHMtNSIgZD0iTTI5LjYzLDMxLjYyVjI5LjE4SDI1LjIyVjI3LjU2bDMuNzItNi4xM2gyLjg5djZIMzN2MS43OUgzMS44M3YyLjQ0Wm0tMi4xNS00LjIzaDIuMTVWMjUuNzNxMC0uNSwwLTEuMTRjMC0uNDQsMC0uODEuMDctMS4xNGgtLjA3Yy0uMTMuMjgtLjI2LjU3LS40Ljg1cy0uMjguNTgtLjQzLjg3WiIvPjwvZz48L3N2Zz4=',
+				name: 'logo',
+			},
+		},
+		aliases: ['raspberrypi4-64'],
+		version: '1',
+		partials: {
+			bootDevice: ['Connect power to the Raspberry Pi 4 (using 64bit OS)'],
+		},
+	},
+	logo: 'data:image/svg+xml;base64,PHN2ZyBpZD0iTGF5ZXJfMSIgZGF0YS1uYW1lPSJMYXllciAxIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0MCA0MCI+PGRlZnM+PHN0eWxlPi5jbHMtMXtmaWxsOiM3NWE5Mjg7fS5jbHMtMntmaWxsOiNiYzExNDI7fS5jbHMtM3tmaWxsOiNmZmY7fS5jbHMtNHtpc29sYXRpb246aXNvbGF0ZTt9LmNscy01e2ZpbGw6I2Q4MjI0Yzt9PC9zdHlsZT48L2RlZnM+PHBhdGggZD0iTTEyLC41YTEuMTEsMS4xMSwwLDAsMC0uNjUuMjdBMS40OCwxLjQ4LDAsMCwwLDkuNjcuOTNjLS43OS0uMTEtMSwuMTEtMS4yNC4zNS0uMTcsMC0xLjMtLjE4LTEuODEuNTktMS4zLS4xNS0xLjcxLjc3LTEuMjQsMS42MmExLjExLDEuMTEsMCwwLDAsLjA4LDEuNTljLS4yMi40NC0uMDkuOTEuNDMsMS40OEExLjI0LDEuMjQsMCwwLDAsNi41LDcuOTRjLS4wOS44NC43NywxLjMzLDEsMS41LjEuNDkuMzEsMSwxLjI5LDEuMi4xNi43My43NS44NSwxLjMyLDFhNi4xNSw2LjE1LDAsMCwwLTMuNDksNi4wNmwtLjI4LjVhNiw2LDAsMCwwLTEuMDYsOSwxNi4yOSwxNi4yOSwwLDAsMCwuODMsMi43LDYuNTYsNi41NiwwLDAsMCw0LjA5LDUuMjQsMTQsMTQsMCwwLDAsMy45MiwyLjIzQTYuNTQsNi41NCwwLDAsMCwxOSwzOS41SDE5YTYuNTQsNi41NCwwLDAsMCw0LjgyLTIuMTYsMTQsMTQsMCwwLDAsMy45Mi0yLjIzLDYuNTYsNi41NiwwLDAsMCw0LjA5LTUuMjQsMTYuMjksMTYuMjksMCwwLDAsLjgzLTIuNyw2LDYsMCwwLDAtMS4wNi05bC0uMjgtLjVhNi4xNSw2LjE1LDAsMCwwLTMuNDktNi4wNmMuNTctLjE2LDEuMTYtLjI4LDEuMzItMSwxLS4yNSwxLjE5LS43MSwxLjI5LTEuMi4yNS0uMTcsMS4xMS0uNjYsMS0xLjVhMS4yNCwxLjI0LDAsMCwwLC42MS0xLjM4Yy41Mi0uNTcuNjUtMSwuNDMtMS40OGExLjExLDEuMTEsMCwwLDAsLjA4LTEuNTljLjQ3LS44NS4wNi0xLjc3LTEuMjQtMS42Mi0uNTEtLjc3LTEuNjQtLjU5LTEuODEtLjU5LS4yLS4yNC0uNDUtLjQ2LTEuMjQtLjM1QTEuNDgsMS40OCwwLDAsMCwyNi42NS43N0MyNiwuMjIsMjUuNDkuNjYsMjUsLjgzYy0uODUtLjI4LTEsLjEtMS40Ni4yNS0uOTMtLjE5LTEuMjEuMjMtMS42NS42OGgtLjUyQTUuOSw1LjksMCwwLDAsMTksNS4xMWE2LDYsMCwwLDAtMi4zMy0zLjM2aC0uNTJjLS40NC0uNDUtLjcyLS44Ny0xLjY1LS42OEMxNC4wOC45MywxMy44OS41NSwxMywuODNBMy4zMiwzLjMyLDAsMCwwLDEyLC41WiIvPjxwYXRoIGNsYXNzPSJjbHMtMSIgZD0iTTkuMjIsNC4xMmMzLjcsMS45MSw1Ljg1LDMuNDUsNyw0Ljc3LS42LDIuNDItMy43NSwyLjUzLTQuOSwyLjQ2YS44OC44OCwwLDAsMCwuNS0uNDRjLS4yOS0uMjEtMS4zMSwwLTItLjQzYS42Ni42NiwwLDAsMCwuNTMtLjMxLDUuOTMsNS45MywwLDAsMS0xLjgzLS43NiwxLjA1LDEuMDUsMCwwLDAsLjc1LS4xNkE3LjI0LDcuMjQsMCwwLDEsNy41MSw4LjE3Yy4zMiwwLC42NiwwLC43NS0uMTJBNy4wOSw3LjA5LDAsMCwxLDYuODUsNi45MWExLjA4LDEuMDgsMCwwLDAsLjczLS4wNyw1LjUzLDUuNTMsMCwwLDEtMS4yLTEuMzIuOTEuOTEsMCwwLDAsLjg0LDBjLS4xNC0uMzItLjc1LS41MS0xLjEtMS4yNi4zNCwwLC43LjA3Ljc3LDBhMy42MSwzLjYxLDAsMCwwLS43LTEuMzlBMTIuNjYsMTIuNjYsMCwwLDAsOCwyLjhsLS40Ni0uNDZhMy41NiwzLjU2LDAsMCwxLDIsLjE5Yy4yNC0uMTksMC0uNDItLjI5LS42N2E2LjY0LDYuNjQsMCwwLDEsMS42NS40MmMuMjctLjI0LS4xNy0uNDgtLjM4LS43MmE0LjIxLDQuMjEsMCwwLDEsMS43My42OGMuMjktLjI4LDAtLjUxLS4xNy0uNzVhNC4xNyw0LjE3LDAsMCwxLDEuNDUuOTNjLjEzLS4xNy4zNC0uMy4wOS0uNzJhMy42OCwzLjY4LDAsMCwxLDEuMTcsMWMuMzEtLjIuMTgtLjQ3LjE4LS43MkExMSwxMSwwLDAsMSwxNi4yLDMuMzFjLjA5LS4wNi4xNi0uMjYuMjItLjU4LDEuMjUsMS4yMSwzLDQuMjYuNDUsNS40N0EyMy44OCwyMy44OCwwLDAsMCw5LjIyLDQuMTJaIi8+PHBhdGggY2xhc3M9ImNscy0xIiBkPSJNMjguODYsNC4xMkMyNS4xNiw2LDIzLDcuNTcsMjEuODMsOC44OWMuNiwyLjQyLDMuNzUsMi41Myw0LjkxLDIuNDZhLjg3Ljg3LDAsMCwxLS41MS0uNDRjLjI5LS4yMSwxLjMyLDAsMi0uNDNhLjY2LjY2LDAsMCwxLS41My0uMzEsNS43Myw1LjczLDAsMCwwLDEuODMtLjc2LDEsMSwwLDAsMS0uNzQtLjE2LDcuMTksNy4xOSwwLDAsMCwxLjc1LTEuMDhjLS4zMSwwLS42NSwwLS43NS0uMTJhNy4wOSw3LjA5LDAsMCwwLDEuNDEtMS4xNCwxLjEsMS4xLDAsMCwxLS43My0uMDcsNS41Myw1LjUzLDAsMCwwLDEuMi0xLjMyLjkxLjkxLDAsMCwxLS44NCwwQzMxLDUuMTksMzEuNjIsNSwzMiw0LjI1YTEuOTEsMS45MSwwLDAsMS0uNzgsMCwzLjYxLDMuNjEsMCwwLDEsLjctMS4zOUExMi41OCwxMi41OCwwLDAsMSwzMC4xLDIuOGwuNDUtLjQ2YTMuNTYsMy41NiwwLDAsMC0yLC4xOWMtLjI0LS4xOSwwLS40Mi4yOS0uNjdhNi44OCw2Ljg4LDAsMCwwLTEuNjUuNDJjLS4yNy0uMjQuMTctLjQ4LjM4LS43MmE0LjI4LDQuMjgsMCwwLDAtMS43My42OGMtLjI5LS4yOCwwLS41MS4xOC0uNzVhNC4yMyw0LjIzLDAsMCwwLTEuNDYuOTNjLS4xMy0uMTctLjMzLS4zLS4wOS0uNzJhMy43NCwzLjc0LDAsMCwwLTEuMTYsMWMtLjMxLS4yLS4xOS0uNDctLjE5LS43MmExMi44NCwxMi44NCwwLDAsMC0xLjI2LDEuMzIsMS4xOCwxLjE4LDAsMCwxLS4yMi0uNThjLTEuMjQsMS4yMS0zLDQuMjYtLjQ1LDUuNDdhMjQsMjQsMCwwLDEsNy42NS00LjA4WiIvPjxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTIzLjUzLDI4Ljc2YTQuMjgsNC4yOCwwLDAsMS00LjQ0LDQuMDksNC4yNyw0LjI3LDAsMCwxLTQuNDMtNC4wOSw0LjI3LDQuMjcsMCwwLDEsNC40My00LjA4QTQuMjcsNC4yNywwLDAsMSwyMy41MywyOC43NloiLz48cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik0xNi41MiwxNy4wOGMxLjg0LDEuMjEsMi4xNywzLjkzLjc0LDYuMXMtNC4wNywyLjk0LTUuOTEsMS43M2gwYy0xLjg0LTEuMi0yLjE3LTMuOTMtLjc0LTYuMDlzNC4wOC0yLjk0LDUuOTEtMS43NFoiLz48cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik0yMS40OCwxNi44NmMtMS44MywxLjIxLTIuMTYsMy45NC0uNzQsNi4xczQuMDgsMi45NCw1LjkyLDEuNzNoMGMxLjg0LTEuMiwyLjE3LTMuOTMuNzQtNi4wOXMtNC4wOC0yLjk0LTUuOTItMS43NFoiLz48cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik03LjM0LDE5LjA1YzItLjUzLjY3LDguMjEtLjk0LDcuNDlBNC43Miw0LjcyLDAsMCwxLDcuMzQsMTkuMDVaIi8+PHBhdGggY2xhc3M9ImNscy0yIiBkPSJNMzAuMjcsMTguOTRjLTItLjUzLS42Nyw4LjIxLjk0LDcuNDlBNC43Miw0LjcyLDAsMCwwLDMwLjI3LDE4Ljk0WiIvPjxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTIzLjUzLDEyLjQzYzMuNDItLjU3LDYuMjcsMS40Niw2LjE2LDUuMTctLjEyLDEuNDMtNy40Mi01LTYuMTYtNS4xN1oiLz48cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik0xNC4wNywxMi4zMmMtMy40My0uNTctNi4yOCwxLjQ2LTYuMTYsNS4xN0M4LDE4LjkyLDE1LjMzLDEyLjU0LDE0LjA3LDEyLjMyWiIvPjxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTE5LDExLjQ2Yy0yLS4wNS00LDEuNTItNCwyLjQzLDAsMS4xLDEuNjEsMi4yMyw0LDIuMjZzNC0uOSw0LTItMi4yMy0yLjY2LTQtMi42NFoiLz48cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik0xOS4xMSwzNC4xNWMxLjc4LS4wOCw0LjE3LjU3LDQuMTgsMS40M3MtMi4xNywyLjc0LTQuMywyLjctNC4zNi0xLjgtNC4zMy0yLjQ2QzE0LjYyLDM0Ljg2LDE3LjM0LDM0LjEsMTkuMTEsMzQuMTVaIi8+PHBhdGggY2xhc3M9ImNscy0yIiBkPSJNMTIuNTMsMjljMS4yNywxLjUzLDEuODUsNC4yMi43OSw1LTEsLjYtMy40NC4zNS01LjE2LTIuMTMtMS4xNy0yLjA4LTEtNC4yLS4yLTQuODNDOS4xOCwyNi4zMywxMS4wNywyNy4zMywxMi41MywyOVoiLz48cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik0yNS40NCwyOC41NEMyNC4wNiwzMC4xNSwyMy4zLDMzLjA4LDI0LjMsMzRjMSwuNzQsMy41My42Myw1LjQzLTIsMS4zOC0xLjc3LjkxLTQuNzIuMTMtNS41MUMyOC42OSwyNS42MSwyNywyNi43NywyNS40NCwyOC41NFoiLz48Y2lyY2xlIGNsYXNzPSJjbHMtMyIgY3g9IjI5LjQ0IiBjeT0iMjYuNDgiIHI9IjkuMTciLz48cGF0aCBkPSJNMjkuNDQsMThhOC41Myw4LjUzLDAsMSwxLTguNTIsOC41M0E4LjUzLDguNTMsMCwwLDEsMjkuNDQsMThtMC0xLjI4YTkuODEsOS44MSwwLDEsMCw5LjgxLDkuODEsOS44Miw5LjgyLDAsMCwwLTkuODEtOS44MVoiLz48ZyBjbGFzcz0iY2xzLTQiPjxwYXRoIGNsYXNzPSJjbHMtNSIgZD0iTTI5LjYzLDMxLjYyVjI5LjE4SDI1LjIyVjI3LjU2bDMuNzItNi4xM2gyLjg5djZIMzN2MS43OUgzMS44M3YyLjQ0Wm0tMi4xNS00LjIzaDIuMTVWMjUuNzNxMC0uNSwwLTEuMTRjMC0uNDQsMC0uODEuMDctMS4xNGgtLjA3Yy0uMTMuMjgtLjI2LjU3LS40Ljg1cy0uMjguNTgtLjQzLjg3WiIvPjwvZz48L3N2Zz4=',
+};
+
+const osVersions = {
+	'raspberrypi4-64': [
+		{
+			release_tag: [
+				{
+					tag_key: 'version',
+					value: '3.2.7+rev1',
+				},
+			],
+			id: 2706026,
+			known_issue_list: null,
+			raw_version: '3.2.7+rev1',
+			phase: null,
+			osType: 'default',
+			strippedVersion: '3.2.7+rev1',
+			rawVersion: '3.2.7+rev1',
+			basedOnVersion: '3.2.7+rev1',
+			formattedVersion: 'v3.2.7+rev1 (recommended)',
+			isRecommended: true,
+		},
+		{
+			release_tag: [
+				{
+					tag_key: 'version',
+					value: '3.2.7',
+				},
+			],
+			id: 2699112,
+			known_issue_list: null,
+			raw_version: '3.2.7',
+			phase: null,
+			osType: 'default',
+			strippedVersion: '3.2.7',
+			rawVersion: '3.2.7',
+			basedOnVersion: '3.2.7',
+			formattedVersion: 'v3.2.7',
+		},
+		{
+			release_tag: [
+				{
+					tag_key: 'version',
+					value: '3.2.1',
+				},
+			],
+			id: 2691761,
+			known_issue_list: null,
+			raw_version: '3.2.1',
+			phase: null,
+			osType: 'default',
+			strippedVersion: '3.2.1',
+			rawVersion: '3.2.1',
+			basedOnVersion: '3.2.1',
+			formattedVersion: 'v3.2.1',
+		},
+		{
+			release_tag: [
+				{
+					tag_key: 'version',
+					value: '3.2.0',
+				},
+			],
+			id: 2690869,
+			known_issue_list: null,
+			raw_version: '3.2.0',
+			phase: null,
+			osType: 'default',
+			strippedVersion: '3.2.0',
+			rawVersion: '3.2.0',
+			basedOnVersion: '3.2.0',
+			formattedVersion: 'v3.2.0',
+		},
+		{
+			release_tag: [
+				{
+					tag_key: 'version',
+					value: '3.1.12',
+				},
+			],
+			id: 2688571,
+			known_issue_list: null,
+			raw_version: '3.1.12',
+			phase: null,
+			osType: 'default',
+			strippedVersion: '3.1.12',
+			rawVersion: '3.1.12',
+			basedOnVersion: '3.1.12',
+			formattedVersion: 'v3.1.12',
+		},
+		{
+			release_tag: [
+				{
+					tag_key: 'version',
+					value: '3.1.1',
+				},
+			],
+			id: 2668490,
+			known_issue_list: null,
+			raw_version: '3.1.1',
+			phase: null,
+			osType: 'default',
+			strippedVersion: '3.1.1',
+			rawVersion: '3.1.1',
+			basedOnVersion: '3.1.1',
+			formattedVersion: 'v3.1.1',
+		},
+	],
+};
+const Template = (
+	props: Omit<DownloadImageDialogProps, 'open' | 'onClose'>,
+) => {
+	const [show, setShow] = useState(false);
+
+	return (
+		<>
+			<Button onClick={() => setShow(true)}>Open download image dialog</Button>
+			<DownloadImageDialog
+				open={show}
+				onClose={() => setShow(false)}
+				{...props}
+			/>
+		</>
+	);
+};
+
+const meta = {
+	title: 'Patterns/DownloadImageDialog',
+	component: Template,
+	tags: ['autodocs'],
+} satisfies Meta<typeof Template>;
+
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
+	args: {
+		compatibleDeviceTypes: deviceTypes as DeviceType[],
+		applicationId: 1918419,
+		releaseId: undefined,
+		downloadUrl: `$API_ENDPOINT}/download`,
+		initialDeviceType,
+		initialOsVersions: osVersions as any,
+		getDockerArtifact: () => '',
+		isInitialDefault: true,
+	},
+};

@@ -10,7 +10,10 @@ import { color } from '@balena/design-tokens';
 /**
  * This component will render a Markdown text.
  */
-export const Markdown: React.FC<ReactMarkdownOptions> = (props) => {
+export const Markdown: React.FC<ReactMarkdownOptions> = ({
+	components,
+	...otherProps
+}) => {
 	return (
 		<ReactMarkdown
 			remarkPlugins={[remarkGfm]}
@@ -109,8 +112,9 @@ export const Markdown: React.FC<ReactMarkdownOptions> = (props) => {
 						</tr>
 					);
 				},
+				...components,
 			}}
-			{...props}
+			{...otherProps}
 		/>
 	);
 };
