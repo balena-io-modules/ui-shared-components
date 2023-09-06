@@ -28,6 +28,15 @@ export type { CustomHelmetProps } from './components/CustomHelmet';
 export { CustomHelmet } from './components/CustomHelmet';
 export { DialogWithCloseButton } from './components/DialogWithCloseButton';
 export type { DialogWithCloseButtonProps } from './components/DialogWithCloseButton';
+export {
+	DownloadImageDialog,
+	ActionType as DownloadImageActionType,
+} from './components/DownloadImageDialog';
+export type {
+	DownloadImageDialogProps,
+	DownloadImageFormModel,
+} from './components/DownloadImageDialog';
+export type { DeviceType as DownloadImageDeviceType } from './components/DownloadImageDialog/models';
 export type { VirtualizedAutocompleteProps } from './components/VirtualizedAutocomplete';
 export type { DropDownButtonProps } from './components/DropDownButton';
 export { DropDownButton } from './components/DropDownButton';

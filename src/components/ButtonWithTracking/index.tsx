@@ -1,10 +1,11 @@
 import React from 'react';
-import { Button, ButtonProps } from '@mui/material';
+import { Button, ButtonProps, Tooltip } from '@mui/material';
 import { useAnalyticsContext } from '../../contexts/AnalyticsContext';
 
 export interface ButtonWithTrackingProps extends ButtonProps {
 	eventName: string;
 	eventProperties?: { [key: string]: any };
+	tooltip?: string;
 }
 
 /**
@@ -14,6 +15,7 @@ export const ButtonWithTracking: React.FC<ButtonWithTrackingProps> = ({
 	eventName,
 	eventProperties,
 	children,
+	tooltip,
 	onClick,
 	...rest
 }) => {
@@ -27,8 +29,10 @@ export const ButtonWithTracking: React.FC<ButtonWithTrackingProps> = ({
 	};
 
 	return (
-		<Button {...rest} onClick={handleClick} disableElevation>
-			{children}
-		</Button>
+		<Tooltip title={tooltip}>
+			<Button {...rest} onClick={handleClick} disableElevation>
+				{children}
+			</Button>
+		</Tooltip>
 	);
 };

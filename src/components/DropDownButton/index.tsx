@@ -73,15 +73,14 @@ export const DropDownButton: React.FC<DropDownButtonProps> = ({
 				disableElevation
 				{...buttonGroupProps}
 			>
-				<Tooltip title={items[selectedIndex].tooltip}>
-					<ButtonWithTracking
-						onClick={handleClick}
-						eventName={items[selectedIndex].eventName}
-						eventProperties={items[selectedIndex].eventProperties}
-					>
-						{items[selectedIndex].children}
-					</ButtonWithTracking>
-				</Tooltip>
+				<ButtonWithTracking
+					onClick={handleClick}
+					eventName={items[selectedIndex].eventName}
+					eventProperties={items[selectedIndex].eventProperties}
+					tooltip={items[selectedIndex].tooltip}
+				>
+					{items[selectedIndex].children}
+				</ButtonWithTracking>
 				<Button
 					size="small"
 					aria-controls={open ? 'split-button-menu' : undefined}
@@ -89,6 +88,8 @@ export const DropDownButton: React.FC<DropDownButtonProps> = ({
 					aria-label="actions"
 					aria-haspopup="menu"
 					onClick={handleToggle}
+					// It doesn't look good without it, hence the addition.
+					sx={(theme) => ({ pl: 2, pr: `calc(${theme.spacing(2)} + 2px)` })}
 				>
 					<ArrowDropDownIcon />
 				</Button>
@@ -115,9 +116,11 @@ export const DropDownButton: React.FC<DropDownButtonProps> = ({
 							<ClickAwayListener onClickAway={handleClose}>
 								<MenuList id="split-button-menu" autoFocusItem>
 									{items.map((option, index) => (
-										<Tooltip title={option.tooltip}>
+										<Tooltip
+											title={option.tooltip}
+											key={option.id ?? option.key ?? index}
+										>
 											<MenuItem
-												key={option.id ?? option.key ?? index}
 												disabled={option.disabled}
 												selected={index === selectedIndex}
 												onClick={() => handleMenuItemClick(index)}
