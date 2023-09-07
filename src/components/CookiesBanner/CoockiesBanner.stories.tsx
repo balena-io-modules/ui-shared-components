@@ -51,6 +51,7 @@ export const Default: Story = {
 				description:
 					'We use cookies to get marketing info from the traffic in our platform',
 				value: false,
+				required: true,
 			},
 			analytics: {
 				title: 'Analytics',

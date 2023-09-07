@@ -10,6 +10,7 @@ export interface Cookie {
 	title: string;
 	description: string;
 	value: boolean;
+	required?: boolean;
 }
 
 export interface CookiesBannerProps {
@@ -80,6 +81,7 @@ export const CookiesBanner = ({
 									<Switch
 										checked={cookie.value}
 										onChange={(_event, checked) => handleOnChange(checked, key)}
+										disabled={cookie.required}
 									/>
 								</Box>
 							</Box>

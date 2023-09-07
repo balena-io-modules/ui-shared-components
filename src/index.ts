@@ -4,6 +4,8 @@ export { AnimatedText } from './components/AnimatedText';
 export type { ButtonWithTrackingProps } from './components/ButtonWithTracking';
 export { ButtonWithTracking } from './components/ButtonWithTracking';
 export { Code } from './components/Code';
+export type { CookiesBannerProps } from './components/CookiesBanner';
+export { CookiesBanner } from './components/CookiesBanner';
 export type { CollapsedListProps } from './components/CollapsedList';
 export { CollapsedList } from './components/CollapsedList';
 export type { CustomHelmetProps } from './components/CustomHelmet';
