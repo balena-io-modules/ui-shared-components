@@ -1,4 +1,16 @@
 - commits:
+    - subject: Fix CookiesBanner export and add requied (#18)
+      hash: 595326dce8cd9a665b55e267d0130cf71dfd5178
+      body: |
+        Change-type: patcFix CookiesBanner export and add requied
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Andrea Rosci
+  version: 0.5.1
+  title: ""
+  date: 2023-09-07T14:59:06.928Z
+- commits:
     - subject: Add CookiesBanner component (#6)
       hash: 6c78e59383ac29e4863d97be92dfb73b6ed0395e
       body: ""
