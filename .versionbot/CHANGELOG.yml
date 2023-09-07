@@ -1,4 +1,14 @@
 - commits:
+    - subject: Add CookiesBanner component (#6)
+      hash: 6c78e59383ac29e4863d97be92dfb73b6ed0395e
+      body: ""
+      footer:
+        change-type: minor
+      author: Andrea Rosci
+  version: 0.5.0
+  title: ""
+  date: 2023-09-07T14:19:51.927Z
+- commits:
     - subject: Replace Styleguidist with Storybook
       hash: 8253ac2429357722398cb8172339c7c9a854b33a
       body: ""
