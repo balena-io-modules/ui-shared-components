@@ -6,8 +6,8 @@ import {
 } from 'analytics-client';
 import { createContext, useContext, useReducer } from 'react';
 
-export enum StoreActions {
-	setAnalyticsData = 'set_device_types',
+export enum AnalyticsStoreActions {
+	setAnalyticsData = 'set_analytics_data',
 }
 
 type AnalyticsActionPayload = {
@@ -19,7 +19,7 @@ type AnalyticsActionPayload = {
 } | null;
 
 type Action = {
-	type: StoreActions.setAnalyticsData;
+	type: AnalyticsStoreActions.setAnalyticsData;
 	payload: AnalyticsActionPayload;
 };
 
@@ -27,11 +27,9 @@ type Dispatch = (action: Action) => void;
 
 type AnalyticsContext = {
 	webTracker: WebTracker | null;
-	urlParamsHandler: AnalyticsUrlParams;
+	urlParamsHandler: AnalyticsUrlParams | null;
 	trackBalenaNavigation: (url: string) => string;
 };
-
-type AnalyticsContextProviderProps = NonNullable<AnalyticsActionPayload>;
 
 const AnalyticsStateContext = createContext<
 	| {
@@ -41,52 +39,46 @@ const AnalyticsStateContext = createContext<
 	| undefined
 >(undefined);
 
-const urlParamsHandler = new AnalyticsUrlParams();
-const trackBalenaNavigation = (url: string) => {
-	const baseUrl = new URL(url);
-	const deviceIdQuery = initialContext.urlParamsHandler.getQueryString(baseUrl);
-	if (!baseUrl.search) {
-		baseUrl.search = deviceIdQuery;
-	} else {
-		baseUrl.search = baseUrl.search + `&${deviceIdQuery}`;
-	}
-
-	return baseUrl.toString();
-};
-
 const initialContext: AnalyticsContext = {
 	webTracker: null,
-	urlParamsHandler,
-	trackBalenaNavigation,
+	urlParamsHandler: null,
+	trackBalenaNavigation: (url) => url,
 };
 
 const contextReducer = (state: AnalyticsContext, { type, payload }: Action) => {
 	switch (type) {
-		case StoreActions.setAnalyticsData: {
+		case AnalyticsStoreActions.setAnalyticsData: {
+			console.log('payload', payload);
+			if (!payload) {
+				return state;
+			}
+			const urlParamsHandler = new AnalyticsUrlParams();
+			const trackBalenaNavigation = (url: string) => {
+				const baseUrl = new URL(url);
+				const deviceIdQuery = urlParamsHandler.getQueryString(baseUrl);
+				if (!baseUrl.search) {
+					baseUrl.search = deviceIdQuery;
+				} else {
+					baseUrl.search = baseUrl.search + `&${deviceIdQuery}`;
+				}
+
+				return baseUrl.toString();
+			};
 			const newQuery =
-				initialContext.urlParamsHandler.consumeUrlParameters(
-					window.location.search,
-				) ?? null;
+				urlParamsHandler.consumeUrlParameters(window.location.search) ?? null;
 
 			if (newQuery != null) {
 				const newUrl =
 					window.location.pathname + (!!newQuery ? `?${newQuery}` : '');
 				window.history.replaceState(null, '', newUrl);
 			}
-			const analyticsClient =
-				payload &&
-				'endpoint' in payload &&
-				'projectName' in payload &&
-				'componentName' in payload &&
-				'componentVersion' in payload
-					? createMarketingClient({
-							endpoint: payload.endpoint,
-							projectName: payload.projectName,
-							componentName: payload.componentName,
-							deviceId: initialContext.urlParamsHandler.getPassedDeviceId(),
-							componentVersion: payload.componentVersion,
-					  })
-					: null;
+			const analyticsClient = createMarketingClient({
+				endpoint: payload.endpoint,
+				projectName: payload.projectName,
+				componentName: payload.componentName,
+				deviceId: urlParamsHandler.getPassedDeviceId(),
+				componentVersion: payload.componentVersion,
+			});
 
 			const webTracker =
 				analyticsClient && payload && 'trackerName' in payload
@@ -94,13 +86,13 @@ const contextReducer = (state: AnalyticsContext, { type, payload }: Action) => {
 					: null;
 
 			if (analyticsClient) {
-				initialContext.urlParamsHandler.setClient(analyticsClient);
+				urlParamsHandler.setClient(analyticsClient);
 			}
 
 			return {
 				...state,
 				webTracker,
-				urlParamsHandler: initialContext.urlParamsHandler,
+				urlParamsHandler,
 				trackBalenaNavigation,
 			};
 		}
@@ -110,12 +102,11 @@ const contextReducer = (state: AnalyticsContext, { type, payload }: Action) => {
 	}
 };
 
-export const AnalyticsContextProvider: React.FC<
-	React.PropsWithChildren<AnalyticsContextProviderProps>
-> = ({ children }) => {
+export const AnalyticsContextProvider: React.FC<React.PropsWithChildren> = ({
+	children,
+}) => {
 	const [state, dispatch] = useReducer(contextReducer, initialContext);
 	const value = { state, dispatch };
-
 	return (
 		<AnalyticsStateContext.Provider value={value}>
 			{children}

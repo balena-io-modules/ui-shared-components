@@ -10,13 +10,14 @@ const CookiesTemplateBanner: React.FC<CookiesBannerProps> = ({
 	...props
 }) => {
 	const [demoShow, setDemoShow] = useState(false);
+	const localStorageKey = props.productName + '-cookies-set';
 
 	return (
 		<>
 			<Button
 				onClick={() => {
 					setDemoShow(!demoShow);
-					removeFromLocalStorage('balena-cookies-set');
+					removeFromLocalStorage(localStorageKey);
 				}}
 			>
 				Show
