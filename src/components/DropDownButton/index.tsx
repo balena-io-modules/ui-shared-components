@@ -78,6 +78,7 @@ export const DropDownButton: React.FC<DropDownButtonProps> = ({
 						onClick={handleClick}
 						eventName={items[selectedIndex].eventName}
 						eventProperties={items[selectedIndex].eventProperties}
+						sx={{ pl: 4, pr: 3 }}
 					>
 						{items[selectedIndex].children}
 					</ButtonWithTracking>
@@ -89,6 +90,7 @@ export const DropDownButton: React.FC<DropDownButtonProps> = ({
 					aria-label="actions"
 					aria-haspopup="menu"
 					onClick={handleToggle}
+					sx={{ pl: 1, pr: 2 }}
 				>
 					<ArrowDropDownIcon />
 				</Button>

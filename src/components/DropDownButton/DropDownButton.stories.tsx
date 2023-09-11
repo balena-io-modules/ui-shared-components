@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { DropDownButton } from '.';
 
 const meta = {
-	title: 'Other/DropDownButton',
+	title: 'Components/DropDownButton',
 	component: DropDownButton,
 	tags: ['autodocs'],
 } satisfies Meta<typeof DropDownButton>;
