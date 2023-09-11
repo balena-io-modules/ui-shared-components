@@ -1,6 +1,10 @@
 import { Box, Button, Drawer, Link, Switch, Typography } from '@mui/material';
 import { useCallback, useState } from 'react';
 import { getFromLocalStorage, setToLocalStorage } from '../../utils/storage';
+import {
+	CookiesStoreActions,
+	useCookiesContext,
+} from '../../contexts/CookiesContext';
 
 interface Dictionary<T> {
 	[key: string]: T;
@@ -16,7 +20,6 @@ export interface Cookie {
 export interface CookiesBannerProps {
 	show: boolean;
 	productName: string;
-	cookies: Dictionary<Cookie>;
 	onChange?: (cookies: Dictionary<Cookie>) => void;
 	onClose?: (cookies: Dictionary<Cookie>) => void;
 }
@@ -24,10 +27,11 @@ export interface CookiesBannerProps {
 export const CookiesBanner = ({
 	show,
 	productName,
-	cookies,
 	onChange,
 	onClose,
 }: CookiesBannerProps) => {
+	const { state: cookies, dispatch: dispatchCookiesState } =
+		useCookiesContext();
 	const [showCustomizeView, setShowCustomizeView] = useState(false);
 	const [cookieValues, setCookieValues] = useState<Dictionary<boolean>>(
 		Object.fromEntries(
@@ -66,8 +70,12 @@ export const CookiesBanner = ({
 			newCookies[cookieKey].value = false;
 		}
 		setToLocalStorage(localStorageKey, newCookies);
+		dispatchCookiesState({
+			type: CookiesStoreActions.setCookies,
+			payload: newCookies,
+		});
 		onClose?.(newCookies);
-	}, [localStorageKey, cookies, onClose]);
+	}, [cookies, localStorageKey, dispatchCookiesState, onClose]);
 
 	const localStorageCookies = getFromLocalStorage(localStorageKey);
 

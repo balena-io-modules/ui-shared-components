@@ -1,6 +1,6 @@
 import {
 	AnalyticsUrlParams,
-	createMarketingClient,
+	Client,
 	createWebTracker,
 	WebTracker,
 } from 'analytics-client';
@@ -11,11 +11,8 @@ export enum AnalyticsStoreActions {
 }
 
 type AnalyticsActionPayload = {
-	endpoint: string;
-	projectName: string;
-	componentName: string;
-	componentVersion: string;
 	trackerName: string;
+	createAnalyticsClient: (urlParamsHandler: AnalyticsUrlParams) => Client;
 } | null;
 
 type Action = {
@@ -26,6 +23,7 @@ type Action = {
 type Dispatch = (action: Action) => void;
 
 type AnalyticsContext = {
+	analyticsClient: Client | null;
 	webTracker: WebTracker | null;
 	urlParamsHandler: AnalyticsUrlParams | null;
 	trackBalenaNavigation: (url: string) => string;
@@ -40,6 +38,7 @@ const AnalyticsStateContext = createContext<
 >(undefined);
 
 const initialContext: AnalyticsContext = {
+	analyticsClient: null,
 	webTracker: null,
 	urlParamsHandler: null,
 	trackBalenaNavigation: (url) => url,
@@ -48,7 +47,6 @@ const initialContext: AnalyticsContext = {
 const contextReducer = (state: AnalyticsContext, { type, payload }: Action) => {
 	switch (type) {
 		case AnalyticsStoreActions.setAnalyticsData: {
-			console.log('payload', payload);
 			if (!payload) {
 				return state;
 			}
@@ -72,13 +70,7 @@ const contextReducer = (state: AnalyticsContext, { type, payload }: Action) => {
 					window.location.pathname + (!!newQuery ? `?${newQuery}` : '');
 				window.history.replaceState(null, '', newUrl);
 			}
-			const analyticsClient = createMarketingClient({
-				endpoint: payload.endpoint,
-				projectName: payload.projectName,
-				componentName: payload.componentName,
-				deviceId: urlParamsHandler.getPassedDeviceId(),
-				componentVersion: payload.componentVersion,
-			});
+			const analyticsClient = payload.createAnalyticsClient(urlParamsHandler);
 
 			const webTracker =
 				analyticsClient && payload && 'trackerName' in payload
@@ -91,6 +83,7 @@ const contextReducer = (state: AnalyticsContext, { type, payload }: Action) => {
 
 			return {
 				...state,
+				analyticsClient,
 				webTracker,
 				urlParamsHandler,
 				trackBalenaNavigation,
@@ -102,9 +95,9 @@ const contextReducer = (state: AnalyticsContext, { type, payload }: Action) => {
 	}
 };
 
-export const AnalyticsContextProvider: React.FC<React.PropsWithChildren> = ({
-	children,
-}) => {
+export const AnalyticsContextProvider: React.FC<
+	React.PropsWithChildren<{}>
+> = ({ children }) => {
 	const [state, dispatch] = useReducer(contextReducer, initialContext);
 	const value = { state, dispatch };
 	return (
