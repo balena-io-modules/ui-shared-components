@@ -1,4 +1,17 @@
 - commits:
+    - subject: Fix CookiesBanner exports, fix AnalyticsContext and add requied prop
+        (#19)
+      hash: 7296791097d24c5007df425942ae5371787fd4aa
+      body: |
+        Change-type: patcFix CookiesBanner export and add requied
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Andrea Rosci
+  version: 0.5.2
+  title: ""
+  date: 2023-09-11T11:03:10.177Z
+- commits:
     - subject: Fix CookiesBanner export and add requied (#18)
       hash: 595326dce8cd9a665b55e267d0130cf71dfd5178
       body: |
