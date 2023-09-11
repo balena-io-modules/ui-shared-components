@@ -26,5 +26,10 @@ export {
 	useAnalyticsContext,
 	AnalyticsStoreActions,
 } from './contexts/AnalyticsContext';
+export {
+	CookiesContextProvider,
+	useCookiesContext,
+	CookiesStoreActions,
+} from './contexts/CookiesContext';
 export * as Material from '@mui/material';
 export * as IconsMaterial from '@mui/icons-material';
