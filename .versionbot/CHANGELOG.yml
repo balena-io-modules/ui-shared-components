@@ -1,4 +1,15 @@
 - commits:
+    - subject: Add CookiesContext and fix AnalyticsContext (#21)
+      hash: 9e9296ae55921240313ca0be952b893e4f69be6a
+      body: ""
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: Andrea Rosci
+  version: 0.6.0
+  title: ""
+  date: 2023-09-11T21:12:13.873Z
+- commits:
     - subject: Fix CookiesBanner exports, fix AnalyticsContext and add requied prop
         (#19)
       hash: 7296791097d24c5007df425942ae5371787fd4aa
