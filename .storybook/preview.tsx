@@ -21,13 +21,7 @@ const preview: Preview = {
 			</ThemeProvider>
 		),
 		(Story) => (
-			<AnalyticsContextProvider
-				endpoint={''}
-				projectName={''}
-				componentName={''}
-				componentVersion={''}
-				trackerName={''}
-			>
+			<AnalyticsContextProvider>
 				<Story />
 			</AnalyticsContextProvider>
 		),

@@ -29,27 +29,36 @@ export const CookiesBanner = ({
 	onClose,
 }: CookiesBannerProps) => {
 	const [showCustomizeView, setShowCustomizeView] = useState(false);
+	const [cookieValues, setCookieValues] = useState<Dictionary<boolean>>(
+		Object.fromEntries(
+			Object.entries(cookies).map(([key, cookie]) => [key, cookie.value]),
+		),
+	);
 	const localStorageKey = productName + '-cookies-set';
 
 	const handleOnChange = useCallback(
-		(checked: boolean, key: keyof typeof cookies) => {
+		(key: keyof typeof cookies) => {
 			const newCookies = { ...cookies };
-			newCookies[key].value = checked;
-			onChange?.(newCookies);
+			setCookieValues((oldState) => {
+				newCookies[key].value = !oldState[key];
+				onChange?.(newCookies);
+				return { ...oldState, [key]: !oldState[key] };
+			});
 		},
 		[cookies, onChange],
 	);
 
 	const handleSaveOrAcceptAll = useCallback(() => {
 		const newCookies: Dictionary<Cookie> = { ...cookies };
-		if (!showCustomizeView) {
-			for (const cookieKey of Object.keys(cookies)) {
-				newCookies[cookieKey].value = true;
-			}
+
+		for (const cookieKey of Object.keys(cookies)) {
+			newCookies[cookieKey].value = !showCustomizeView
+				? true
+				: cookieValues[cookieKey];
 		}
 		setToLocalStorage(localStorageKey, newCookies);
 		onClose?.(newCookies);
-	}, [localStorageKey, showCustomizeView, cookies, onClose]);
+	}, [localStorageKey, showCustomizeView, cookieValues, cookies, onClose]);
 
 	const handleReject = useCallback(() => {
 		const newCookies: Dictionary<Cookie> = { ...cookies };
@@ -79,8 +88,8 @@ export const CookiesBanner = ({
 								</Box>
 								<Box display="flex">
 									<Switch
-										checked={cookie.value}
-										onChange={(_event, checked) => handleOnChange(checked, key)}
+										checked={cookieValues[key]}
+										onChange={() => handleOnChange(key)}
 										disabled={cookie.required}
 									/>
 								</Box>
