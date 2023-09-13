@@ -1,4 +1,15 @@
 - commits:
+    - subject: Remove Cookies context (#22)
+      hash: 56c77fcfaae5e1128ef8ace73beed8ddf9b08e7b
+      body: ""
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: Andrea Rosci
+  version: 0.7.0
+  title: ""
+  date: 2023-09-13T15:34:15.726Z
+- commits:
     - subject: Add CookiesContext and fix AnalyticsContext (#21)
       hash: 9e9296ae55921240313ca0be952b893e4f69be6a
       body: ""
