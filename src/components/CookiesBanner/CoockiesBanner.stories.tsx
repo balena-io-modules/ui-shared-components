@@ -46,5 +46,20 @@ export const Default: Story = {
 	args: {
 		show: false,
 		productName: 'ui-shared-components',
+		cookies: {
+			marketing: {
+				title: 'Marketing',
+				description:
+					'We use cookies to get marketing info from the traffic in our platform',
+				value: false,
+				required: true,
+			},
+			analytics: {
+				title: 'Analytics',
+				description:
+					'We use cookies to get analytics from the traffic in our platform',
+				value: false,
+			},
+		},
 	},
 };
