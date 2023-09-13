@@ -1,15 +1,28 @@
 import { Box, Button, Drawer, Link, Switch, Typography } from '@mui/material';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { getFromLocalStorage, setToLocalStorage } from '../../utils/storage';
-import {
-	CookiesStoreActions,
-	useCookiesContext,
-} from '../../contexts/CookiesContext';
+
+const deleteMatchingCookies = (stringsToDelete: string[]) => {
+	const cookies = document.cookie.split(';');
+
+	for (const cookie of cookies) {
+		const trimmedCookie = cookie.trim();
+		const eqPos = trimmedCookie.indexOf('=');
+		const name = eqPos > -1 ? trimmedCookie.substr(0, eqPos) : trimmedCookie;
+
+		for (const str of stringsToDelete) {
+			if (name.includes(str)) {
+				document.cookie =
+					name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/';
+				break;
+			}
+		}
+	}
+};
 
 interface Dictionary<T> {
 	[key: string]: T;
 }
-
 export interface Cookie {
 	title: string;
 	description: string;
@@ -19,34 +32,35 @@ export interface Cookie {
 
 export interface CookiesBannerProps {
 	show: boolean;
+	cookies: Dictionary<Cookie>;
 	productName: string;
+	removeCookies?: string[];
+	onInit?: (cookies?: Dictionary<Cookie>) => void;
 	onChange?: (cookies: Dictionary<Cookie>) => void;
 	onClose?: (cookies: Dictionary<Cookie>) => void;
 }
 
 export const CookiesBanner = ({
 	show,
+	cookies,
 	productName,
+	removeCookies,
+	onInit,
 	onChange,
 	onClose,
 }: CookiesBannerProps) => {
-	const { state: cookies, dispatch: dispatchCookiesState } =
-		useCookiesContext();
 	const [showCustomizeView, setShowCustomizeView] = useState(false);
-	const [cookieValues, setCookieValues] = useState<Dictionary<boolean>>(
-		Object.fromEntries(
-			Object.entries(cookies).map(([key, cookie]) => [key, cookie.value]),
-		),
-	);
+	const [internalCookies, setInternalCookies] =
+		useState<CookiesBannerProps['cookies']>(cookies);
 	const localStorageKey = productName + '-cookies-set';
 
 	const handleOnChange = useCallback(
 		(key: keyof typeof cookies) => {
 			const newCookies = { ...cookies };
-			setCookieValues((oldState) => {
-				newCookies[key].value = !oldState[key];
+			setInternalCookies((oldState) => {
+				newCookies[key].value = !oldState[key].value;
 				onChange?.(newCookies);
-				return { ...oldState, [key]: !oldState[key] };
+				return { ...oldState, ...newCookies };
 			});
 		},
 		[cookies, onChange],
@@ -58,11 +72,11 @@ export const CookiesBanner = ({
 		for (const cookieKey of Object.keys(cookies)) {
 			newCookies[cookieKey].value = !showCustomizeView
 				? true
-				: cookieValues[cookieKey];
+				: internalCookies[cookieKey].value;
 		}
 		setToLocalStorage(localStorageKey, newCookies);
 		onClose?.(newCookies);
-	}, [localStorageKey, showCustomizeView, cookieValues, cookies, onClose]);
+	}, [localStorageKey, showCustomizeView, internalCookies, cookies, onClose]);
 
 	const handleReject = useCallback(() => {
 		const newCookies: Dictionary<Cookie> = { ...cookies };
@@ -70,17 +84,23 @@ export const CookiesBanner = ({
 			newCookies[cookieKey].value = false;
 		}
 		setToLocalStorage(localStorageKey, newCookies);
-		dispatchCookiesState({
-			type: CookiesStoreActions.setCookies,
-			payload: newCookies,
-		});
+		setInternalCookies(newCookies);
 		onClose?.(newCookies);
-	}, [cookies, localStorageKey, dispatchCookiesState, onClose]);
+	}, [cookies, localStorageKey, onClose]);
 
-	const localStorageCookies = getFromLocalStorage(localStorageKey);
+	const localStorageCookies: Dictionary<Cookie> | undefined =
+		getFromLocalStorage(localStorageKey);
+
+	useEffect(() => {
+		onInit?.(localStorageCookies);
+	}, [localStorageCookies, onInit]);
 
 	if (!show || !!localStorageCookies) {
 		return null;
+	}
+
+	if (removeCookies?.length && document.cookie) {
+		deleteMatchingCookies(removeCookies);
 	}
 
 	return (
@@ -88,7 +108,7 @@ export const CookiesBanner = ({
 			<Box display="flex" flexDirection="column" p={4}>
 				{showCustomizeView ? (
 					<Box display="flex" flexDirection="column">
-						{Object.entries(cookies).map(([key, cookie]) => (
+						{Object.entries(internalCookies).map(([key, cookie]) => (
 							<Box display="flex" alignItems="center" mb={3} key={key}>
 								<Box display="flex" flexDirection="column" width="90%">
 									<Typography variant="h5">{cookie.title}</Typography>
@@ -96,7 +116,7 @@ export const CookiesBanner = ({
 								</Box>
 								<Box display="flex">
 									<Switch
-										checked={cookieValues[key]}
+										checked={cookie.value}
 										onChange={() => handleOnChange(key)}
 										disabled={cookie.required}
 									/>

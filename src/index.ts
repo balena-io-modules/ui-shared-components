@@ -4,7 +4,7 @@ export { AnimatedText } from './components/AnimatedText';
 export type { ButtonWithTrackingProps } from './components/ButtonWithTracking';
 export { ButtonWithTracking } from './components/ButtonWithTracking';
 export { Code } from './components/Code';
-export type { CookiesBannerProps } from './components/CookiesBanner';
+export type { CookiesBannerProps, Cookie } from './components/CookiesBanner';
 export { CookiesBanner } from './components/CookiesBanner';
 export type { CollapsedListProps } from './components/CollapsedList';
 export { CollapsedList } from './components/CollapsedList';
@@ -26,10 +26,5 @@ export {
 	useAnalyticsContext,
 	AnalyticsStoreActions,
 } from './contexts/AnalyticsContext';
-export {
-	CookiesContextProvider,
-	useCookiesContext,
-	CookiesStoreActions,
-} from './contexts/CookiesContext';
 export * as Material from '@mui/material';
 export * as IconsMaterial from '@mui/icons-material';

@@ -9,7 +9,6 @@ import { createContext, useContext, useReducer } from 'react';
 export enum AnalyticsStoreActions {
 	setAnalyticsData = 'set_analytics_data',
 }
-
 type AnalyticsActionPayload = {
 	trackerName: string;
 	createAnalyticsClient: (urlParamsHandler: AnalyticsUrlParams) => Client;
@@ -47,7 +46,7 @@ const initialContext: AnalyticsContext = {
 const contextReducer = (state: AnalyticsContext, { type, payload }: Action) => {
 	switch (type) {
 		case AnalyticsStoreActions.setAnalyticsData: {
-			if (!payload) {
+			if (!payload || state.analyticsClient) {
 				return state;
 			}
 			const urlParamsHandler = new AnalyticsUrlParams();
