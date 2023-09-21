@@ -18,6 +18,8 @@ export type { RouterLinkWithTrackingProps } from './components/RouterLinkWithTra
 export { RouterLinkWithTracking } from './components/RouterLinkWithTracking';
 export type { MUILinkWithTrackingProps } from './components/MUILinkWithTracking';
 export { MUILinkWithTracking } from './components/MUILinkWithTracking';
+export type { DialogWithCloseButtonProps } from './components/DialogWithCloseButton';
+export { DialogWithCloseButton } from './components/DialogWithCloseButton';
 export { Map } from './components/Map';
 export { Markdown } from './components/Markdown';
 export { Truncate } from './components/Truncate';

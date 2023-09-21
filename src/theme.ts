@@ -256,6 +256,29 @@ export const theme = createTheme({
 				},
 			},
 		},
+		MuiDialogTitle: {
+			styleOverrides: {
+				root: {
+					padding: '24px',
+					fontSize: '24px',
+				},
+			},
+		},
+		MuiDialogContent: {
+			styleOverrides: {
+				root: {
+					padding: '0px 24px',
+					margin: '0px 0px 24px',
+				},
+			},
+		},
+		MuiDialogActions: {
+			styleOverrides: {
+				root: {
+					padding: '0px 24px 24px',
+				},
+			},
+		},
 		MuiCard: {
 			styleOverrides: {
 				root: {
