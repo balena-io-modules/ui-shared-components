@@ -1,4 +1,15 @@
 - commits:
+    - subject: Add DialogWithCloseButton component and Dialog styling
+      hash: 68ed815ab89b36f589f5af734244b3cb2e9a3b4d
+      body: ""
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: myarmolinsky
+  version: 0.8.0
+  title: ""
+  date: 2023-09-21T20:22:06.022Z
+- commits:
     - subject: Remove Cookies context (#22)
       hash: 56c77fcfaae5e1128ef8ace73beed8ddf9b08e7b
       body: ""
