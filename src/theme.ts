@@ -208,7 +208,7 @@ export const theme = createTheme({
 	palette: {
 		secondary: {
 			light: '#8F9297',
-			main: '#3C3E42',
+			main: '#fff',
 			dark: '#0C0C0C',
 			contrastText: '#F4F4F4',
 		},
@@ -217,6 +217,7 @@ export const theme = createTheme({
 			light: '#CAF0FF',
 			main: '#00AEEF',
 			dark: '#2A506F',
+			contrastText: '#FFFFFF',
 		},
 		customYellow: {
 			xlight: '#F8DD88',
@@ -241,7 +242,7 @@ export const theme = createTheme({
 		},
 		text: {
 			primary: '#2A506F',
-			secondary: '#3C3E42',
+			secondary: '#527699',
 			tertiary: '#8F9297',
 		},
 	},
@@ -394,12 +395,17 @@ export const theme = createTheme({
 		},
 		MuiButton: {
 			styleOverrides: {
-				root: {
+				root: ({ theme }) => ({
 					boxShadow: 'none',
 					borderRadius: '24px',
-					paddingLeft: '32px',
-					paddingRight: '32px',
-				},
+					paddingLeft: '20px',
+					paddingRight: '20px',
+					fontSize: theme.typography.body1.fontSize,
+					// TODO: remove once we migrate buttons
+					'&:hover': {
+						boxShadow: 'none',
+					},
+				}),
 				outlined: {
 					textTransform: 'none',
 				},
@@ -415,6 +421,14 @@ export const theme = createTheme({
 				},
 			},
 		},
+		// This is needed for RJSForm. If it gives any problem, we can remove this rule and override the behavior using the ArrayField field.
+		MuiPaper: {
+			styleOverrides: {
+				root: {
+					boxShadow: 'none',
+				},
+			},
+		},
 		MuiTooltip: {
 			styleOverrides: {
 				tooltip: {
@@ -422,6 +436,37 @@ export const theme = createTheme({
 				},
 				arrow: {
 					color: 'black',
+				},
+			},
+		},
+		MuiFormControl: {
+			defaultProps: {
+				variant: 'outlined',
+			},
+		},
+		MuiOutlinedInput: {
+			defaultProps: {
+				notched: false,
+			},
+			styleOverrides: {
+				root: {
+					legend: {
+						// We should be able to remove this but there is a css override somewhere that
+						// set the fieldset > legend max-width to 100%, and this invalidate the notched: false rule for some inputs.
+						maxWidth: 0,
+					},
+				},
+			},
+		},
+		MuiInputLabel: {
+			defaultProps: {
+				shrink: true,
+			},
+			styleOverrides: {
+				root: {
+					fontSize: 12,
+					transform: 'none',
+					position: 'relative',
 				},
 			},
 		},
