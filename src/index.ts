@@ -5,6 +5,8 @@ export type { ButtonWithTrackingProps } from './components/ButtonWithTracking';
 export { ButtonWithTracking } from './components/ButtonWithTracking';
 export { Code } from './components/Code';
 export type { CookiesBannerProps, Cookie } from './components/CookiesBanner';
+export { RJSForm } from './components/Form';
+export type { RJSFormProps } from './components/Form';
 export { CookiesBanner } from './components/CookiesBanner';
 export type { CollapsedListProps } from './components/CollapsedList';
 export { CollapsedList } from './components/CollapsedList';
