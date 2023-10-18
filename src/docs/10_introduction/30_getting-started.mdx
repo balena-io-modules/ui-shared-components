@@ -1,0 +1,42 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Introduction / Getting started" />
+
+# Getting started
+
+## Develop locally
+
+### Requirements
+
+- A basic knowledge of git. For an overview on how git works, check out this guide by Atlassian: [https://www.atlassian.com/git](https://www.atlassian.com/git).
+- If you are not familiar with git or the command line, you can use Github Desktop: https://desktop.github.com/](https://desktop.github.com/). It provides an easy-to-use interface on top of git.
+- A code editor. You can use VS Code: [https://code.visualstudio.com/](https://code.visualstudio.com/).
+
+### Run
+
+- Install Node (use the LTS version, not the current one): [https://nodejs.org/en](https://nodejs.org/en)
+- Clone the repository: `git clone git@github.com:balena-io-modules/ui-shared-components.git`
+- Move into the directory: `cd ui-shared-components`
+- Install dependencies: `npm install`
+- Run the Storybook instance: `npm start`
+- Storybook should open in your browser. Any change you make in the codebase will automatically reload the
+
+### Publishing your changes
+
+- Pull the latest code on the `master` branch
+- Create a new branch
+- Commit your changes in this branch. Make sure you add the change type by leaving an empty line below your commit message and adding `Change-type: minor` or `Change-type: patch`.
+- When you're ready, go to the repository on Github. You will be prompted to create a pull request. Once its done, you can either ask for review or self certify by adding a comment in the discussion containing the text "I self-certify!".
+
+## Add an image
+
+- Add the file to the `public/` repository
+- Add an image tag inside your MDX file with its `src` attr pointing to the file path _omitting the `public/` path_.
+
+Example: you add a file called `my_image.png` in a `public/images/docs/` folder. In the MDX file, you can display it this way:
+
+```jsx
+<img src="images/docs/my_image.png" width="200" height="150" />
+```
+
+Notice that the `public` folder has been omitted in the URL.
