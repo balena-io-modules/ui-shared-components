@@ -20,6 +20,9 @@ export type { MUILinkWithTrackingProps } from './components/MUILinkWithTracking'
 export { MUILinkWithTracking } from './components/MUILinkWithTracking';
 export type { DialogWithCloseButtonProps } from './components/DialogWithCloseButton';
 export { DialogWithCloseButton } from './components/DialogWithCloseButton';
+export type { VirtualizedAutocompleteProps } from './components/VirtualizedAutocomplete';
+export type { VirtualizedAutocompleteWithPaginationProps } from './components/VirtualizedAutocomplete';
+export { VirtualizedAutocomplete } from './components/VirtualizedAutocomplete';
 export { Map } from './components/Map';
 export { Markdown } from './components/Markdown';
 export { Truncate } from './components/Truncate';
