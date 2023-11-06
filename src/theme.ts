@@ -247,6 +247,54 @@ export const theme = createTheme({
 	},
 	spacing: [0, 4, 8, 16, 32, 64, 128],
 	components: {
+		MuiAlert: {
+			styleOverrides: {
+				root: {
+					fontSize: '1rem',
+					border: 'solid 1px',
+					a: {
+						color: 'inherit',
+						textDecoration: 'underline',
+						fontWeight: 'bold',
+						'&:hover': {
+							color: 'inherit',
+							textDecoration: 'none',
+						},
+					},
+					'.MuiPaper-rounded': {
+						borderRadius: '10px',
+					},
+				},
+				standardInfo: {
+					borderColor: '#81D1F9',
+					backgroundColor: '#E1F4FE',
+					color: '#0B3F75',
+				},
+				standardSuccess: {
+					borderColor: '#A1E0A0',
+					backgroundColor: '#E7F8E7',
+					color: '#0E4D00',
+				},
+				standardWarning: {
+					borderColor: '#FDCA7E',
+					backgroundColor: '#FFF3DF',
+					color: '#B23D00',
+				},
+				standardError: {
+					borderColor: '#F3ADB0',
+					backgroundColor: '#FEEBEF',
+					color: '#8D111A',
+				},
+			},
+		},
+		MuiAlertTitle: {
+			styleOverrides: {
+				root: {
+					fontWeight: 'bold',
+					marginBottom: 0,
+				},
+			},
+		},
 		MuiAvatar: {
 			styleOverrides: {
 				root: {
