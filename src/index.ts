@@ -33,3 +33,4 @@ export {
 } from './contexts/AnalyticsContext';
 export * as Material from '@mui/material';
 export * as IconsMaterial from '@mui/icons-material';
+export { enqueueSnackbar, closeSnackbar } from 'notistack';
