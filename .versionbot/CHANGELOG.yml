@@ -1,4 +1,36 @@
 - commits:
+    - subject: Add Alert stories
+      hash: 2af15894803dc402627596f25a8ecd58b4a94299
+      body: ""
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: Jonathan Berger
+    - subject: Add SnackbarProvider component
+      hash: b7334bb098a246faabdaf7df468bf30579ea7af8
+      body: ""
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: myarmolinsky
+    - subject: Add `notistack` dependency
+      hash: 7f79fde18e2ecfc591e84512283d6e1cdf477462
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: myarmolinsky
+    - subject: Add style overrides for MUI Alert
+      hash: 2729a1befe0013fabeefae99f5d863b9c7f9cfab
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: myarmolinsky
+  version: 0.10.0
+  title: ""
+  date: 2023-11-07T19:59:13.056Z
+- commits:
     - subject: Add VirtualizedAutocomplete component
       hash: 27ffacf4121980828f332f8add18d7af72f36f35
       body: ""
