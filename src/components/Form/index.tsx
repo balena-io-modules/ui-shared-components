@@ -1,13 +1,10 @@
 import Form from '@rjsf/mui';
-<<<<<<< HEAD
 import ajvValidator from '@rjsf/validator-ajv8';
-=======
-import ajvValidator from '@rjsf/validator-ajv6';
->>>>>>> Add form component
 import { FormProps as RjsFormProps } from '@rjsf/core';
 import { Box, BoxProps, Button, ButtonProps } from '@mui/material';
 import { PasswordWidget } from './Widgets/PasswordWidget';
 import { SelectWidget } from './Widgets/SelectWidget';
+import { FileWidget } from './Widgets/FileWidget';
 import { Fragment } from 'react';
 import { ObjectFieldTemplate } from './FieldTemplates/ObjectFieldTemplate';
 import { IChangeEvent } from '@rjsf/core';
@@ -32,6 +29,7 @@ const internalWidgets: {
 } = {
 	PasswordWidget,
 	SelectWidget,
+	FileWidget,
 };
 
 export interface RJSFormProps
