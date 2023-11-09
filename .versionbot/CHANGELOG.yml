@@ -1,4 +1,15 @@
 - commits:
+    - subject: Add form component
+      hash: 8e431f736c1444d594c4a8d00678af5cf1bcaee1
+      body: ""
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: JSReds
+  version: 0.11.0
+  title: ""
+  date: 2023-11-09T12:19:34.470Z
+- commits:
     - subject: Add Alert stories
       hash: 2af15894803dc402627596f25a8ecd58b4a94299
       body: ""
