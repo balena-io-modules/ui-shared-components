@@ -18,7 +18,7 @@ export const SelectWidget = ({
 	options,
 	required,
 }: WidgetProps) => {
-	const change = ({ target: { value } }: any) => {
+	const change = (_event: any, { value }: any) => {
 		return onChange(value === '' ? options.emptyValue : value);
 	};
 
@@ -58,7 +58,6 @@ export const SelectWidget = ({
 				}}
 				disabled={disabled}
 				options={selectOptions}
-				isOptionEqualToValue={(option, value) => option.value === value.value}
 				getOptionLabel={(option) => option.label}
 				getOptionDisabled={(option) => option.disabled}
 				renderInput={(params) => <TextField {...params} />}
