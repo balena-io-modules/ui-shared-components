@@ -1,4 +1,15 @@
 - commits:
+    - subject: Fix Autocomplete widget selection
+      hash: 783ac4bf9058009b73291b7a2551c20f1eab77db
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Andrea Rosci
+  version: 0.11.1
+  title: ""
+  date: 2023-11-13T16:07:41.045Z
+- commits:
     - subject: Add form component
       hash: 8e431f736c1444d594c4a8d00678af5cf1bcaee1
       body: ""
