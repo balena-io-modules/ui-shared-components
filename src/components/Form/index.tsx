@@ -6,6 +6,22 @@ import { PasswordWidget } from './Widgets/PasswordWidget';
 import { SelectWidget } from './Widgets/SelectWidget';
 import { Fragment } from 'react';
 import { ObjectFieldTemplate } from './FieldTemplates/ObjectFieldTemplate';
+import { IChangeEvent } from '@rjsf/core';
+import {
+	FieldTemplateProps,
+	WidgetProps,
+	RJSFValidationError,
+	UiSchema,
+	FormValidation,
+} from '@rjsf/utils';
+export type {
+	IChangeEvent,
+	FieldTemplateProps,
+	WidgetProps,
+	RJSFValidationError,
+	UiSchema,
+	FormValidation,
+};
 
 const internalWidgets: {
 	[k: string]: any;
@@ -32,7 +48,6 @@ export const RJSForm: React.FC<React.PropsWithChildren<RJSFormProps>> = ({
 	actionButtons,
 	validator = ajvValidator,
 	widgets,
-	fields,
 	children,
 	ref,
 	sx,
@@ -41,8 +56,9 @@ export const RJSForm: React.FC<React.PropsWithChildren<RJSFormProps>> = ({
 	templates,
 	...otherProps
 }) => {
+	// paddingY is resolving an outline glitch that is truncated when inside a container.
 	return (
-		<Box sx={sx} onFocus={onFocus} onBlur={onBlur}>
+		<Box sx={{ paddingY: '1px', ...sx }} onFocus={onFocus} onBlur={onBlur}>
 			<Form
 				ref={ref}
 				validator={validator}
