@@ -1,4 +1,15 @@
 - commits:
+    - subject: Export missing types and fix tooltip arrow
+      hash: 9953c8a4749190f332147da3a3a29c3fa2ce7587
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Andrea Rosci
+  version: 0.11.2
+  title: ""
+  date: 2023-11-14T12:58:47.623Z
+- commits:
     - subject: Fix Autocomplete widget selection
       hash: 783ac4bf9058009b73291b7a2551c20f1eab77db
       body: ""
