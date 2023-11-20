@@ -458,6 +458,15 @@ export const theme = createTheme({
 						// set the fieldset > legend max-width to 100%, and this invalidate the notched: false rule for some inputs.
 						maxWidth: 0,
 					},
+					'[list]::-webkit-calendar-picker-indicator': {
+						display: 'none!important',
+					},
+					'[list]::-moz-calendar-picker-indicator': {
+						display: 'none!important',
+					},
+					'[list]::-ms-clear': {
+						display: 'none!important',
+					},
 				},
 			},
 		},
