@@ -15,14 +15,20 @@ import {
 import { Input } from '@mui/base/Input';
 import type { WidgetProps } from '@rjsf/utils';
 
-export interface OnFileReadSuccessParams {
-	dataUrl: string;
-	uploadedFile: File;
-}
+// We need to forward uploadErrors onChange because RJSF does not support widget modifying
+// the default error handler.See: https://github.com/rjsf-team/react-jsonschema-form/issues/2718
+export type OnFileReadParams =
+	| {
+			dataUrl: string;
+			uploadedFile: File;
+	  }
+	| {
+			uploadErrors: string[];
+	  };
 
 type FileWidgetProps = WidgetProps & {
-	onChange: (params?: OnFileReadSuccessParams) => void;
-	value?: OnFileReadSuccessParams | string;
+	onChange: (params?: OnFileReadParams) => void;
+	value?: OnFileReadParams | string;
 };
 
 export const FileWidget = ({ onChange, value, ...props }: FileWidgetProps) => {
@@ -36,14 +42,20 @@ export const FileWidget = ({ onChange, value, ...props }: FileWidgetProps) => {
 	const accept = uiSchema?.['ui:options']?.accept as Accept | undefined;
 	const maxSize = uiSchema?.['ui:options']?.maxSize as number | undefined;
 
-	const dataUrl = (dataUrlValue: OnFileReadSuccessParams | string) => {
-		return typeof dataUrlValue === 'string'
-			? dataUrlValue
-			: dataUrlValue.dataUrl;
+	const dataUrl = (
+		dataUrlValue: OnFileReadParams | string,
+	): string | undefined => {
+		if (typeof dataUrlValue === 'string') {
+			return dataUrlValue;
+		}
+
+		if ('dataUrl' in dataUrlValue) {
+			return dataUrlValue.dataUrl;
+		}
 	};
 
-	const isImage = (value: OnFileReadSuccessParams | string) => {
-		return dataUrl(value).startsWith('data:image/');
+	const isImage = (value: OnFileReadParams | string) => {
+		return dataUrl(value)?.startsWith('data:image/');
 	};
 
 	const onDrop = React.useCallback(
@@ -51,19 +63,19 @@ export const FileWidget = ({ onChange, value, ...props }: FileWidgetProps) => {
 			setErrors([]);
 
 			if (fileRejections != null && fileRejections.length > 0) {
-				const errs = fileRejections[0].errors.map(
+				const uploadErrors = fileRejections[0].errors.map(
 					({ message }) => `${fileRejections[0].file.name}: ${message}`,
 				);
-				setErrors(errs);
-				return onChange();
+				setErrors(uploadErrors);
+				return onChange({ uploadErrors });
 			}
 
 			acceptedFiles.forEach((file) => {
 				const reader = new FileReader();
 				reader.onerror = () => {
-					const err = [`Failed to upload ${file.name}`];
-					onChange();
-					setErrors(err);
+					const uploadErrors = [`Failed to upload ${file.name}`];
+					setErrors(uploadErrors);
+					onChange({ uploadErrors });
 				};
 				reader.onloadstart = () => setLoadingPercentage(0);
 				reader.onprogress = (event) => {
@@ -82,7 +94,7 @@ export const FileWidget = ({ onChange, value, ...props }: FileWidgetProps) => {
 				reader.readAsDataURL(file);
 			});
 		}) as NonNullable<DropzoneOptions['onDrop']>,
-		[],
+		[onChange, setLoadingPercentage, setErrors],
 	);
 
 	const { getRootProps, getInputProps, isDragActive } = useDropzone({
@@ -149,47 +161,47 @@ export const FileWidget = ({ onChange, value, ...props }: FileWidgetProps) => {
 					alignItems="center"
 					justifyContent="center"
 				>
-					<Box>
-						{value ? (
-							isImage(value) ? (
-								<Avatar
-									sx={{
-										borderRadius: 0,
-										height: '100px',
-										width: '100px',
-										backgroundSize: 'contain',
-									}}
-									src={dataUrl(value)}
-								/>
-							) : (
-								<FilePresentIcon
-									sx={{
-										fontSize: 64,
-										color: (theme) => theme.palette.grey[500],
-									}}
-								/>
-							)
-						) : (
-							<UploadFileIcon
-								sx={{ fontSize: 64, color: (theme) => theme.palette.grey[500] }}
+					{value ? (
+						isImage(value) ? (
+							<Avatar
+								sx={{
+									borderRadius: 0,
+									height: '100px',
+									width: '100px',
+									backgroundSize: 'contain',
+								}}
+								src={dataUrl(value)}
 							/>
-						)}
-					</Box>
-					<Box>
-						<Typography>
-							<Typography variant="inherit">Drag and drop or</Typography>{' '}
-							<Typography variant="inherit">browse files</Typography>
-						</Typography>
-					</Box>
+						) : (
+							<FilePresentIcon
+								sx={{
+									fontSize: 64,
+									color: (theme) => theme.palette.grey[500],
+								}}
+							/>
+						)
+					) : (
+						<UploadFileIcon
+							sx={{ fontSize: 64, color: (theme) => theme.palette.grey[500] }}
+						/>
+					)}
+					<Typography ml={2}>Drag and drop or browse files</Typography>
 				</Box>
 			</Box>
 
 			{errors.length !== 0 && (
-				<List>
+				<List sx={{ listStyleType: 'disc' }}>
 					{errors.map((err) => (
-						<ListItem>
+						<ListItem
+							sx={{
+								py: 0,
+							}}
+						>
 							<ListItemText
-								sx={{ m: -2, color: (theme) => theme.palette.error.main }}
+								sx={{
+									color: (theme) => theme.palette.error.main,
+									display: 'list-item',
+								}}
 							>
 								{err}
 							</ListItemText>
@@ -197,10 +209,14 @@ export const FileWidget = ({ onChange, value, ...props }: FileWidgetProps) => {
 					))}
 				</List>
 			)}
-			{value && typeof value !== 'string' && (
-				<List>
-					<ListItem>
-						<ListItemText sx={{ m: -2 }}>
+			{value && typeof value !== 'string' && 'uploadedFile' in value && (
+				<List sx={{ listStyleType: 'disc' }}>
+					<ListItem
+						sx={{
+							py: 0,
+						}}
+					>
+						<ListItemText sx={{ display: 'list-item' }}>
 							<Typography component="span" fontWeight="bold">
 								{value.uploadedFile.name}
 							</Typography>{' '}

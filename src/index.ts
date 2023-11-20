@@ -15,7 +15,7 @@ export type {
 	UiSchema,
 	FormValidation,
 } from './components/Form';
-export type { OnFileReadSuccessParams } from './components/Form/Widgets/FileWidget';
+export type { OnFileReadParams } from './components/Form/Widgets/FileWidget';
 export { CookiesBanner } from './components/CookiesBanner';
 export type { CollapsedListProps } from './components/CollapsedList';
 export { CollapsedList } from './components/CollapsedList';
