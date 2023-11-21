@@ -50,6 +50,11 @@ export const Default: Story = {
 					title: 'Telephone',
 					minLength: 10,
 				},
+				additionalDocuments: {
+					type: 'string',
+					format: 'data-url',
+					title: 'Additional Documents',
+				},
 			},
 		},
 		uiSchema: {
@@ -90,6 +95,15 @@ export const Default: Story = {
 			telephone: {
 				'ui:options': {
 					inputType: 'tel',
+				},
+			},
+			additionalDocuments: {
+				'ui:options': {
+					accept: {
+						'image/png': ['.png'],
+						'text/plain': ['.txt'],
+					},
+					maxSize: 13400,
 				},
 			},
 		},
