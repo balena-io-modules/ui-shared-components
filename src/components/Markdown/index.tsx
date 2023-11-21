@@ -5,6 +5,7 @@ import {
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
 import { theme } from '../../theme';
+import { color } from '@balena/design-tokens';
 
 /**
  * This component will render a Markdown text.
@@ -44,7 +45,7 @@ export const Markdown: React.FC<ReactMarkdownOptions> = (props) => {
 								maxWidth: '100%',
 								whiteSpace: 'break-spaces',
 								fontFamily: 'monospace',
-								backgroundColor: '#f4f4f4',
+								backgroundColor: theme.palette.background.default,
 							}}
 							{...codeProps}
 						/>
@@ -97,8 +98,10 @@ export const Markdown: React.FC<ReactMarkdownOptions> = (props) => {
 					return (
 						<tr
 							style={{
-								backgroundColor: isNthChild2n ? '#fff' : '#f4f4f4',
-								borderTop: '1px solid #eee',
+								backgroundColor: isNthChild2n
+									? '#fff'
+									: theme.palette.background.default,
+								borderTop: `1px solid ${color.border.value}`,
 							}}
 							{...otherProps}
 						>

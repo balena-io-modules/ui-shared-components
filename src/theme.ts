@@ -5,6 +5,7 @@ import {
 	createTheme,
 } from '@mui/material';
 import { TypographyStyleOptions } from '@mui/material/styles/createTypography';
+import { color } from '@balena/design-tokens';
 
 type CustomPaletteColor = PaletteColor & { xlight: string };
 type CustomPaletteColorOptions = PaletteColorOptions & { xlight: string };
@@ -198,52 +199,86 @@ export const theme = createTheme({
 		},
 		smallText: {
 			fontSize: '12px',
-			color: '#828282',
 		},
 		link: {
 			fontSize: '13px',
-			color: '#00AEEF',
+			color: color.text.accent.value,
 		},
 	},
 	palette: {
+		primary: {
+			main: color.bg.accent.value,
+		},
 		secondary: {
-			light: '#8F9297',
-			main: '#fff',
-			dark: '#0C0C0C',
-			contrastText: '#F4F4F4',
+			light: color.palette.neutral['500'].value,
+			main: color.palette.neutral['800'].value,
+			dark: color.palette.neutral['1000'].value,
+			contrastText: color.palette.neutral['50'].value,
 		},
 		customBlue: {
-			xlight: '#E5F8FF',
-			light: '#CAF0FF',
-			main: '#00AEEF',
-			dark: '#2A506F',
+			xlight: color.palette.blue['50'].value,
+			light: color.palette.blue['75'].value,
+			main: color.palette.blue['500'].value,
+			dark: color.palette.blue['1000'].value,
 			contrastText: '#FFFFFF',
 		},
 		customYellow: {
-			xlight: '#F8DD88',
-			main: '#FFC100',
+			xlight: color.palette.yellow['700'].value,
+			main: color.palette.yellow['200'].value,
 			contrastText: '#FFFFFF',
 		},
 		customGreen: {
-			xlight: '#DBF9F6',
+			xlight: color.palette.teal['50'].value,
 		},
 		customPurple: {
-			main: '#594A83',
-			xlight: '#F2EDFF',
+			main: color.palette.purple['900'].value,
+			xlight: color.palette.purple['50'].value,
 		},
 		customGrey: {
-			xlight: '#F4F4F4',
-			light: '#8F9297',
-			main: '#3C3E42',
-			dark: '#0C0C0C',
+			xlight: color.palette.neutral['50'].value,
+			light: color.palette.neutral['500'].value,
+			main: color.palette.neutral['900'].value,
+			dark: color.palette.neutral['1000'].value,
+		},
+		error: {
+			main: color.palette.red['500'].value,
+			light: color.palette.red['300'].value,
+			dark: color.palette.red['700'].value,
+		},
+		success: {
+			main: color.palette.green['500'].value,
+			light: color.palette.green['300'].value,
+			dark: color.palette.green['700'].value,
+		},
+		warning: {
+			main: color.palette.orange['500'].value,
+			light: color.palette.orange['300'].value,
+			dark: color.palette.orange['700'].value,
+		},
+		info: {
+			main: color.palette.blue['500'].value,
+			light: color.palette.blue['300'].value,
+			dark: color.palette.blue['700'].value,
 		},
 		background: {
-			default: '#F8F9FD',
+			default: color.bg.value,
 		},
 		text: {
-			primary: '#2A506F',
-			secondary: '#527699',
-			tertiary: '#8F9297',
+			primary: color.text.value,
+			secondary: color.text.subtle.value,
+			tertiary: color.text.subtlest.value,
+		},
+		grey: {
+			50: color.palette.neutral['50'].value,
+			100: color.palette.neutral['100'].value,
+			200: color.palette.neutral['200'].value,
+			300: color.palette.neutral['300'].value,
+			400: color.palette.neutral['400'].value,
+			500: color.palette.neutral['500'].value,
+			600: color.palette.neutral['600'].value,
+			700: color.palette.neutral['700'].value,
+			800: color.palette.neutral['800'].value,
+			900: color.palette.neutral['900'].value,
 		},
 	},
 	spacing: [0, 4, 8, 16, 32, 64, 128],
@@ -267,24 +302,24 @@ export const theme = createTheme({
 					},
 				},
 				standardInfo: {
-					borderColor: '#81D1F9',
-					backgroundColor: '#E1F4FE',
-					color: '#0B3F75',
+					borderColor: color.border.value,
+					backgroundColor: color.bg.info.value,
+					color: color.text.info.value,
 				},
 				standardSuccess: {
-					borderColor: '#A1E0A0',
-					backgroundColor: '#E7F8E7',
-					color: '#0E4D00',
+					borderColor: color.border.success.value,
+					backgroundColor: color.bg.success.value,
+					color: color.text.success.value,
 				},
 				standardWarning: {
-					borderColor: '#FDCA7E',
-					backgroundColor: '#FFF3DF',
-					color: '#B23D00',
+					borderColor: color.border.warning.value,
+					backgroundColor: color.bg.warning.value,
+					color: color.text.warning.value,
 				},
 				standardError: {
-					borderColor: '#F3ADB0',
-					backgroundColor: '#FEEBEF',
-					color: '#8D111A',
+					borderColor: color.border.danger.value,
+					backgroundColor: color.bg.danger.value,
+					color: color.text.danger.value,
 				},
 			},
 		},
@@ -334,7 +369,7 @@ export const theme = createTheme({
 					borderRadius: '10px',
 					padding: '24px',
 					boxShadow: 'none',
-					border: '1px solid #E3E6F2',
+					border: `1px solid ${color.border.subtle.value}`,
 				},
 			},
 		},
@@ -382,7 +417,7 @@ export const theme = createTheme({
 		MuiDivider: {
 			styleOverrides: {
 				root: {
-					borderColor: '#DEE1EF',
+					borderColor: color.border.subtle.value,
 				},
 			},
 		},
@@ -435,10 +470,10 @@ export const theme = createTheme({
 			},
 			styleOverrides: {
 				tooltip: {
-					backgroundColor: 'black',
+					backgroundColor: color.palette.neutral['1000'].value,
 				},
 				arrow: {
-					color: 'black',
+					color: color.palette.neutral['1000'].value,
 				},
 			},
 		},
