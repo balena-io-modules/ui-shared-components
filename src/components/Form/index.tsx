@@ -6,7 +6,8 @@ import { PasswordWidget } from './Widgets/PasswordWidget';
 import { SelectWidget } from './Widgets/SelectWidget';
 import { FileWidget } from './Widgets/FileWidget';
 import { Fragment } from 'react';
-import { ObjectFieldTemplate } from './FieldTemplates/ObjectFieldTemplate';
+import { FieldTemplate } from './CustomTemplates/FieldTemplate';
+import { ObjectFieldTemplate } from './CustomTemplates/ObjectFieldTemplate';
 import { IChangeEvent } from '@rjsf/core';
 import {
 	FieldTemplateProps,
@@ -15,6 +16,7 @@ import {
 	UiSchema,
 	FormValidation,
 } from '@rjsf/utils';
+
 export type {
 	IChangeEvent,
 	FieldTemplateProps,
@@ -66,7 +68,11 @@ export const RJSForm: React.FC<React.PropsWithChildren<RJSFormProps>> = ({
 				validator={validator}
 				showErrorList={false}
 				widgets={{ ...internalWidgets, ...(widgets || {}) }}
-				templates={{ ObjectFieldTemplate, ...templates }}
+				templates={{
+					ObjectFieldTemplate,
+					FieldTemplate,
+					...templates,
+				}}
 				{...otherProps}
 			>
 				{/* RJSF need a child to not show the submit button https://github.com/rjsf-team/react-jsonschema-form/issues/1602  */}
