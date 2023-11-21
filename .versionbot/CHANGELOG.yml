@@ -1,4 +1,15 @@
 - commits:
+    - subject: Add global css and fonts to match dashboard styles
+      hash: 5fe9bfc06c603b5c62939299b24433b54c138523
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Jonathan Berger
+  version: 0.12.2
+  title: ""
+  date: 2023-11-21T14:32:09.048Z
+- commits:
     - subject: Fix primary color too light
       hash: 50551ccc3279a1f6bd26ef31f712f41625fb94b3
       body: ""
