@@ -1,4 +1,29 @@
 - commits:
+    - subject: style fix
+      hash: 270192b7c8966d99d8800f29a65bee18512eb930
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: myarmolinsky
+    - subject: Add FileWidget to RJSForm
+      hash: 80a214a7270fccfe6318a281aea0a63fdb9f1c3c
+      body: ""
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: Otávio Jacobi
+    - subject: Add form component
+      hash: baa8c8e85e3ba37a331aed078a506fe01f1d6f82
+      body: ""
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: JSReds
+  version: 0.13.0
+  title: ""
+  date: 2023-11-21T15:40:36.333Z
+- commits:
     - subject: Add global css and fonts to match dashboard styles
       hash: 5fe9bfc06c603b5c62939299b24433b54c138523
       body: ""
