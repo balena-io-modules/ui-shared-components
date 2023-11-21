@@ -18,7 +18,9 @@ export const SelectWidget = ({
 	multiple,
 	options,
 	required,
+	uiSchema,
 }: WidgetProps) => {
+	const { inputProps, ...otherUiSchema } = uiSchema ?? {};
 	const { enumOptions, enumDisabled } = options;
 	if (!Array.isArray(enumOptions)) {
 		return null;
@@ -84,7 +86,15 @@ export const SelectWidget = ({
 						? option.some((o) => o.disabled)
 						: option.disabled
 				}
-				renderInput={(params) => <TextField {...params} />}
+				renderInput={(params) => (
+					<TextField
+						{...params}
+						inputProps={{
+							...params.inputProps,
+							...(inputProps ?? {}),
+						}}
+					/>
+				)}
 				onChange={(_event, selected) => {
 					if (Array.isArray(selected)) {
 						const val = selected
@@ -106,6 +116,7 @@ export const SelectWidget = ({
 					return onChange(options.emptyValue);
 				}}
 				disableClearable
+				{...otherUiSchema}
 			/>
 		</FormControl>
 	);

@@ -83,8 +83,11 @@ export const ObjectFieldTemplate = <
 							item
 							xs={12}
 							key={index}
-							style={{ marginBottom: '10px' }}
-							{...(uiSchema?.['ui:grid']?.item ?? {})}
+							sx={{ marginBottom: '10px' }}
+							{...(uiSchema?.[element.name]?.['ui:grid']?.item ??
+								uiSchema?.['ui:grid']?.[element.name] ??
+								uiSchema?.['ui:grid']?.item ??
+								{})}
 						>
 							{element.content}
 						</Grid>
