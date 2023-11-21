@@ -1,4 +1,15 @@
 - commits:
+    - subject: Replace absolute values for colors with design tokens
+      hash: bb0b39723828ead9608b6714888102722be49b21
+      body: ""
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: Jonathan Berger
+  version: 0.12.0
+  title: ""
+  date: 2023-11-21T10:36:28.413Z
+- commits:
     - subject: Export missing types and fix tooltip arrow
       hash: 9953c8a4749190f332147da3a3a29c3fa2ce7587
       body: ""
