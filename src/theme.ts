@@ -207,7 +207,7 @@ export const theme = createTheme({
 	},
 	palette: {
 		primary: {
-			main: color.bg.accent.value,
+			main: color.palette.blue['600'].value,
 		},
 		secondary: {
 			light: color.palette.neutral['500'].value,
@@ -302,7 +302,7 @@ export const theme = createTheme({
 					},
 				},
 				standardInfo: {
-					borderColor: color.border.value,
+					borderColor: color.border.info.value,
 					backgroundColor: color.bg.info.value,
 					color: color.text.info.value,
 				},
