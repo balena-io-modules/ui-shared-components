@@ -1,3 +1,4 @@
+export type { Theme } from './theme';
 export { theme } from './theme';
 export type { AnimatedTextProps } from './components/AnimatedText';
 export { AnimatedText } from './components/AnimatedText';
@@ -6,7 +7,7 @@ export { ButtonWithTracking } from './components/ButtonWithTracking';
 export { Code } from './components/Code';
 export type { CookiesBannerProps, Cookie } from './components/CookiesBanner';
 export type { FormProps as RjsCoreFormProps } from '@rjsf/core';
-export { RJSForm } from './components/Form';
+export { RJSForm, Templates as RjsfTemplates } from './components/Form';
 export type {
 	RJSFormProps,
 	IChangeEvent,

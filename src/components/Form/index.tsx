@@ -5,7 +5,8 @@ import { Box, BoxProps, Button, ButtonProps, styled } from '@mui/material';
 import { PasswordWidget } from './Widgets/PasswordWidget';
 import { SelectWidget } from './Widgets/SelectWidget';
 import { FileWidget } from './Widgets/FileWidget';
-import { Fragment } from 'react';
+
+import { Fragment, forwardRef } from 'react';
 import { ObjectFieldTemplate } from './FieldTemplates/ObjectFieldTemplate';
 import { IChangeEvent } from '@rjsf/core';
 import {
@@ -15,14 +16,8 @@ import {
 	UiSchema,
 	FormValidation,
 } from '@rjsf/utils';
-export type {
-	IChangeEvent,
-	FieldTemplateProps,
-	WidgetProps,
-	RJSFValidationError,
-	UiSchema,
-	FormValidation,
-};
+
+import { Templates } from '@rjsf/mui';
 
 const internalWidgets: {
 	[k: string]: any;
@@ -51,53 +46,72 @@ export interface RJSFormProps
 	actionButtons?: ButtonProps[];
 }
 
-export const RJSForm: React.FC<React.PropsWithChildren<RJSFormProps>> = ({
-	hideSubmitButton,
-	submitButtonProps,
-	actionButtons,
-	validator = ajvValidator,
-	widgets,
-	children,
-	ref,
-	sx,
-	onFocus,
-	onBlur,
-	templates,
-	...otherProps
-}) => {
-	// paddingY is resolving an outline glitch that is truncated when inside a container.
-	return (
-		<FormWrapper>
-			<Box sx={{ paddingY: '1px', ...sx }} onFocus={onFocus} onBlur={onBlur}>
-				<Form
-					ref={ref}
-					validator={validator}
-					showErrorList={false}
-					widgets={{ ...internalWidgets, ...(widgets || {}) }}
-					templates={{ ObjectFieldTemplate, ...templates }}
-					{...otherProps}
-				>
-					{/* RJSF need a child to not show the submit button https://github.com/rjsf-team/react-jsonschema-form/issues/1602  */}
-					{hideSubmitButton && <Fragment />}
+export const RJSForm: React.FC<React.PropsWithChildren<RJSFormProps>> =
+	forwardRef(
+		(
+			{
+				hideSubmitButton,
+				submitButtonProps,
+				actionButtons,
+				validator = ajvValidator,
+				widgets,
+				children,
+				sx,
+				onFocus,
+				onBlur,
+				templates,
+				...otherProps
+			},
+			ref,
+		) => {
+			// paddingY is resolving an outline glitch that is truncated when inside a container.
+			return (
+				<FormWrapper>
+					<Box
+						sx={{ paddingY: '1px', ...sx }}
+						onFocus={onFocus}
+						onBlur={onBlur}
+					>
+						<Form
+							ref={ref}
+							validator={validator}
+							showErrorList={false}
+							widgets={{ ...internalWidgets, ...(widgets || {}) }}
+							templates={{ ObjectFieldTemplate, ...templates }}
+							{...otherProps}
+						>
+							{/* RJSF need a child to not show the submit button https://github.com/rjsf-team/react-jsonschema-form/issues/1602  */}
+							{hideSubmitButton && <Fragment />}
 
-					{actionButtons?.map((buttonProps) => (
-						<Button {...buttonProps} />
-					))}
+							{actionButtons?.map((buttonProps) => (
+								<Button {...buttonProps} />
+							))}
 
-					{!hideSubmitButton && (
-						<Button
-							children={'Submit'}
-							// TODO: remove once we migrate buttons
-							disableRipple
-							{...submitButtonProps}
-							color="customBlue"
-							variant="contained"
-							type="submit"
-						/>
-					)}
-					{children}
-				</Form>
-			</Box>
-		</FormWrapper>
+							{!hideSubmitButton && (
+								<Button
+									children={'Submit'}
+									// TODO: remove once we migrate buttons
+									disableRipple
+									{...submitButtonProps}
+									color="customBlue"
+									variant="contained"
+									type="submit"
+								/>
+							)}
+							{children}
+						</Form>
+					</Box>
+				</FormWrapper>
+			);
+		},
 	);
+
+export type {
+	IChangeEvent,
+	FieldTemplateProps,
+	WidgetProps,
+	RJSFValidationError,
+	UiSchema,
+	FormValidation,
 };
+export { Templates };
