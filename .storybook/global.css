@@ -1,0 +1,30 @@
+/*
+* Copy the global css file from Dashboard
+*/
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    -moz-osx-font-smoothing: grayscale;
+    font-size: 14px;
+}
+
+html,
+body {
+    font-family: 'Source Sans Pro', Helvetica, sans-serif;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+    color: var(--color-text-accent);
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: collapse;
+}

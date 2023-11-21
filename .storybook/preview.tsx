@@ -3,6 +3,8 @@ import { Preview } from '@storybook/react';
 import { AnalyticsContextProvider } from '../src/contexts/AnalyticsContext';
 import { ThemeProvider } from '@mui/material';
 import { theme } from '../src/theme';
+import '@balena/design-tokens/build/css/tokens.css';
+import './global.css';
 
 const preview: Preview = {
 	parameters: {
