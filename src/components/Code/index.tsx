@@ -7,7 +7,7 @@ import { theme } from '../../theme';
 export const Code = ({ children, ...props }: BoxProps) => (
 	<Box
 		sx={{
-			background: theme.palette.customGrey.xlight,
+			background: theme.palette.background.default,
 			borderRadius: 1,
 		}}
 		p={1}
@@ -16,7 +16,7 @@ export const Code = ({ children, ...props }: BoxProps) => (
 	>
 		<code
 			style={{
-				color: theme.palette.customGrey.dark || '#000',
+				color: theme.palette.text.primary,
 			}}
 		>
 			{children}

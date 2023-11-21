@@ -20,6 +20,9 @@ const markdown = `
 - item 1
 - item 2
 - item 3
+
+\`const test = "code block example";\`
+
 `;
 
 export const Default: Story = {
