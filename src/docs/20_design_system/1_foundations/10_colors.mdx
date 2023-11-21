@@ -1,5 +1,508 @@
-import { Meta } from '@storybook/blocks';
+import { Meta, ColorPalette, ColorItem } from '@storybook/blocks';
 
 <Meta title="Design System / Foundations / Colors" />
 
 # Colors
+
+Color is at the core of our product. It helps us make sense of the complexity and guides the user through their experience. Here you will be shown how to harness color when designing and building new features.
+
+## Our approach
+
+Central to the way we tackle color is a single principle. Colors must be defined by their purpose. It's not enough to call a color ```blue```, not even ```PrimaryBlue```, because then the question is 'Primary to what?'. Within this system, colors are instead named by their role. Within these walls, you will find colors named ```text``` or in more specific use cases ```text.warning```.
+
+## Implementation
+
+We use design tokens to implement colors within our UI. These provide a layer of abstraction that enables better maintainability, consistency, and even in the future a DARK MODE.
+
+For example, the token ```text``` used for default text in the UI, would normally appear dark grey/blue but if the user were to switch to dark mode the same token would surface an off-white. In design tokens, the underlying color referenced can change, but the token names stay the same.
+
+## The Colors
+
+Our color system has been divided into two groups Foundations and Roles. 
+
+**Foundations** provide the underlying structure of the UI, design a feature using just these would give you a perfectly functional design but lacking the context and hierarchy that color can bring. This group consists of text, icons, backgrounds, and borders that make up most of a product interface.
+
+**Roles** add visual order and give meaning to the product, these colors will help guide the user through their experience and provide context to the content. In this group, you will find tokens for content-specific roles such as ```text.success``` as well as more branded ones like ```text.accent```.That's where we've put Primary blue in old terms.
+
+### Design token anatomy
+
+To ensure that tokens can be easily understood without additional context, every design token follows the same structure. Illustrated below are the four current levels as well as a fifth planned for future adoption.
+
+![Token anatomy](?path=/public/taxonomy.png).
+
+#### Category
+
+The category aligns with the foundation category the token falls into. Right now we only have ```color``` but in subsequent cycles, we will add ```font```, ```space```,```grid``` and ```icon```.
+
+#### Property
+
+The property level highlights what element the token is being applied to. For color, this can be ```text```, ```bg```, ```border```, ```icon``` or ```status```.
+
+#### Attribute
+
+Attribute applies a quality to the property, for color these come in two groups, ```variants``` and ```roles```.
+
+**Variants**
+
+Variants help distinguish between elements with the same property whilst not adding any semantic context. These are best used to create a subtle visual hierarchy between elements in the UI.  
+
+<table style={{ width: '100%', borderCollapse: 'collapse' }}>
+  <tr>
+    <td></td>
+    <td>When no attribute is applied it is the default state for the property.</td>
+  </tr>
+  <tr>
+    <td>.subtle</td>
+    <td>Less prominent than the default but still clear and legible.</td>
+  </tr>
+  <tr>
+    <td>.subtlest</td>
+    <td>Our least prominent, use these for non-essential elements that need to fade into the background such as placeholder text.</td>
+  </tr>
+  <tr>
+    <td>.inverse</td>
+    <td>For when an element appears on an inverted background.</td>
+  </tr>
+  <tr>
+    <td>.accent</td>
+    <td>The brand accent color is to be used sparingly for the most important element visible to the user.</td>
+  </tr>
+</table>
+
+**Roles**
+
+These add visual order and give meaning to the product, these colors will help guide the user through their experience and provide context to the content. In this group, you will find tokens for content-specific roles such as ```text.success``` as well as more branded ones like ```text.accent```. That's where we've put Primary blue in old terms.
+
+<table style={{ width: '100%', borderCollapse: 'collapse' }}>
+  <tr>
+    <td>.success</td>
+    <td>Shows a positive, successful state.</td>
+  </tr>
+  <tr>
+    <td>.warning</td>
+    <td>Shows a state that requires the user's attention.</td>
+  </tr>
+  <tr>
+    <td>.danger</td>
+    <td>Shows an error, blocked status, or permanent change.</td>
+  </tr>
+  <tr>
+    <td>.info</td>
+    <td>Shows a primary, stable state or additional details.</td>
+  </tr>
+  <tr>
+    <td>.discovery</td>
+    <td>Use for additional information where 'info' is already present.</td>
+  </tr>
+  <tr>
+    <td>.finishing</td>
+    <td>Use for additional information where 'info' and 'discovery' are already present.</td>
+  </tr>
+</table>
+
+**Additional Roles**
+
+These roles have no specific context, they are used **ONLY** for the status colors, where more stages are needed.
+
+<table style={{ width: '100%', borderCollapse: 'collapse' }}>
+  <tr>
+    <td>.purple</td>
+    <td>Use for additional information where 'info' is already present.</td>
+  </tr>
+  <tr>
+    <td>.teal</td>
+    <td>Use for additional information where 'info' and 'purple' are already present.</td>
+  </tr>
+</table>
+
+#### Modifiers
+
+These levels take the existing element and modify it to give it an additional quality, currently, the only modifier we use is ```strong``` which gives extra emphasis to a property. [CHECK THIS]
+
+## The Colors
+
+### text
+
+These colors are used exclusively for all text.
+
+#### Variants
+
+<table style={{ width: '100%', borderCollapse: 'collapse' }}>
+  <tr>
+    <th style={{textAlign: 'left' }}>Color</th>
+    <th style={{textAlign: 'left' }}>Token</th>
+    <th style={{textAlign: 'left' }}>Description</th>
+  </tr>
+  <tr>
+    <td><div style={{ width: '100%', height: '100%', minHeight: '20px', backgroundColor: '#23445E' }}></div></td>
+    <td>text</td>
+    <td>The default color for all text.</td>
+  </tr>
+  <tr>
+    <td><div style={{ width: '100%', height: '100%', minHeight: '20px', backgroundColor: '#376080' }}></div></td>
+    <td>text.subtle</td>
+    <td>Text that needs to be less prominent, such as labels.</td>
+  </tr>
+  <tr>
+    <td><div style={{ width: '100%', height: '100%', minHeight: '20px', backgroundColor: '#C5DCEE' }}></div></td>
+    <td>text.subtlest</td>
+    <td>Text that needs to be far less prominent, such as placerholders.</td>
+  </tr>
+  <tr>
+    <td><div style={{ width: '100%', height: '100%', minHeight: '20px', backgroundColor: '#FFFFFF' }}></div></td>
+    <td>text.inverse</td>
+    <td>For when text is on an inverted background.</td>
+  </tr>
+  <tr>
+    <td><div style={{ width: '100%', height: '100%', minHeight: '20px', backgroundColor: '#1496E1' }}></div></td>
+    <td>text.accent</td>
+    <td>The brand accent color is to be used to make text stand out in the UI. To be used sparingly.</td>
+  </tr>
+</table>
+
+#### Roles
+
+<table style={{ width: '100%', borderCollapse: 'collapse' }}>
+  <tr>
+    <th style={{textAlign: 'left' }}>Color</th>
+    <th style={{textAlign: 'left' }}>Token</th>
+    <th style={{textAlign: 'left' }}>Description</th>
+  </tr>
+  <tr>
+    <td><div style={{ width: '100%', height: '100%', minHeight: '20px', backgroundColor: '#0B3F75' }}></div></td>
+    <td>text.info</td>
+    <td>Use to highlight a primary, stable state or for a message providing additional details.</td>
+  </tr>
+  <tr>
+    <td><div style={{ width: '100%', height: '100%', minHeight: '20px', backgroundColor: '#0E4D00' }}></div></td>
+    <td>text.success</td>
+    <td>Use for highlighting a positive, successful message.</td>
+  </tr>
+  <tr>
+    <td><div style={{ width: '100%', height: '100%', minHeight: '20px', backgroundColor: '#B23D00' }}></div></td>
+    <td>text.warning</td>
+    <td>Use for highlighting a message that requires the user's attention.</td>
+  </tr>
+  <tr>
+    <td><div style={{ width: '100%', height: '100%', minHeight: '20px', backgroundColor: '#8D111A' }}></div></td>
+    <td>text.danger</td>
+    <td>Use to emphasize an error, blocked status, or permanent change.</td>
+  </tr>
+</table>
+
+### Backgrounds
+
+Background colors apply to surfaces of all elements and components, such as pages, boxes, and overlays.
+
+#### Variants
+
+<table style={{ width: '100%', borderCollapse: 'collapse' }}>
+  <tr>
+    <th style={{ textAlign: 'left' }}>Color</th>
+    <th style={{ textAlign: 'left' }}>Token</th>
+    <th style={{ textAlign: 'left' }}>Description</th>
+  </tr>
+  <tr>
+    <td><div style={{ width: '100%', height: '100%', minHeight: '20px', backgroundColor: '#F7FAFD' }}></div></td>
+    <td>bg</td>
+    <td>The default background color for the product.</td>
+  </tr>
+  <tr>
+    <td><div style={{ width: '100%', height: '100%', minHeight: '20px', backgroundColor: '#DEEBF6' }}></div></td>
+    <td>bg.subtle</td>
+    <td>Use for providing contrast against the default background with little emphasis.</td>
+  </tr>
+  <tr>
+    <td><div style={{ width: '100%', height: '100%', minHeight: '20px', backgroundColor: '#FFFFFF' }}></div></td>
+    <td>bg.subtlest</td>
+    <td>Use for when an element needs to have additional focus without standing out from the UI.</td>
+  </tr>
+  <tr>
+    <td><div style={{ width: '100%', height: '100%', minHeight: '20px', backgroundColor: '#23445E' }}></div></td>
+    <td>bg.strong</td>
+    <td>Use for when an element needs to have additional focus and to stand out against the UI.</td>
+  </tr>
+  <tr>
+    <td><div style={{ width: '100%', height: '100%', minHeight: '20px', backgroundColor: '#182E40' }}></div></td>
+    <td>bg.strongest</td>
+    <td>Use for when an element needs to have additional focus and stand out strongly against the UI.</td>
+  </tr>
+  <tr>
+    <td><div style={{ width: '100%', height: '100%', minHeight: '20px', backgroundColor: '#C9EBFD' }}></div></td>
+    <td>bg.accent</td>
+    <td>Use for highlighting an element to stand out in the UI with no additional context.</td>
+  </tr>
+  <tr>
+    <td><div style={{ width: '100%', height: '100%', minHeight: '20px', backgroundColor: '#1496E1' }}></div></td>
+    <td>bg.accent.strong</td>
+    <td>Use for emphasizing an element to stand out in the UI with no additional context.</td>
+  </tr>
+</table>
+
+#### Roles
+
+<table style={{ width: '100%', borderCollapse: 'collapse' }}>
+  <tr>
+    <th style={{ textAlign: 'left' }}>Color</th>
+    <th style={{ textAlign: 'left' }}>Token</th>
+    <th style={{ textAlign: 'left' }}>Description</th>
+  </tr>
+    <tr>
+    <td><div style={{ width: '100%', height: '100%', minHeight: '20px', backgroundColor: '#E1F4FE' }}></div></td>
+    <td>bg.info</td>
+    <td>Use to highlight a primary, stable state or for a message providing additional details.</td>
+  </tr>
+  <tr>
+    <td><div style={{ width: '100%', height: '100%', minHeight: '20px', backgroundColor: '#1472B9' }}></div></td>
+    <td>bg.info.strong</td>
+    <td>Use to emphasize a primary, stable state or for a message providing additional details.</td>
+  </tr>
+  <tr>
+    <td><div style={{ width: '100%', height: '100%', minHeight: '20px', backgroundColor: '#E7F8E7' }}></div></td>
+    <td>bg.success</td>
+    <td>Use for highlighting a positive, successful message.</td>
+  </tr>
+  <tr>
+    <td><div style={{ width: '100%', height: '100%', minHeight: '20px', backgroundColor: '#146E00' }}></div></td>
+    <td>bg.success.strong</td>
+    <td>Use for emphasizing a positive, successful message.</td>
+  </tr>
+  <tr>
+    <td><div style={{ width: '100%', height: '100%', minHeight: '20px', backgroundColor: '#FFF3DF' }}></div></td>
+    <td>bg.warning</td>
+    <td>Use for highlighting a message that requires the user's attention.</td>
+  </tr>
+  <tr>
+    <td><div style={{ width: '100%', height: '100%', minHeight: '20px', backgroundColor: '#B23D00' }}></div></td>
+    <td>bg.warning.strong</td>
+    <td>Use for emphasizing a message that requires the user's attention.</td>
+  </tr>
+  <tr>
+    <td><div style={{ width: '100%', height: '100%', minHeight: '20px', backgroundColor: '#FEEBEF' }}></div></td>
+    <td>bg.danger</td>
+    <td>Use to highlight an error, blocked status or permanent change.</td>
+  </tr>
+  <tr>
+    <td><div style={{ width: '100%', height: '100%', minHeight: '20px', backgroundColor: '#CB262F' }}></div></td>
+    <td>bg.danger.strong</td>
+    <td>Use to emphasize an error, blocked status, or permanent change.</td>
+  </tr>
+</table>
+
+### Borders
+
+Borders are primarily used to group content or to create a visible edge to an element. They can also be used to define areas within elements, such as dividers and tables.
+
+#### Variants
+
+<table style={{ width: '100%', borderCollapse: 'collapse' }}>
+  <tr>
+    <th style={{ textAlign: 'left' }}>Color</th>
+    <th style={{ textAlign: 'left' }}>Token</th>
+    <th style={{ textAlign: 'left' }}>Description</th>
+  </tr>
+  <tr>
+    <td><div style={{ width: '100%', height: '100%', minHeight: '20px', backgroundColor: '#AECDE5' }}></div></td>
+    <td>border</td>
+    <td>Use to define the edges of an element, for example, a card.</td>
+  </tr>
+  <tr>
+    <td><div style={{ width: '100%', height: '100%', minHeight: '20px', backgroundColor: '#DEEBF6' }}></div></td>
+    <td>border.subtle</td>
+    <td>Use to define the separation between items within an element.</td>
+  </tr>
+  <tr>
+    <td><div style={{ width: '100%', height: '100%', minHeight: '20px', backgroundColor: '#507EA2' }}></div></td>
+    <td>border.strong</td>
+    <td>Use to emphasize the edges of an element, for example, a card.</td>
+  </tr>
+  <tr>
+    <td><div style={{ width: '100%', height: '100%', minHeight: '20px', backgroundColor: '#50BFF5' }}></div></td>
+    <td>border.accent</td>
+    <td>Use for highlighting an element to stand out in the UI with no additional context.</td>
+  </tr>
+  <tr>
+    <td><div style={{ width: '100%', height: '100%', minHeight: '20px', backgroundColor: '#1496E1' }}></div></td>
+    <td>border.accent.strong</td>
+    <td>Use to emphasize an element to stand out in the UI with no additional context.</td>
+  </tr>
+</table>
+
+#### Roles
+
+<table style={{ width: '100%', borderCollapse: 'collapse' }}>
+  <tr>
+    <th style={{ textAlign: 'left' }}>Color</th>
+    <th style={{ textAlign: 'left' }}>Token</th>
+    <th style={{ textAlign: 'left' }}>Description</th>
+  </tr>
+  <tr>
+    <td><div style={{ width: '100%', height: '100%', minHeight: '20px', backgroundColor: '#81D1F9' }}></div></td>
+    <td>border.info</td>
+    <td>Use to highlight a primary, stable state or for a message providing additional details.</td>
+  </tr>
+  <tr>
+    <td><div style={{ width: '100%', height: '100%', minHeight: '20px', backgroundColor: '#1496E1' }}></div></td>
+    <td>border.info.strong</td>
+    <td>Use to emphasize a primary, stable state or for a message providing additional details.</td>
+  </tr>
+  <tr>
+    <td><div style={{ width: '100%', height: '100%', minHeight: '20px', backgroundColor: '#A1E0A0' }}></div></td>
+    <td>border.success</td>
+    <td>Use to highlight a positive, successful message.</td>
+  </tr>
+  <tr>
+    <td><div style={{ width: '100%', height: '100%', minHeight: '20px', backgroundColor: '#26B12B' }}></div></td>
+    <td>border.success.strong</td>
+    <td>Use to emphasize a positive, successful message.</td>
+  </tr>
+  <tr>
+    <td><div style={{ width: '100%', height: '100%', minHeight: '20px', backgroundColor: '#FDCA7E' }}></div></td>
+    <td>border.warning</td>
+    <td>Use to highlight a message that requires the user's attention.</td>
+  </tr>
+  <tr>
+    <td><div style={{ width: '100%', height: '100%', minHeight: '20px', backgroundColor: '#F88900' }}></div></td>
+    <td>border.warning.strong</td>
+    <td>Use to emphasize a message that requires the user's attention.</td>
+  </tr>
+  <tr>
+    <td><div style={{ width: '100%', height: '100%', minHeight: '20px', backgroundColor: '#F19B9E' }}></div></td>
+    <td>border.danger</td>
+    <td>Use to highlight an error, blocked status or permanent change.</td>
+  </tr>
+  <tr>
+    <td><div style={{ width: '100%', height: '100%', minHeight: '20px', backgroundColor: '#EB373E' }}></div></td>
+    <td>border.danger.strong</td>
+    <td>Use to emphasize an error, blocked status or permanent change.</td>
+  </tr>
+</table>
+
+### icons
+
+In most cases, the icon token should match the text token but in some circumstances, you may want to make it more or less prominent.
+
+#### Variants
+
+<table style={{ width: '100%', borderCollapse: 'collapse' }}>
+  <tr>
+    <th style={{ textAlign: 'left' }}>Color</th>
+    <th style={{ textAlign: 'left' }}>Token</th>
+    <th style={{ textAlign: 'left' }}>Description</th>
+  </tr>
+  <tr>
+    <td><div style={{ width: '100%', height: '100%', minHeight: '20px', backgroundColor: '#376080' }}></div></td>
+    <td>icon</td>
+    <td>The default color for icons.</td>
+  </tr>
+  <tr>
+    <td><div style={{ width: '100%', height: '100%', minHeight: '20px', backgroundColor: '#6D9EC4' }}></div></td>
+    <td>icon.subtle</td>
+    <td>Use when the icon needs to be less prominent. Can be used alongside a different text color.</td>
+  </tr>
+  <tr>
+    <td><div style={{ width: '100%', height: '100%', minHeight: '20px', backgroundColor: '#97BDDB' }}></div></td>
+    <td>icon.subtlest</td>
+    <td>Use for icons that need to blend into the background, such as placeholders.</td>
+  </tr>
+  <tr>
+    <td><div style={{ width: '100%', height: '100%', minHeight: '20px', backgroundColor: '#FFFFFF' }}></div></td>
+    <td>icon.inverse</td>
+    <td>For when the icon is on an Inverted background. Note color differs for text.inverse</td>
+  </tr>
+  <tr>
+    <td><div style={{ width: '100%', height: '100%', minHeight: '20px', backgroundColor: '#1883CD' }}></div></td>
+    <td>icon.accent</td>
+    <td>Use for highlighting an icon to stand out in the UI with no additional context.</td>
+  </tr>
+</table>
+
+#### Roles
+
+<table style={{ width: '100%', borderCollapse: 'collapse' }}>
+  <tr>
+    <th style={{ textAlign: 'left' }}>Color</th>
+    <th style={{ textAlign: 'left' }}>Token</th>
+    <th style={{ textAlign: 'left' }}>Description</th>
+  </tr>
+    <tr>
+    <td><div style={{ width: '100%', height: '100%', minHeight: '20px', backgroundColor: '#1883CD' }}></div></td>
+    <td>icon.info</td>
+    <td>Use it to highlight a primary, stable state or to provide additional details.</td>
+  </tr>
+  <tr>
+    <td><div style={{ width: '100%', height: '100%', minHeight: '20px', backgroundColor: '#219F1E' }}></div></td>
+    <td>icon.success</td>
+    <td>Use for highlighting a positive, successful icon.</td>
+  </tr>
+  <tr>
+    <td><div style={{ width: '100%', height: '100%', minHeight: '20px', backgroundColor: '#F27901' }}></div></td>
+    <td>icon.warning</td>
+    <td>Use for highlighting an icon that requires the user's attention.</td>
+  </tr>
+  <tr>
+    <td><div style={{ width: '100%', height: '100%', minHeight: '20px', backgroundColor: '#D82D36' }}></div></td>
+    <td>icon.danger</td>
+    <td>Use to highlight an error, blocked status, or permanent change.</td>
+  </tr>
+</table>
+
+### Status Colors
+
+Status colors are used to fill elements with a solid color to show the status of an element dictated by the attribute role.
+
+<table style={{ width: '100%', borderCollapse: 'collapse' }}>
+  <tr>
+    <th style={{ textAlign: 'left' }}>Color</th>
+    <th style={{ textAlign: 'left' }}>Token</th>
+    <th style={{ textAlign: 'left' }}>Description</th>
+  </tr>
+  <tr>
+    <td><div style={{ width: '100%', height: '100%', minHeight: '20px', backgroundColor: '#DEEBF6' }}></div></td>
+    <td>status.inactive</td>
+    <td>Use for showing a state which isn't currently active.</td>
+  </tr>
+  <tr>
+    <td><div style={{ width: '100%', height: '100%', minHeight: '20px', backgroundColor: '#2AC134' }}></div></td>
+    <td>status.success</td>
+    <td>Use for showing a positive, successful state.</td>
+  </tr>
+  <tr>
+    <td><div style={{ width: '100%', height: '100%', minHeight: '20px', backgroundColor: '#FC9500' }}></div></td>
+    <td>status.warning</td>
+    <td>Use for showing a state that requires the user's attention.</td>
+  </tr>
+  <tr>
+    <td><div style={{ width: '100%', height: '100%', minHeight: '20px', backgroundColor: '#FA423E' }}></div></td>
+    <td>status.danger</td>
+    <td>Use to show an error or blocked state.</td>
+  </tr>
+  <tr>
+    <td><div style={{ width: '100%', height: '100%', minHeight: '20px', backgroundColor: '#21A4F0' }}></div></td>
+    <td>status.info</td>
+    <td>Use to highlight a neutral or primary, stable state.</td>
+  </tr>
+  <tr>
+    <td><div style={{ width: '100%', height: '100%', minHeight: '20px', backgroundColor: '#8767EE' }}></div></td>
+    <td>status.purple</td>
+    <td>Use to highlight a neutral state where 'info' is already present.</td>
+  </tr>
+  <tr>
+    <td><div style={{ width: '100%', height: '100%', minHeight: '20px', backgroundColor: '#29C1C2' }}></div></td>
+    <td>status.teal</td>
+    <td>Use to highlight a neutral state where 'info' and 'purple' are already present.</td>
+  </tr>
+</table>
+
+## Best Practices
+
+A selection of best practices when designing with color. This is not an exhaustive list but will be updated as new cases arise.
+
+### Text
+
+- Use ```text.info``` for links **NOT** ```text.accent``` - we know they're the same blue but they might not always be, context is everything!
+
+### Backgrounds
+
+- when using a background color role, such as ```bg.warning``` **DO** use the corresponding text role, in this case ```text.warning```
+- when using bg.emphasis on any ```bg.[role].strong``` **ONLY** use ```text.inverse```
