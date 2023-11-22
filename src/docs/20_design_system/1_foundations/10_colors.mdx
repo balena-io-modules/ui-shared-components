@@ -28,7 +28,7 @@ Our color system has been divided into two groups Foundations and Roles.
 
 To ensure that tokens can be easily understood without additional context, every design token follows the same structure. Illustrated below are the four current levels as well as a fifth planned for future adoption.
 
-![Token anatomy](?path=/public/taxonomy.png).
+![Token anatomy](/images/anatomy.png).
 
 #### Category
 
@@ -408,7 +408,7 @@ In most cases, the icon token should match the text token but in some circumstan
   <tr>
     <td><div style={{ width: '100%', height: '100%', minHeight: '20px', backgroundColor: '#FFFFFF' }}></div></td>
     <td>icon.inverse</td>
-    <td>For when the icon is on an Inverted background. Note color differs for text.inverse</td>
+    <td>For when the icon is on an Inverted background.</td>
   </tr>
   <tr>
     <td><div style={{ width: '100%', height: '100%', minHeight: '20px', backgroundColor: '#1883CD' }}></div></td>
@@ -494,15 +494,14 @@ Status colors are used to fill elements with a solid color to show the status of
   </tr>
 </table>
 
-## Best Practices
+## Examples
 
-A selection of best practices when designing with color. This is not an exhaustive list but will be updated as new cases arise.
+A selection of examples of color tokens in use. Note, all examples display with background color ```bg``` for accuracy.
 
-### Text
+### Buttons
 
-- Use ```text.info``` for links **NOT** ```text.accent``` - we know they're the same blue but they might not always be, context is everything!
+![Buttons](/images/examples-button.png)
 
-### Backgrounds
+### Alerts
 
-- when using a background color role, such as ```bg.warning``` **DO** use the corresponding text role, in this case ```text.warning```
-- when using bg.emphasis on any ```bg.[role].strong``` **ONLY** use ```text.inverse```
+![Alerts](/images/examples-alerts.png).
