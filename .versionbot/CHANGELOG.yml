@@ -1,4 +1,22 @@
 - commits:
+    - subject: Removes bullets from FileWidget error
+      hash: 80b36b9658ff4a125a68d633117dc438335ad5a8
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Otávio Jacobi
+    - subject: Expose FileWidget subtypings
+      hash: 905c60cb51845ac07eb43cf4be61c92b1d8fb013
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Otávio Jacobi
+  version: 0.13.1
+  title: ""
+  date: 2023-11-22T14:36:14.262Z
+- commits:
     - subject: style fix
       hash: 270192b7c8966d99d8800f29a65bee18512eb930
       body: ""
