@@ -15,16 +15,18 @@ import {
 import { Input } from '@mui/base/Input';
 import type { WidgetProps } from '@rjsf/utils';
 
+export interface OnFileReadSuccessParams {
+	dataUrl: string;
+	uploadedFile: File;
+}
+
+export interface OnFileReadErrorParams {
+	uploadErrors: string[];
+}
+
 // We need to forward uploadErrors onChange because RJSF does not support widget modifying
 // the default error handler.See: https://github.com/rjsf-team/react-jsonschema-form/issues/2718
-export type OnFileReadParams =
-	| {
-			dataUrl: string;
-			uploadedFile: File;
-	  }
-	| {
-			uploadErrors: string[];
-	  };
+export type OnFileReadParams = OnFileReadSuccessParams | OnFileReadErrorParams;
 
 type FileWidgetProps = WidgetProps & {
 	onChange: (params?: OnFileReadParams) => void;
@@ -200,10 +202,9 @@ export const FileWidget = ({ onChange, value, ...props }: FileWidgetProps) => {
 							<ListItemText
 								sx={{
 									color: (theme) => theme.palette.error.main,
-									display: 'list-item',
 								}}
 							>
-								{err}
+								<Typography fontSize="0.75rem">{err}</Typography>
 							</ListItemText>
 						</ListItem>
 					))}

@@ -5,6 +5,7 @@ export type { ButtonWithTrackingProps } from './components/ButtonWithTracking';
 export { ButtonWithTracking } from './components/ButtonWithTracking';
 export { Code } from './components/Code';
 export type { CookiesBannerProps, Cookie } from './components/CookiesBanner';
+export type { FormProps as RjsCoreFormProps } from '@rjsf/core';
 export { RJSForm } from './components/Form';
 export type {
 	RJSFormProps,
@@ -15,7 +16,11 @@ export type {
 	UiSchema,
 	FormValidation,
 } from './components/Form';
-export type { OnFileReadParams } from './components/Form/Widgets/FileWidget';
+export type {
+	OnFileReadParams,
+	OnFileReadSuccessParams,
+	OnFileReadErrorParams,
+} from './components/Form/Widgets/FileWidget';
 export { CookiesBanner } from './components/CookiesBanner';
 export type { CollapsedListProps } from './components/CollapsedList';
 export { CollapsedList } from './components/CollapsedList';
