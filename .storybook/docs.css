@@ -1,0 +1,10 @@
+.code {
+    font-family: 'Ubuntu Mono', monospace;
+    font-size: 14px;
+    color: var(--color-text-info);
+    background-color: var(--color-bg-info);
+    border-radius: 4px;
+    padding: 4px;
+    margin: 0 4px;
+    white-space: nowrap;
+}

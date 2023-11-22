@@ -5,6 +5,7 @@ import { ThemeProvider } from '@mui/material';
 import { theme } from '../src/theme';
 import '@balena/design-tokens/build/css/tokens.css';
 import './global.css';
+import './docs.css';
 
 const preview: Preview = {
 	parameters: {
