@@ -202,10 +202,9 @@ export const FileWidget = ({ onChange, value, ...props }: FileWidgetProps) => {
 							<ListItemText
 								sx={{
 									color: (theme) => theme.palette.error.main,
-									display: 'list-item',
 								}}
 							>
-								{err}
+								<Typography fontSize="0.75rem">{err}</Typography>
 							</ListItemText>
 						</ListItem>
 					))}
