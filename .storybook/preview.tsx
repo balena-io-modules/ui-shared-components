@@ -25,7 +25,7 @@ const preview: Preview = {
 		},
 		options: {
 			storySort: {
-				order: ['Introduction', 'Design System', 'Mui Components', 'Other'],
+				order: ['Introduction', 'Foundations', 'Mui Components', 'Other'],
 			},
 		},
 	},
