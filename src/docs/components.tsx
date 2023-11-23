@@ -43,8 +43,8 @@ export const colorRow = (
 			</td>
 			<td>{description}</td>
 			<td>
-				<code className="code">{nameSeparatedWithDots}.value</code> <br />{' '}
-				<code className="code">var(--{nameSeparatedWithDashes})</code>
+				<code>{nameSeparatedWithDots}.value</code> <br />{' '}
+				<code>var(--{nameSeparatedWithDashes})</code>
 			</td>
 		</tr>
 	);

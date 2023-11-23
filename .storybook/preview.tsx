@@ -6,10 +6,17 @@ import { theme } from '../src/theme';
 import '@balena/design-tokens/build/css/tokens.css';
 import './global.css';
 import './docs.css';
+import { balenaTheme } from './manager';
 
 const preview: Preview = {
 	parameters: {
+		backgrounds: {
+			disable: true,
+		},
 		actions: { argTypesRegex: '^on[A-Z].*' },
+		docs: {
+			theme: balenaTheme,
+		},
 		controls: {
 			matchers: {
 				color: /(background|color)$/i,
