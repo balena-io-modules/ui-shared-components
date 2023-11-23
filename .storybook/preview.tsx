@@ -23,6 +23,11 @@ const preview: Preview = {
 				date: /Date$/,
 			},
 		},
+		options: {
+			storySort: {
+				order: ['Introduction', 'Design System', 'Mui Components', 'Other'],
+			},
+		},
 	},
 	decorators: [
 		(Story) => (

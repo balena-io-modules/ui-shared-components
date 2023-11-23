@@ -53,7 +53,7 @@ Content
  */
 
 #storybook-docs .sbdocs-content {
-    max-width: 60rem;
+    max-width: 55rem;
 }
 
 #storybook-docs .sbdocs :where(p:not(.sb-anchor, .sb-unstyled, .sb-unstyled p)),

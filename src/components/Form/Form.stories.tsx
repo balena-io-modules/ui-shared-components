@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { RJSForm } from '.';
 
 const meta = {
-	title: 'Other/RJSForm',
+	title: 'Mui Components/Form',
 	component: RJSForm,
 	tags: ['autodocs'],
 } satisfies Meta<typeof RJSForm>;
