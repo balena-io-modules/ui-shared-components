@@ -1,6 +1,6 @@
 import { Meta } from '@storybook/blocks';
 import { color } from '@balena/design-tokens';
-import { colorRow, ColorTable } from '../../components';
+import { ColorRow, ColorTable } from '../../utils';
 
 <Meta title="Design System / Foundations / Colors" />
 
@@ -136,20 +136,20 @@ These colors are used exclusively for all text.
 #### Variants
 
 <ColorTable>
-	{colorRow(color.text, 'The default color for all text.')}
-	{colorRow(color.text.subtle, 'Text that needs to be less prominent, such as labels.')}
-	{colorRow(color.text.subtlest, 'Text that needs to be far less prominent, such as placerholders.')}
-	{colorRow(color.text.inverse, 'Use when text is on an inverted background.')}
-	{colorRow(color.text.accent, 'The brand accent color is to be used to make text stand out in the UI. To be used sparingly.')}
+	<ColorRow token={color.text} description="The default color for all text." />
+	<ColorRow token={color.text.subtle} description="ext that needs to be less prominent, such as labels." />
+	<ColorRow token={color.text.subtlest} description="ext that needs to be far less prominent, such as placerholders." />
+	<ColorRow token={color.text.inverse} description="se when text is on an inverted background." />
+	<ColorRow token={color.text.accent} description="he brand accent color is to be used to make text stand out in the UI. To be used sparingly." />
 </ColorTable>
 
 #### Roles
 
 <ColorTable>
-	{colorRow(color.text.info, 'Use to highlight a primary, stable state or for a message providing additional details.')}
-	{colorRow(color.text.success, 'Use to highlight a positive, successful message.')}
-	{colorRow(color.text.warning, 'Use to highlight a message that requires the user\'s attention.')}
-	{colorRow(color.text.danger, 'Use to emphasize an error, blocked status, or permanent change.')}
+	<ColorRow token={color.text.info} description="se to highlight a primary, stable state or for a message providing additional details." />
+	<ColorRow token={color.text.success} description="se to highlight a positive, successful message." />
+	<ColorRow token={color.text.warning} description="Use to highlight a message that requires the user's attention." />
+	<ColorRow token={color.text.danger} description="Use to emphasize an error, blocked status, or permanent change." />
 </ColorTable>
 
 ### Backgrounds
@@ -159,26 +159,26 @@ Background colors apply to surfaces of all elements and components, such as page
 #### Variants
 
 <ColorTable>
-	{colorRow(color.bg, 'The default background color for the product.')}
-	{colorRow(color.bg.subtle, 'Use for providing contrast against the default background with little emphasis.')}
-	{colorRow(color.bg.subtlest, 'Use for when an element needs to have additional focus without standing out from the UI.')}
-	{colorRow(color.bg.strong, 'Use for when an element needs to have additional focus and to stand out against the UI.')}
-	{colorRow(color.bg.strongest, 'Use for when an element needs to have additional focus and stand out strongly against the UI.')}
-	{colorRow(color.bg.accent, 'Use to highlight an element to stand out in the UI with no additional context.')}
-	{colorRow(color.bg.accent.strong, 'Use to emphasize an element to stand out in the UI with no additional context.')}
+	<ColorRow token={color.bg} description="The default background color for the product." />
+	<ColorRow token={color.bg.subtle} description="Use for providing contrast against the default background with little emphasis." />
+	<ColorRow token={color.bg.subtlest} description="Use for when an element needs to have additional focus without standing out from the UI." />
+	<ColorRow token={color.bg.strong} description="Use for when an element needs to have additional focus and to stand out against the UI." />
+	<ColorRow token={color.bg.strongest} description="Use for when an element needs to have additional focus and stand out strongly against the UI." />
+	<ColorRow token={color.bg.accent} description="Use to highlight an element to stand out in the UI with no additional context." />
+	<ColorRow token={color.bg.accent.strong} description="Use to emphasize an element to stand out in the UI with no additional context." />
 </ColorTable>
 
 #### Roles
 
 <ColorTable>
-	{colorRow(color.bg.info, 'Use to highlight a primary, stable state or for a message providing additional details.')}
-	{colorRow(color.bg.info.strong, 'Use to emphasize a primary, stable state or for a message providing additional details.')}
-	{colorRow(color.bg.success, 'Use to highlight a positive, successful message.')}
-	{colorRow(color.bg.success.strong, 'Use to emphasize a positive, successful message.')}
-	{colorRow(color.bg.warning, 'Use to highlight a message that requires the user\'s attention.')}
-	{colorRow(color.bg.warning.strong, 'Use to emphasize a message that requires the user\'s attention.')}
-	{colorRow(color.bg.danger, 'Use to highlight an error, blocked status, or permanent change.')}
-	{colorRow(color.bg.danger.strong, 'Use to emphasize an error, blocked status, or permanent change.')}
+	<ColorRow token={color.bg.info} description="Use to highlight a primary, stable state or for a message providing additional details." />
+	<ColorRow token={color.bg.info.strong} description="Use to emphasize a primary, stable state or for a message providing additional details." />
+	<ColorRow token={color.bg.success} description="Use to highlight a positive, successful message." />
+	<ColorRow token={color.bg.success.strong} description="Use to emphasize a positive, successful message." />
+	<ColorRow token={color.bg.warning} description="Use to highlight a message that requires the user's attention." />
+	<ColorRow token={color.bg.warning.strong} description="Use to emphasize a message that requires the user's attention." />
+	<ColorRow token={color.bg.danger} description="Use to highlight an error, blocked status, or permanent change." />
+	<ColorRow token={color.bg.danger.strong} description="Use to emphasize an error, blocked status, or permanent change." />
 </ColorTable>
 
 ### Borders
@@ -188,24 +188,24 @@ Borders are primarily used to group content or to create a visible edge to an el
 #### Variants
 
 <ColorTable>
-	{colorRow(color.border, 'Use to define the edges of an element, for example, a card.')}
-	{colorRow(color.border.subtle, 'Use to define the separation between items within an element.')}
-	{colorRow(color.border.strong, 'Use to emphasize the edges of an element, for example, a card.')}
-	{colorRow(color.border.accent, 'Use to highlight an element to stand out in the UI with no additional context.')}
-	{colorRow(color.border.accent.strong, 'Use to emphasize an element to stand out in the UI with no additional context.')}
+	<ColorRow token={color.border} description="Use to define the edges of an element, for example, a card." />
+	<ColorRow token={color.border.subtle} description="Use to define the separation between items within an element." />
+	<ColorRow token={color.border.strong} description="Use to emphasize the edges of an element, for example, a card." />
+	<ColorRow token={color.border.accent} description="Use to highlight an element to stand out in the UI with no additional context." />
+	<ColorRow token={color.border.accent.strong} description="Use to emphasize an element to stand out in the UI with no additional context." />
 </ColorTable>
 
 #### Roles
 
 <ColorTable>
-	{colorRow(color.border.info, 'Use to highlight a primary, stable state or for a message providing additional details.')}
-	{colorRow(color.border.info.strong, 'Use to emphasize a primary, stable state or for a message providing additional details.')}
-	{colorRow(color.border.success, 'Use to highlight a positive, successful message.')}
-	{colorRow(color.border.success.strong, 'Use to emphasize a positive, successful message.')}
-	{colorRow(color.border.warning, 'Use to highlight a message that requires the user\'s attention.')}
-	{colorRow(color.border.warning.strong, 'Use to emphasize a message that requires the user\'s attention.')}
-	{colorRow(color.border.danger, 'Use to highlight an error, blocked status or permanent change.')}
-	{colorRow(color.border.danger.strong, 'Use to emphasize an error, blocked status or permanent change.')}
+	<ColorRow token={color.border.info} description="Use to highlight a primary, stable state or for a message providing additional details." />
+	<ColorRow token={color.border.info.strong} description="Use to emphasize a primary, stable state or for a message providing additional details." />
+	<ColorRow token={color.border.success} description="Use to highlight a positive, successful message." />
+	<ColorRow token={color.border.success.strong} description="Use to emphasize a positive, successful message." />
+	<ColorRow token={color.border.warning} description="Use to highlight a message that requires the user's attention." />
+	<ColorRow token={color.border.warning.strong} description="Use to emphasize a message that requires the user's attention." />
+	<ColorRow token={color.border.danger} description="Use to highlight an error, blocked status or permanent change." />
+	<ColorRow token={color.border.danger.strong} description="Use to emphasize an error, blocked status or permanent change." />
 </ColorTable>
 
 ### Icons
@@ -215,20 +215,20 @@ In most cases, the icon token should match the text token but in some circumstan
 #### Variants
 
 <ColorTable>
-	{colorRow(color.icon, 'The default color for icons.')}
-	{colorRow(color.icon.subtle, 'Use when the icon needs to be less prominent. Can be used alongside a different text color.')}
-	{colorRow(color.icon.subtlest, 'Use for icons that need to blend into the background, such as placeholders.')}
-	{colorRow(color.icon.inverse, 'Use when the icon is on an Inverted background.')}
-	{colorRow(color.icon.accent, 'Use to highlight an icon to stand out in the UI with no additional context.')}
+	<ColorRow token={color.icon} description="The default color for icons." />
+	<ColorRow token={color.icon.subtle} description="Use when the icon needs to be less prominent. Can be used alongside a different text color." />
+	<ColorRow token={color.icon.subtlest} description="Use for icons that need to blend into the background, such as placeholders." />
+	<ColorRow token={color.icon.inverse} description="Use when the icon is on an Inverted background." />
+	<ColorRow token={color.icon.accent} description="Use to highlight an icon to stand out in the UI with no additional context." />
 </ColorTable>
 
 #### Roles
 
 <ColorTable>
-	{colorRow(color.icon.info, 'Use to highlight a primary, stable state or to provide additional details.')}
-	{colorRow(color.icon.success, 'Use to highlight a positive, successful icon.')}
-	{colorRow(color.icon.warning, 'Use to highlight an icon that requires the user\'s attention.')}
-	{colorRow(color.icon.danger, 'Use to highlight an error, blocked status, or permanent change.')}
+	<ColorRow token={color.icon.info} description="Use to highlight a primary, stable state or to provide additional details." />
+	<ColorRow token={color.icon.success} description="Use to highlight a positive, successful icon." />
+	<ColorRow token={color.icon.warning} description="Use to highlight an icon that requires the user's attention." />
+	<ColorRow token={color.icon.danger} description="Use to highlight an error, blocked status, or permanent change." />
 </ColorTable>
 
 ### Status Colors
@@ -236,13 +236,13 @@ In most cases, the icon token should match the text token but in some circumstan
 Status colors are used to fill elements with a solid color to show the status of an element dictated by the attribute role.
 
 <ColorTable>
-	{colorRow(color.status.inactive, 'Use to show a state which isn\'t currently active.')}
-	{colorRow(color.status.success, 'Use to show a positive, successful state.')}
-	{colorRow(color.status.warning, 'Use to show a state that requires the user\'s attention.')}
-	{colorRow(color.status.danger, 'Use to show an error or blocked state.')}
-	{colorRow(color.status.info, 'Use to highlight a neutral or primary, stable state.')}
-	{colorRow(color.status.purple, 'Use to highlight a neutral state where \'info\' is already present.')}
-	{colorRow(color.status.teal, 'Use to highlight a neutral state where \'info\' and \'purple\' are already present.')}
+	<ColorRow token={color.status.inactive} description="Use to show a state which isn't currently active." />
+	<ColorRow token={color.status.success} description= 'Use to show a positive, successful state.' />
+	<ColorRow token={color.status.warning} description="Use to show a state that requires the user's attention." />
+	<ColorRow token={color.status.danger} description= 'Use to show an error or blocked state.' />
+	<ColorRow token={color.status.info} description= 'Use to highlight a neutral or primary, stable state.' />
+	<ColorRow token={color.status.purple} description="Use to highlight a neutral state where 'info' is already present." />
+	<ColorRow token={color.status.teal} description="Use to highlight a neutral state where 'info' and 'purple' are already present." />
 </ColorTable>
 
 ## Examples

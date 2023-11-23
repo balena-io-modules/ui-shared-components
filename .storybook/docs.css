@@ -61,7 +61,7 @@ Content
 #storybook-docs .sbdocs :where(td:not(.sb-anchor, .sb-unstyled, .sb-unstyled td)),
 #storybook-docs .sbdocs :where(th:not(.sb-anchor, .sb-unstyled, .sb-unstyled th)) {
     font-size: 16px;
-    line-height: 1.75;
+    line-height: 1.6;
 }
 
 #storybook-docs .sbdocs :where(pre:not(.sb-anchor, .sb-unstyled, .sb-unstyled pre)) pre,
@@ -70,10 +70,11 @@ Content
 }
 
 #storybook-docs .sbdocs :where(:not(.sb-anchor, .sb-unstyled, .sb-unstyled)) code {
-    font-size: 14px;
-    color: var(--color-text-info);
-    background-color: var(--color-bg-info);
+    font-size: 13px;
+    color: var(--color-text);
+    background-color: var(--color-bg);
     border-radius: 4px;
     padding: 4px;
     margin: 0 2px;
+    white-space: nowrap;
 }

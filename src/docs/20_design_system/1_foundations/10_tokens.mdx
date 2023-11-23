@@ -1,0 +1,53 @@
+import { Meta } from '@storybook/blocks';
+import tokens from '@balena/design-tokens/build/json/tokens.json';
+import { formatTokenName, getVariableFromTokenName } from '../../utils';
+
+<Meta title="Design System / Foundations / Design Tokens" />
+
+# Design Tokens
+
+[https://github.com/balena-io-modules/design-tokens](https://github.com/balena-io-modules/design-tokens)
+
+## What are design tokens?
+
+Design tokens are small bits of design decisions that can be used across different platforms and projects. They define the visual language of a product, and help create a consistent experience across different platforms.
+
+Practically, they serve two purposes:
+* **Be the source of truth for design decisions**: instead of using absolute values in your project, you can import this package and reference tokens in a variety of ways (currently with an ES module and CSS custom properties).
+* **Add a layer of semantics**: tokens are more descriptive and convey meaning. For example, instead of relying on abstract naming such as `primary.main` or `quartenary.lightest`, tokens convey meaning and context. Examples: `color.text.accent` or `color.bg.success.strong`.
+
+Balena design tokens come in the form of a npm package, which can be installed in your project and used in a variety of ways.
+
+For information on how to use the tokens, visit [the project repository](https://github.com/balena-io-modules/design-tokens).
+
+## Available tokens
+
+### Color
+
+<table style={{ width: '100%' }}>
+	<thead>
+	<tr>
+			<th>Token</th>
+			<th>Value</th>
+			<th>Variables</th>
+	</tr>
+	</thead>
+	<tbody>
+	{
+		tokens.filter((token) => token.type === 'color').map((token) => {
+			const tokenSeparatedWithDots = formatTokenName(token.name, '.');
+			
+			return (
+				<tr>
+					<td><strong>{tokenSeparatedWithDots}</strong></td>
+					<td><code>{token.original.value}</code></td>
+					<td>
+						<code>{getVariableFromTokenName(token.name, 'js')}</code> <br />{' '}
+						<code>{getVariableFromTokenName(token.name, 'css')}</code>
+					</td>
+				</tr>
+			);
+		})
+	}
+	</tbody>
+</table> 
