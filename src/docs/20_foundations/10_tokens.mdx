@@ -1,6 +1,6 @@
 import { Meta } from '@storybook/blocks';
 import tokens from '@balena/design-tokens/build/json/tokens.json';
-import { formatTokenName, getVariableFromTokenName } from '../utils';
+import { formatTokenName, getCategoriesFromTokens, getVariableFromTokenName } from '../utils';
 
 <Meta title="Foundations / Design Tokens" />
 
@@ -22,32 +22,39 @@ For information on how to use the tokens, visit [the project repository](https:/
 
 ## Available tokens
 
-### Color
-
-<table style={{ width: '100%' }}>
-	<thead>
-	<tr>
-			<th>Token</th>
-			<th>Value</th>
-			<th>Variables</th>
-	</tr>
-	</thead>
-	<tbody>
+<div>
 	{
-		tokens.filter((token) => token.type === 'color').map((token) => {
-			const tokenSeparatedWithDots = formatTokenName(token.name, '.');
-			
-			return (
-				<tr>
-					<td><strong>{tokenSeparatedWithDots}</strong></td>
-					<td><code>{token.original.value}</code></td>
-					<td>
-						<code>{getVariableFromTokenName(token.name, 'js')}</code> <br />{' '}
-						<code>{getVariableFromTokenName(token.name, 'css')}</code>
-					</td>
-				</tr>
-			);
-		})
+		getCategoriesFromTokens(tokens).map((category) => (
+			<div key={category}>
+				<h3>{category.charAt(0).toUpperCase() + category.slice(1)}</h3>
+				<table style={{ width: '100%' }}>
+					<thead>
+						<tr>
+							<th>Token</th>
+							<th>Value</th>
+							<th>Variables</th>
+						</tr>
+					</thead>
+					<tbody>
+						{
+							tokens.filter((token) => token.type === category).map((token) => {
+								const tokenSeparatedWithDots = formatTokenName(token.name, '.');
+								
+								return (
+									<tr key={token.name}>
+										<td><strong>{tokenSeparatedWithDots}</strong></td>
+										<td><code>{token.original.value}</code></td>
+										<td>
+											<code>{getVariableFromTokenName(token.name, 'js')}</code> <br />{' '}
+											<code>{getVariableFromTokenName(token.name, 'css')}</code>
+										</td>
+									</tr>
+								);
+							})
+						}
+					</tbody>
+				</table> 
+			</div>
+		))
 	}
-	</tbody>
-</table> 
+</div>

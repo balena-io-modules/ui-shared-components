@@ -80,7 +80,7 @@
     "prepare": "husky install",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build --docs",
-    "deploy-docs": "npm ci && storybook build && mv storybook-static build"
+    "deploy-docs": "npm ci && storybook build --docs && mv storybook-static build"
   },
   "eslintConfig": {
     "extends": [
