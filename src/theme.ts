@@ -456,14 +456,6 @@ export const theme = createTheme({
 				},
 			},
 		},
-		// This is needed for RJSForm. If it gives any problem, we can remove this rule and override the behavior using the ArrayField field.
-		MuiPaper: {
-			styleOverrides: {
-				root: {
-					boxShadow: 'none',
-				},
-			},
-		},
 		MuiTooltip: {
 			defaultProps: {
 				arrow: true,
