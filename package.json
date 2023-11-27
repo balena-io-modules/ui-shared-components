@@ -11,7 +11,7 @@
     "README.md"
   ],
   "dependencies": {
-    "@balena/design-tokens": "^0.1.1",
+    "@balena/design-tokens": "^0.2.0",
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
     "@mui/icons-material": "^5.11.16",
@@ -50,10 +50,12 @@
     "@storybook/addon-links": "^7.3.2",
     "@storybook/addon-onboarding": "^1.0.8",
     "@storybook/blocks": "^7.3.2",
+    "@storybook/manager-api": "^7.5.3",
     "@storybook/preset-create-react-app": "^7.3.2",
     "@storybook/react": "^7.3.2",
     "@storybook/react-webpack5": "^7.3.2",
     "@storybook/testing-library": "^0.2.0",
+    "@storybook/theming": "^7.5.3",
     "@types/zxcvbn": "^4.4.2",
     "babel-plugin-named-exports-order": "^0.0.2",
     "eslint-plugin-storybook": "^0.6.13",
@@ -77,8 +79,8 @@
     "lint:fix": "balena-lint --typescript --fix src",
     "prepare": "husky install",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build",
-    "deploy-docs": "npm ci && storybook build && mv storybook-static build"
+    "build-storybook": "storybook build --docs",
+    "deploy-docs": "npm ci && storybook build --docs && mv storybook-static build"
   },
   "eslintConfig": {
     "extends": [

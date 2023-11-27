@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { Alert, AlertTitle } from '@mui/material';
 
 const meta = {
-	title: 'Mui/Feedback/Alert',
+	title: 'Mui Components/Feedback/Alert',
 	component: Alert,
 	tags: ['autodocs'],
 } satisfies Meta<typeof Alert>;
