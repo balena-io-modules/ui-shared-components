@@ -1,4 +1,15 @@
 - commits:
+    - subject: Move Paper boxshadow style to the form theme
+      hash: 3d40eb4d364506bebd151009b440620b889d8c8c
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Andrea Rosci
+  version: 0.13.3
+  title: ""
+  date: 2023-11-28T13:52:54.451Z
+- commits:
     - subject: Fix click open dialog on some browsers
       hash: 803b9b21b33354429e964341fdc52ae760e826a8
       body: ""
