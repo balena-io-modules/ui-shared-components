@@ -1,7 +1,7 @@
 import Form from '@rjsf/mui';
 import ajvValidator from '@rjsf/validator-ajv8';
 import { FormProps as RjsFormProps } from '@rjsf/core';
-import { Box, BoxProps, Button, ButtonProps } from '@mui/material';
+import { Box, BoxProps, Button, ButtonProps, styled } from '@mui/material';
 import { PasswordWidget } from './Widgets/PasswordWidget';
 import { SelectWidget } from './Widgets/SelectWidget';
 import { FileWidget } from './Widgets/FileWidget';
@@ -32,6 +32,13 @@ const internalWidgets: {
 	FileWidget,
 };
 
+const FormWrapper = styled('div')({
+	// Target the Paper component within the array container
+	'& .field-array .MuiPaper-root.MuiPaper-elevation': {
+		boxShadow: 'none',
+	},
+});
+
 export interface RJSFormProps
 	extends Omit<RjsFormProps, 'validator' | 'onFocus' | 'onBlur'>,
 		Pick<BoxProps, 'sx' | 'onFocus' | 'onBlur'>,
@@ -60,35 +67,37 @@ export const RJSForm: React.FC<React.PropsWithChildren<RJSFormProps>> = ({
 }) => {
 	// paddingY is resolving an outline glitch that is truncated when inside a container.
 	return (
-		<Box sx={{ paddingY: '1px', ...sx }} onFocus={onFocus} onBlur={onBlur}>
-			<Form
-				ref={ref}
-				validator={validator}
-				showErrorList={false}
-				widgets={{ ...internalWidgets, ...(widgets || {}) }}
-				templates={{ ObjectFieldTemplate, ...templates }}
-				{...otherProps}
-			>
-				{/* RJSF need a child to not show the submit button https://github.com/rjsf-team/react-jsonschema-form/issues/1602  */}
-				{hideSubmitButton && <Fragment />}
+		<FormWrapper>
+			<Box sx={{ paddingY: '1px', ...sx }} onFocus={onFocus} onBlur={onBlur}>
+				<Form
+					ref={ref}
+					validator={validator}
+					showErrorList={false}
+					widgets={{ ...internalWidgets, ...(widgets || {}) }}
+					templates={{ ObjectFieldTemplate, ...templates }}
+					{...otherProps}
+				>
+					{/* RJSF need a child to not show the submit button https://github.com/rjsf-team/react-jsonschema-form/issues/1602  */}
+					{hideSubmitButton && <Fragment />}
 
-				{actionButtons?.map((buttonProps) => (
-					<Button {...buttonProps} />
-				))}
+					{actionButtons?.map((buttonProps) => (
+						<Button {...buttonProps} />
+					))}
 
-				{!hideSubmitButton && (
-					<Button
-						children={'Submit'}
-						// TODO: remove once we migrate buttons
-						disableRipple
-						{...submitButtonProps}
-						color="customBlue"
-						variant="contained"
-						type="submit"
-					/>
-				)}
-				{children}
-			</Form>
-		</Box>
+					{!hideSubmitButton && (
+						<Button
+							children={'Submit'}
+							// TODO: remove once we migrate buttons
+							disableRipple
+							{...submitButtonProps}
+							color="customBlue"
+							variant="contained"
+							type="submit"
+						/>
+					)}
+					{children}
+				</Form>
+			</Box>
+		</FormWrapper>
 	);
 };
