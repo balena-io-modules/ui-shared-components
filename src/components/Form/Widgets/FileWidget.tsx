@@ -12,7 +12,6 @@ import {
 	ListItem,
 	ListItemText,
 } from '@mui/material';
-import { Input } from '@mui/base/Input';
 import type { WidgetProps } from '@rjsf/utils';
 
 export interface OnFileReadSuccessParams {
@@ -104,6 +103,7 @@ export const FileWidget = ({ onChange, value, ...props }: FileWidgetProps) => {
 		maxSize,
 		accept,
 		multiple: false,
+		useFsAccessApi: false,
 		noDrag: false,
 		disabled: loadingPercentage !== undefined,
 	});
@@ -133,7 +133,7 @@ export const FileWidget = ({ onChange, value, ...props }: FileWidgetProps) => {
 				justifyContent="center"
 				{...getRootProps()}
 			>
-				<Input {...getInputProps()} />
+				<input type="file" {...getInputProps()} />
 				{loadingPercentage !== undefined && (
 					<Box
 						sx={{
