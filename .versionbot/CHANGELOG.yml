@@ -1,4 +1,15 @@
 - commits:
+    - subject: Fix click open dialog on some browsers
+      hash: 803b9b21b33354429e964341fdc52ae760e826a8
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Otávio Jacobi
+  version: 0.13.2
+  title: ""
+  date: 2023-11-28T11:12:13.747Z
+- commits:
     - subject: Removes bullets from FileWidget error
       hash: 80b36b9658ff4a125a68d633117dc438335ad5a8
       body: ""
