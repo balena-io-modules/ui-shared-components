@@ -463,6 +463,8 @@ export const theme = createTheme({
 			styleOverrides: {
 				tooltip: {
 					backgroundColor: color.palette.neutral['1000'].value,
+					// This is what we have in rendition today
+					fontSize: '12px',
 				},
 				arrow: {
 					color: color.palette.neutral['1000'].value,
