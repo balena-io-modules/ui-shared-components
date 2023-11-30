@@ -24,7 +24,7 @@ Our color system has been divided into two groups Foundations and Roles.
 
 **Foundations** provide the underlying structure of the UI, design a feature using just these would give you a perfectly functional design but lacking the context and hierarchy that color can bring. This group consists of text, icons, backgrounds, and borders that make up most of a product interface.
 
-**Roles** add visual order and give meaning to the product, these colors will help guide the user through their experience and provide context to the content. In this group, you will find tokens for content-specific roles such as ```text.success``` as well as more branded ones like ```text.accent```.That's where we've put Primary blue in old terms.
+**Roles** add visual order and give meaning to the product, these colors will help guide the user through their experience and provide context to the content. In this group, you will find tokens for content-specific roles such as ```text.success``` as well as more branded ones like ```text.accent```. That's where we've put Primary blue in old terms.
 
 ### Design token anatomy
 
@@ -46,7 +46,7 @@ Attribute applies a quality to the property, for color these come in two groups,
 
 **Variants**
 
-Variants help distinguish between elements with the same property whilst not adding any semantic context. These are best used to create a subtle visual hierarchy between elements in the UI.  
+Variants help distinguish between elements with the same property whilst not adding any semantic context. These are best used to create a subtle visual hierarchy between elements in the UI, this is where branded UI elements live with ```.accent```, what we'd call our ```primary``` color in the old lingo.
 
 <table style={{ width: '100%', borderCollapse: 'collapse' }}>
 	<tbody>
@@ -75,7 +75,7 @@ Variants help distinguish between elements with the same property whilst not add
 
 **Roles**
 
-These add visual order and give meaning to the product, these colors will help guide the user through their experience and provide context to the content. In this group, you will find tokens for content-specific roles such as ```text.success``` as well as more branded ones like ```text.accent```. That's where we've put Primary blue in old terms.
+These add visual order and give meaning to the product, these colors will help guide the user through their experience and provide context to the content. In this group, you will find tokens for content-specific roles such as ```text.success```.
 
 <table style={{ width: '100%', borderCollapse: 'collapse' }}>
 	<tbody>
@@ -125,7 +125,7 @@ These roles have no specific context, they are used **ONLY** for the status colo
 
 #### Modifiers
 
-These levels take the existing element and modify it to give it an additional quality, currently, the only modifier we use is ```strong``` which gives extra emphasis to a property.
+These levels take the existing element and modify it to give it an additional quality, currently, the only modifier we use is ```.strong``` which gives extra emphasis to a property.
 
 ## The Colors
 
@@ -137,17 +137,17 @@ These colors are used exclusively for all text.
 
 <ColorTable>
 	<ColorRow token={color.text} description="The default color for all text." />
-	<ColorRow token={color.text.subtle} description="ext that needs to be less prominent, such as labels." />
-	<ColorRow token={color.text.subtlest} description="ext that needs to be far less prominent, such as placerholders." />
-	<ColorRow token={color.text.inverse} description="se when text is on an inverted background." />
-	<ColorRow token={color.text.accent} description="he brand accent color is to be used to make text stand out in the UI. To be used sparingly." />
+	<ColorRow token={color.text.subtle} description="Text that needs to be less prominent, such as labels." />
+	<ColorRow token={color.text.subtlest} description="Text that needs to be far less prominent, such as placerholders." />
+	<ColorRow token={color.text.inverse} description="Use when text is on an inverted background." />
+	<ColorRow token={color.text.accent} description="The brand accent color is to be used to make text stand out in the UI. To be used sparingly." />
 </ColorTable>
 
 #### Roles
 
 <ColorTable>
-	<ColorRow token={color.text.info} description="se to highlight a primary, stable state or for a message providing additional details." />
-	<ColorRow token={color.text.success} description="se to highlight a positive, successful message." />
+	<ColorRow token={color.text.info} description="Use to highlight a primary, stable state or for a message providing additional details." />
+	<ColorRow token={color.text.success} description="Use to highlight a positive, successful message." />
 	<ColorRow token={color.text.warning} description="Use to highlight a message that requires the user's attention." />
 	<ColorRow token={color.text.danger} description="Use to emphasize an error, blocked status, or permanent change." />
 </ColorTable>
@@ -161,9 +161,9 @@ Background colors apply to surfaces of all elements and components, such as page
 <ColorTable>
 	<ColorRow token={color.bg} description="The default background color for the product." />
 	<ColorRow token={color.bg.subtle} description="Use for providing contrast against the default background with little emphasis." />
-	<ColorRow token={color.bg.subtlest} description="Use for when an element needs to have additional focus without standing out from the UI." />
-	<ColorRow token={color.bg.strong} description="Use for when an element needs to have additional focus and to stand out against the UI." />
-	<ColorRow token={color.bg.strongest} description="Use for when an element needs to have additional focus and stand out strongly against the UI." />
+	<ColorRow token={color.bg.subtlest} description="Use for elements that need to have additional focus without standing out from the UI." />
+	<ColorRow token={color.bg.strong} description="Use for UI elements that have a dark background, such as the sidebar." />
+	<ColorRow token={color.bg.strongest} description="Use to emphasize UI elements that have a dark background, such as the sidebar menu." />
 	<ColorRow token={color.bg.accent} description="Use to highlight an element to stand out in the UI with no additional context." />
 	<ColorRow token={color.bg.accent.strong} description="Use to emphasize an element to stand out in the UI with no additional context." />
 </ColorTable>
