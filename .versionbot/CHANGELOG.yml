@@ -1,4 +1,15 @@
 - commits:
+    - subject: Set tooltip font size to match Rendition
+      hash: 9c7f324b1fc51a11dc3b527fca5cca84295a5371
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: myarmolinsky
+  version: 0.13.4
+  title: ""
+  date: 2023-11-30T14:16:11.037Z
+- commits:
     - subject: Move Paper boxshadow style to the form theme
       hash: 3d40eb4d364506bebd151009b440620b889d8c8c
       body: ""
