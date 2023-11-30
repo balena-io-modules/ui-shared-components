@@ -1,4 +1,15 @@
 - commits:
+    - subject: Proofing amends
+      hash: abe028695080410d16d3838eb786b5e6ecc692ab
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Jon Rich
+  version: 0.13.5
+  title: ""
+  date: 2023-11-30T14:32:41.304Z
+- commits:
     - subject: Set tooltip font size to match Rendition
       hash: 9c7f324b1fc51a11dc3b527fca5cca84295a5371
       body: ""
