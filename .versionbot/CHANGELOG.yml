@@ -1,4 +1,15 @@
 - commits:
+    - subject: Add compatibility for multiple selection in the fileWidget
+      hash: ba2033caf9643583498e638a8e89872bd0e52eda
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Andrea Rosci
+  version: 0.13.6
+  title: ""
+  date: 2023-12-05T15:22:00.534Z
+- commits:
     - subject: Proofing amends
       hash: abe028695080410d16d3838eb786b5e6ecc692ab
       body: ""
