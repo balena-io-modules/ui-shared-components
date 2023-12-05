@@ -1,6 +1,5 @@
 import UploadFileIcon from '@mui/icons-material/UploadFile';
 import FilePresentIcon from '@mui/icons-material/FilePresent';
-import * as React from 'react';
 import { type Accept, type DropzoneOptions, useDropzone } from 'react-dropzone';
 import {
 	Box,
@@ -13,6 +12,7 @@ import {
 	ListItemText,
 } from '@mui/material';
 import type { WidgetProps } from '@rjsf/utils';
+import { useCallback, useState } from 'react';
 
 export interface OnFileReadSuccessParams {
 	dataUrl: string;
@@ -32,13 +32,18 @@ type FileWidgetProps = WidgetProps & {
 	value?: OnFileReadParams | string;
 };
 
-export const FileWidget = ({ onChange, value, ...props }: FileWidgetProps) => {
+export const FileWidget = ({
+	onChange,
+	value,
+	multiple,
+	...props
+}: FileWidgetProps) => {
 	const { schema, uiSchema } = props;
 
-	const [loadingPercentage, setLoadingPercentage] = React.useState<
+	const [loadingPercentage, setLoadingPercentage] = useState<
 		number | undefined
 	>(undefined);
-	const [errors, setErrors] = React.useState<string[]>([]);
+	const [errors, setErrors] = useState<string[]>([]);
 
 	const accept = uiSchema?.['ui:options']?.accept as Accept | undefined;
 	const maxSize = uiSchema?.['ui:options']?.maxSize as number | undefined;
@@ -59,8 +64,8 @@ export const FileWidget = ({ onChange, value, ...props }: FileWidgetProps) => {
 		return dataUrl(value)?.startsWith('data:image/');
 	};
 
-	const onDrop = React.useCallback(
-		((acceptedFiles, fileRejections) => {
+	const onDrop = useCallback<NonNullable<DropzoneOptions['onDrop']>>(
+		(acceptedFiles, fileRejections) => {
 			setErrors([]);
 
 			if (fileRejections != null && fileRejections.length > 0) {
@@ -70,8 +75,8 @@ export const FileWidget = ({ onChange, value, ...props }: FileWidgetProps) => {
 				setErrors(uploadErrors);
 				return onChange({ uploadErrors });
 			}
-
-			acceptedFiles.forEach((file) => {
+			const dataUrls: string[] = [];
+			acceptedFiles.forEach((file, i) => {
 				const reader = new FileReader();
 				reader.onerror = () => {
 					const uploadErrors = [`Failed to upload ${file.name}`];
@@ -83,30 +88,42 @@ export const FileWidget = ({ onChange, value, ...props }: FileWidgetProps) => {
 					setLoadingPercentage(Math.floor((100 * event.loaded) / event.total));
 				};
 				reader.onload = () => {
-					if (file != null && reader.result != null) {
+					if (typeof reader.result !== 'string' || !reader.result || !file) {
+						return;
+					}
+					const base64Data = reader.result.split(',')[1];
+					const dataUrl = `data:${file.type};name=${file.name};base64,${base64Data}`;
+					if (i === acceptedFiles.length - 1) {
 						setLoadingPercentage(undefined);
+					}
+					if (!multiple) {
 						onChange({
-							dataUrl: reader.result as string,
+							dataUrl,
 							uploadedFile: file,
 						});
+						return;
 					}
+					// NOTE: JSONSchema array data-url does not expect objects but only strings[]
+					// see: https://github.com/rjsf-team/react-jsonschema-form/blob/297dac059fdf64fd1453bebb8366f0602c722f90/packages/utils/src/schema/isFilesArray.ts#L24
+					dataUrls.push(dataUrl);
+					onChange(dataUrls);
 				};
-
 				reader.readAsDataURL(file);
 			});
-		}) as NonNullable<DropzoneOptions['onDrop']>,
-		[onChange, setLoadingPercentage, setErrors],
+		},
+		[onChange, setLoadingPercentage, setErrors, multiple],
 	);
 
-	const { getRootProps, getInputProps, isDragActive } = useDropzone({
-		onDrop,
-		maxSize,
-		accept,
-		multiple: false,
-		useFsAccessApi: false,
-		noDrag: false,
-		disabled: loadingPercentage !== undefined,
-	});
+	const { acceptedFiles, getRootProps, getInputProps, isDragActive } =
+		useDropzone({
+			onDrop,
+			maxSize,
+			accept,
+			multiple: !!multiple,
+			useFsAccessApi: false,
+			noDrag: false,
+			disabled: loadingPercentage !== undefined,
+		});
 
 	return (
 		<>
@@ -210,7 +227,7 @@ export const FileWidget = ({ onChange, value, ...props }: FileWidgetProps) => {
 					))}
 				</List>
 			)}
-			{value && typeof value !== 'string' && 'uploadedFile' in value && (
+			{acceptedFiles.map((file) => (
 				<List sx={{ listStyleType: 'disc' }}>
 					<ListItem
 						sx={{
@@ -219,13 +236,13 @@ export const FileWidget = ({ onChange, value, ...props }: FileWidgetProps) => {
 					>
 						<ListItemText sx={{ display: 'list-item' }}>
 							<Typography component="span" fontWeight="bold">
-								{value.uploadedFile.name}
+								{file.name}
 							</Typography>{' '}
-							({value.uploadedFile.type}, {value.uploadedFile.size} bytes)
+							({file.type}, {file.size} bytes)
 						</ListItemText>
 					</ListItem>
 				</List>
-			)}
+			))}
 		</>
 	);
 };
