@@ -1,4 +1,15 @@
 - commits:
+    - subject: Add DownloadImageModal component
+      hash: f1fbb83fa8ecb6b7ead84b94c07b2c9f9bd2370f
+      body: ""
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: JSReds
+  version: 0.14.0
+  title: ""
+  date: 2023-12-13T13:51:11.836Z
+- commits:
     - subject: Add compatibility for multiple selection in the fileWidget
       hash: ba2033caf9643583498e638a8e89872bd0e52eda
       body: ""
