@@ -66,6 +66,10 @@ export const CookiesBanner = ({
 		[cookies, onChange],
 	);
 
+	const [localStorageCookies, setLocalStorageCookies] = useState<
+		Dictionary<Cookie> | undefined
+	>(() => getFromLocalStorage(localStorageKey));
+
 	const handleSaveOrAcceptAll = useCallback(() => {
 		const newCookies: Dictionary<Cookie> = { ...cookies };
 
@@ -76,6 +80,7 @@ export const CookiesBanner = ({
 		}
 		setToLocalStorage(localStorageKey, newCookies);
 		onClose?.(newCookies);
+		setLocalStorageCookies(newCookies);
 	}, [localStorageKey, showCustomizeView, internalCookies, cookies, onClose]);
 
 	const handleReject = useCallback(() => {
@@ -86,14 +91,12 @@ export const CookiesBanner = ({
 		setToLocalStorage(localStorageKey, newCookies);
 		setInternalCookies(newCookies);
 		onClose?.(newCookies);
+		setLocalStorageCookies(newCookies);
 	}, [cookies, localStorageKey, onClose]);
-
-	const localStorageCookies: Dictionary<Cookie> | undefined =
-		getFromLocalStorage(localStorageKey);
 
 	useEffect(() => {
 		onInit?.(localStorageCookies);
-	}, [localStorageCookies, onInit]);
+	}, []);
 
 	if (!show || !!localStorageCookies) {
 		return null;
