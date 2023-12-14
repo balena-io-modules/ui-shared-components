@@ -1,4 +1,15 @@
 - commits:
+    - subject: "CookieBanner: Avoid calling onInit on every re-render"
+      hash: c14bb01419bbc570083e86c0f12370c638350ebf
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Thodoris Greasidis
+  version: 0.14.1
+  title: ""
+  date: 2023-12-14T08:57:30.614Z
+- commits:
     - subject: Add DownloadImageModal component
       hash: f1fbb83fa8ecb6b7ead84b94c07b2c9f9bd2370f
       body: ""
