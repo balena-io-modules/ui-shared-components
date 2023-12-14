@@ -1,4 +1,15 @@
 - commits:
+    - subject: Fix DialogTitle fontSize being overriden by h6 fontSize
+      hash: 576116ac42bff52e45a016942eb2f36a014ae11f
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: myarmolinsky
+  version: 0.14.2
+  title: ""
+  date: 2023-12-14T12:10:00.400Z
+- commits:
     - subject: "CookieBanner: Avoid calling onInit on every re-render"
       hash: c14bb01419bbc570083e86c0f12370c638350ebf
       body: ""
