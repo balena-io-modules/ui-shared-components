@@ -24,6 +24,7 @@ export const DialogWithCloseButton = ({
 						e.preventDefault();
 						e.stopPropagation();
 					}}
+					variant="inherit"
 				>
 					{title}
 					{onClose ? (
