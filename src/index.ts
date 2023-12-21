@@ -47,6 +47,8 @@ export { MUILinkWithTracking } from './components/MUILinkWithTracking';
 export type { RouterLinkWithTrackingProps } from './components/RouterLinkWithTracking';
 export { RouterLinkWithTracking } from './components/RouterLinkWithTracking';
 export { SnackbarProviderBase as SnackbarProvider } from './components/SnackbarProvider';
+export { Tooltip } from './components/Tooltip';
+export type { TooltipProps } from './components/Tooltip';
 export type { VirtualizedAutocompleteWithPaginationProps } from './components/VirtualizedAutocomplete';
 export { VirtualizedAutocomplete } from './components/VirtualizedAutocomplete';
 export { Map } from './components/Map';
