@@ -1,4 +1,15 @@
 - commits:
+    - subject: Add custom tooltip component
+      hash: a48ab4e18fa0c831135ed4a96f7cad120758ad11
+      body: ""
+      footer:
+        Change-type: major
+        change-type: major
+      author: Andrea Rosci
+  version: 1.0.0
+  title: ""
+  date: 2023-12-22T09:41:17.040Z
+- commits:
     - subject: Fix DialogTitle fontSize being overriden by h6 fontSize
       hash: 576116ac42bff52e45a016942eb2f36a014ae11f
       body: ""
