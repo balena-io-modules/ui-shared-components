@@ -1,4 +1,15 @@
 - commits:
+    - subject: Add missing ref/Grid system on RJSForm and change inputs border colors
+      hash: cb75d6813b6a38204ef5701a5751538ac31cebae
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Andrea Rosci
+  version: 1.0.1
+  title: ""
+  date: 2023-12-28T13:53:56.290Z
+- commits:
     - subject: Add custom tooltip component
       hash: a48ab4e18fa0c831135ed4a96f7cad120758ad11
       body: ""
