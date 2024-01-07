@@ -1,28 +1,34 @@
-import * as React from 'react';
+import { useMemo, useState } from 'react';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import ClickAwayListener from '@mui/material/ClickAwayListener';
 import {
 	Button,
 	ButtonGroup,
 	ButtonGroupProps,
-	Tooltip,
-	Grow,
-	Paper,
-	Popper,
 	MenuItem,
-	MenuList,
+	MenuItemProps,
+	Menu,
+	ButtonProps,
 } from '@mui/material';
-import {
-	ButtonWithTracking,
-	ButtonWithTrackingProps,
-} from '../ButtonWithTracking';
+import { ButtonWithTracking } from '../ButtonWithTracking';
+import { useAnalyticsContext } from '../../contexts/AnalyticsContext';
+import groupBy from 'lodash/groupBy';
+import flatMap from 'lodash/flatMap';
+import { KeyboardArrowDown } from '@mui/icons-material';
+import { Tooltip } from '../Tooltip';
 
-export interface DropDownButtonProps extends Omit<ButtonGroupProps, 'onClick'> {
-	items: Array<ButtonWithTrackingProps & { tooltip?: string | undefined }>;
+type MenuItemType<T> = MenuItemWithTrackingProps &
+	T & {
+		tooltip?: string | undefined;
+	};
+
+export interface DropDownButtonProps<T = unknown>
+	extends Omit<ButtonGroupProps & ButtonProps, 'onClick'> {
+	items: Array<MenuItemType<T>>;
 	selectedItemIndex?: number;
+	groupByProp?: keyof T;
 	onClick?: (
-		event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-		button: ButtonWithTrackingProps,
+		event: React.MouseEvent<HTMLButtonElement | HTMLLIElement, MouseEvent>,
+		item: MenuItemWithTrackingProps,
 	) => void;
 }
 
@@ -30,111 +36,155 @@ export interface DropDownButtonProps extends Omit<ButtonGroupProps, 'onClick'> {
  * This component implements a Dropdown button using MUI (This can be removed as soon as MUI implements it. Check
  * progress: https://mui.com/material-ui/discover-more/roadmap/#new-components)
  */
-export const DropDownButton: React.FC<DropDownButtonProps> = ({
+export const DropDownButton = <T extends unknown>({
 	items,
 	selectedItemIndex = 0,
+	groupByProp,
 	onClick,
-	...buttonGroupProps
-}) => {
-	const [open, setOpen] = React.useState(false);
-	const anchorRef = React.useRef<HTMLDivElement>(null);
-	const [selectedIndex, setSelectedIndex] = React.useState(selectedItemIndex);
+	children,
+	...buttonProps
+}: DropDownButtonProps<T>) => {
+	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+	const [selectedIndex, setSelectedIndex] = useState(selectedItemIndex);
 
-	const handleClick: React.MouseEventHandler<HTMLButtonElement> = (event) =>
-		items[selectedIndex].onClick?.(event) ||
-		onClick?.(event, items[selectedIndex]);
-
-	const handleMenuItemClick = (index: number) => {
-		setSelectedIndex(index);
-		setOpen(false);
-	};
-
-	const handleToggle = () => {
-		setOpen((prevOpen) => !prevOpen);
-	};
-
-	const handleClose = (event: Event) => {
-		if (
-			anchorRef.current &&
-			anchorRef.current.contains(event.target as HTMLElement)
-		) {
-			return;
+	// To use the groupBy pass another property on each item and define that property on groupByProp.
+	// const items = [{...menuItem, section: 'test1'}, {...menuItem, section: 'test2'}];
+	// <Dropdown groupByProp='section' .../>
+	const memoizedItems = useMemo(() => {
+		if (!groupByProp) {
+			return items;
 		}
+		const grouped = groupBy(items, (item) => item[groupByProp]);
+		const keys = Object.keys(grouped);
+		const lastKey = keys[keys.length - 1];
 
-		setOpen(false);
+		return flatMap(grouped, (value, key) => [
+			...value.map((v, index) =>
+				key !== lastKey && index === value.length - 1
+					? { ...v, divider: true }
+					: v,
+			),
+		]).filter((item) => item);
+	}, [items, groupByProp]);
+
+	const handleClick = (
+		event: React.MouseEvent<HTMLLIElement | HTMLButtonElement>,
+	) => {
+		setAnchorEl(event.currentTarget);
+		return (
+			items?.[selectedIndex]?.onClick?.(event) ??
+			onClick?.(event, items[selectedIndex])
+		);
+	};
+
+	const handleMenuItemClick = (
+		event: React.MouseEvent<HTMLLIElement | HTMLButtonElement>,
+		index: number,
+	) => {
+		setSelectedIndex(index);
+		setAnchorEl(null);
+		if (children) {
+			return (
+				items?.[index]?.onClick?.(event) ??
+				onClick?.(event, items[selectedIndex])
+			);
+		}
+	};
+
+	const handleToggle = (event: React.MouseEvent<HTMLElement>) => {
+		setAnchorEl(event.currentTarget);
 	};
 
 	return (
-		<React.Fragment>
-			<ButtonGroup
-				variant="contained"
-				ref={anchorRef}
-				aria-label="split button"
-				disableElevation
-				{...buttonGroupProps}
-			>
-				<ButtonWithTracking
-					onClick={handleClick}
-					eventName={items[selectedIndex].eventName}
-					eventProperties={items[selectedIndex].eventProperties}
-					tooltip={items[selectedIndex].tooltip}
-				>
-					{items[selectedIndex].children}
-				</ButtonWithTracking>
+		<>
+			{children ? (
 				<Button
-					size="small"
-					aria-controls={open ? 'split-button-menu' : undefined}
-					aria-expanded={open ? 'true' : undefined}
-					aria-label="actions"
-					aria-haspopup="menu"
-					onClick={handleToggle}
-					// It doesn't look good without it, hence the addition.
-					sx={(theme) => ({ pl: 2, pr: `calc(${theme.spacing(2)} + 2px)` })}
+					aria-controls={!!anchorEl ? 'dropdown' : undefined}
+					aria-expanded={!!anchorEl ? 'true' : undefined}
+					onClick={(event) => {
+						setAnchorEl(event.currentTarget);
+					}}
+					endIcon={<KeyboardArrowDown />}
+					{...(buttonProps as ButtonProps)}
 				>
-					<ArrowDropDownIcon />
+					{children}
 				</Button>
-			</ButtonGroup>
-			<Popper
-				sx={{
-					zIndex: 1,
-				}}
-				open={open}
-				anchorEl={anchorRef.current}
-				role={undefined}
-				transition
-				disablePortal
-			>
-				{({ TransitionProps, placement }) => (
-					<Grow
-						{...TransitionProps}
-						style={{
-							transformOrigin:
-								placement === 'bottom' ? 'center top' : 'center bottom',
-						}}
+			) : (
+				<ButtonGroup
+					variant="contained"
+					disableElevation
+					{...(buttonProps as ButtonGroupProps)}
+				>
+					<ButtonWithTracking
+						onClick={handleClick}
+						eventName={items[selectedIndex].eventName}
+						eventProperties={items[selectedIndex].eventProperties}
+						tooltip={items[selectedIndex].tooltip}
 					>
-						<Paper>
-							<ClickAwayListener onClickAway={handleClose}>
-								<MenuList id="split-button-menu" autoFocusItem>
-									{items.map((option, index) => (
-										<Tooltip
-											title={option.tooltip}
-											key={option.id ?? option.key ?? index}
-										>
-											<MenuItem
-												disabled={option.disabled}
-												selected={index === selectedIndex}
-												onClick={() => handleMenuItemClick(index)}
-											>
-												{option.children}
-											</MenuItem>
-										</Tooltip>
-									))}
-								</MenuList>
-							</ClickAwayListener>
-						</Paper>
-					</Grow>
-				)}
-			</Popper>
-		</React.Fragment>
+						{items[selectedIndex].children}
+					</ButtonWithTracking>
+					<Button
+						onClick={handleToggle}
+						// It doesn't look good without it, hence the addition.
+						sx={(theme) => ({ pl: 2, pr: `calc(${theme.spacing(2)} + 2px)` })}
+					>
+						<ArrowDropDownIcon />
+					</Button>
+				</ButtonGroup>
+			)}
+			<Menu
+				anchorEl={anchorEl}
+				open={!!anchorEl}
+				onClose={() => {
+					setAnchorEl(null);
+				}}
+			>
+				{memoizedItems.map((item, index) => (
+					<MenuItemWithTracking
+						{...item}
+						onClick={(event) => handleMenuItemClick(event, index)}
+					>
+						{item.children}
+					</MenuItemWithTracking>
+				))}
+			</Menu>
+		</>
+	);
+};
+
+export interface MenuItemWithTrackingProps
+	extends Omit<MenuItemProps, 'onClick'> {
+	eventName: string;
+	eventProperties?: { [key: string]: any };
+	tooltip?: string;
+	onClick?: React.MouseEventHandler<HTMLLIElement | HTMLButtonElement>;
+}
+
+/**
+ * This MenuItem will send analytics in case the analytics context is passed through the provider (AnalyticsProvider).
+ */
+export const MenuItemWithTracking: React.FC<MenuItemWithTrackingProps> = ({
+	eventName,
+	eventProperties,
+	children,
+	tooltip,
+	onClick,
+	...menuItem
+}) => {
+	const { state } = useAnalyticsContext();
+
+	const handleClick = (event: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
+		if (state.webTracker) {
+			state.webTracker.track(eventName, eventProperties);
+		}
+		onClick?.(event);
+	};
+
+	return (
+		<Tooltip title={tooltip}>
+			<MenuItem {...menuItem} onClick={handleClick}>
+				{children}
+			</MenuItem>
+		</Tooltip>
 	);
 };
