@@ -65,3 +65,5 @@ export {
 export * as Material from '@mui/material';
 export * as IconsMaterial from '@mui/icons-material';
 export { enqueueSnackbar, closeSnackbar } from 'notistack';
+export { getBoundingContainerRect } from './utils';
+export type { PartialDomRect } from './utils';
