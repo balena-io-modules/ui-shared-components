@@ -45,6 +45,8 @@ export type { LimitedRowImagesProps } from './components/LimitedRowImages';
 export { LimitedRowImages } from './components/LimitedRowImages';
 export type { MUILinkWithTrackingProps } from './components/MUILinkWithTracking';
 export { MUILinkWithTracking } from './components/MUILinkWithTracking';
+export type { OrderedListItemProps } from './components/OrderedListItem';
+export { OrderedListItem } from './components/OrderedListItem';
 export type { RouterLinkWithTrackingProps } from './components/RouterLinkWithTracking';
 export { RouterLinkWithTracking } from './components/RouterLinkWithTracking';
 export { SnackbarProviderBase as SnackbarProvider } from './components/SnackbarProvider';
