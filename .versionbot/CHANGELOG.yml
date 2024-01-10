@@ -1,4 +1,15 @@
 - commits:
+    - subject: "MUI Grid: Set the default value for `spacing` to be 2"
+      hash: d02381f707fbc16cccfae3e508714295c62de954
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: myarmolinsky
+  version: 1.1.1
+  title: ""
+  date: 2024-01-10T14:06:55.123Z
+- commits:
     - subject: Export OrderedListItem
       hash: 3fc7be548b1bd7afcfd8cd1f9b87962025f48a2c
       body: ""
