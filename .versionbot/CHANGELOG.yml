@@ -1,4 +1,15 @@
 - commits:
+    - subject: "RJSForm PasswordWidget: Lazy-load zxcvbn dependency"
+      hash: 6fbdd147b34efa39395de6c9eab67e3265199a14
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: myarmolinsky
+  version: 1.1.2
+  title: ""
+  date: 2024-01-10T16:51:31.590Z
+- commits:
     - subject: "MUI Grid: Set the default value for `spacing` to be 2"
       hash: d02381f707fbc16cccfae3e508714295c62de954
       body: ""
