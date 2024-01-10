@@ -9,7 +9,6 @@ import {
 import * as React from 'react';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { WidgetProps } from '@rjsf/utils';
-import zxcvbn from 'zxcvbn';
 
 const STRENGTH_TITLES = ['Very weak', 'Weak', 'Good', 'Strong', 'Very strong'];
 const STRENGTH_STYLES = [
@@ -30,7 +29,10 @@ const PasswordStrength = ({ password }: PasswordStrengthProps) => {
 	>();
 
 	React.useEffect(() => {
-		if (password) {
+		// @ts-expect-error If you wish to show a stength meter, you need to load and set `zxcvbn` to a window variable by yourself.
+		const zxcvbn = window.zxcvbn;
+
+		if (zxcvbn && password) {
 			try {
 				const { score } = zxcvbn(password);
 				setStrengthScore(score);
