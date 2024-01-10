@@ -542,6 +542,11 @@ export const theme = createTheme({
 			// See: https://github.com/mui/material-ui/issues/34812
 			defaultProps: { spacing: 2 },
 		},
+		MuiListItem: {
+			styleOverrides: {
+				root: { alignItems: 'flex-start' },
+			},
+		},
 	},
 });
 
