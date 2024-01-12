@@ -36,7 +36,7 @@ const FormWrapper = styled('div')({
 
 export interface RJSFormProps
 	extends Omit<RjsFormProps, 'validator' | 'onFocus' | 'onBlur'>,
-		Pick<BoxProps, 'sx' | 'onFocus' | 'onBlur'>,
+		Pick<BoxProps, 'sx' | 'onFocus' | 'onBlur' | 'onClick'>,
 		Partial<Pick<RjsFormProps, 'validator'>> {
 	/** If true, do not display the form submit button */
 	hideSubmitButton?: boolean;
@@ -59,6 +59,7 @@ export const RJSForm: React.FC<React.PropsWithChildren<RJSFormProps>> =
 				sx,
 				onFocus,
 				onBlur,
+				onClick,
 				templates,
 				...otherProps
 			},
@@ -71,6 +72,7 @@ export const RJSForm: React.FC<React.PropsWithChildren<RJSFormProps>> =
 						sx={{ paddingY: '1px', ...sx }}
 						onFocus={onFocus}
 						onBlur={onBlur}
+						onClick={onClick}
 					>
 						<Form
 							ref={ref}
