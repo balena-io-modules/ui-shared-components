@@ -1,4 +1,15 @@
 - commits:
+    - subject: Add getBoundingContainerRect util
+      hash: 3aaac363d5d8f5b1ba59eb109d0057e8ff1b4334
+      body: ""
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: Andrea Rosci
+  version: 1.2.0
+  title: ""
+  date: 2024-01-12T11:46:44.680Z
+- commits:
     - subject: "OrderedListItem: Align `flex-start`"
       hash: dd77c5bb116d7cbf959868e0a9457b5d0b7a56ea
       body: ""
