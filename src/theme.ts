@@ -12,6 +12,8 @@ type CustomPaletteColorOptions = PaletteColorOptions & { xlight: string };
 
 declare module '@mui/material/styles' {
 	interface Palette {
+		tertiary: PaletteColor;
+		quaternary: PaletteColor;
 		customBlue: CustomPaletteColor;
 		customYellow: CustomPaletteColor;
 		customGreen: CustomPaletteColor;
@@ -19,6 +21,8 @@ declare module '@mui/material/styles' {
 		customGrey: CustomPaletteColor;
 	}
 	interface PaletteOptions {
+		tertiary: PaletteColorOptions;
+		quaternary: PaletteColorOptions;
 		customBlue: CustomPaletteColorOptions;
 		customYellow: CustomPaletteColorOptions;
 		customGreen: CustomPaletteColorOptions;
@@ -61,6 +65,8 @@ declare module '@mui/material/Typography' {
 
 declare module '@mui/material/Button' {
 	interface ButtonPropsColorOverrides {
+		tertiary: true;
+		quaternary: true;
 		customBlue: true;
 		customYellow: true;
 		customGreen: true;
@@ -70,6 +76,8 @@ declare module '@mui/material/Button' {
 }
 declare module '@mui/material/ButtonGroup' {
 	interface ButtonGroupPropsColorOverrides {
+		tertiary: true;
+		quaternary: CustomPaletteColorOptions;
 		customBlue: true;
 		customYellow: true;
 		customGreen: true;
@@ -79,6 +87,8 @@ declare module '@mui/material/ButtonGroup' {
 }
 declare module '@mui/material/Badge' {
 	interface BadgePropsColorOverrides {
+		tertiary: true;
+		quaternary: CustomPaletteColorOptions;
 		customBlue: true;
 		customYellow: true;
 		customGreen: true;
@@ -89,6 +99,8 @@ declare module '@mui/material/Badge' {
 
 declare module '@mui/material/Chip' {
 	interface ChipPropsColorOverrides {
+		tertiary: true;
+		quaternary: true;
 		customBlue: true;
 		customYellow: true;
 		customGreen: true;
@@ -98,6 +110,8 @@ declare module '@mui/material/Chip' {
 }
 declare module '@mui/material/Icon' {
 	interface IconPropsColorOverrides {
+		tertiary: true;
+		quaternary: true;
 		customBlue: true;
 		customYellow: true;
 		customGreen: true;
@@ -107,6 +121,8 @@ declare module '@mui/material/Icon' {
 }
 declare module '@mui/material/IconButton' {
 	interface IconButtonPropsColorOverrides {
+		tertiary: true;
+		quaternary: true;
 		customBlue: true;
 		customYellow: true;
 		customGreen: true;
@@ -116,6 +132,8 @@ declare module '@mui/material/IconButton' {
 }
 declare module '@mui/material/Tab' {
 	interface TabPropsColorOverrides {
+		tertiary: true;
+		quaternary: true;
 		customBlue: true;
 		customYellow: true;
 		customGreen: true;
@@ -125,6 +143,8 @@ declare module '@mui/material/Tab' {
 }
 declare module '@mui/material/TextField' {
 	interface TextFieldPropsColorOverrides {
+		tertiary: true;
+		quaternary: true;
 		customBlue: true;
 		customYellow: true;
 		customGreen: true;
@@ -134,6 +154,8 @@ declare module '@mui/material/TextField' {
 }
 declare module '@mui/material/SvgIcon' {
 	interface SvgIconPropsColorOverrides {
+		tertiary: true;
+		quaternary: true;
 		customBlue: true;
 		customYellow: true;
 		customGreen: true;
@@ -214,6 +236,18 @@ export const theme = createTheme({
 			main: color.palette.neutral['800'].value,
 			dark: color.palette.neutral['1000'].value,
 			contrastText: color.palette.neutral['50'].value,
+		},
+		tertiary: {
+			light: '#5b82a7',
+			main: '#527699',
+			dark: '#456482',
+			contrastText: '#FFFFFF',
+		},
+		quaternary: {
+			main: '#DDE1f0',
+			light: '#f8f9fd',
+			dark: '#b7bed3',
+			contrastText: color.palette.neutral[1000].value,
 		},
 		customBlue: {
 			xlight: color.palette.blue['50'].value,
