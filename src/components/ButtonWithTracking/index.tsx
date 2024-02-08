@@ -1,6 +1,7 @@
 import React from 'react';
-import { Button, ButtonProps, Tooltip } from '@mui/material';
+import { Button, ButtonProps } from '@mui/material';
 import { useAnalyticsContext } from '../../contexts/AnalyticsContext';
+import { Tooltip } from '../Tooltip';
 
 export interface ButtonWithTrackingProps extends ButtonProps {
 	eventName: string;

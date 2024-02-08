@@ -7,7 +7,7 @@ import { TooltipProps, Tooltip as MuiTooltip } from '@mui/material';
 const Tooltip: React.FC<TooltipProps> = ({ children, ...tooltipProps }) => {
 	return (
 		<MuiTooltip {...tooltipProps}>
-			<span>{children}</span>
+			{children.props.disabled ? <span>{children}</span> : children}
 		</MuiTooltip>
 	);
 };
