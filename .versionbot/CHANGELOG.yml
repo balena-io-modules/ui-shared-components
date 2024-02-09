@@ -1,4 +1,15 @@
 - commits:
+    - subject: "MUILinkWithTracking: Set `'_blank'` as the default value for `target`"
+      hash: 9c38182e94490c8436893bafc90a925db9eea010
+      body: ""
+      footer:
+        Change-type: major
+        change-type: major
+      author: myarmolinsky
+  version: 2.0.0
+  title: ""
+  date: 2024-02-09T15:19:49.105Z
+- commits:
     - subject: Refactor Dropdown component to add menu support
       hash: 2460d637149fe25041c54267b11709a259b32e89
       body: ""
