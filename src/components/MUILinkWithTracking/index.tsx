@@ -16,6 +16,7 @@ export const MUILinkWithTracking: React.FC<MUILinkWithTrackingProps> = ({
 	eventProperties,
 	children,
 	onClick,
+	target = '_blank',
 	...rest
 }) => {
 	const { state } = useAnalyticsContext();
@@ -37,7 +38,8 @@ export const MUILinkWithTracking: React.FC<MUILinkWithTrackingProps> = ({
 		<Link
 			{...rest}
 			onClick={handleClick}
-			rel={rest.target === '_blank' ? 'noreferrer' : undefined}
+			target={target}
+			rel={target === '_blank' ? 'noreferrer' : undefined}
 		>
 			{children}
 		</Link>
