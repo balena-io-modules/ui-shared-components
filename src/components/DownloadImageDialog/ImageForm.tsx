@@ -434,7 +434,6 @@ export const ImageForm: React.FC<ImageFormProps> = memo(
 								Check for updates every X minutes{' '}
 								<MUILinkWithTracking
 									href={POLL_INTERVAL_DOCS}
-									target="_blank"
 									sx={{
 										display: 'flex',
 										alignItems: 'center',

@@ -144,7 +144,6 @@ export const ApplicationInstructions = memo(
 					<Typography>
 						For more details please refer to our{' '}
 						<MUILinkWithTracking
-							target="_blank"
 							href={`https://www.balena.io/docs/learn/getting-started/${deviceType.slug}/nodejs/`}
 						>
 							Getting Started Guide
@@ -166,9 +165,7 @@ interface InstructionsListProps {
 	instructions: any[];
 }
 
-const InstructionsItem = (props: InstructionsItemProps) => {
-	const { node, index } = props;
-
+const InstructionsItem = ({ node, index }: InstructionsItemProps) => {
 	const hasChildren = has(node, 'children');
 	let text = null;
 
@@ -216,9 +213,7 @@ const InstructionsItem = (props: InstructionsItemProps) => {
 	);
 };
 
-const InstructionsList = (props: InstructionsListProps) => {
-	const { instructions } = props;
-
+const InstructionsList = ({ instructions }: InstructionsListProps) => {
 	return (
 		<List>
 			{instructions.map((item, i) => {
