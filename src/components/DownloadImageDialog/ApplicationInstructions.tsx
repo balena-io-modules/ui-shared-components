@@ -178,7 +178,7 @@ const InstructionsItem = ({ node, index }: InstructionsItemProps) => {
 	}
 
 	return (
-		<OrderedListItem index={index + 1} sx={{ maxWidth: '100%', paddingY: 0 }}>
+		<OrderedListItem index={index + 1} sx={{ maxWidth: '100%' }}>
 			<Markdown
 				children={text}
 				components={{
@@ -199,6 +199,9 @@ const InstructionsItem = ({ node, index }: InstructionsItemProps) => {
 					br: () => {
 						return <p />;
 					},
+					p: ({ children }) => (
+						<p style={{ marginTop: 0, marginBottom: 0 }}>{children}</p>
+					),
 				}}
 			/>
 
