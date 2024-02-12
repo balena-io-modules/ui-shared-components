@@ -1,4 +1,22 @@
 - commits:
+    - subject: Fix DownloadImage instructions spacing
+      hash: 3117364553daf30d27cbad0d4ed8ca7b3cce15ef
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: myarmolinsky
+    - subject: Fix MUILinkWithTracking targets
+      hash: 3c36d0a0758bbf55db6b585238ef65a28d3ada56
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: myarmolinsky
+  version: 2.0.1
+  title: ""
+  date: 2024-02-12T19:16:34.530Z
+- commits:
     - subject: "MUILinkWithTracking: Set `'_blank'` as the default value for `target`"
       hash: 9c38182e94490c8436893bafc90a925db9eea010
       body: ""
