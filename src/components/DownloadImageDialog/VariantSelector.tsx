@@ -38,10 +38,7 @@ const variantInfo: {
 			<>
 				Development images should be used when you are developing an application
 				and want to use the fast{' '}
-				<MUILinkWithTracking
-					href="https://balena.io/docs/development/local-mode/"
-					target="_blank"
-				>
+				<MUILinkWithTracking href="https://balena.io/docs/development/local-mode/">
 					local mode
 				</MUILinkWithTracking>{' '}
 				workflow{' '}

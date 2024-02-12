@@ -108,7 +108,6 @@ export const OsTypeSelector = ({
 				Select OS type{' '}
 				<MUILinkWithTracking
 					sx={{ height: 14 }}
-					target="_blank"
 					href="https://www.balena.io/docs/reference/OS/extended-support-release"
 				>
 					<ArticleIcon sx={{ width: 14, height: 14, marginLeft: 1 }} />
