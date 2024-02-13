@@ -1,4 +1,15 @@
 - commits:
+    - subject: Export `@balena/design-tokens` as `DesignTokens`
+      hash: f7945cd3503671c790c49989905fd5c7c15b243f
+      body: ""
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: myarmolinsky
+  version: 2.1.0
+  title: ""
+  date: 2024-02-13T17:28:27.167Z
+- commits:
     - subject: Fix DropDownButton and allow passing tooltip props
       hash: 74536d81b2836c05b1df1cc1935482553574615a
       body: ""
