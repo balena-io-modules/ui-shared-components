@@ -265,9 +265,12 @@ export const DownloadImageDialog: React.FC<DownloadImageDialogProps> = ({
 					</>
 				),
 				disabled: hasDockerImageDownload,
-				tooltip: hasDockerImageDownload
-					? 'This image is deployed to docker so you can only download its config'
-					: 'Etcher v1.7.2 or greater is required',
+				tooltip: {
+					title: hasDockerImageDownload
+						? 'This image is deployed to docker so you can only download its config'
+						: 'Etcher v1.7.2 or greater is required',
+					placement: 'top',
+				},
 			},
 			{
 				eventName: 'Download balenaOS Clicked',
