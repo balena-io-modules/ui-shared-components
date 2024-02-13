@@ -1,4 +1,15 @@
 - commits:
+    - subject: Fix DropDownButton and allow passing tooltip props
+      hash: 74536d81b2836c05b1df1cc1935482553574615a
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Andrea Rosci
+  version: 2.0.2
+  title: ""
+  date: 2024-02-13T12:28:01.752Z
+- commits:
     - subject: Fix DownloadImage instructions spacing
       hash: 3117364553daf30d27cbad0d4ed8ca7b3cce15ef
       body: ""
