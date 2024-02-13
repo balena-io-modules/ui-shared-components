@@ -8,6 +8,7 @@ import {
 	MenuItemProps,
 	Menu,
 	ButtonProps,
+	TooltipProps,
 } from '@mui/material';
 import { ButtonWithTracking } from '../ButtonWithTracking';
 import { useAnalyticsContext } from '../../contexts/AnalyticsContext';
@@ -18,7 +19,7 @@ import { Tooltip } from '../Tooltip';
 
 type MenuItemType<T> = MenuItemWithTrackingProps &
 	T & {
-		tooltip?: string | undefined;
+		tooltip?: string | Omit<TooltipProps, 'children'>;
 	};
 
 export interface DropDownButtonProps<T = unknown>
@@ -70,7 +71,6 @@ export const DropDownButton = <T extends unknown>({
 	const handleClick = (
 		event: React.MouseEvent<HTMLLIElement | HTMLButtonElement>,
 	) => {
-		setAnchorEl(event.currentTarget);
 		return (
 			items?.[selectedIndex]?.onClick?.(event) ??
 			onClick?.(event, items[selectedIndex])
@@ -156,7 +156,7 @@ export interface MenuItemWithTrackingProps
 	extends Omit<MenuItemProps, 'onClick'> {
 	eventName: string;
 	eventProperties?: { [key: string]: any };
-	tooltip?: string;
+	tooltip?: string | Omit<TooltipProps, 'children'>;
 	onClick?: React.MouseEventHandler<HTMLLIElement | HTMLButtonElement>;
 }
 
@@ -180,8 +180,11 @@ export const MenuItemWithTracking: React.FC<MenuItemWithTrackingProps> = ({
 		onClick?.(event);
 	};
 
+	const tooltipProps =
+		typeof tooltip === 'string' || !tooltip ? { title: tooltip } : tooltip;
+
 	return (
-		<Tooltip title={tooltip}>
+		<Tooltip {...tooltipProps}>
 			<MenuItem {...menuItem} onClick={handleClick}>
 				{children}
 			</MenuItem>

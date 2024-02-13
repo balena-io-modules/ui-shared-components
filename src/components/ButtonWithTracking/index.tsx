@@ -1,12 +1,12 @@
 import React from 'react';
-import { Button, ButtonProps } from '@mui/material';
+import { Button, type ButtonProps, type TooltipProps } from '@mui/material';
 import { useAnalyticsContext } from '../../contexts/AnalyticsContext';
 import { Tooltip } from '../Tooltip';
 
 export interface ButtonWithTrackingProps extends ButtonProps {
 	eventName: string;
 	eventProperties?: { [key: string]: any };
-	tooltip?: string;
+	tooltip?: string | Omit<TooltipProps, 'children'>;
 }
 
 /**
@@ -29,8 +29,11 @@ export const ButtonWithTracking: React.FC<ButtonWithTrackingProps> = ({
 		onClick?.(event);
 	};
 
+	const tooltipProps =
+		typeof tooltip === 'string' || !tooltip ? { title: tooltip } : tooltip;
+
 	return (
-		<Tooltip title={tooltip}>
+		<Tooltip {...tooltipProps}>
 			<Button {...rest} onClick={handleClick} disableElevation>
 				{children}
 			</Button>
