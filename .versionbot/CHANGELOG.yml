@@ -1,4 +1,15 @@
 - commits:
+    - subject: Add `Img` component
+      hash: b8b48d2f1f92f4f6d26354350c13afd882131bfc
+      body: ""
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: myarmolinsky
+  version: 2.2.0
+  title: ""
+  date: 2024-02-15T13:18:52.555Z
+- commits:
     - subject: Export `@balena/design-tokens` as `DesignTokens`
       hash: f7945cd3503671c790c49989905fd5c7c15b243f
       body: ""
