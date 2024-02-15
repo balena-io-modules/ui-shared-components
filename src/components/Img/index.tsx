@@ -1,5 +1,5 @@
 import { Box, BoxProps } from '@mui/material';
-import { useState } from 'react';
+import { SyntheticEvent, useState } from 'react';
 
 export interface ImgProps extends BoxProps<'img'> {
 	fallback?: BoxProps<'img'>['src'];
@@ -9,7 +9,12 @@ export interface ImgProps extends BoxProps<'img'> {
  * This component will display an image given an src.
  * The `fallback` prop has been added to make it easier to update the image in case the primary src fails.
  */
-export const Img = ({ src: srcProp, fallback, ...props }: ImgProps) => {
+export const Img = ({
+	src: srcProp,
+	onError,
+	fallback,
+	...props
+}: ImgProps) => {
 	const [src, setSrc] = useState(srcProp);
 
 	return (
@@ -17,10 +22,11 @@ export const Img = ({ src: srcProp, fallback, ...props }: ImgProps) => {
 			component="img"
 			src={src}
 			{...props}
-			onerror={() => {
+			onError={(e: SyntheticEvent<HTMLImageElement, Event>) => {
 				if (fallback != null) {
 					setSrc(fallback);
 				}
+				onError?.(e);
 			}}
 		/>
 	);
