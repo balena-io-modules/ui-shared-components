@@ -5,6 +5,8 @@ export { AnimatedText } from './components/AnimatedText';
 export type { ButtonWithTrackingProps } from './components/ButtonWithTracking';
 export { ButtonWithTracking } from './components/ButtonWithTracking';
 export { Code } from './components/Code';
+export type { ImgProps } from './components/Img';
+export { Img } from './components/Img';
 export type { CookiesBannerProps, Cookie } from './components/CookiesBanner';
 export type { FormProps as RjsCoreFormProps } from '@rjsf/core';
 export { RJSForm, Templates as RjsfTemplates } from './components/Form';
