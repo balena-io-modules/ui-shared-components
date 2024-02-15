@@ -1,4 +1,15 @@
 - commits:
+    - subject: Fix `Img` component's `onError` usage
+      hash: 3e7df8613eb280755296e057364906f58aa0f359
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: myarmolinsky
+  version: 2.2.1
+  title: ""
+  date: 2024-02-15T13:37:58.601Z
+- commits:
     - subject: Add `Img` component
       hash: b8b48d2f1f92f4f6d26354350c13afd882131bfc
       body: ""
