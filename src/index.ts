@@ -65,6 +65,7 @@ export {
 	AnalyticsStoreActions,
 } from './contexts/AnalyticsContext';
 export * as Material from '@mui/material';
+export * as MaterialLab from '@mui/lab';
 export * as IconsMaterial from '@mui/icons-material';
 export { enqueueSnackbar, closeSnackbar } from 'notistack';
 export { getBoundingContainerRect } from './utils';
