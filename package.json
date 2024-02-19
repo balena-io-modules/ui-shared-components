@@ -2,12 +2,10 @@
   "name": "@balena/ui-shared-components",
   "version": "2.2.2",
   "main": "./dist/index.js",
-  "module": "./dist_esm5/index.js",
   "sideEffects": false,
   "files": [
     "dist/",
-    "dist_esm5/",
-    "docs/",
+    "!**.stories.*",
     "README.md"
   ],
   "dependencies": {
@@ -69,9 +67,7 @@
   },
   "scripts": {
     "start": "npm run storybook",
-    "build:cjs": "rimraf dist && tsc",
-    "build:esm5": "rimraf dist_esm5 && tsc -p ./tsconfig.esm5.json",
-    "build": "npm run build:cjs && npm run build:esm5",
+    "build": "rimraf dist && tsc",
     "test": "react-scripts test --passWithNoTests",
     "eject": "react-scripts eject",
     "prepack": "npm run build",
