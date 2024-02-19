@@ -1,4 +1,15 @@
 - commits:
+    - subject: Fix DropDown arrow
+      hash: e5896a80a511ba0f09f056add423f50ba451b3b1
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Andrea Rosci
+  version: 2.2.2
+  title: ""
+  date: 2024-02-19T20:12:06.881Z
+- commits:
     - subject: Fix `Img` component's `onError` usage
       hash: 3e7df8613eb280755296e057364906f58aa0f359
       body: ""
