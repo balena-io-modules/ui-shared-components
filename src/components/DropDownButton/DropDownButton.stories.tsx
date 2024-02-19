@@ -36,3 +36,11 @@ export const Default: Story = {
 		],
 	},
 };
+
+export const WithALabel: Story = {
+	args: {
+		variant: 'contained',
+		...Default.args,
+		children: 'Modify',
+	},
+};

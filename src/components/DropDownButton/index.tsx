@@ -1,5 +1,4 @@
 import { useMemo, useState } from 'react';
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import {
 	Button,
 	ButtonGroup,
@@ -14,7 +13,12 @@ import { ButtonWithTracking } from '../ButtonWithTracking';
 import { useAnalyticsContext } from '../../contexts/AnalyticsContext';
 import groupBy from 'lodash/groupBy';
 import flatMap from 'lodash/flatMap';
-import { KeyboardArrowDown } from '@mui/icons-material';
+import {
+	KeyboardArrowDown,
+	KeyboardArrowUp,
+	ArrowDropDown,
+	ArrowDropUp,
+} from '@mui/icons-material';
 import { Tooltip } from '../Tooltip';
 
 type MenuItemType<T> = MenuItemWithTrackingProps &
@@ -104,7 +108,7 @@ export const DropDownButton = <T extends unknown>({
 					onClick={(event) => {
 						setAnchorEl(event.currentTarget);
 					}}
-					endIcon={<KeyboardArrowDown />}
+					endIcon={anchorEl ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
 					{...(buttonProps as ButtonProps)}
 				>
 					{children}
@@ -128,7 +132,7 @@ export const DropDownButton = <T extends unknown>({
 						// It doesn't look good without it, hence the addition.
 						sx={(theme) => ({ pl: 2, pr: `calc(${theme.spacing(2)} + 2px)` })}
 					>
-						<ArrowDropDownIcon />
+						{anchorEl ? <ArrowDropUp /> : <ArrowDropDown />}
 					</Button>
 				</ButtonGroup>
 			)}
