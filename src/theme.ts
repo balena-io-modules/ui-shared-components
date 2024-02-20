@@ -280,6 +280,7 @@ export const theme = createTheme({
 			800: color.palette.neutral['800'].value,
 			900: color.palette.neutral['900'].value,
 		},
+		divider: color.border.subtle.value,
 	},
 	spacing: [0, 4, 8, 16, 32, 64, 128],
 	components: {
@@ -545,6 +546,24 @@ export const theme = createTheme({
 		MuiListItem: {
 			styleOverrides: {
 				root: { alignItems: 'flex-start' },
+			},
+		},
+		MuiTab: {
+			defaultProps: {
+				disableRipple: true,
+			},
+			styleOverrides: {
+				root: {
+					textTransform: 'none',
+					fontSize: '1rem',
+				},
+			},
+		},
+		MuiTabs: {
+			styleOverrides: {
+				indicator: {
+					backgroundColor: color.border.accent.value,
+				},
 			},
 		},
 	},
