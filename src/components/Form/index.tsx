@@ -92,10 +92,8 @@ export const RJSForm: React.FC<React.PropsWithChildren<RJSFormProps>> =
 							{!hideSubmitButton && (
 								<Button
 									children={'Submit'}
-									// TODO: remove once we migrate buttons
-									disableRipple
 									{...submitButtonProps}
-									color="customBlue"
+									color="primary"
 									variant="contained"
 									type="submit"
 								/>

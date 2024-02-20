@@ -1,3 +1,11 @@
+import React, { useState } from 'react';
+import {
+	ToggleButton,
+	ToggleButtonGroup,
+	ToggleButtonGroupProps,
+} from '@mui/material';
+import { GridView, TableRows } from '@mui/icons-material';
+
 // TODO move this type to the Design Tokens package
 type JsonToken = {
 	type: string;
@@ -94,4 +102,30 @@ export const getCategoriesFromTokens = (tokens: JsonToken[]) => {
 		}
 		return acc;
 	}, []);
+};
+
+export const LensToggle = (props: ToggleButtonGroupProps) => {
+	const [lens, setLens] = useState<'grid' | 'table'>('grid');
+
+	const handleChange = (
+		_: React.MouseEvent<HTMLElement>,
+		newLens: 'grid' | 'table',
+	) => {
+		setLens(newLens);
+	};
+
+	return (
+		<ToggleButtonGroup onChange={handleChange} exclusive {...props}>
+			<ToggleButton value={'grid'} title="Grid lens" selected={lens === 'grid'}>
+				<GridView />
+			</ToggleButton>
+			<ToggleButton
+				value={'table'}
+				title="Table lens"
+				selected={lens === 'table'}
+			>
+				<TableRows />
+			</ToggleButton>
+		</ToggleButtonGroup>
+	);
 };
