@@ -1,4 +1,16 @@
 - commits:
+    - subject: Publish only as esm, bump ts compiler target to 2015, prevent
+        publishing storybook files
+      hash: 5fd3019141889b741288464c4b9f926799723799
+      body: ""
+      footer:
+        Change-type: major
+        change-type: major
+      author: Jonathan Berger
+  version: 3.0.0
+  title: ""
+  date: 2024-02-21T10:08:28.767Z
+- commits:
     - subject: Fix DropDown arrow
       hash: e5896a80a511ba0f09f056add423f50ba451b3b1
       body: ""
