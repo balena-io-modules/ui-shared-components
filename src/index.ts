@@ -52,8 +52,10 @@ export { OrderedListItem } from './components/OrderedListItem';
 export type { RouterLinkWithTrackingProps } from './components/RouterLinkWithTracking';
 export { RouterLinkWithTracking } from './components/RouterLinkWithTracking';
 export { SnackbarProviderBase as SnackbarProvider } from './components/SnackbarProvider';
-export { Tooltip } from './components/Tooltip';
 export type { TooltipProps } from './components/Tooltip';
+export { Tooltip } from './components/Tooltip';
+export type { TabsProps } from './components/Tabs';
+export { Tabs } from './components/Tabs';
 export type { VirtualizedAutocompleteWithPaginationProps } from './components/VirtualizedAutocomplete';
 export { VirtualizedAutocomplete } from './components/VirtualizedAutocomplete';
 export { Map } from './components/Map';
@@ -65,6 +67,7 @@ export {
 	AnalyticsStoreActions,
 } from './contexts/AnalyticsContext';
 export * as Material from '@mui/material';
+export * as MaterialLab from '@mui/lab';
 export * as IconsMaterial from '@mui/icons-material';
 export { enqueueSnackbar, closeSnackbar } from 'notistack';
 export { getBoundingContainerRect } from './utils';
