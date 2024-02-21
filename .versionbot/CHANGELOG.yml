@@ -1,4 +1,15 @@
 - commits:
+    - subject: Upgrade storybook
+      hash: b467fb70980d95ca76827a6c67bd26b16d7a07f2
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Jonathan Berger
+  version: 3.2.1
+  title: ""
+  date: 2024-02-21T20:55:36.411Z
+- commits:
     - subject: Add `Tabs` component
       hash: f7c81acda089761fbb4847f6634e0bd19de84edb
       body: ""
