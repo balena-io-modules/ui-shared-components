@@ -1,4 +1,15 @@
 - commits:
+    - subject: Add IconButtonWithTracking component
+      hash: 255306bc3c94ede0d19b1c31233ce7473f7ccfc9
+      body: ""
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: Andrea Rosci
+  version: 3.1.0
+  title: ""
+  date: 2024-02-21T12:20:00.482Z
+- commits:
     - subject: Publish only as esm, bump ts compiler target to 2015, prevent
         publishing storybook files
       hash: 5fd3019141889b741288464c4b9f926799723799
