@@ -1,4 +1,22 @@
 - commits:
+    - subject: Add `Tabs` component
+      hash: f7c81acda089761fbb4847f6634e0bd19de84edb
+      body: ""
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: myarmolinsky
+    - subject: Add and export @mui/lab dependency
+      hash: de2b58b8d0223b98c047ecc8854f312051f8bfc8
+      body: ""
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: myarmolinsky
+  version: 3.2.0
+  title: ""
+  date: 2024-02-21T13:56:43.095Z
+- commits:
     - subject: Add IconButtonWithTracking component
       hash: 255306bc3c94ede0d19b1c31233ce7473f7ccfc9
       body: ""
