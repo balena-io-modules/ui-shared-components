@@ -1,4 +1,15 @@
 - commits:
+    - subject: Adapt Mui Button styles
+      hash: 76c473d98497b91cfcb2c6c09b5ca7658cda2431
+      body: ""
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: Jonathan Berger
+  version: 3.3.0
+  title: ""
+  date: 2024-02-26T11:38:47.638Z
+- commits:
     - subject: Upgrade storybook
       hash: b467fb70980d95ca76827a6c67bd26b16d7a07f2
       body: ""
