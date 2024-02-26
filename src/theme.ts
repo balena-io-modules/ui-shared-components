@@ -67,6 +67,10 @@ declare module '@mui/material/Button' {
 		customPurple: true;
 		customGrey: true;
 	}
+
+	interface ButtonPropsVariantOverrides {
+		light: true;
+	}
 }
 declare module '@mui/material/ButtonGroup' {
 	interface ButtonGroupPropsColorOverrides {
@@ -430,23 +434,223 @@ export const theme = createTheme({
 			`,
 		},
 		MuiButton: {
+			defaultProps: {
+				variant: 'contained',
+				disableElevation: true,
+			},
+			variants: [
+				{
+					props: { variant: 'light', color: 'primary' },
+					style: {
+						color: color.text.value,
+						backgroundColor: color.bg.accent.value,
+						border: `1px solid ${color.border.accent.value}`,
+						':hover': {
+							backgroundColor: color.palette.blue[100].value,
+						},
+					},
+				},
+				{
+					props: { variant: 'light', color: 'secondary' },
+					style: {
+						color: color.text.value,
+						backgroundColor: color.bg.subtle.value,
+						border: `1px solid ${color.border.value}`,
+						':hover': {
+							backgroundColor: color.palette.neutral[75].value,
+						},
+					},
+				},
+				{
+					props: { variant: 'light', color: 'info' },
+					style: {
+						color: color.text.info.value,
+						backgroundColor: color.bg.info.value,
+						border: `1px solid ${color.border.info.value}`,
+						':hover': {
+							backgroundColor: color.palette.blue[100].value,
+						},
+					},
+				},
+				{
+					props: { variant: 'light', color: 'success' },
+					style: {
+						color: color.text.success.value,
+						backgroundColor: color.bg.success.value,
+						border: `1px solid ${color.border.success.value}`,
+						':hover': {
+							backgroundColor: color.palette.green[100].value,
+						},
+					},
+				},
+				{
+					props: { variant: 'light', color: 'warning' },
+					style: {
+						color: color.text.warning.value,
+						backgroundColor: color.bg.warning.value,
+						border: `1px solid ${color.border.warning.value}`,
+						':hover': {
+							backgroundColor: color.palette.orange[100].value,
+						},
+					},
+				},
+				{
+					props: { variant: 'light', color: 'error' },
+					style: {
+						color: color.text.danger.value,
+						backgroundColor: color.bg.danger.value,
+						border: `1px solid ${color.border.danger.value}`,
+						':hover': {
+							backgroundColor: color.palette.red[100].value,
+						},
+					},
+				},
+				{
+					props: { variant: 'light', disabled: true },
+					style: {
+						color: `${color.text.value} !important`,
+						border: `1px solid ${color.border.value}`,
+						backgroundColor: color.bg.value,
+						opacity: 0.4,
+					},
+				},
+			],
 			styleOverrides: {
 				root: ({ theme }) => ({
-					boxShadow: 'none',
 					borderRadius: '24px',
 					paddingLeft: '20px',
 					paddingRight: '20px',
 					fontSize: theme.typography.body1.fontSize,
-					// TODO: remove once we migrate buttons
-					'&:hover': {
-						boxShadow: 'none',
-					},
+					textTransform: 'none',
 				}),
-				outlined: {
-					textTransform: 'none',
+				textPrimary: {
+					color: color.text.accent.value,
 				},
-				contained: {
-					textTransform: 'none',
+				textSecondary: {
+					color: color.text.value,
+				},
+				textInfo: {
+					color: color.text.info.value,
+				},
+				textSuccess: {
+					color: color.text.success.value,
+				},
+				textWarning: {
+					color: color.text.warning.value,
+				},
+				textError: {
+					color: color.text.danger.value,
+				},
+				containedSecondary: {
+					color: color.text.inverse.value,
+					backgroundColor: color.bg.strong.value,
+				},
+				containedInfo: {
+					color: color.text.inverse.value,
+					backgroundColor: color.bg.info.strong.value,
+				},
+				containedSuccess: {
+					color: color.text.inverse.value,
+					backgroundColor: color.bg.success.strong.value,
+				},
+				containedWarning: {
+					color: color.text.inverse.value,
+					backgroundColor: color.bg.warning.strong.value,
+				},
+				containedError: {
+					color: color.text.inverse.value,
+					backgroundColor: color.bg.danger.strong.value,
+				},
+				outlinedPrimary: {
+					borderColor: color.border.accent.value,
+					color: color.text.value,
+				},
+				outlinedSecondary: {
+					color: color.text.value,
+					borderColor: color.border.value,
+				},
+				outlinedInfo: {
+					color: color.text.info.value,
+					borderColor: color.border.info.value,
+				},
+				outlinedSuccess: {
+					color: color.text.success.value,
+					borderColor: color.border.success.value,
+				},
+				outlinedWarning: {
+					color: color.text.warning.value,
+					borderColor: color.border.warning.value,
+				},
+				outlinedError: {
+					color: color.text.danger.value,
+					borderColor: color.border.danger.value,
+				},
+			},
+		},
+		MuiToggleButton: {
+			styleOverrides: {
+				root: {
+					border: `1px solid ${color.border.value} !important`,
+					color: color.text.value,
+					'&:hover': {
+						backgroundColor: color.bg.value,
+					},
+					'&.Mui-selected': {
+						backgroundColor: color.bg.subtle.value,
+						'&:hover': {
+							backgroundColor: color.bg.subtle.value,
+						},
+					},
+					'&.MuiToggleButton-primary': {
+						border: `1px solid ${color.border.accent.value} !important`,
+						color: color.text.accent.value,
+						'&:hover': {
+							backgroundColor: color.bg.accent.value,
+						},
+						'&.Mui-selected': {
+							backgroundColor: color.bg.accent.value,
+						},
+					},
+					'&.MuiToggleButton-info': {
+						border: `1px solid ${color.border.info.value} !important`,
+						color: color.text.info.value,
+						'&:hover': {
+							backgroundColor: color.bg.info.value,
+						},
+						'&.Mui-selected': {
+							backgroundColor: color.bg.info.value,
+						},
+					},
+					'&.MuiToggleButton-success': {
+						border: `1px solid ${color.border.success.value} !important`,
+						color: color.text.success.value,
+						'&:hover': {
+							backgroundColor: color.bg.success.value,
+						},
+						'&.Mui-selected': {
+							backgroundColor: color.bg.success.value,
+						},
+					},
+					'&.MuiToggleButton-warning': {
+						border: `1px solid ${color.border.warning.value} !important`,
+						color: color.text.warning.value,
+						'&:hover': {
+							backgroundColor: color.bg.warning.value,
+						},
+						'&.Mui-selected': {
+							backgroundColor: color.bg.warning.value,
+						},
+					},
+					'&.Mui-error': {
+						border: `1px solid ${color.border.danger.value} !important`,
+						color: color.text.danger.value,
+						'&:hover': {
+							backgroundColor: color.bg.danger.value,
+						},
+						'&.Mui-selected': {
+							backgroundColor: color.bg.danger.value,
+						},
+					},
 				},
 			},
 		},

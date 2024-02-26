@@ -421,8 +421,8 @@ export const ImageForm: React.FC<ImageFormProps> = memo(
 				<Divider variant="fullWidth" sx={{ my: 3, borderStyle: 'dashed' }} />
 				<Button
 					onClick={() => setShowAdvancedSettings(!showAdvancedSettings)}
-					sx={{ px: 0 }}
-					disableRipple
+					variant="outlined"
+					sx={{ mb: 2 }}
 				>
 					{showAdvancedSettings ? <RemoveIcon /> : <AddIcon />} Advanced
 					settings

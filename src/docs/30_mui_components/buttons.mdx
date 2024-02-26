@@ -1,0 +1,109 @@
+import { Meta } from '@storybook/blocks';
+import {
+	Box,
+	Button,
+	ThemeProvider,
+	ToggleButtonGroup,
+} from '@mui/material';
+import IconButton from '@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
+import AlarmIcon from '@mui/icons-material/Alarm';
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import { theme } from '../../theme';
+import { LensToggle } from '../utils';
+
+<Meta title="Mui Components/Input/Button" />
+
+# Buttons
+
+## Text
+
+<ThemeProvider theme={theme}>
+	<Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
+		<Button variant="text" color="primary">Text Primary</Button>
+		<Button variant="text" color="secondary">Text Secondary</Button>
+		<Button variant="text" color="info">Text Info</Button>
+		<Button variant="text" color="success">Text Success</Button>
+		<Button variant="text" color="warning">Text Warning</Button>
+		<Button variant="text" color="error">Text Danger</Button>
+		<Button variant="text" disabled>Text Disabled</Button>
+	</Box>
+</ThemeProvider>
+
+## Contained
+
+<ThemeProvider theme={theme}>
+	<Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
+		<Button variant="contained" color="primary">Contained Primary</Button>
+		<Button variant="contained" color="secondary">Contained Secondary</Button>
+		<Button variant="contained" color="info">Contained Info</Button>
+		<Button variant="contained" color="success">Contained Success</Button>
+		<Button variant="contained" color="warning">Contained Warning</Button>
+		<Button variant="contained" color="error">Contained Danger</Button>
+		<Button variant="contained" disabled>Contained Disabled</Button>
+	</Box>
+</ThemeProvider>
+
+## Light
+
+<ThemeProvider theme={theme}>
+	<Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
+		<Button variant="light" color="primary">Light Primary</Button>
+		<Button variant="light" color="secondary">Light Secondary</Button>
+		<Button variant="light" color="info">Light Info</Button>
+		<Button variant="light" color="success">Light Success</Button>
+		<Button variant="light" color="warning">Light Warning</Button>
+		<Button variant="light" color="error">Light Danger</Button>
+		<Button variant="light" disabled>Light Disabled</Button>
+	</Box>
+</ThemeProvider>
+
+## Outlined
+
+<ThemeProvider theme={theme}>
+	<Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
+		<Button variant="outlined" color="primary">Outlined Primary</Button>
+		<Button variant="outlined" color="secondary">Outlined Secondary</Button>
+		<Button variant="outlined" color="info">Outlined Info</Button>
+		<Button variant="outlined" color="success">Outlined Success</Button>
+		<Button variant="outlined" color="warning">Outlined Warning</Button>
+		<Button variant="outlined" color="error">Outlined Danger</Button>
+		<Button variant="outlined" disabled>Outlined Disabled</Button>
+	</Box>
+</ThemeProvider>
+
+## Icon Button
+
+<ThemeProvider theme={theme}>
+	<Box sx={{ display: 'flex', gap: 3, flexWrap: 'wrap' }}>
+		<IconButton aria-label="delete">
+			<DeleteIcon />
+		</IconButton>
+		<IconButton aria-label="delete" color="primary">
+			<DeleteIcon />
+		</IconButton>
+		<IconButton aria-label="delete" disabled color="primary">
+			<DeleteIcon />
+		</IconButton>
+		<IconButton color="secondary" aria-label="add an alarm">
+			<AlarmIcon />
+		</IconButton>
+		<IconButton color="primary" aria-label="add to shopping cart">
+			<AddShoppingCartIcon />
+		</IconButton>
+	</Box>
+</ThemeProvider>
+
+## Toggle Button
+
+<ThemeProvider theme={theme}>
+	<Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
+		<LensToggle color="standard" />
+		<LensToggle color="primary" />
+		<LensToggle color="secondary" />
+		<LensToggle color="info" />
+		<LensToggle color="success" />
+		<LensToggle color="warning" />
+		<LensToggle color="error" />
+	</Box>
+</ThemeProvider> 
