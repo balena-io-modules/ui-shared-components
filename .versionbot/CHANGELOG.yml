@@ -1,4 +1,15 @@
 - commits:
+    - subject: Add SurroundingOverlay component
+      hash: 65fb0de2c5f814b1d648197fa21d7eef7a39f6e8
+      body: ""
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: Andrea Rosci
+  version: 3.4.0
+  title: ""
+  date: 2024-02-27T12:58:14.889Z
+- commits:
     - subject: Adapt Mui Button styles
       hash: 76c473d98497b91cfcb2c6c09b5ca7658cda2431
       body: ""
