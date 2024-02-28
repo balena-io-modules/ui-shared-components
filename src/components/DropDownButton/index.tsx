@@ -76,8 +76,8 @@ export const DropDownButton = <T extends unknown>({
 		event: React.MouseEvent<HTMLLIElement | HTMLButtonElement>,
 	) => {
 		return (
-			items?.[selectedIndex]?.onClick?.(event) ??
-			onClick?.(event, items[selectedIndex])
+			memoizedItems?.[selectedIndex]?.onClick?.(event) ??
+			onClick?.(event, memoizedItems[selectedIndex])
 		);
 	};
 
@@ -89,8 +89,8 @@ export const DropDownButton = <T extends unknown>({
 		setAnchorEl(null);
 		if (children) {
 			return (
-				items?.[index]?.onClick?.(event) ??
-				onClick?.(event, items[selectedIndex])
+				memoizedItems?.[index]?.onClick?.(event) ??
+				onClick?.(event, memoizedItems[selectedIndex])
 			);
 		}
 	};
@@ -121,11 +121,11 @@ export const DropDownButton = <T extends unknown>({
 				>
 					<ButtonWithTracking
 						onClick={handleClick}
-						eventName={items[selectedIndex].eventName}
-						eventProperties={items[selectedIndex].eventProperties}
-						tooltip={items[selectedIndex].tooltip}
+						eventName={memoizedItems[selectedIndex].eventName}
+						eventProperties={memoizedItems[selectedIndex].eventProperties}
+						tooltip={memoizedItems[selectedIndex].tooltip}
 					>
-						{items[selectedIndex].children}
+						{memoizedItems[selectedIndex].children}
 					</ButtonWithTracking>
 					<Button
 						onClick={handleToggle}
@@ -145,6 +145,7 @@ export const DropDownButton = <T extends unknown>({
 			>
 				{memoizedItems.map((item, index) => (
 					<MenuItemWithTracking
+						key={index}
 						{...item}
 						onClick={(event) => handleMenuItemClick(event, index)}
 					>
