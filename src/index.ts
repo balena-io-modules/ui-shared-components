@@ -63,6 +63,8 @@ export { VirtualizedAutocomplete } from './components/VirtualizedAutocomplete';
 export { Map } from './components/Map';
 export { Markdown } from './components/Markdown';
 export { Truncate } from './components/Truncate';
+export { IconButtonWithTracking } from './components/IconButtonWithTracking';
+export type { IconButtonWithTrackingProps } from './components/IconButtonWithTracking';
 export {
 	AnalyticsContextProvider,
 	useAnalyticsContext,
