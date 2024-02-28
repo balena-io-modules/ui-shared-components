@@ -1,4 +1,15 @@
 - commits:
+    - subject: Fix DropDownMenu component
+      hash: 4b7e0b7ffaf4b49ee2d3f56969d7aa8696f1f5ee
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Andrea Rosci
+  version: 3.4.2
+  title: ""
+  date: 2024-02-28T15:12:00.847Z
+- commits:
     - subject: Add missing IconButtonWithTracking export
       hash: f96c1cbd6f6981a1fc01600dc3ceb2471d372e96
       body: ""
