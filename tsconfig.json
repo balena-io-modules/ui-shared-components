@@ -2,7 +2,7 @@
 	"compilerOptions": {
 		"module": "es2020",
 		"moduleResolution": "node",
-		"target": "es2015",
+		"target": "es2017",
 		"lib": ["dom", "dom.iterable", "es6"],
 		"declaration": true,
 		"outDir": "dist",
