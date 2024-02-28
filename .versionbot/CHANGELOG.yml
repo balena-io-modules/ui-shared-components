@@ -1,4 +1,15 @@
 - commits:
+    - subject: Add missing IconButtonWithTracking export
+      hash: f96c1cbd6f6981a1fc01600dc3ceb2471d372e96
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Andrea Rosci
+  version: 3.4.1
+  title: ""
+  date: 2024-02-28T12:56:15.253Z
+- commits:
     - subject: Add SurroundingOverlay component
       hash: 65fb0de2c5f814b1d648197fa21d7eef7a39f6e8
       body: ""
