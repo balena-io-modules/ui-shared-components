@@ -1,4 +1,15 @@
 - commits:
+    - subject: Remove icons-material export to improve bundle size
+      hash: 0bbabe2a388ad740545a8cbe53cd4e7cc9da9ce8
+      body: ""
+      footer:
+        Change-type: major
+        change-type: major
+      author: Andrea Rosci
+  version: 4.0.0
+  title: ""
+  date: 2024-03-01T12:19:39.906Z
+- commits:
     - subject: Fix DropDownMenu component
       hash: 4b7e0b7ffaf4b49ee2d3f56969d7aa8696f1f5ee
       body: ""
