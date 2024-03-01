@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
 import {
+	Box,
 	ToggleButton,
 	ToggleButtonGroup,
 	ToggleButtonGroupProps,
+	Typography,
+	TypographyVariant,
 } from '@mui/material';
 import { GridView, TableRows } from '@mui/icons-material';
+import { color } from '@balena/design-tokens';
 
 // TODO move this type to the Design Tokens package
 type JsonToken = {
@@ -131,5 +135,25 @@ export const LensToggle = (props: ToggleButtonGroupProps) => {
 				<TableRows />
 			</ToggleButton>
 		</ToggleButtonGroup>
+	);
+};
+
+export const TypeScaleItem = ({
+	variant,
+	isParagraph,
+}: {
+	variant: TypographyVariant;
+	isParagraph?: boolean;
+}) => {
+	const text = !isParagraph
+		? 'Lorem ipsum dolor sit amet'
+		: 'Lorem ipsum dolor sit amet consectetur. Pretium consectetur et risus ac nisl egestas aliquam odio ac. Aenean urna consectetur at suspendisse. Magnis tincidunt non blandit velit accumsan orci amet mus.';
+	return (
+		<Box sx={{ display: 'flex', flexDirection: 'column' }}>
+			<Typography variant="overline" sx={{ color: color.text.accent.value }}>
+				{variant}
+			</Typography>
+			<Typography variant={variant}>{text} </Typography>
+		</Box>
 	);
 };
