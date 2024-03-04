@@ -1,4 +1,15 @@
 - commits:
+    - subject: Add dynamic import on zxcvbn
+      hash: 6339752e38cac810638ff9e79ca241c91365c5de
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Andrea Rosci
+  version: 4.0.1
+  title: ""
+  date: 2024-03-04T14:38:00.834Z
+- commits:
     - subject: Remove icons-material export to improve bundle size
       hash: 0bbabe2a388ad740545a8cbe53cd4e7cc9da9ce8
       body: ""
