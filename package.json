@@ -56,7 +56,7 @@
     "@storybook/react-webpack5": "^7.6.17",
     "@storybook/testing-library": "^0.2.0",
     "@storybook/theming": "^7.6.17",
-    "@types/zxcvbn": "^4.4.2",
+    "@types/zxcvbn": "^4.4.4",
     "babel-plugin-named-exports-order": "^0.0.2",
     "eslint-plugin-storybook": "^0.6.13",
     "husky": "^8.0.3",
