@@ -1,4 +1,15 @@
 - commits:
+    - subject: Drop support for non-es2017 compliant browsers
+      hash: b4fe3716e0326da94009c6f62733c4f14ef1e75b
+      body: ""
+      footer:
+        Change-type: major
+        change-type: major
+      author: Jonathan Berger
+  version: 5.0.0
+  title: ""
+  date: 2024-03-04T14:51:46.768Z
+- commits:
     - subject: Add dynamic import on zxcvbn
       hash: 6339752e38cac810638ff9e79ca241c91365c5de
       body: ""
