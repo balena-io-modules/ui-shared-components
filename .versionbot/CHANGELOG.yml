@@ -1,4 +1,22 @@
 - commits:
+    - subject: Remove `react-scripts` dependency
+      hash: b491c66899766c29aa9a5996bae069b11182dedc
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: myarmolinsky
+    - subject: Remove dedupe step from `.lintstagedrc`
+      hash: 53f969e2bebfa7bfaad41ee3f89927fc6aaf4b7e
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: myarmolinsky
+  version: 5.0.1
+  title: ""
+  date: 2024-03-11T12:16:59.782Z
+- commits:
     - subject: Drop support for non-es2017 compliant browsers
       hash: b4fe3716e0326da94009c6f62733c4f14ef1e75b
       body: ""
