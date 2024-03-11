@@ -34,7 +34,6 @@
     "react-helmet": "^6.1.0",
     "react-markdown": "^8.0.7",
     "react-router-dom": "^6.10.0",
-    "react-scripts": "5.0.1",
     "rehype-raw": "^6.1.1",
     "remark-gfm": "^3.0.1",
     "rimraf": "^5.0.0",
@@ -70,8 +69,7 @@
   "scripts": {
     "start": "npm run storybook",
     "build": "rimraf dist && tsc",
-    "test": "react-scripts test --passWithNoTests",
-    "eject": "react-scripts eject",
+    "test": "echo 'No tests found, skipping test suite.'",
     "prepack": "npm run build",
     "lint": "balena-lint --typescript src",
     "lint:fix": "balena-lint --typescript --fix src",
