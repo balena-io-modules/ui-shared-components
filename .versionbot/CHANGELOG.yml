@@ -1,4 +1,16 @@
 - commits:
+    - subject: Replace @storybook/preset-create-react-app with
+        @storybook/preset-typescript
+      hash: e5e0c796af84aeb872a3431812418a3f2a935509
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Jonathan Berger
+  version: 5.0.2
+  title: ""
+  date: 2024-03-11T13:14:58.335Z
+- commits:
     - subject: Remove `react-scripts` dependency
       hash: b491c66899766c29aa9a5996bae069b11182dedc
       body: ""
