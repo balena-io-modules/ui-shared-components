@@ -1,4 +1,15 @@
 - commits:
+    - subject: Fix disabled styles for contained buttons
+      hash: 7993ea0ae36dadae892450c8dbdca61f65e0abdd
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Jonathan Berger
+  version: 5.0.3
+  title: ""
+  date: 2024-03-13T13:39:00.597Z
+- commits:
     - subject: Replace @storybook/preset-create-react-app with
         @storybook/preset-typescript
       hash: e5e0c796af84aeb872a3431812418a3f2a935509
