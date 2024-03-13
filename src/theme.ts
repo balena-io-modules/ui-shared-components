@@ -516,12 +516,23 @@ export const theme = createTheme({
 				},
 			],
 			styleOverrides: {
-				root: ({ theme }) => ({
+				root: ({ theme, ownerState }) => ({
 					borderRadius: '24px',
 					paddingLeft: '20px',
 					paddingRight: '20px',
 					fontSize: theme.typography.body1.fontSize,
 					textTransform: 'none',
+				}),
+				contained: ({ theme, ownerState }) => ({
+					'&.Mui-disabled': {
+						opacity: 0.5,
+						color: 'white',
+						backgroundColor: (
+							theme.palette[
+								ownerState.color as keyof typeof theme.palette
+							] as PaletteColor
+						).main,
+					},
 				}),
 				textPrimary: {
 					color: color.text.accent.value,
