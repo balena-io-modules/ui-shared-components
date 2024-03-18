@@ -285,6 +285,9 @@ export const theme = createTheme({
 			900: color.palette.neutral['900'].value,
 		},
 		divider: color.border.subtle.value,
+		action: {
+			active: color.text.subtle.value,
+		},
 	},
 	spacing: [0, 4, 8, 16, 32, 64, 128],
 	components: {
@@ -325,6 +328,9 @@ export const theme = createTheme({
 					borderColor: color.border.danger.value,
 					backgroundColor: color.bg.danger.value,
 					color: color.text.danger.value,
+				},
+				action: {
+					paddingTop: 0,
 				},
 			},
 		},
@@ -595,6 +601,37 @@ export const theme = createTheme({
 				outlinedError: {
 					color: color.text.danger.value,
 					borderColor: color.border.danger.value,
+				},
+				startIcon: {
+					' > :nth-of-type(1)': {
+						fontSize: '14px',
+					},
+				},
+				endIcon: {
+					' > :nth-of-type(1)': {
+						fontSize: '14px',
+					},
+				},
+			},
+		},
+		MuiIconButton: {
+			styleOverrides: {
+				root: {
+					svg: {
+						width: '1em',
+					},
+				},
+				sizeSmall: {
+					padding: '10px',
+					fontSize: '12px',
+				},
+				sizeMedium: {
+					padding: '12px',
+					fontSize: '14px',
+				},
+				sizeLarge: {
+					padding: '14px',
+					fontSize: '16px',
 				},
 			},
 		},

@@ -5,11 +5,10 @@ import {
 	ThemeProvider,
 } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
-import DeleteIcon from '@mui/icons-material/Delete';
-import AlarmIcon from '@mui/icons-material/Alarm';
-import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import { theme } from '../../theme';
 import { LensToggle } from '../utils';
+import { faMagic, faTrashCan, faPlus, faDownload, faUpRightAndDownLeftFromCenter, faClose } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 <Meta title="Mui Components/Input/Button" />
 
@@ -78,24 +77,39 @@ import { LensToggle } from '../utils';
 	</Box>
 </ThemeProvider>
 
+## Button with icon
+
+<ThemeProvider theme={theme}>
+	<Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
+		<Button color="primary" startIcon={<FontAwesomeIcon icon={faMagic} />}>Lorem ipsum</Button>
+		<Button variant="contained" color="primary" startIcon={<FontAwesomeIcon icon={faTrashCan} />}>Lorem ipsum</Button>
+		<Button variant="outlined" color="primary" endIcon={<FontAwesomeIcon icon={faPlus} />}>Lorem ipsum</Button>
+	</Box>
+</ThemeProvider>
+
 ## Icon Button
 
 <ThemeProvider theme={theme}>
 	<Box sx={{ display: 'flex', gap: 3, flexWrap: 'wrap' }}>
+		<IconButton aria-label="download">
+			<FontAwesomeIcon icon={faDownload} />
+		</IconButton>
 		<IconButton aria-label="delete">
-			<DeleteIcon />
+			<FontAwesomeIcon icon={faTrashCan} />
 		</IconButton>
-		<IconButton aria-label="delete" color="primary">
-			<DeleteIcon />
+		<IconButton aria-label="expand">
+			<FontAwesomeIcon icon={faUpRightAndDownLeftFromCenter} />
 		</IconButton>
-		<IconButton aria-label="delete" disabled color="primary">
-			<DeleteIcon />
+	</Box>
+	<Box sx={{ display: 'flex', alignItems: 'center', gap: 3, flexWrap: 'wrap', mt: 2 }}>
+		<IconButton aria-label="close" size="small">
+			<FontAwesomeIcon icon={faClose} />
 		</IconButton>
-		<IconButton color="secondary" aria-label="add an alarm">
-			<AlarmIcon />
+		<IconButton aria-label="close" size="medium">
+			<FontAwesomeIcon icon={faClose} />
 		</IconButton>
-		<IconButton color="primary" aria-label="add to shopping cart">
-			<AddShoppingCartIcon />
+		<IconButton aria-label="close" size="large">
+			<FontAwesomeIcon icon={faClose} />
 		</IconButton>
 	</Box>
 </ThemeProvider>
