@@ -41,6 +41,8 @@ export type {
 } from './components/DownloadImageDialog';
 export type { DeviceType as DownloadImageDeviceType } from './components/DownloadImageDialog/models';
 export type { VirtualizedAutocompleteProps } from './components/VirtualizedAutocomplete';
+export type { CollectionSummaryProps } from './components/CollectionSummary';
+export { CollectionSummary } from './components/CollectionSummary';
 export type { DropDownButtonProps } from './components/DropDownButton';
 export { DropDownButton } from './components/DropDownButton';
 export type { LimitedRowImagesProps } from './components/LimitedRowImages';
