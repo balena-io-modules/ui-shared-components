@@ -5,15 +5,23 @@ const config: StorybookConfig = {
 	addons: [
 		'@storybook/addon-links',
 		'@storybook/addon-essentials',
-		'@storybook/preset-typescript',
 		'@storybook/addon-onboarding',
 		'@storybook/addon-interactions',
-		'@storybook/addon-mdx-gfm',
+		'@storybook/addon-webpack5-compiler-swc',
 	],
 	framework: {
 		name: '@storybook/react-webpack5',
 		options: {},
 	},
+	swc: () => ({
+		jsc: {
+			transform: {
+				react: {
+					runtime: 'automatic',
+				},
+			},
+		},
+	}),
 	docs: {
 		autodocs: 'tag',
 	},

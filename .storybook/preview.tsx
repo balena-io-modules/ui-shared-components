@@ -13,7 +13,6 @@ const preview: Preview = {
 		backgrounds: {
 			disable: true,
 		},
-		actions: { argTypesRegex: '^on[A-Z].*' },
 		docs: {
 			theme: balenaTheme,
 		},
