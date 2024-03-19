@@ -1,6 +1,6 @@
 import { Dialog, DialogProps, IconButton, DialogTitle } from '@mui/material';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faClose } from '@fortawesome/free-solid-svg-icons/faClose';
+import faClose from '@fortawesome/free-solid-svg-icons/faClose';
 
 export type DialogWithCloseButtonProps = Omit<DialogProps, 'title'> & {
 	title: DialogProps['title'] | JSX.Element;
