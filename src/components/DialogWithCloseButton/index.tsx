@@ -1,5 +1,6 @@
 import { Dialog, DialogProps, IconButton, DialogTitle } from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faClose } from '@fortawesome/free-solid-svg-icons/faClose';
 
 export type DialogWithCloseButtonProps = Omit<DialogProps, 'title'> & {
 	title: DialogProps['title'] | JSX.Element;
@@ -18,7 +19,7 @@ export const DialogWithCloseButton = ({
 					sx={{
 						display: 'flex',
 						justifyContent: 'space-between',
-						alignItems: 'flex-start',
+						alignItems: 'center',
 					}}
 					onClick={(e) => {
 						e.preventDefault();
@@ -29,15 +30,13 @@ export const DialogWithCloseButton = ({
 					{title}
 					{onClose ? (
 						<IconButton
+							edge="end"
 							aria-label="close"
 							onClick={(e) => {
 								onClose(e, 'backdropClick');
 							}}
-							sx={{
-								color: (theme) => theme.palette.grey[500],
-							}}
 						>
-							<CloseIcon />
+							<FontAwesomeIcon icon={faClose} />
 						</IconButton>
 					) : null}
 				</DialogTitle>
