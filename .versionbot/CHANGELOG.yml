@@ -1,4 +1,15 @@
 - commits:
+    - subject: Improve icon styles
+      hash: 90836f616694099a6793c55d995331aba0cc7448
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Jonathan Berger
+  version: 5.0.4
+  title: ""
+  date: 2024-03-20T15:36:04.303Z
+- commits:
     - subject: Fix disabled styles for contained buttons
       hash: 7993ea0ae36dadae892450c8dbdca61f65e0abdd
       body: ""
