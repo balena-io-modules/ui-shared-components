@@ -1,4 +1,15 @@
 - commits:
+    - subject: "Img: Fix image not updating when `src` prop updates"
+      hash: 5cacad0493cf96dd4c8d57549e8c4790f48bd6bd
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: myarmolinsky
+  version: 5.0.5
+  title: ""
+  date: 2024-03-25T22:58:35.783Z
+- commits:
     - subject: Improve icon styles
       hash: 90836f616694099a6793c55d995331aba0cc7448
       body: ""
