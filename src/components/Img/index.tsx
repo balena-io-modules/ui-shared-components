@@ -1,5 +1,5 @@
 import { Box, BoxProps } from '@mui/material';
-import { SyntheticEvent, useState } from 'react';
+import { SyntheticEvent, useState, useEffect } from 'react';
 
 export interface ImgProps extends BoxProps<'img'> {
 	fallback?: BoxProps<'img'>['src'];
@@ -16,6 +16,10 @@ export const Img = ({
 	...props
 }: ImgProps) => {
 	const [src, setSrc] = useState(srcProp);
+
+	useEffect(() => {
+		setSrc(srcProp);
+	}, [srcProp]);
 
 	return (
 		<Box
