@@ -52,6 +52,8 @@ export { OrderedListItem } from './components/OrderedListItem';
 export type { RouterLinkWithTrackingProps } from './components/RouterLinkWithTracking';
 export { RouterLinkWithTracking } from './components/RouterLinkWithTracking';
 export { SnackbarProviderBase as SnackbarProvider } from './components/SnackbarProvider';
+export type { SpinnerProps } from './components/Spinner';
+export { Spinner } from './components/Spinner';
 export { SurroundingOverlay } from './components/SurroundingOverlay';
 export type { SurroundingOverlayProps } from './components/SurroundingOverlay';
 export type { TooltipProps } from './components/Tooltip';
