@@ -771,12 +771,13 @@ export const theme = createTheme({
 			},
 		},
 		MuiLink: {
+			defaultProps: { underline: 'none' },
 			styleOverrides: {
 				root: {
 					color: '#00AEEF',
-					textDecoration: 'none',
 					'&:hover': {
 						color: '#008bbf',
+						cursor: 'pointer',
 					},
 				},
 			},
