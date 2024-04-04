@@ -1,4 +1,15 @@
 - commits:
+    - subject: Show hex value on colors page
+      hash: af78b5de448f28bafdef28faf173e10bcda97f8f
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Jonathan Berger
+  version: 5.0.6
+  title: ""
+  date: 2024-04-04T10:47:48.662Z
+- commits:
     - subject: "Img: Fix image not updating when `src` prop updates"
       hash: 5cacad0493cf96dd4c8d57549e8c4790f48bd6bd
       body: ""
