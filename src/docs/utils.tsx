@@ -35,6 +35,7 @@ export const ColorTable = ({ children }: { children: React.ReactNode }) => (
 				<th style={{ textAlign: 'left' }}>Token</th>
 				<th style={{ textAlign: 'left' }}>Description</th>
 				<th style={{ textAlign: 'left' }}>Variables</th>
+				<th style={{ textAlign: 'left' }}>Value</th>
 			</tr>
 		</thead>
 		<tbody>{children}</tbody>
@@ -66,6 +67,9 @@ export const ColorRow = ({
 			<td>
 				<code>{getVariableFromTokenName(token.name, 'js')}</code> <br />{' '}
 				<code>{getVariableFromTokenName(token.name, 'css')}</code>
+			</td>
+			<td>
+				<code>{token.value}</code>
 			</td>
 		</tr>
 	);
