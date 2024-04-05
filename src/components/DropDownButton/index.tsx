@@ -23,7 +23,7 @@ import { Tooltip } from '../Tooltip';
 
 type MenuItemType<T> = MenuItemWithTrackingProps &
 	T & {
-		tooltip?: string | Omit<TooltipProps, 'children'>;
+		tooltip?: Omit<TooltipProps, 'children'> | TooltipProps['title'];
 	};
 
 export interface DropDownButtonProps<T = unknown>
@@ -161,7 +161,7 @@ export interface MenuItemWithTrackingProps
 	extends Omit<MenuItemProps, 'onClick'> {
 	eventName: string;
 	eventProperties?: { [key: string]: any };
-	tooltip?: string | Omit<TooltipProps, 'children'>;
+	tooltip?: Omit<TooltipProps, 'children'> | TooltipProps['title'];
 	onClick?: React.MouseEventHandler<HTMLLIElement | HTMLButtonElement>;
 }
 
@@ -186,7 +186,9 @@ export const MenuItemWithTracking: React.FC<MenuItemWithTrackingProps> = ({
 	};
 
 	const tooltipProps =
-		typeof tooltip === 'string' || !tooltip ? { title: tooltip } : tooltip;
+		tooltip && typeof tooltip === 'object' && 'title' in tooltip
+			? tooltip
+			: { title: tooltip };
 
 	return (
 		<Tooltip {...tooltipProps}>
