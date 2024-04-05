@@ -540,6 +540,18 @@ export const theme = createTheme({
 						).main,
 					},
 				}),
+				text: {
+					padding: 0,
+					minWidth: 'none',
+					userSelect: 'auto',
+					'&:hover,&:focus': {
+						background: 'none',
+						textDecoration: 'underline',
+					},
+					'.MuiTouchRipple-root': {
+						display: 'none',
+					},
+				},
 				textPrimary: {
 					color: color.text.accent.value,
 				},
