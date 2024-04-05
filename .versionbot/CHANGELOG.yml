@@ -1,4 +1,15 @@
 - commits:
+    - subject: Fix text button styling
+      hash: 81532cfc3c77b8d32a243b224d0c5502f46982e5
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Jonathan Berger
+  version: 5.0.8
+  title: ""
+  date: 2024-04-05T21:18:05.876Z
+- commits:
     - subject: Adapt tooltip typing
       hash: d41569b113e1ae9fc038cec8c1675f805ec95649
       body: ""
