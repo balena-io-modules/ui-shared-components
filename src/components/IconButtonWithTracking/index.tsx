@@ -10,7 +10,7 @@ import { Tooltip } from '../Tooltip';
 export interface IconButtonWithTrackingProps extends IconButtonProps {
 	eventName: string;
 	eventProperties?: { [key: string]: any };
-	tooltip?: string | Omit<TooltipProps, 'children'>;
+	tooltip?: Omit<TooltipProps, 'children'> | TooltipProps['title'];
 }
 
 /**
@@ -34,7 +34,9 @@ export const IconButtonWithTracking: React.FC<IconButtonWithTrackingProps> = ({
 	};
 
 	const tooltipProps =
-		typeof tooltip === 'string' || !tooltip ? { title: tooltip } : tooltip;
+		tooltip && typeof tooltip === 'object' && 'title' in tooltip
+			? tooltip
+			: { title: tooltip };
 
 	return (
 		<Tooltip {...tooltipProps}>
