@@ -1,0 +1,16 @@
+import { Meta } from '@storybook/blocks';
+import { Checkbox, ThemeProvider } from '@mui/material';
+import { theme } from '../../theme';
+
+<Meta title="Mui Components/Input/Checkbox" />
+
+# Checkbox
+
+<ThemeProvider theme={theme}>
+	<Checkbox />
+	<Checkbox checked />
+	<Checkbox indeterminate />
+	<Checkbox disabled />
+	<Checkbox disabled checked />
+	<Checkbox disabled indeterminate />
+</ThemeProvider>

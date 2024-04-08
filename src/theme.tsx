@@ -830,6 +830,66 @@ export const theme = createTheme({
 				},
 			},
 		},
+		MuiCheckbox: {
+			defaultProps: {
+				icon: (
+					<svg
+						width="20"
+						height="20"
+						viewBox="0 0 20 20"
+						fill="currentColor"
+						xmlns="http://www.w3.org/2000/svg"
+					>
+						<path
+							fill-rule="evenodd"
+							clip-rule="evenodd"
+							d="M16 1H4C2.34315 1 1 2.34315 1 4V16C1 17.6569 2.34315 19 4 19H16C17.6569 19 19 17.6569 19 16V4C19 2.34315 17.6569 1 16 1ZM4 0C1.79086 0 0 1.79086 0 4V16C0 18.2091 1.79086 20 4 20H16C18.2091 20 20 18.2091 20 16V4C20 1.79086 18.2091 0 16 0H4Z"
+						/>
+					</svg>
+				),
+				checkedIcon: (
+					<svg
+						width="20"
+						height="20"
+						viewBox="0 0 20 20"
+						fill="currentColor"
+						xmlns="http://www.w3.org/2000/svg"
+					>
+						<rect width="20" height="20" rx="4" />
+						<path
+							d="M15.2832 6.22852C15.5879 6.50977 15.5879 7.00195 15.2832 7.2832L9.2832 13.2832C9.00195 13.5879 8.50977 13.5879 8.22852 13.2832L5.22852 10.2832C4.92383 10.002 4.92383 9.50977 5.22852 9.22852C5.50977 8.92383 6.00195 8.92383 6.2832 9.22852L8.74414 11.6895L14.2285 6.22852C14.5098 5.92383 15.002 5.92383 15.2832 6.22852Z"
+							fill="white"
+						/>
+					</svg>
+				),
+				indeterminateIcon: (
+					<svg
+						width="20"
+						height="20"
+						viewBox="0 0 20 20"
+						fill="currentColor"
+						xmlns="http://www.w3.org/2000/svg"
+					>
+						<rect width="20" height="20" rx="4" />
+						<rect x="5" y="9" width="10" height="2" fill="white" />
+					</svg>
+				),
+			},
+			styleOverrides: {
+				root: {
+					color: color.border.strong.value,
+					'&.Mui-disabled': {
+						opacity: 0.3,
+					},
+					'&.Mui-checked': {
+						color: color.bg.accent.strong.value,
+					},
+					'&.MuiCheckbox-indeterminate': {
+						color: color.bg.accent.strong.value,
+					},
+				},
+			},
+		},
 	},
 });
 
