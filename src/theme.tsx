@@ -746,7 +746,7 @@ export const theme = createTheme({
 				notched: false,
 			},
 			styleOverrides: {
-				root: {
+				root: ({ theme }) => ({
 					legend: {
 						// We should be able to remove this but there is a css override somewhere that
 						// set the fieldset > legend max-width to 100%, and this invalidate the notched: false rule for some inputs.
@@ -758,7 +758,11 @@ export const theme = createTheme({
 							borderColor: color.border.strong.value,
 						},
 					},
-				},
+					'[type="color"]': {
+						padding: theme.spacing(1),
+						height: '20px',
+					},
+				}),
 			},
 		},
 		MuiInputLabel: {
@@ -774,11 +778,15 @@ export const theme = createTheme({
 			},
 		},
 		MuiFormLabel: {
+			defaultProps: {
+				focused: false, // Needs that otherwise the color changes when focusing on the control element
+			},
 			styleOverrides: {
 				root: {
 					fontSize: 12,
 					transform: 'none',
 					position: 'relative',
+					color: color.text.value,
 				},
 			},
 		},
@@ -827,6 +835,183 @@ export const theme = createTheme({
 			styleOverrides: {
 				indicator: {
 					backgroundColor: color.border.accent.value,
+				},
+			},
+		},
+		MuiCheckbox: {
+			defaultProps: {
+				icon: (
+					<svg
+						width="20"
+						height="20"
+						viewBox="0 0 20 20"
+						fill="none"
+						xmlns="http://www.w3.org/2000/svg"
+					>
+						<rect
+							x="0.5"
+							y="0.5"
+							width="19"
+							height="19"
+							rx="3.5"
+							fill="white"
+							stroke="currentColor"
+						/>
+					</svg>
+				),
+				checkedIcon: (
+					<svg
+						width="20"
+						height="20"
+						viewBox="0 0 20 20"
+						fill="currentColor"
+						xmlns="http://www.w3.org/2000/svg"
+					>
+						<rect width="20" height="20" rx="4" />
+						<path
+							d="M15.2832 6.22852C15.5879 6.50977 15.5879 7.00195 15.2832 7.2832L9.2832 13.2832C9.00195 13.5879 8.50977 13.5879 8.22852 13.2832L5.22852 10.2832C4.92383 10.002 4.92383 9.50977 5.22852 9.22852C5.50977 8.92383 6.00195 8.92383 6.2832 9.22852L8.74414 11.6895L14.2285 6.22852C14.5098 5.92383 15.002 5.92383 15.2832 6.22852Z"
+							fill="white"
+						/>
+					</svg>
+				),
+				indeterminateIcon: (
+					<svg
+						width="20"
+						height="20"
+						viewBox="0 0 20 20"
+						fill="currentColor"
+						xmlns="http://www.w3.org/2000/svg"
+					>
+						<rect width="20" height="20" rx="4" />
+						<rect x="5" y="9" width="10" height="2" fill="white" />
+					</svg>
+				),
+			},
+			styleOverrides: {
+				root: {
+					color: color.border.strong.value,
+					'&.Mui-disabled': {
+						opacity: 0.3,
+					},
+					'&.Mui-checked': {
+						color: color.bg.accent.strong.value,
+					},
+					'&.MuiCheckbox-indeterminate': {
+						color: color.bg.accent.strong.value,
+					},
+				},
+			},
+		},
+		MuiRadio: {
+			defaultProps: {
+				icon: (
+					<svg
+						width="20"
+						height="20"
+						viewBox="0 0 20 20"
+						fill="none"
+						xmlns="http://www.w3.org/2000/svg"
+					>
+						<circle
+							cx="10"
+							cy="10"
+							r="9.5"
+							fill="white"
+							stroke="currentColor"
+						/>
+					</svg>
+				),
+				checkedIcon: (
+					<svg
+						width="20"
+						height="20"
+						viewBox="0 0 20 20"
+						fill="none"
+						xmlns="http://www.w3.org/2000/svg"
+					>
+						<circle
+							cx="10"
+							cy="10"
+							r="9.5"
+							fill="white"
+							stroke="currentColor"
+						/>
+						<circle cx="10" cy="10" r="4" fill="currentColor" />
+					</svg>
+				),
+			},
+			styleOverrides: {
+				root: {
+					color: color.border.strong.value,
+					'&.Mui-disabled': {
+						opacity: 0.3,
+						color: color.border.strong.value,
+					},
+				},
+			},
+		},
+		MuiFormControlLabel: {
+			styleOverrides: {
+				root: {
+					color: color.text.value,
+				},
+			},
+		},
+		MuiFormHelperText: {
+			styleOverrides: {
+				root: {
+					color: color.text.subtle.value,
+					fontSize: 12,
+					marginLeft: 0,
+				},
+			},
+		},
+		MuiSwitch: {
+			styleOverrides: {
+				root: {
+					width: 34,
+					height: 20,
+					padding: 0,
+					margin: '4px 4px 4px 9px',
+					'& .MuiSwitch-switchBase': {
+						padding: 0,
+						margin: 3,
+						transitionDuration: '200ms',
+						'&.Mui-checked': {
+							transform: 'translateX(14px)',
+							color: 'white',
+							'& + .MuiSwitch-track': {
+								backgroundColor: color.bg.accent.strong.value,
+								opacity: 1,
+								border: 0,
+							},
+							'&.Mui-disabled + .MuiSwitch-track': {
+								opacity: 0.5,
+							},
+						},
+						'&.Mui-focusVisible .MuiSwitch-thumb': {
+							color: color.bg.accent.strong.value,
+							border: '4px solid white',
+						},
+						'&.Mui-disabled .MuiSwitch-thumb': {
+							color: 'white',
+						},
+						'&.Mui-disabled + .MuiSwitch-track': {
+							opacity: 0.5,
+						},
+					},
+					'& .MuiSwitch-thumb': {
+						boxSizing: 'border-box',
+						boxShadow: '0px 0px 4px 0px rgba(0,0,0,0.1)',
+						width: 14,
+						height: 14,
+					},
+					'& .MuiSwitch-track': {
+						borderRadius: 20 / 2,
+						backgroundColor: color.palette.neutral[100].value,
+						opacity: 1,
+						transition: `200ms background-color ease-out`,
+					},
 				},
 			},
 		},
