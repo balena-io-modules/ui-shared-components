@@ -1,4 +1,22 @@
 - commits:
+    - subject: Add styles for radio and switch controls
+      hash: 50ed12bdcf1801f03d9793a2614b3c8530e7b230
+      body: ""
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: Jonathan Berger
+    - subject: Adapt checkbox styling
+      hash: 019f5e2a1555c5a337dbe159e9f3ca82301c91ed
+      body: ""
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: Jonathan Berger
+  version: 5.1.0
+  title: ""
+  date: 2024-04-11T13:01:17.273Z
+- commits:
     - subject: Fix text button styling
       hash: 81532cfc3c77b8d32a243b224d0c5502f46982e5
       body: ""
