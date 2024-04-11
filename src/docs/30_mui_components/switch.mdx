@@ -1,0 +1,36 @@
+import { Meta } from '@storybook/blocks';
+import {
+	Box,
+	FormControl,
+	FormControlLabel, FormGroup,
+	FormLabel, Radio, RadioGroup, Switch,
+	ThemeProvider,
+} from '@mui/material';
+import { theme } from '../../theme';
+
+<Meta title="Mui Components/Input/Switch" />
+
+# Switch
+
+<ThemeProvider theme={theme}>
+	<Box sx={{mb: 3}}>
+		<Switch />
+		<Switch checked />
+		<Switch disabled />
+		<Switch disabled checked />
+	</Box>
+</ThemeProvider>
+
+## With labels and helper text
+
+<ThemeProvider theme={theme}>
+	<FormControl>
+		<FormLabel>Device settings</FormLabel>
+		<FormGroup>
+			<FormControlLabel control={<Switch />} label="Public device URL" />
+			<FormControlLabel control={<Switch />} label="Local mode" />
+			<FormControlLabel control={<Switch />} label="Support access" />
+		</FormGroup>
+	</FormControl>
+</ThemeProvider>
+

@@ -1,0 +1,57 @@
+import { Meta } from '@storybook/blocks';
+import {
+	Box,
+	Checkbox,
+	FormControl,
+	FormControlLabel,
+	FormGroup,
+	FormHelperText,
+	FormLabel,
+	ThemeProvider,
+} from '@mui/material';
+import { theme } from '../../theme';
+
+<Meta title="Mui Components/Input/Checkbox" />
+
+# Checkbox
+
+<ThemeProvider theme={theme}>
+	<Box sx={{ mb: 3 }}>
+		<Checkbox />
+		<Checkbox checked />
+		<Checkbox indeterminate />
+		<Checkbox disabled />
+		<Checkbox disabled checked />
+		<Checkbox disabled indeterminate />
+	</Box>
+</ThemeProvider>
+
+## With labels and helper text
+
+<ThemeProvider theme={theme}>
+	<FormControl component="fieldset" variant="standard">
+		<FormLabel component="legend">Assign responsibility</FormLabel>
+		<FormGroup>
+			<FormControlLabel
+				control={
+					<Checkbox />
+				}
+				label="Gilad Gray"
+			/>
+			<FormControlLabel
+				control={
+					<Checkbox />
+				}
+				label="Jason Killian"
+			/>
+			<FormControlLabel
+				control={
+					<Checkbox />
+				}
+				label="Antoine Llorca"
+			/>
+		</FormGroup>
+		<FormHelperText>Be careful</FormHelperText>
+	</FormControl>
+</ThemeProvider>
+

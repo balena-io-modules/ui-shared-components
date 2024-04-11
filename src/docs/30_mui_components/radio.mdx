@@ -1,0 +1,40 @@
+import { Meta } from '@storybook/blocks';
+import {
+	Box,
+	FormControl,
+	FormControlLabel,
+	FormLabel, Radio, RadioGroup,
+	ThemeProvider,
+} from '@mui/material';
+import { theme } from '../../theme';
+
+<Meta title="Mui Components/Input/Radio" />
+
+# Radio
+
+<ThemeProvider theme={theme}>
+	<Box sx={{mb: 3}}>
+		<Radio />
+		<Radio checked />
+		<Radio disabled />
+		<Radio disabled checked />
+	</Box>
+</ThemeProvider>
+
+## With labels and helper text
+
+<ThemeProvider theme={theme}>
+	<FormControl>
+		<FormLabel id="demo-radio-buttons-group-label">Gender</FormLabel>
+		<RadioGroup
+			aria-labelledby="demo-radio-buttons-group-label"
+			defaultValue="female"
+			name="radio-buttons-group"
+		>
+			<FormControlLabel value="female" control={<Radio />} label="Female" />
+			<FormControlLabel value="male" control={<Radio />} label="Male" />
+			<FormControlLabel value="other" control={<Radio />} label="Other" />
+		</RadioGroup>
+	</FormControl>
+</ThemeProvider>
+

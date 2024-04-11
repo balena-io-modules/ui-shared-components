@@ -56,10 +56,11 @@ Content
     max-width: 55rem;
 }
 
-#storybook-docs .sbdocs :where(p:not(.sb-anchor, .sb-unstyled, .sb-unstyled p)),
-#storybook-docs .sbdocs :where(li:not(.sb-anchor, .sb-unstyled, .sb-unstyled li)),
-#storybook-docs .sbdocs :where(td:not(.sb-anchor, .sb-unstyled, .sb-unstyled td)),
-#storybook-docs .sbdocs :where(th:not(.sb-anchor, .sb-unstyled, .sb-unstyled th)) {
+#storybook-docs .sbdocs > :where(p:not(.sb-anchor, .sb-unstyled, .sb-unstyled p)),
+#storybook-docs .sbdocs > :where(li:not(.sb-anchor, .sb-unstyled, .sb-unstyled li)),
+#storybook-docs .sbdocs > :where(td:not(.sb-anchor, .sb-unstyled, .sb-unstyled td)),
+#storybook-docs .sbdocs > :where(td:not(.sb-anchor, .sb-unstyled, .sb-unstyled td)),
+#storybook-docs .sbdocs > :where(blockquote:not(.sb-anchor, .sb-unstyled, .sb-unstyled blockquote)) {
     font-size: 16px;
     line-height: 1.6;
 }
