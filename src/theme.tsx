@@ -791,12 +791,12 @@ export const theme = createTheme({
 			},
 		},
 		MuiLink: {
+			defaultProps: { underline: 'none' },
 			styleOverrides: {
 				root: {
-					color: '#00AEEF',
-					textDecoration: 'none',
+					color: color.text.accent.value,
 					'&:hover': {
-						color: '#008bbf',
+						color: color.palette.blue[800].value,
 					},
 				},
 			},
@@ -1013,6 +1013,14 @@ export const theme = createTheme({
 						transition: `200ms background-color ease-out`,
 					},
 				},
+			},
+		},
+		MuiBackdrop: {
+			styleOverrides: {
+				root: {
+					background: color.bg.overlay.dark.value,
+				},
+				invisible: { background: 'unset' },
 			},
 		},
 	},
