@@ -1,4 +1,22 @@
 - commits:
+    - subject: Add Spinner component
+      hash: 848e2ea79fe30c65a46d780ea202ba590a734942
+      body: ""
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: myarmolinsky
+    - subject: Update design-tokens to 0.4.2
+      hash: a8e4934a8c363db113209b01dbadf4ce9678034e
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: myarmolinsky
+  version: 5.2.0
+  title: ""
+  date: 2024-04-15T19:37:04.771Z
+- commits:
     - subject: Add styles for radio and switch controls
       hash: 50ed12bdcf1801f03d9793a2614b3c8530e7b230
       body: ""
