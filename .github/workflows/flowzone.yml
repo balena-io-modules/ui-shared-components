@@ -10,7 +10,7 @@ on:
 jobs:
   flowzone:
     name: Flowzone
-    uses: product-os/flowzone/.github/workflows/flowzone.yml@master
+    uses: drskullster/flowzone/.github/workflows/flowzone.yml@drskullster/add-comment-with-publish-url
     secrets: inherit
     with:
       cloudflare_website: balena-design-system
