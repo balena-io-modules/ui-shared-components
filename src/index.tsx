@@ -54,6 +54,8 @@ export { RouterLinkWithTracking } from './components/RouterLinkWithTracking';
 export { SnackbarProviderBase as SnackbarProvider } from './components/SnackbarProvider';
 export type { SpinnerProps } from './components/Spinner';
 export { Spinner } from './components/Spinner';
+export type { CircularProgressWithLabelProps } from './components/CircularProgressWithLabel';
+export { CircularProgressWithLabel } from './components/CircularProgressWithLabel';
 export { SurroundingOverlay } from './components/SurroundingOverlay';
 export type { SurroundingOverlayProps } from './components/SurroundingOverlay';
 export type { TooltipProps } from './components/Tooltip';
