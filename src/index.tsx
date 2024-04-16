@@ -62,6 +62,7 @@ export type { TabsProps } from './components/Tabs';
 export { Tabs } from './components/Tabs';
 export type { VirtualizedAutocompleteWithPaginationProps } from './components/VirtualizedAutocomplete';
 export { VirtualizedAutocomplete } from './components/VirtualizedAutocomplete';
+export type { UIMarker, MapProps } from './components/Map';
 export { Map } from './components/Map';
 export { Markdown } from './components/Markdown';
 export { Truncate } from './components/Truncate';
