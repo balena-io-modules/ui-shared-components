@@ -69,14 +69,23 @@ export const Spinner = ({
 
 	return (
 		<Box position="relative" height="100%">
-			{children}
+			<Box
+				sx={{
+					...(show &&
+						bgVariant === 'light' && {
+							opacity: 0.4,
+							transition: 'opacity 250ms',
+						}),
+				}}
+			>
+				{children}
+			</Box>
 			<Backdrop
 				sx={[
 					{
 						gap: 1,
 						position: 'absolute',
-						backgroundColor:
-							bgVariant === 'light' ? color.bg.overlay.light.value : null,
+						...(bgVariant === 'light' && { backgroundColor: 'unset' }),
 					},
 					...(Array.isArray(sx) ? sx : [sx]),
 				]}
