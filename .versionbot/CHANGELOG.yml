@@ -1,4 +1,15 @@
 - commits:
+    - subject: Fix Spinner light backdrop having a background color
+      hash: 9b5c105910754303c5d670b71b68b2900ebdf125
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: myarmolinsky
+  version: 5.3.1
+  title: ""
+  date: 2024-04-17T20:34:03.772Z
+- commits:
     - subject: Export UIMarker and MapProps types
       hash: 056d74fb25bf6f9ceee6b045734250063d912951
       body: ""
