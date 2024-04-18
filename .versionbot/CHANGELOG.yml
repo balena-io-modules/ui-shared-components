@@ -1,4 +1,15 @@
 - commits:
+    - subject: Add LinearProgress styling
+      hash: 2b2c7f1d4651e3233e9e79d907f138cd67ae78d9
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: myarmolinsky
+  version: 5.3.2
+  title: ""
+  date: 2024-04-18T13:30:05.448Z
+- commits:
     - subject: Fix Spinner light backdrop having a background color
       hash: 9b5c105910754303c5d670b71b68b2900ebdf125
       body: ""
