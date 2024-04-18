@@ -1,4 +1,15 @@
 - commits:
+    - subject: 'DownloadImage: Add an e2e ID on the "show outdated versions" checkbox'
+      hash: e0fa9ce42ff1a211c2bbaa50d2efeb84a55e5492
+      body: ""
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: Thodoris Greasidis
+  version: 5.4.0
+  title: ""
+  date: 2024-04-18T17:24:46.173Z
+- commits:
     - subject: Add LinearProgress styling
       hash: 2b2c7f1d4651e3233e9e79d907f138cd67ae78d9
       body: ""
