@@ -838,6 +838,11 @@ export const theme = createTheme({
 				},
 			},
 		},
+		MuiLinearProgress: {
+			styleOverrides: {
+				root: { borderRadius: 3, backgroundColor: color.bg.subtle.value },
+			},
+		},
 		MuiCheckbox: {
 			defaultProps: {
 				icon: (
