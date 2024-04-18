@@ -328,6 +328,7 @@ export const ImageForm: React.FC<ImageFormProps> = memo(
 								height={54}
 							>
 								<Checkbox
+									id="e2e-show-all-versions-check"
 									checked={showAllVersions}
 									onChange={handleShowAllVersions}
 								/>
