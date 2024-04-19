@@ -4,7 +4,7 @@ import {
 	createWebTracker,
 	WebTracker,
 } from 'analytics-client';
-import { createContext, useContext, useReducer } from 'react';
+import { createContext, useContext, useEffect, useReducer } from 'react';
 
 export enum AnalyticsStoreActions {
 	setAnalyticsData = 'set_analytics_data',
@@ -16,7 +16,7 @@ type AnalyticsActionPayload = {
 
 type Action = {
 	type: AnalyticsStoreActions.setAnalyticsData;
-	payload: AnalyticsActionPayload;
+	payload: AnalyticsActionPayload | AnalyticsContext;
 };
 
 type Dispatch = (action: Action) => void;
@@ -69,10 +69,15 @@ const contextReducer = (state: AnalyticsContext, { type, payload }: Action) => {
 					window.location.pathname + (!!newQuery ? `?${newQuery}` : '');
 				window.history.replaceState(null, '', newUrl);
 			}
-			const analyticsClient = payload.createAnalyticsClient(urlParamsHandler);
+			const analyticsClient =
+				'analyticsClient' in payload
+					? payload.analyticsClient
+					: payload.createAnalyticsClient(urlParamsHandler);
 
 			const webTracker =
-				analyticsClient && payload && 'trackerName' in payload
+				'webTracker' in payload
+					? payload.webTracker
+					: analyticsClient && payload && 'trackerName' in payload
 					? createWebTracker(analyticsClient, payload.trackerName)
 					: null;
 
@@ -101,10 +106,15 @@ interface AnalyticsContextProviderProps {
 export const AnalyticsContextProvider: React.FC<
 	React.PropsWithChildren<AnalyticsContextProviderProps>
 > = ({ initialState, children }) => {
-	const [state, dispatch] = useReducer(
-		contextReducer,
-		initialState ?? initialContext,
-	);
+	const [state, dispatch] = useReducer(contextReducer, initialContext);
+	useEffect(() => {
+		if (initialState) {
+			dispatch({
+				type: AnalyticsStoreActions.setAnalyticsData,
+				payload: initialState,
+			});
+		}
+	}, [initialState]);
 	const value = { state, dispatch };
 	return (
 		<AnalyticsStateContext.Provider value={value}>
