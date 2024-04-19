@@ -1,4 +1,15 @@
 - commits:
+    - subject: Fix AnalyticsContextProvider update state on prop change
+      hash: d28202ebe931c17e50c8fdc49415fc771965b143
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Andrea Rosci
+  version: 5.4.1
+  title: ""
+  date: 2024-04-19T16:12:22.179Z
+- commits:
     - subject: 'DownloadImage: Add an e2e ID on the "show outdated versions" checkbox'
       hash: e0fa9ce42ff1a211c2bbaa50d2efeb84a55e5492
       body: ""
