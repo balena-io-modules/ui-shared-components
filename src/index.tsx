@@ -9,6 +9,10 @@ export type { ImgProps } from './components/Img';
 export { Img } from './components/Img';
 export type { CookiesBannerProps, Cookie } from './components/CookiesBanner';
 export type { FormProps as RjsCoreFormProps } from '@rjsf/core';
+export type {
+	ArrayFieldTemplateProps,
+	ObjectFieldTemplateProps,
+} from '@rjsf/utils';
 export { RJSForm, Templates as RjsfTemplates } from './components/Form';
 export type {
 	RJSFormProps,
@@ -20,10 +24,13 @@ export type {
 	FormValidation,
 } from './components/Form';
 export type {
+	FileWidget,
 	OnFileReadParams,
 	OnFileReadSuccessParams,
 	OnFileReadErrorParams,
 } from './components/Form/Widgets/FileWidget';
+export { PasswordWidget } from './components/Form/Widgets/PasswordWidget';
+export { SelectWidget } from './components/Form/Widgets/SelectWidget';
 export { CookiesBanner } from './components/CookiesBanner';
 export type { CollapsedListProps } from './components/CollapsedList';
 export { CollapsedList } from './components/CollapsedList';
