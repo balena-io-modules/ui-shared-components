@@ -1,4 +1,15 @@
 - commits:
+    - subject: Add missing exports
+      hash: 49db5ef755dad6311f3de57212223edd98554d48
+      body: ""
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: Andrea Rosci
+  version: 5.5.0
+  title: ""
+  date: 2024-04-22T14:15:41.296Z
+- commits:
     - subject: Fix AnalyticsContextProvider update state on prop change
       hash: d28202ebe931c17e50c8fdc49415fc771965b143
       body: ""
