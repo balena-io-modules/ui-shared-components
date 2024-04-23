@@ -202,24 +202,34 @@ const VirtualizedAutocompleteBase = <
 			if (loadNext === undefined || isNextPageLoading) {
 				return;
 			}
+			setIsNextPageLoading(true);
 			setQuery(query);
 			const { data: nextItems, totalItems } = await loadNext(page, query);
 			setPage(page + 1);
 			setResponse({ data: items.concat(nextItems), totalItems });
 			setIsNextPageLoading(false);
 		},
-		[isNextPageLoading, loadNext],
+		[
+			setQuery,
+			setPage,
+			setResponse,
+			setIsNextPageLoading,
+			isNextPageLoading,
+			loadNext,
+		],
 	);
 
 	const onInputChange = async (query: string, items: Value[]) =>
 		await loadNextPage(0, items, query);
 
-	const debouncedInputChange = throttle(onInputChange, 500);
+	const debouncedInputChange = React.useCallback(
+		throttle(onInputChange, 500),
+		[],
+	);
 
 	const pagination = React.useMemo(
 		() => ({
 			loadNextPage: async () => {
-				setIsNextPageLoading(true);
 				await loadNextPage(page, response.data, query);
 			},
 			itemCount: response.totalItems,
@@ -230,6 +240,7 @@ const VirtualizedAutocompleteBase = <
 	return (
 		<Autocomplete<Value, Multiple, DisableClearable, FreeSolo, ChipComponent>
 			{...props}
+			loading={isNextPageLoading}
 			options={options ?? response.data}
 			renderOption={(renderOptionProps, option, state, ownerState) =>
 				({
@@ -254,13 +265,13 @@ const VirtualizedAutocompleteBase = <
 				>['ListboxComponent']
 			}
 			onInputChange={async (event, query) => {
-				setIsNextPageLoading(true);
-				if (event != null) {
-					// input is being updated
-					await debouncedInputChange(query, []);
-				} else {
-					// dropdown is opened
+				// dropdown is opened, we should move this in a useEffect
+				if (!event && !response.totalItems) {
 					await loadNextPage(0, [], '');
+				}
+				// input change
+				if (event?.type === 'change') {
+					await debouncedInputChange(query, []);
 				}
 			}}
 			getOptionLabel={getOptionLabel}
