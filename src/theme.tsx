@@ -3,7 +3,9 @@ import {
 	PaletteColorOptions,
 	TypographyStyle,
 	createTheme,
+	tableCellClasses,
 } from '@mui/material';
+import type {} from '@mui/x-data-grid/themeAugmentation';
 import { TypographyStyleOptions } from '@mui/material/styles/createTypography';
 import { color } from '@balena/design-tokens';
 
@@ -733,6 +735,85 @@ export const theme = createTheme({
 				},
 				arrow: {
 					color: color.palette.neutral['1000'].value,
+				},
+			},
+		},
+		MuiTableRow: {
+			styleOverrides: {
+				root: {
+					'&:nth-of-type(even)': { backgroundColor: color.bg.value },
+				},
+			},
+		},
+		MuiTableCell: {
+			styleOverrides: {
+				root: ({ theme }) => ({
+					padding: `14px ${theme.spacing(2)}`,
+					fontSize: '1rem',
+					borderBottom: 'none',
+					[`&.${tableCellClasses.head}`]: {
+						backgroundColor: color.bg.value,
+						padding: `10px ${theme.spacing(2)}`,
+						borderBottom: `1px solid ${color.border.subtle.value}`,
+						fontWeight: 'bold',
+					},
+				}),
+			},
+		},
+		MuiTableBody: {
+			styleOverrides: {
+				root: {
+					borderBottom: `1px solid ${color.border.subtle.value}`,
+				},
+			},
+		},
+		MuiDataGrid: {
+			defaultProps: {
+				columnHeaderHeight: 42,
+				rowHeight: 50,
+				autoHeight: true,
+			},
+			styleOverrides: {
+				root: {
+					'--DataGrid-rowBorderColor': color.border.subtle.value,
+					'--DataGrid-containerBackground': '#f2f4fa', // TODO use a design token when we get rid of rendition in autoui
+					border: 'none',
+					fontSize: '1rem',
+					'.MuiDataGrid-columnHeaderTitle': {
+						fontWeight: 'bold',
+					},
+					'.MuiDataGrid-columnSeparator': {
+						color: color.border.strong.value,
+					},
+					'.MuiDataGrid-main > *:first-of-type': { borderRadius: 0 },
+					'.MuiDataGrid-row': {
+						'&:hover': {
+							backgroundColor: `${color.bg.accent.value} !important`,
+						},
+						'&:not(.Mui-selected)': {
+							'&:nth-of-type(odd)': {
+								backgroundColor: 'white',
+							},
+							'&:nth-of-type(even)': {
+								backgroundColor: color.bg.value,
+							},
+						},
+					},
+					'.MuiDataGrid-cell': {
+						borderTop: 'none',
+					},
+					'.MuiDataGrid-columnHeader, .MuiDataGrid-cell:not(.MuiDataGrid-cell--editable)':
+						{
+							'&:focus,& :focus-within': {
+								outline: 'none',
+							},
+							'&:focus-visible': {
+								outline: `1px solid ${color.border.accent.value}`,
+							},
+						},
+					'.MuiDataGrid-bottomContainer': {
+						borderBottom: `1px solid ${color.border.subtle.value}`,
+					},
 				},
 			},
 		},

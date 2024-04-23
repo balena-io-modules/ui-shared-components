@@ -82,5 +82,6 @@ export {
 } from './contexts/AnalyticsContext';
 export * as Material from '@mui/material';
 export * as MaterialLab from '@mui/lab';
+export * as MaterialDataGrid from '@mui/x-data-grid';
 export { enqueueSnackbar, closeSnackbar } from 'notistack';
 export * as designTokens from '@balena/design-tokens';
