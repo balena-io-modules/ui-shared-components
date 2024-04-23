@@ -1,4 +1,15 @@
 - commits:
+    - subject: Reduce VirtualizedAutocomplete change requests
+      hash: cd9a1f4f08d8eaa3c8d11623cea4f7471abcba8a
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Andrea Rosci
+  version: 5.5.1
+  title: ""
+  date: 2024-04-23T11:50:55.741Z
+- commits:
     - subject: Add missing exports
       hash: 49db5ef755dad6311f3de57212223edd98554d48
       body: ""
