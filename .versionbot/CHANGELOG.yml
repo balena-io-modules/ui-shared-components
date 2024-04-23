@@ -1,4 +1,15 @@
 - commits:
+    - subject: Add Table styling
+      hash: 5ae8b959303ef14c140166af07792ac99040a57a
+      body: ""
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: myarmolinsky
+  version: 5.6.0
+  title: ""
+  date: 2024-04-23T14:14:20.815Z
+- commits:
     - subject: Reduce VirtualizedAutocomplete change requests
       hash: cd9a1f4f08d8eaa3c8d11623cea4f7471abcba8a
       body: ""
