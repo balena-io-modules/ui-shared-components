@@ -266,9 +266,6 @@ export const theme = createTheme({
 			light: color.palette.blue['300'].value,
 			dark: color.palette.blue['700'].value,
 		},
-		background: {
-			default: color.bg.value,
-		},
 		text: {
 			primary: color.text.value,
 			secondary: color.text.subtle.value,
