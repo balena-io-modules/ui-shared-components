@@ -18,6 +18,7 @@ const preview: Preview = {
 			theme: balenaTheme,
 		},
 		controls: {
+			expanded: true,
 			matchers: {
 				color: /(background|color)$/i,
 				date: /Date$/,
