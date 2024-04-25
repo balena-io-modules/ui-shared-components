@@ -51,9 +51,6 @@ declare module '@mui/material/styles' {
 		contrastText: string;
 	}
 	interface TypographyVariants {
-		bodyLarge: TypographyStyle;
-		smallText: TypographyStyle;
-		link: TypographyStyle;
 		bodyLg: TypographyStyle;
 		body: TypographyStyle;
 		bodySm: TypographyStyle;
@@ -66,9 +63,6 @@ declare module '@mui/material/styles' {
 	}
 
 	interface TypographyVariantsOptions {
-		bodyLarge: TypographyStyleOptions | undefined;
-		smallText: TypographyStyleOptions | undefined;
-		link: TypographyStyleOptions | undefined;
 		bodyLg: TypographyStyleOptions | undefined;
 		body: TypographyStyleOptions | undefined;
 		bodySm: TypographyStyleOptions | undefined;
@@ -89,9 +83,6 @@ declare module '@mui/material/styles' {
 }
 declare module '@mui/material/Typography' {
 	interface TypographyPropsVariantOverrides {
-		bodyLarge: true;
-		smallText: true;
-		link: true;
 		bodyLg: true;
 		body: true;
 		bodySm: true;
@@ -240,24 +231,11 @@ export const theme = createTheme({
 				fontSize: '1.125rem',
 			},
 		},
-		bodyLarge: {
-			fontSize: '1.125rem',
-			'@media (min-width:600px)': {
-				fontSize: '1.25rem',
-			},
-		},
 		body1: {
 			fontSize: '1rem',
 		},
 		body2: {
 			fontSize: '0.875rem',
-		},
-		smallText: {
-			fontSize: '12px',
-		},
-		link: {
-			fontSize: '13px',
-			color: color.text.accent.value,
 		},
 		display: {
 			font: typography.display.shorthand.value,
