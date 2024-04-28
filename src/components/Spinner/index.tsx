@@ -14,6 +14,7 @@ export interface SpinnerProps extends Pick<BoxProps, 'sx' | 'children'> {
 	bgVariant?: 'light' | 'dark';
 	size?: keyof typeof SIZE_MAPPING;
 	zIndex?: number;
+	progress?: number;
 }
 
 // TODO use design tokens when available
@@ -31,10 +32,14 @@ export const Spinner = ({
 	bgVariant = 'light',
 	size = 'medium',
 	zIndex,
+	progress,
 }: SpinnerProps) => {
 	const SpinnerContent = (
 		<>
-			<CircularProgress size={SIZE_MAPPING[size]} />
+			<CircularProgress
+				size={SIZE_MAPPING[size]}
+				{...(progress != null && { variant: 'determinate', value: progress })}
+			/>
 			{label != null && (
 				<Typography
 					color={bgVariant === 'dark' ? color.text.inverse.value : 'default'}

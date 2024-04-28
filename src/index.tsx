@@ -24,12 +24,8 @@ export type {
 	UiSchema,
 	FormValidation,
 } from './components/Form';
-export type {
-	FileWidget,
-	OnFileReadParams,
-	OnFileReadSuccessParams,
-	OnFileReadErrorParams,
-} from './components/Form/Widgets/FileWidget';
+export { FileWidget } from './components/Form/Widgets/FileWidget';
+export type { OnFileReadParams } from './components/Form/Widgets/FileWidget';
 export { PasswordWidget } from './components/Form/Widgets/PasswordWidget';
 export { SelectWidget } from './components/Form/Widgets/SelectWidget';
 export { Code } from './components/Code';
