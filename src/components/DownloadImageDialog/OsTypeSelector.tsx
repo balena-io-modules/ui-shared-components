@@ -12,6 +12,7 @@ import { getOsTypeName } from './utils';
 import ArticleIcon from '@mui/icons-material/Article';
 import { MUILinkWithTracking } from '../MUILinkWithTracking';
 import { OsTypesEnum } from './models';
+import { Chip } from '../Chip';
 
 interface OsTypeSelectorProps<T>
 	extends Omit<
@@ -57,13 +58,10 @@ const OsTypeOption = ({ osType }: { osType: OsTypeObj | undefined }) => {
 				<Typography variant="body1">{getOsTypeName(osType.slug)}</Typography>
 				<Box>
 					{!osType.supportedForDeviceType && (
-						<Badge badgeContent="no versions yet" color="info" />
+						<Chip label="no versions yet" color="blue" />
 					)}
 					{!osType.supportedForApp && (
-						<Badge
-							badgeContent="production and enterprise plan only"
-							color="warning"
-						/>
+						<Chip label="production and enterprise plan only" color="orange" />
 					)}
 				</Box>
 			</Box>

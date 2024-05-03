@@ -5,11 +5,12 @@
   "sideEffects": false,
   "files": [
     "dist/",
+    ".yalc",
     "!**.stories.*",
     "README.md"
   ],
   "dependencies": {
-    "@balena/design-tokens": "^0.4.2",
+    "@balena/design-tokens": "^0.7.0",
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
     "@fortawesome/free-solid-svg-icons": "^6.5.1",
