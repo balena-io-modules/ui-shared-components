@@ -1,4 +1,17 @@
 - commits:
+    - subject: "Spinner: Fix `sx` prop"
+      hash: d8694e3108463564bcd9db47ac916974ef40d0b8
+      body: ""
+      footer:
+        Co-authored-by: drskullster <drskullster@pm.me>
+        co-authored-by: drskullster <drskullster@pm.me>
+        Change-type: patch
+        change-type: patch
+      author: myarmolinsky
+  version: 5.6.1
+  title: ""
+  date: 2024-05-03T14:50:38.583Z
+- commits:
     - subject: Add Table styling
       hash: 5ae8b959303ef14c140166af07792ac99040a57a
       body: ""
