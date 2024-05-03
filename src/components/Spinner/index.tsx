@@ -4,6 +4,7 @@ import {
 	CircularProgress,
 	Typography,
 	Backdrop,
+	SxProps,
 } from '@mui/material';
 import { color } from '@balena/design-tokens';
 
@@ -12,6 +13,7 @@ export interface SpinnerProps extends Pick<BoxProps, 'sx' | 'children'> {
 	label?: string;
 	bgVariant?: 'light' | 'dark';
 	size?: keyof typeof SIZE_MAPPING;
+	zIndex?: number;
 }
 
 // TODO use design tokens when available
@@ -28,6 +30,7 @@ export const Spinner = ({
 	sx,
 	bgVariant = 'light',
 	size = 'medium',
+	zIndex,
 }: SpinnerProps) => {
 	const SpinnerContent = (
 		<>
@@ -53,7 +56,6 @@ export const Spinner = ({
 						gap: 1,
 						height: '100%',
 						width: '100%',
-						zIndex: theme.zIndex.modal,
 					}),
 					...(Array.isArray(sx) ? sx : [sx]),
 				]}
@@ -68,9 +70,20 @@ export const Spinner = ({
 	}
 
 	return (
-		<Box position="relative" height="100%">
+		<Box
+			sx={[
+				{
+					position: 'relative',
+					height: '100%',
+					width: '100%',
+				},
+				...(Array.isArray(sx) ? sx : [sx]),
+			]}
+		>
 			<Box
 				sx={{
+					width: '100%',
+					height: '100%',
 					...(show &&
 						bgVariant === 'light' && {
 							opacity: 0.4,
@@ -81,14 +94,12 @@ export const Spinner = ({
 				{children}
 			</Box>
 			<Backdrop
-				sx={[
-					{
-						gap: 1,
-						position: 'absolute',
-						...(bgVariant === 'light' && { backgroundColor: 'unset' }),
-					},
-					...(Array.isArray(sx) ? sx : [sx]),
-				]}
+				sx={(theme) => ({
+					gap: 1,
+					position: 'absolute',
+					...(bgVariant === 'light' && { backgroundColor: 'unset' }),
+					zIndex,
+				})}
 				open={show}
 			>
 				{SpinnerContent}
