@@ -49,14 +49,14 @@ export const Spinner = ({
 		return (
 			<Box
 				sx={[
-					(theme) => ({
+					{
 						display: show ? 'flex' : 'none',
 						alignItems: 'center',
 						justifyContent: 'center',
 						gap: 1,
 						height: '100%',
 						width: '100%',
-					}),
+					},
 					...(Array.isArray(sx) ? sx : [sx]),
 				]}
 				onClick={(e) => {
@@ -94,12 +94,12 @@ export const Spinner = ({
 				{children}
 			</Box>
 			<Backdrop
-				sx={(theme) => ({
+				sx={{
 					gap: 1,
 					position: 'absolute',
 					...(bgVariant === 'light' && { backgroundColor: 'unset' }),
 					zIndex,
-				})}
+				}}
 				open={show}
 			>
 				{SpinnerContent}

@@ -4,9 +4,10 @@ export type { AnimatedTextProps } from './components/AnimatedText';
 export { AnimatedText } from './components/AnimatedText';
 export type { ButtonWithTrackingProps } from './components/ButtonWithTracking';
 export { ButtonWithTracking } from './components/ButtonWithTracking';
-export { Code } from './components/Code';
 export type { ImgProps } from './components/Img';
 export { Img } from './components/Img';
+export type { CopyProps } from './components/Copy';
+export { Copy, copyToClipboard } from './components/Copy';
 export type { CookiesBannerProps, Cookie } from './components/CookiesBanner';
 export type { FormProps as RjsCoreFormProps } from '@rjsf/core';
 export type {
