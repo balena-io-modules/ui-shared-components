@@ -967,6 +967,7 @@ export const theme = createTheme({
 					fontSize: 12,
 					transform: 'none',
 					position: 'relative',
+					'&:hover': { cursor: 'pointer' },
 				},
 			},
 		},
