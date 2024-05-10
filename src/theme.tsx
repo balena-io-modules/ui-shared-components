@@ -466,6 +466,7 @@ export const theme = createTheme({
 			},
 		},
 		MuiDialogTitle: {
+			defaultProps: { variant: 'inherit' },
 			styleOverrides: {
 				root: {
 					padding: '24px',
