@@ -85,8 +85,19 @@ export const RJSForm: React.FC<React.PropsWithChildren<RJSFormProps>> =
 							{/* RJSF need a child to not show the submit button https://github.com/rjsf-team/react-jsonschema-form/issues/1602  */}
 							{hideSubmitButton && <Fragment />}
 
-							{actionButtons?.map((buttonProps) => (
-								<Button {...buttonProps} />
+							{actionButtons?.map(({ sx, ...buttonProps }, index) => (
+								<Button
+									sx={[
+										{
+											mr:
+												index < actionButtons.length || !hideSubmitButton
+													? 1
+													: 0,
+										},
+										...(Array.isArray(sx) ? sx : [sx]),
+									]}
+									{...buttonProps}
+								/>
 							))}
 
 							{!hideSubmitButton && (
