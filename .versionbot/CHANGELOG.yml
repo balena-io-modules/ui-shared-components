@@ -1,4 +1,33 @@
 - commits:
+    - subject: Add styling for the Chip component
+      hash: 34508158b4a310af71b5f29aa681ed5ac789a8eb
+      body: |
+        Also export the MUI component with fewer props
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: Jonathan Berger
+    - subject: Remove default background color in MUI theme
+      hash: 7d5dbab13101e39333ca91bc90d1c9a333d7fc9f
+      body: >
+        A default background color was used in balenaHub. Removing it as it's
+        interfering with the app background (when used in conjunction with a CSS
+        baseline component).
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Jonathan Berger
+    - subject: Infer Storybook properties based on typescript modules
+      hash: d441841a1f668fb8d0f81185a3710234d024e244
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Jonathan Berger
+  version: 5.7.0
+  title: ""
+  date: 2024-05-14T12:09:23.999Z
+- commits:
     - subject: "Spinner: Fix `sx` prop"
       hash: d8694e3108463564bcd9db47ac916974ef40d0b8
       body: ""
