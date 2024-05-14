@@ -35,9 +35,10 @@ import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import ArticleIcon from '@mui/icons-material/Article';
 import { MUILinkWithTracking } from '../MUILinkWithTracking';
-import { DeviceType, OsVersionsByDeviceType } from './models';
+import { DeviceType, Dictionary, OsVersionsByDeviceType } from './models';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { FALLBACK_LOGO_UNKNOWN_DEVICE } from './utils';
+import { ChipProps } from '../Chip';
 
 const POLL_INTERVAL_DOCS =
 	'https://www.balena.io/docs/reference/supervisor/bandwidth-reduction/#side-effects--warnings';
@@ -61,11 +62,11 @@ const getCategorizedVersions = (
 	};
 };
 
-const lineMap = {
-	next: '#BAECC2',
-	current: '#C7FFFF',
-	sunset: '#FEEC63',
-	outdated: '#FFD5D2',
+const lineMap: Dictionary<ChipProps['color']> = {
+	next: 'green',
+	current: 'teal',
+	sunset: 'yellow',
+	outdated: 'red',
 };
 
 interface ImageFormProps {
@@ -521,13 +522,7 @@ export const VersionSelectItem = ({ option }: any) => {
 			>
 				<Box>{option.title}</Box>
 				{!!option.line && (
-					<Chip
-						label={option.line}
-						sx={{
-							height: 20,
-							backgroundColor: lineMap[option.line as keyof typeof lineMap],
-						}}
-					/>
+					<Chip label={option.line} color={lineMap[option.line]} />
 				)}
 				{!!option.isRecommended && (
 					<Chip

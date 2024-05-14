@@ -1,0 +1,96 @@
+import { Controls, Description, Meta, Primary, Unstyled } from '@storybook/blocks';
+import * as ChipStories from '../../components/Chip/Chip.stories';
+import { Stack, ThemeProvider, Typography } from '@mui/material';
+import { Chip } from '../../components/Chip';
+import { theme } from '../../theme';
+
+<Meta of={ChipStories} title="Chip" />
+
+# Chip
+
+<Description />
+
+<Primary />
+
+<Controls />
+
+# Default
+
+<Unstyled>
+	<ThemeProvider theme={theme}>
+		<Stack direction="row" gap={1}>
+			<Typography>Color system:</Typography>
+			<Chip label="Neutral" />
+			<Chip label="Green" color="green" />
+			<Chip label="teal" color="teal" />
+			<Chip label="blue" color="blue" />
+			<Chip label="purple" color="purple" />
+			<Chip label="yellow" color="yellow" />
+			<Chip label="orange" color="orange" />
+			<Chip label="red" color="red" />
+		</Stack>
+		<Stack direction="row" gap={1} sx={{ mt: 2 }}>
+			<Typography>Mui system:</Typography>
+			<Chip label="Primary" color="primary" />
+			<Chip label="Secondary" color="secondary" />
+			<Chip label="Info" color="info" />
+			<Chip label="Success" color="success" />
+			<Chip label="warning" color="warning" />
+			<Chip label="error" color="error" />
+		</Stack>
+	</ThemeProvider>
+</Unstyled>
+
+# Strong
+
+<Unstyled>
+	<ThemeProvider theme={theme}>
+		<Stack direction="row" gap={1}>
+			<Typography>Color system:</Typography>
+			<Chip label="Neutral" variant="strong" />
+			<Chip label="Green" color="green" variant="strong" />
+			<Chip label="teal" color="teal" variant="strong" />
+			<Chip label="blue" color="blue" variant="strong" />
+			<Chip label="purple" color="purple" variant="strong" />
+			<Chip label="yellow" color="yellow" variant="strong" />
+			<Chip label="orange" color="orange" variant="strong" />
+			<Chip label="red" color="red" variant="strong" />
+		</Stack>
+		<Stack direction="row" gap={1} sx={{ mt: 2 }}>
+			<Typography>Mui system:</Typography>
+			<Chip label="Primary" color="primary" variant="strong" />
+			<Chip label="Secondary" color="secondary" variant="strong" />
+			<Chip label="Info" color="info" variant="strong" />
+			<Chip label="Success" color="success" variant="strong" />
+			<Chip label="warning" color="warning" variant="strong" />
+			<Chip label="error" color="error" variant="strong" />
+		</Stack>
+	</ThemeProvider>
+</Unstyled>
+
+# Outlined
+
+<Unstyled>
+	<ThemeProvider theme={theme}>
+		<Stack direction="row" gap={1}>
+			<Typography>Color system:</Typography>
+			<Chip label="Neutral" variant="outlined" />
+			<Chip label="Green" color="green" variant="outlined" />
+			<Chip label="teal" color="teal" variant="outlined" />
+			<Chip label="blue" color="blue" variant="outlined" />
+			<Chip label="purple" color="purple" variant="outlined" />
+			<Chip label="yellow" color="yellow" variant="outlined" />
+			<Chip label="orange" color="orange" variant="outlined" />
+			<Chip label="red" color="red" variant="outlined" />
+		</Stack>
+		<Stack direction="row" gap={1} sx={{ mt: 2 }}>
+			<Typography>Mui system:</Typography>
+			<Chip label="Primary" color="primary" variant="outlined" />
+			<Chip label="Secondary" color="secondary" variant="outlined" />
+			<Chip label="Info" color="info" variant="outlined" />
+			<Chip label="Success" color="success" variant="outlined" />
+			<Chip label="warning" color="warning" variant="outlined" />
+			<Chip label="error" color="error" variant="outlined" />
+		</Stack>
+	</ThemeProvider>
+</Unstyled>

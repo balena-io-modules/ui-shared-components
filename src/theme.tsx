@@ -7,10 +7,12 @@ import {
 } from '@mui/material';
 import type {} from '@mui/x-data-grid/themeAugmentation';
 import { TypographyStyleOptions } from '@mui/material/styles/createTypography';
-import { color } from '@balena/design-tokens';
+import { color, typography } from '@balena/design-tokens';
 
-type CustomPaletteColor = PaletteColor & { xlight: string };
-type CustomPaletteColorOptions = PaletteColorOptions & { xlight: string };
+type CustomPaletteColor = PaletteColor & { xlight?: string };
+type CustomPaletteColorOptions = PaletteColorOptions & {
+	xlight?: string;
+};
 
 declare module '@mui/material/styles' {
 	interface Palette {
@@ -19,6 +21,13 @@ declare module '@mui/material/styles' {
 		customGreen: CustomPaletteColor;
 		customPurple: CustomPaletteColor;
 		customGrey: CustomPaletteColor;
+		green: PaletteColor;
+		teal: PaletteColor;
+		blue: PaletteColor;
+		purple: PaletteColor;
+		yellow: PaletteColor;
+		orange: PaletteColor;
+		red: PaletteColor;
 	}
 	interface PaletteOptions {
 		customBlue: CustomPaletteColorOptions;
@@ -26,6 +35,13 @@ declare module '@mui/material/styles' {
 		customGreen: CustomPaletteColorOptions;
 		customPurple: CustomPaletteColorOptions;
 		customGrey: CustomPaletteColorOptions;
+		green: PaletteColorOptions;
+		teal: PaletteColorOptions;
+		blue: PaletteColorOptions;
+		purple: PaletteColorOptions;
+		yellow: PaletteColorOptions;
+		orange: PaletteColorOptions;
+		red: PaletteColorOptions;
 	}
 	interface PaletteColor {
 		xlight?: string;
@@ -95,11 +111,17 @@ declare module '@mui/material/Badge' {
 
 declare module '@mui/material/Chip' {
 	interface ChipPropsColorOverrides {
-		customBlue: true;
-		customYellow: true;
-		customGreen: true;
-		customPurple: true;
-		customGrey: true;
+		green: true;
+		teal: true;
+		blue: true;
+		purple: true;
+		yellow: true;
+		orange: true;
+		red: true;
+	}
+
+	interface ChipPropsVariantOverrides {
+		strong: true;
 	}
 }
 declare module '@mui/material/Icon' {
@@ -266,9 +288,6 @@ export const theme = createTheme({
 			light: color.palette.blue['300'].value,
 			dark: color.palette.blue['700'].value,
 		},
-		background: {
-			default: color.bg.value,
-		},
 		text: {
 			primary: color.text.value,
 			secondary: color.text.subtle.value,
@@ -289,6 +308,48 @@ export const theme = createTheme({
 		divider: color.border.subtle.value,
 		action: {
 			active: color.text.subtle.value,
+		},
+		green: {
+			dark: color.palette.green[1000].value,
+			main: color.palette.green[500].value,
+			light: color.palette.green[50].value,
+			contrastText: '#ffffff',
+		},
+		teal: {
+			dark: color.palette.teal[1000].value,
+			main: color.palette.teal[500].value,
+			light: color.palette.teal[50].value,
+			contrastText: '#ffffff',
+		},
+		blue: {
+			dark: color.palette.blue[1000].value,
+			main: color.palette.blue[500].value,
+			light: color.palette.blue[50].value,
+			contrastText: '#ffffff',
+		},
+		purple: {
+			dark: color.palette.purple[1000].value,
+			main: color.palette.purple[500].value,
+			light: color.palette.purple[50].value,
+			contrastText: '#ffffff',
+		},
+		yellow: {
+			dark: color.palette.yellow[1000].value,
+			main: color.palette.yellow[500].value,
+			light: color.palette.yellow[50].value,
+			contrastText: '#ffffff',
+		},
+		orange: {
+			dark: color.palette.orange[1000].value,
+			main: color.palette.orange[500].value,
+			light: color.palette.orange[50].value,
+			contrastText: '#ffffff',
+		},
+		red: {
+			dark: color.palette.red[1000].value,
+			main: color.palette.red[500].value,
+			light: color.palette.red[50].value,
+			contrastText: '#ffffff',
 		},
 	},
 	spacing: [0, 4, 8, 16, 32, 64, 128],
@@ -1107,6 +1168,172 @@ export const theme = createTheme({
 					background: color.bg.overlay.dark.value,
 				},
 				invisible: { background: 'unset' },
+			},
+		},
+		MuiChip: {
+			styleOverrides: {
+				root: {
+					font: typography.components.badge.shorthand.value,
+					textTransform: 'uppercase',
+					height: '20px',
+					'&.MuiChip-colorDefault': {
+						color: color.text.palette.neutral.value,
+						backgroundColor: color.bg.palette.neutral.value,
+					},
+					'&.MuiChip-colorPrimary': {
+						color: color.text.accent.value,
+						backgroundColor: color.bg.accent.value,
+					},
+					'&.MuiChip-colorSecondary': {
+						color: color.text.value,
+						backgroundColor: color.bg.subtle.value,
+					},
+					'&.MuiChip-colorInfo': {
+						color: color.text.info.value,
+						backgroundColor: color.bg.info.value,
+					},
+					'&.MuiChip-colorSuccess': {
+						color: color.text.success.value,
+						backgroundColor: color.bg.success.value,
+					},
+					'&.MuiChip-colorWarning': {
+						color: color.text.warning.value,
+						backgroundColor: color.bg.warning.value,
+					},
+					'&.MuiChip-colorError': {
+						color: color.text.danger.value,
+						backgroundColor: color.bg.danger.value,
+					},
+					'&.MuiChip-colorGreen': {
+						color: color.text.palette.green.value,
+						backgroundColor: color.bg.palette.green.value,
+					},
+					'&.MuiChip-colorTeal': {
+						color: color.text.palette.teal.value,
+						backgroundColor: color.bg.palette.teal.value,
+					},
+					'&.MuiChip-colorBlue': {
+						color: color.text.palette.blue.value,
+						backgroundColor: color.bg.palette.blue.value,
+					},
+					'&.MuiChip-colorPurple': {
+						color: color.text.palette.purple.value,
+						backgroundColor: color.bg.palette.purple.value,
+					},
+					'&.MuiChip-colorYellow': {
+						color: color.text.palette.yellow.value,
+						backgroundColor: color.bg.palette.yellow.value,
+					},
+					'&.MuiChip-colorOrange': {
+						color: color.text.palette.orange.value,
+						backgroundColor: color.bg.palette.orange.value,
+					},
+					'&.MuiChip-colorRed': {
+						color: color.text.palette.red.value,
+						backgroundColor: color.bg.palette.red.value,
+					},
+					'&.MuiChip-strongDefault': {
+						color: color.text.inverse.value,
+						backgroundColor: color.bg.palette.neutral.strong.value,
+					},
+					'&.MuiChip-strongPrimary': {
+						color: color.text.inverse.value,
+						backgroundColor: color.bg.accent.strong.value,
+					},
+					'&.MuiChip-strongSecondary': {
+						color: color.text.inverse.value,
+						backgroundColor: color.bg.strong.value,
+					},
+					'&.MuiChip-strongInfo': {
+						color: color.text.inverse.value,
+						backgroundColor: color.bg.info.strong.value,
+					},
+					'&.MuiChip-strongSuccess': {
+						color: color.text.inverse.value,
+						backgroundColor: color.bg.success.strong.value,
+					},
+					'&.MuiChip-strongWarning': {
+						color: color.text.inverse.value,
+						backgroundColor: color.bg.warning.strong.value,
+					},
+					'&.MuiChip-strongError': {
+						color: color.text.inverse.value,
+						backgroundColor: color.bg.danger.strong.value,
+					},
+					'&.MuiChip-strongGreen': {
+						color: color.text.inverse.value,
+						backgroundColor: color.bg.palette.green.strong.value,
+					},
+					'&.MuiChip-strongTeal': {
+						color: color.text.inverse.value,
+						backgroundColor: color.bg.palette.teal.strong.value,
+					},
+					'&.MuiChip-strongBlue': {
+						color: color.text.inverse.value,
+						backgroundColor: color.bg.palette.blue.strong.value,
+					},
+					'&.MuiChip-strongPurple': {
+						color: color.text.inverse.value,
+						backgroundColor: color.bg.palette.purple.strong.value,
+					},
+					'&.MuiChip-strongYellow': {
+						color: color.text.inverse.value,
+						backgroundColor: color.bg.palette.yellow.strong.value,
+					},
+					'&.MuiChip-strongOrange': {
+						color: color.text.inverse.value,
+						backgroundColor: color.bg.palette.orange.strong.value,
+					},
+					'&.MuiChip-strongRed': {
+						color: color.text.inverse.value,
+						backgroundColor: color.bg.palette.red.strong.value,
+					},
+					'&.MuiChip-outlinedDefault': {
+						borderColor: color.border.palette.neutral.value,
+					},
+					'&.MuiChip-outlinedPrimary': {
+						borderColor: color.border.accent.value,
+					},
+					'&.MuiChip-outlinedSecondary': {
+						borderColor: color.border.value,
+					},
+					'&.MuiChip-outlinedInfo': {
+						borderColor: color.border.info.value,
+					},
+					'&.MuiChip-outlinedSuccess': {
+						borderColor: color.border.success.value,
+					},
+					'&.MuiChip-outlinedWarning': {
+						borderColor: color.border.warning.value,
+					},
+					'&.MuiChip-outlinedError': {
+						borderColor: color.border.danger.value,
+					},
+					'&.MuiChip-outlinedGreen': {
+						borderColor: color.border.palette.green.value,
+					},
+					'&.MuiChip-outlinedTeal': {
+						borderColor: color.border.palette.teal.value,
+					},
+					'&.MuiChip-outlinedBlue': {
+						borderColor: color.border.palette.blue.value,
+					},
+					'&.MuiChip-outlinedPurple': {
+						borderColor: color.border.palette.purple.value,
+					},
+					'&.MuiChip-outlinedYellow': {
+						borderColor: color.border.palette.yellow.value,
+					},
+					'&.MuiChip-outlinedOrange': {
+						borderColor: color.border.palette.orange.value,
+					},
+					'&.MuiChip-outlinedRed': {
+						borderColor: color.border.palette.red.value,
+					},
+				},
+				label: ({ theme }) => ({
+					padding: `${theme.spacing(1)} 12px`,
+				}),
 			},
 		},
 	},

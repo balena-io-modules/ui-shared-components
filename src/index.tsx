@@ -48,6 +48,8 @@ export type {
 } from './components/DownloadImageDialog';
 export type { DeviceType as DownloadImageDeviceType } from './components/DownloadImageDialog/models';
 export type { VirtualizedAutocompleteProps } from './components/VirtualizedAutocomplete';
+export type { ChipProps } from './components/Chip';
+export { Chip } from './components/Chip';
 export type { DropDownButtonProps } from './components/DropDownButton';
 export { DropDownButton } from './components/DropDownButton';
 export type { LimitedRowImagesProps } from './components/LimitedRowImages';
