@@ -22,3 +22,11 @@ export const WithChildren: Story = {
 		children: 'Clicking the copy icon will copy this string to your clipboard',
 	},
 };
+
+export const Absolute: Story = {
+	args: {
+		copy: 'Clicking the copy icon will copy this string to your clipboard',
+		children: 'Clicking the copy icon will copy this string to your clipboard',
+		variant: 'absolute',
+	},
+};

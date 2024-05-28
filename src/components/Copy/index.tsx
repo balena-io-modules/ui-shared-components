@@ -1,6 +1,6 @@
 import { faCopy } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Box, Tooltip } from '@mui/material';
+import { Box, Tooltip, useTheme } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 
 export interface CopyProps {
@@ -26,31 +26,38 @@ export const Copy = ({
 	onClick,
 	...props
 }: CopyProps | CopyPropsWithChildren) => {
-	let closeTooltipTimeout: ReturnType<typeof setInterval> | null = null;
+	const [closeTooltipTimeout, setCloseTooltipTimeout] = useState<ReturnType<
+		typeof setInterval
+	> | null>(null);
 	const [open, setOpen] = useState(false);
+	const theme = useTheme();
 
 	useEffect(() => {
 		if (!closeTooltipTimeout) {
 			return;
 		}
-		return clearTimeout(closeTooltipTimeout);
+		return () => clearTimeout(closeTooltipTimeout);
 	}, [closeTooltipTimeout]);
 
 	const handleTooltipOpen = () => {
 		setOpen(true);
-		closeTooltipTimeout = setTimeout(() => setOpen(false), 1000);
+		if (closeTooltipTimeout != null) {
+			clearTimeout(closeTooltipTimeout);
+		}
+		setCloseTooltipTimeout(setTimeout(() => setOpen(false), 1000));
 	};
 
 	const copyClick = React.useCallback(
 		(e: React.MouseEvent) => {
 			e.preventDefault();
 			e.stopPropagation();
+			// TODO: Just to make TS happy. This will never happen because we return null if there is no copy prop
+			if (!copy) {
+				return;
+			}
 			handleTooltipOpen();
 			onClick?.();
-			// TODO: Just to make TS happy. This will never happen because we return null if there is no copy prop
-			if (copy) {
-				copyToClipboard(copy);
-			}
+			copyToClipboard(copy);
 		},
 		[onClick, copy],
 	);
@@ -82,6 +89,7 @@ export const Copy = ({
 						props.variant === 'absolute' && {
 							position: 'absolute',
 						}),
+					padding: theme.spacing(1),
 				}}
 			/>
 		</Tooltip>
@@ -98,11 +106,18 @@ export const Copy = ({
 			<Box
 				sx={{
 					display: 'flex',
-					alignItems: 'flex-start',
-					'.copy': { display: 'none' },
-					// TODO: consider what to do about the shifting content when the copy icon appears
-					'&:hover': { '.copy': { display: 'block' } },
-					gap: 1,
+					alignItems: 'center',
+					'.copy': {
+						transition: '.15s all .1s',
+						opacity: 0,
+						visibility: 'hidden',
+					},
+					'&:hover': {
+						'.copy': {
+							opacity: 1,
+							visibility: 'visible',
+						},
+					},
 					width: 'fit-content',
 					maxWidth: '100%',
 				}}
@@ -113,29 +128,32 @@ export const Copy = ({
 		);
 	}
 
-	const randomUUID = crypto.randomUUID();
-
 	return (
 		<Box
 			sx={{
 				display: 'inline-flex',
 				alignItems: 'center',
 				justifyContent: 'center',
+				position: 'relative',
 				'.copy': {
-					display: 'none',
+					visibility: 'hidden',
+					opacity: 0,
+					transition: '.15s all .1s',
+				},
+				'.copy-children-container': {
+					transition: '.15s opacity .1s',
 				},
 				'&:hover': {
-					[`.copy-children-container-${randomUUID}`]: {
+					'.copy-children-container': {
 						opacity: 0.4,
-						transition: 'opacity 250ms',
 					},
-					'.copy': { display: 'block' },
+					'.copy': { visibility: 'visible', opacity: 1 },
 					cursor: 'pointer',
 				},
 			}}
 			onClick={copyClick}
 		>
-			<Box className={`copy-children-container-${randomUUID}`}>{children}</Box>
+			<Box className="copy-children-container">{children}</Box>
 			{copyComponent}
 		</Box>
 	);

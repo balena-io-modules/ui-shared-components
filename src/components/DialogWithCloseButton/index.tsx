@@ -18,8 +18,7 @@ export const DialogWithCloseButton = ({
 				<DialogTitle
 					sx={{
 						display: 'flex',
-						justifyContent: 'space-between',
-						alignItems: 'center',
+						alignItems: 'start',
 					}}
 					onClick={(e) => {
 						e.preventDefault();
@@ -34,6 +33,7 @@ export const DialogWithCloseButton = ({
 							onClick={(e) => {
 								onClose(e, 'backdropClick');
 							}}
+							sx={{ ml: 'auto' }}
 						>
 							<FontAwesomeIcon icon={faClose} />
 						</IconButton>

@@ -32,6 +32,7 @@ export type {
 } from './components/Form/Widgets/FileWidget';
 export { PasswordWidget } from './components/Form/Widgets/PasswordWidget';
 export { SelectWidget } from './components/Form/Widgets/SelectWidget';
+export { Code } from './components/Code';
 export { CookiesBanner } from './components/CookiesBanner';
 export type { CollapsedListProps } from './components/CollapsedList';
 export { CollapsedList } from './components/CollapsedList';

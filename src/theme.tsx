@@ -239,44 +239,33 @@ export const theme = createTheme({
 		},
 		display: {
 			font: typography.display.shorthand.value,
-			color: color.text.value,
 		},
 		titleLg: {
 			font: typography.title.lg.shorthand.value,
-			color: color.text.value,
 		},
 		title: {
 			font: typography.title.md.shorthand.value,
-			color: color.text.value,
 		},
 		titleSm: {
 			font: typography.title.sm.shorthand.value,
-			color: color.text.value,
 		},
 		bodyLg: {
 			font: typography.body.lg.shorthand.value,
-			color: color.text.value,
 		},
 		body: {
 			font: typography.body.md.shorthand.value,
-			color: color.text.value,
 		},
 		bodySm: {
 			font: typography.body.sm.shorthand.value,
-			color: color.text.value,
 		},
 		codeLg: {
 			font: typography.code.lg.shorthand.value,
-			color: color.text.code.value,
-			backgroundColor: color.bg.code.value,
 		},
 		code: {
 			font: typography.code.md.shorthand.value,
-			color: color.text.code.value,
-			backgroundColor: color.bg.code.value,
 		},
 		overline: {
-			color: color.text.value,
+			color: color.text.subtle.value,
 			// Can't use the shorthand token as `overline` is already defined by Mui
 			fontFamily: typography.fontfamily.body.value,
 			fontWeight: typography.overline.fontWeight.value,
@@ -1392,6 +1381,16 @@ export const theme = createTheme({
 		MuiTypography: {
 			defaultProps: {
 				variant: 'body',
+				variantMapping: {
+					titleLg: 'h2',
+					title: 'h3',
+					titleSm: 'h4',
+				},
+			},
+			styleOverrides: {
+				gutterBottom: ({ theme }) => ({
+					marginBottom: theme.spacing(3),
+				}),
 			},
 		},
 	},
