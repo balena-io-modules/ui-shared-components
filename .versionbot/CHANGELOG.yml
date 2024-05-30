@@ -1,4 +1,43 @@
 - commits:
+    - subject: "Form: Fix multi-button spacing"
+      hash: dda88ad813fa3201f7f13c61634b21b8278a406e
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: myarmolinsky
+    - subject: "DialogTitle: Make `variant` `inherit` by default"
+      hash: 4751c780ab3d77f146fd171f69c75e61f63136c5
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: myarmolinsky
+    - subject: "InputLabel: Make `cursor` `pointer` on hover"
+      hash: 3134da7fc0acbcc0d514efde00ebc618a2a9356f
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: myarmolinsky
+    - subject: Add Copy component
+      hash: 998a4ebb8c53b5171cbd10a2bb559e92de44fc44
+      body: ""
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: myarmolinsky
+    - subject: Adapt typography styling
+      hash: 33c037d016333ad80eaf5313ea113ecdf261f616
+      body: ""
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: Jonathan Berger
+  version: 5.8.0
+  title: ""
+  date: 2024-05-30T13:38:57.251Z
+- commits:
     - subject: Add styling for the Chip component
       hash: 34508158b4a310af71b5f29aa681ed5ac789a8eb
       body: |
