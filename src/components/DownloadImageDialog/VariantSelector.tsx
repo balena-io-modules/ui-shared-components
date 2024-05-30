@@ -24,7 +24,7 @@ const variantInfo: {
 			<Box display="flex" gap={1} flexDirection="row" alignItems="center">
 				<Typography>{getOsVariantDisplayText('dev')}</Typography>
 				<Typography
-					variant="smallText"
+					variant="bodySm"
 					color="customBlue.main"
 					alignItems="center"
 					display="flex"
@@ -108,7 +108,7 @@ export const VariantSelector: React.FC<VaraintSelectorProps> = ({
 								/>
 								<Typography
 									sx={{ opacity: isDisabled ? 0.4 : 1 }}
-									variant="smallText"
+									variant="bodySm"
 								>
 									{variantInfo[buildVariant].description}
 								</Typography>

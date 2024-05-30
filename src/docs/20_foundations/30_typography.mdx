@@ -1,0 +1,89 @@
+import { Meta } from '@storybook/blocks';
+import { TypeScaleItem } from '../utils';
+import { Box, ThemeProvider } from '@mui/material';
+import { theme } from '../../theme';
+
+<Meta title="Foundations / Typography" />
+
+# Typography
+
+## Available Variants
+
+<table style={{ width: '100%' }}>
+	<thead>
+	<tr>
+		<th>Token</th>
+		<th>Mui variant</th>
+		<th style={{ width: '100%' }}>Description</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+		<th style={{ textAlign: 'left' }}>typography.display</th>
+		<td>`display`</td>
+		<td>TODO</td>
+	</tr>
+	<tr>
+		<th style={{ textAlign: 'left' }}>typography.title.lg</th>
+		<td>`titleLg`</td>
+		<td>TODO</td>
+	</tr>
+	<tr>
+		<th style={{ textAlign: 'left' }}>typography.title</th>
+		<td>`title`</td>
+		<td>TODO</td>
+	</tr>
+	<tr>
+		<th style={{ textAlign: 'left' }}>typography.title.sm</th>
+		<td>`titleSm`</td>
+		<td>TODO</td>
+	</tr>
+	<tr>
+		<th style={{ textAlign: 'left' }}>typography.body.lg</th>
+		<td>`bodyLg`</td>
+		<td>TODO</td>
+	</tr>
+	<tr>
+		<th style={{ textAlign: 'left' }}>typography.body</th>
+		<td>`body`</td>
+		<td>TODO</td>
+	</tr>
+	<tr>
+		<th style={{ textAlign: 'left' }}>typography.body.sm</th>
+		<td>`bodySm`</td>
+		<td>TODO</td>
+	</tr>
+	<tr>
+		<th style={{ textAlign: 'left' }}>typography.code.lg</th>
+		<td>`codeLg`</td>
+		<td>TODO</td>
+	</tr>
+	<tr>
+		<th style={{ textAlign: 'left' }}>typography.code</th>
+		<td>`code`</td>
+		<td>TODO</td>
+	</tr>
+	<tr>
+		<th style={{ textAlign: 'left' }}>typography.overline</th>
+		<td>`overline`</td>
+		<td>TODO</td>
+	</tr>
+	</tbody>
+</table>
+
+## Type Scale
+
+<ThemeProvider theme={theme}>
+	<Box sx={{ display: 'flex', flexDirection: 'column', gap: 3}}>
+		<TypeScaleItem variant="display" />
+		<TypeScaleItem variant="titleLg" />
+		<TypeScaleItem variant="title" />
+		<TypeScaleItem variant="titleSm" />
+		<TypeScaleItem variant="bodyLg" isParagraph />
+		<TypeScaleItem variant="body" isParagraph />
+		<TypeScaleItem variant="bodySm" isParagraph />
+		<TypeScaleItem variant="codeLg" />
+		<TypeScaleItem variant="code" />
+		<TypeScaleItem variant="overline" />
+	</Box>
+</ThemeProvider> 

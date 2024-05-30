@@ -51,15 +51,27 @@ declare module '@mui/material/styles' {
 		contrastText: string;
 	}
 	interface TypographyVariants {
-		bodyLarge: TypographyStyle;
-		smallText: TypographyStyle;
-		link: TypographyStyle;
+		bodyLg: TypographyStyle;
+		body: TypographyStyle;
+		bodySm: TypographyStyle;
+		titleLg: TypographyStyle;
+		title: TypographyStyle;
+		titleSm: TypographyStyle;
+		display: TypographyStyle;
+		codeLg: TypographyStyle;
+		code: TypographyStyle;
 	}
 
 	interface TypographyVariantsOptions {
-		bodyLarge: TypographyStyleOptions | undefined;
-		smallText: TypographyStyleOptions | undefined;
-		link: TypographyStyleOptions | undefined;
+		bodyLg: TypographyStyleOptions | undefined;
+		body: TypographyStyleOptions | undefined;
+		bodySm: TypographyStyleOptions | undefined;
+		titleLg: TypographyStyleOptions | undefined;
+		title: TypographyStyleOptions | undefined;
+		titleSm: TypographyStyleOptions | undefined;
+		display: TypographyStyleOptions | undefined;
+		codeLg: TypographyStyleOptions | undefined;
+		code: TypographyStyleOptions | undefined;
 	}
 
 	interface TypeText {
@@ -71,9 +83,15 @@ declare module '@mui/material/styles' {
 }
 declare module '@mui/material/Typography' {
 	interface TypographyPropsVariantOverrides {
-		bodyLarge: true;
-		smallText: true;
-		link: true;
+		bodyLg: true;
+		body: true;
+		bodySm: true;
+		titleLg: true;
+		title: true;
+		titleSm: true;
+		display: true;
+		codeLg: true;
+		code: true;
 	}
 }
 
@@ -172,7 +190,7 @@ declare module '@mui/material/SvgIcon' {
 
 export const theme = createTheme({
 	typography: {
-		fontFamily: '"Source Sans Pro", Helvetica, sans-serif',
+		fontFamily: typography.fontfamily.body.value,
 		h1: {
 			fontSize: '2.75rem',
 			'@media (min-width:600px)': {
@@ -213,24 +231,46 @@ export const theme = createTheme({
 				fontSize: '1.125rem',
 			},
 		},
-		bodyLarge: {
-			fontSize: '1.125rem',
-			'@media (min-width:600px)': {
-				fontSize: '1.25rem',
-			},
-		},
 		body1: {
 			fontSize: '1rem',
 		},
 		body2: {
 			fontSize: '0.875rem',
 		},
-		smallText: {
-			fontSize: '12px',
+		display: {
+			font: typography.display.shorthand.value,
 		},
-		link: {
-			fontSize: '13px',
-			color: color.text.accent.value,
+		titleLg: {
+			font: typography.title.lg.shorthand.value,
+		},
+		title: {
+			font: typography.title.md.shorthand.value,
+		},
+		titleSm: {
+			font: typography.title.sm.shorthand.value,
+		},
+		bodyLg: {
+			font: typography.body.lg.shorthand.value,
+		},
+		body: {
+			font: typography.body.md.shorthand.value,
+		},
+		bodySm: {
+			font: typography.body.sm.shorthand.value,
+		},
+		codeLg: {
+			font: typography.code.lg.shorthand.value,
+		},
+		code: {
+			font: typography.code.md.shorthand.value,
+		},
+		overline: {
+			color: color.text.subtle.value,
+			// Can't use the shorthand token as `overline` is already defined by Mui
+			fontFamily: typography.fontfamily.body.value,
+			fontWeight: typography.overline.fontWeight.value,
+			lineHeight: typography.overline.lineHeight.value,
+			fontSize: typography.overline.fontSize.value,
 		},
 	},
 	palette: {
@@ -415,6 +455,7 @@ export const theme = createTheme({
 			},
 		},
 		MuiDialogTitle: {
+			defaultProps: { variant: 'inherit' },
 			styleOverrides: {
 				root: {
 					padding: '24px',
@@ -916,6 +957,7 @@ export const theme = createTheme({
 					fontSize: 12,
 					transform: 'none',
 					position: 'relative',
+					'&:hover': { cursor: 'pointer' },
 				},
 			},
 		},
@@ -1333,6 +1375,21 @@ export const theme = createTheme({
 				},
 				label: ({ theme }) => ({
 					padding: `${theme.spacing(1)} 12px`,
+				}),
+			},
+		},
+		MuiTypography: {
+			defaultProps: {
+				variant: 'body',
+				variantMapping: {
+					titleLg: 'h2',
+					title: 'h3',
+					titleSm: 'h4',
+				},
+			},
+			styleOverrides: {
+				gutterBottom: ({ theme }) => ({
+					marginBottom: theme.spacing(3),
 				}),
 			},
 		},

@@ -63,19 +63,19 @@ Content
 #storybook-docs .sbdocs > :where(blockquote:not(.sb-anchor, .sb-unstyled, .sb-unstyled blockquote)) {
     font-size: 16px;
     line-height: 1.6;
+    
+    & code {
+        font-size: 13px;
+        color: var(--color-text);
+        background-color: var(--color-bg);
+        border-radius: 4px;
+        padding: 4px;
+        margin: 0 2px;
+        white-space: nowrap;
+    }
 }
 
 #storybook-docs .sbdocs :where(pre:not(.sb-anchor, .sb-unstyled, .sb-unstyled pre)) pre,
 #storybook-docs .sbdocs :where(pre:not(.sb-anchor, .sb-unstyled, .sb-unstyled pre)).prismjs {
     font-size: 14px;
-}
-
-#storybook-docs .sbdocs :where(:not(.sb-anchor, .sb-unstyled, .sb-unstyled)) code {
-    font-size: 13px;
-    color: var(--color-text);
-    background-color: var(--color-bg);
-    border-radius: 4px;
-    padding: 4px;
-    margin: 0 2px;
-    white-space: nowrap;
 }

@@ -35,7 +35,7 @@ export const LimitedRowImages: React.FC<LimitedRowImagesProps> = ({
 				/>
 			))}{' '}
 			{items.length > slicedItems.length && (
-				<Typography height="fit-content" variant="smallText">
+				<Typography height="fit-content" variant="bodySm">
 					+ {items.length - slicedItems.length} more
 				</Typography>
 			)}
