@@ -1,4 +1,15 @@
 - commits:
+    - subject: Fix textfield bottom border on standard variant
+      hash: ad9edab102c966215ca64e45020c5e8b4be9fd93
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Jonathan Berger
+  version: 5.8.1
+  title: ""
+  date: 2024-05-31T15:16:59.549Z
+- commits:
     - subject: "Form: Fix multi-button spacing"
       hash: dda88ad813fa3201f7f13c61634b21b8278a406e
       body: ""
