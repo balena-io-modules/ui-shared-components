@@ -948,6 +948,21 @@ export const theme = createTheme({
 				}),
 			},
 		},
+		MuiInput: {
+			styleOverrides: {
+				root: {
+					'&::before': {
+						borderBottom: `1px solid ${color.border.value}`,
+					},
+					'&::after': {
+						borderBottomColor: color.border.accent.value,
+					},
+					'&:hover:not(.Mui-disabled, .Mui-error)::before': {
+						borderBottom: `solid 1px ${color.border.strong.value}`,
+					},
+				},
+			},
+		},
 		MuiInputLabel: {
 			defaultProps: {
 				shrink: true,
