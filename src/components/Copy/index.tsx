@@ -2,6 +2,7 @@ import { faCopy } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Box, Tooltip, useTheme } from '@mui/material';
 import React, { useEffect, useState } from 'react';
+import { color } from '@balena/design-tokens';
 
 export interface CopyProps {
 	copy: string | undefined;
@@ -84,6 +85,7 @@ export const Copy = ({
 				className="copy"
 				size="sm"
 				style={{
+					color: color.icon.value,
 					cursor: 'pointer',
 					...('variant' in props &&
 						props.variant === 'absolute' && {
