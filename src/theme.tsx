@@ -1236,114 +1236,198 @@ export const theme = createTheme({
 					'&.MuiChip-colorDefault': {
 						color: color.text.palette.neutral.value,
 						backgroundColor: color.bg.palette.neutral.value,
+						'.MuiChip-deleteIcon': {
+							color: color.bg.palette.neutral.strong.value,
+						},
 					},
 					'&.MuiChip-colorPrimary': {
 						color: color.text.accent.value,
 						backgroundColor: color.bg.accent.value,
+						'.MuiChip-deleteIcon': {
+							color: color.bg.accent.strong.value,
+						},
 					},
 					'&.MuiChip-colorSecondary': {
 						color: color.text.value,
 						backgroundColor: color.bg.subtle.value,
+						'.MuiChip-deleteIcon': {
+							color: color.bg.strong.value,
+						},
 					},
 					'&.MuiChip-colorInfo': {
 						color: color.text.info.value,
 						backgroundColor: color.bg.info.value,
+						'.MuiChip-deleteIcon': {
+							color: color.bg.info.strong.value,
+						},
 					},
 					'&.MuiChip-colorSuccess': {
 						color: color.text.success.value,
 						backgroundColor: color.bg.success.value,
+						'.MuiChip-deleteIcon': {
+							color: color.bg.success.strong.value,
+						},
 					},
 					'&.MuiChip-colorWarning': {
 						color: color.text.warning.value,
 						backgroundColor: color.bg.warning.value,
+						'.MuiChip-deleteIcon': {
+							color: color.bg.warning.strong.value,
+						},
 					},
 					'&.MuiChip-colorError': {
 						color: color.text.danger.value,
 						backgroundColor: color.bg.danger.value,
+						'.MuiChip-deleteIcon': {
+							color: color.bg.danger.strong.value,
+						},
 					},
 					'&.MuiChip-colorGreen': {
 						color: color.text.palette.green.value,
 						backgroundColor: color.bg.palette.green.value,
+						'.MuiChip-deleteIcon': {
+							color: color.bg.palette.green.strong.value,
+						},
 					},
 					'&.MuiChip-colorTeal': {
 						color: color.text.palette.teal.value,
 						backgroundColor: color.bg.palette.teal.value,
+						'.MuiChip-deleteIcon': {
+							color: color.bg.palette.teal.strong.value,
+						},
 					},
 					'&.MuiChip-colorBlue': {
 						color: color.text.palette.blue.value,
 						backgroundColor: color.bg.palette.blue.value,
+						'.MuiChip-deleteIcon': {
+							color: color.bg.palette.blue.strong.value,
+						},
 					},
 					'&.MuiChip-colorPurple': {
 						color: color.text.palette.purple.value,
 						backgroundColor: color.bg.palette.purple.value,
+						'.MuiChip-deleteIcon': {
+							color: color.bg.palette.purple.strong.value,
+						},
 					},
 					'&.MuiChip-colorYellow': {
 						color: color.text.palette.yellow.value,
 						backgroundColor: color.bg.palette.yellow.value,
+						'.MuiChip-deleteIcon': {
+							color: color.bg.palette.yellow.strong.value,
+						},
 					},
 					'&.MuiChip-colorOrange': {
 						color: color.text.palette.orange.value,
 						backgroundColor: color.bg.palette.orange.value,
+						'.MuiChip-deleteIcon': {
+							color: color.bg.palette.orange.strong.value,
+						},
 					},
 					'&.MuiChip-colorRed': {
 						color: color.text.palette.red.value,
 						backgroundColor: color.bg.palette.red.value,
+						'.MuiChip-deleteIcon': {
+							color: color.bg.palette.red.strong.value,
+						},
 					},
 					'&.MuiChip-strongDefault': {
 						color: color.text.inverse.value,
 						backgroundColor: color.bg.palette.neutral.strong.value,
+						'.MuiChip-deleteIcon': {
+							color: color.bg.palette.neutral.value,
+						},
 					},
 					'&.MuiChip-strongPrimary': {
 						color: color.text.inverse.value,
 						backgroundColor: color.bg.accent.strong.value,
+						'.MuiChip-deleteIcon': {
+							color: color.bg.accent.value,
+						},
 					},
 					'&.MuiChip-strongSecondary': {
 						color: color.text.inverse.value,
 						backgroundColor: color.bg.strong.value,
+						'.MuiChip-deleteIcon': {
+							color: color.bg.value,
+						},
 					},
 					'&.MuiChip-strongInfo': {
 						color: color.text.inverse.value,
 						backgroundColor: color.bg.info.strong.value,
+						'.MuiChip-deleteIcon': {
+							color: color.bg.info.value,
+						},
 					},
 					'&.MuiChip-strongSuccess': {
 						color: color.text.inverse.value,
 						backgroundColor: color.bg.success.strong.value,
+						'.MuiChip-deleteIcon': {
+							color: color.bg.success.value,
+						},
 					},
 					'&.MuiChip-strongWarning': {
 						color: color.text.inverse.value,
 						backgroundColor: color.bg.warning.strong.value,
+						'.MuiChip-deleteIcon': {
+							color: color.bg.warning.value,
+						},
 					},
 					'&.MuiChip-strongError': {
 						color: color.text.inverse.value,
 						backgroundColor: color.bg.danger.strong.value,
+						'.MuiChip-deleteIcon': {
+							color: color.bg.danger.value,
+						},
 					},
 					'&.MuiChip-strongGreen': {
 						color: color.text.inverse.value,
 						backgroundColor: color.bg.palette.green.strong.value,
+						'.MuiChip-deleteIcon': {
+							color: color.bg.palette.green.value,
+						},
 					},
 					'&.MuiChip-strongTeal': {
 						color: color.text.inverse.value,
 						backgroundColor: color.bg.palette.teal.strong.value,
+						'.MuiChip-deleteIcon': {
+							color: color.bg.palette.teal.value,
+						},
 					},
 					'&.MuiChip-strongBlue': {
 						color: color.text.inverse.value,
 						backgroundColor: color.bg.palette.blue.strong.value,
+						'.MuiChip-deleteIcon': {
+							color: color.bg.palette.blue.value,
+						},
 					},
 					'&.MuiChip-strongPurple': {
 						color: color.text.inverse.value,
 						backgroundColor: color.bg.palette.purple.strong.value,
+						'.MuiChip-deleteIcon': {
+							color: color.bg.palette.purple.value,
+						},
 					},
 					'&.MuiChip-strongYellow': {
 						color: color.text.inverse.value,
 						backgroundColor: color.bg.palette.yellow.strong.value,
+						'.MuiChip-deleteIcon': {
+							color: color.bg.palette.yellow.value,
+						},
 					},
 					'&.MuiChip-strongOrange': {
 						color: color.text.inverse.value,
 						backgroundColor: color.bg.palette.orange.strong.value,
+						'.MuiChip-deleteIcon': {
+							color: color.bg.palette.orange.value,
+						},
 					},
 					'&.MuiChip-strongRed': {
 						color: color.text.inverse.value,
 						backgroundColor: color.bg.palette.red.strong.value,
+						'.MuiChip-deleteIcon': {
+							color: color.bg.palette.red.value,
+						},
 					},
 					'&.MuiChip-outlinedDefault': {
 						borderColor: color.border.palette.neutral.value,
@@ -1386,6 +1470,17 @@ export const theme = createTheme({
 					},
 					'&.MuiChip-outlinedRed': {
 						borderColor: color.border.palette.red.value,
+					},
+				},
+				deleteIcon: {
+					fontSize: '16px',
+					marginRight: '2px',
+					marginLeft: '-8px',
+					'&:hover, &:focus': {
+						opacity: 0.8,
+					},
+					'&:active': {
+						opacity: 1,
 					},
 				},
 				label: ({ theme }) => ({
