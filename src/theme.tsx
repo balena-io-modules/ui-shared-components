@@ -60,6 +60,7 @@ declare module '@mui/material/styles' {
 		display: TypographyStyle;
 		codeLg: TypographyStyle;
 		code: TypographyStyle;
+		codeSm: TypographyStyle;
 	}
 
 	interface TypographyVariantsOptions {
@@ -72,6 +73,7 @@ declare module '@mui/material/styles' {
 		display: TypographyStyleOptions | undefined;
 		codeLg: TypographyStyleOptions | undefined;
 		code: TypographyStyleOptions | undefined;
+		codeSm: TypographyStyleOptions | undefined;
 	}
 
 	interface TypeText {
@@ -92,6 +94,7 @@ declare module '@mui/material/Typography' {
 		display: true;
 		codeLg: true;
 		code: true;
+		codeSm: true;
 	}
 }
 
@@ -263,6 +266,9 @@ export const theme = createTheme({
 		},
 		code: {
 			font: typography.code.md.shorthand.value,
+		},
+		codeSm: {
+			font: typography.code.sm.shorthand.value,
 		},
 		overline: {
 			color: color.text.subtle.value,
