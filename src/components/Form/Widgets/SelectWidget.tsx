@@ -5,7 +5,7 @@ import {
 	InputLabel,
 } from '@mui/material';
 import { WidgetProps } from '@rjsf/utils';
-import { isEqual } from 'lodash';
+import isEqual from 'lodash/isEqual';
 
 export const SelectWidget = ({
 	id,
@@ -62,10 +62,10 @@ export const SelectWidget = ({
 				value={
 					Array.isArray(value)
 						? selectOptions.filter((option) =>
-								value.some((v) => option.value === v),
+								value.some((v) => isEqual(option.value, v)),
 						  )
 						: value !== undefined
-						? selectOptions.find((option) => option.value === value)
+						? selectOptions.find((option) => isEqual(option.value, value))
 						: undefined
 				}
 				{...{
