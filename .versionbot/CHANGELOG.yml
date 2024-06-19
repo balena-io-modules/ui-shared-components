@@ -1,4 +1,15 @@
 - commits:
+    - subject: "Form/SelectWidget: Use deep equality checking for value and options"
+      hash: 895e3dccc88726da420c5437713f331c9a1f1d00
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Andrea Rosci
+  version: 5.8.2
+  title: ""
+  date: 2024-06-19T10:45:37.162Z
+- commits:
     - subject: Fix textfield bottom border on standard variant
       hash: ad9edab102c966215ca64e45020c5e8b4be9fd93
       body: ""
