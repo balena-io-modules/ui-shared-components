@@ -6,6 +6,8 @@ import { theme } from '../../theme';
 
 <Meta of={ChipStories} title="Chip" />
 
+export const handleDelete = (e) => console.log(e);
+
 # Chip
 
 <Description />
@@ -91,6 +93,53 @@ import { theme } from '../../theme';
 			<Chip label="Success" color="success" variant="outlined" />
 			<Chip label="warning" color="warning" variant="outlined" />
 			<Chip label="error" color="error" variant="outlined" />
+		</Stack>
+	</ThemeProvider>
+</Unstyled>
+
+# Deletable
+
+<Unstyled>
+	<ThemeProvider theme={theme}>
+		<Stack direction="row" gap={1}>
+			<Typography>Color system:</Typography>
+			<Chip onDelete={handleDelete} label="Neutral" />
+			<Chip onDelete={handleDelete} label="Green" color="green" />
+			<Chip onDelete={handleDelete} label="teal" color="teal" />
+			<Chip onDelete={handleDelete} label="blue" color="blue" />
+			<Chip onDelete={handleDelete} label="purple" color="purple" />
+			<Chip onDelete={handleDelete} label="yellow" color="yellow" />
+			<Chip onDelete={handleDelete} label="orange" color="orange" />
+			<Chip onDelete={handleDelete} label="red" color="red" />
+		</Stack>
+		<Stack direction="row" gap={1} sx={{ mt: 2 }}>
+			<Typography>Mui system:</Typography>
+			<Chip onDelete={handleDelete} label="Primary" color="primary" />
+			<Chip onDelete={handleDelete} label="Secondary" color="secondary" />
+			<Chip onDelete={handleDelete} label="Info" color="info" />
+			<Chip onDelete={handleDelete} label="Success" color="success" />
+			<Chip onDelete={handleDelete} label="warning" color="warning" />
+			<Chip onDelete={handleDelete} label="error" color="error" />
+		</Stack>
+		<Stack direction="row" gap={1} sx={{ mt: 2 }}>
+			<Typography>Color system strong:</Typography>
+			<Chip onDelete={handleDelete} label="Neutral" variant="strong" />
+			<Chip onDelete={handleDelete} label="Green" color="green" variant="strong" />
+			<Chip onDelete={handleDelete} label="teal" color="teal" variant="strong" />
+			<Chip onDelete={handleDelete} label="blue" color="blue" variant="strong" />
+			<Chip onDelete={handleDelete} label="purple" color="purple" variant="strong" />
+			<Chip onDelete={handleDelete} label="yellow" color="yellow" variant="strong" />
+			<Chip onDelete={handleDelete} label="orange" color="orange" variant="strong" />
+			<Chip onDelete={handleDelete} label="red" color="red" variant="strong" />
+		</Stack>
+				<Stack direction="row" gap={1} sx={{ mt: 2 }}>
+			<Typography>Mui system strong:</Typography>
+			<Chip onDelete={handleDelete} label="Primary" color="primary" variant="strong" />
+			<Chip onDelete={handleDelete} label="Secondary" color="secondary" variant="strong" />
+			<Chip onDelete={handleDelete} label="Info" color="info" variant="strong" />
+			<Chip onDelete={handleDelete} label="Success" color="success" variant="strong" />
+			<Chip onDelete={handleDelete} label="warning" color="warning" variant="strong" />
+			<Chip onDelete={handleDelete} label="error" color="error" variant="strong" />
 		</Stack>
 	</ThemeProvider>
 </Unstyled>

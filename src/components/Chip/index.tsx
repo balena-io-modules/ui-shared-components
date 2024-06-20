@@ -13,12 +13,10 @@ type ChipTypeMap<
 		Omit<
 			MuiChipTypeMap['props'],
 			| 'size'
-			| 'onDelete'
 			| 'clickable'
 			| 'onClick'
 			| 'avatar'
 			| 'icon'
-			| 'deleteIcon'
 			| 'disabled'
 			| 'skipFocusWhenDisabled'
 		>;
