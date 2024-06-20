@@ -1,4 +1,15 @@
 - commits:
+    - subject: Fix FileWidget showing half-loading progress bar for all files
+      hash: 8e4dc41e62c4d22533936d3b0bcca9318070b089
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: myarmolinsky
+  version: 6.1.1
+  title: ""
+  date: 2024-06-20T16:03:43.112Z
+- commits:
     - subject: Add collection summary component
       hash: 7dba8bcb5cbd32472058eddadad6e4f8992c6c16
       body: ""
