@@ -1,4 +1,15 @@
 - commits:
+    - subject: Update TypeScript to 5.5.2
+      hash: a0cc1cb43153ef0bc6d2a39085ce3cc9a38a3d05
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Thodoris Greasidis
+  version: 6.1.3
+  title: ""
+  date: 2024-06-20T22:10:25.151Z
+- commits:
     - subject: Lighten background for light/primary button
       hash: bb3ce55ea96173eeb796caae00dbaab298f57e2a
       body: ""
