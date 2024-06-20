@@ -1,4 +1,15 @@
 - commits:
+    - subject: Lighten background for light/primary button
+      hash: bb3ce55ea96173eeb796caae00dbaab298f57e2a
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Jonathan Berger
+  version: 6.1.2
+  title: ""
+  date: 2024-06-20T17:40:41.683Z
+- commits:
     - subject: Fix FileWidget showing half-loading progress bar for all files
       hash: 8e4dc41e62c4d22533936d3b0bcca9318070b089
       body: ""
