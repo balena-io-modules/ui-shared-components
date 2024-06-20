@@ -570,7 +570,7 @@ export const theme = createTheme({
 					props: { variant: 'light', color: 'secondary' },
 					style: {
 						color: color.text.value,
-						backgroundColor: color.bg.subtle.value,
+						backgroundColor: color.bg.value,
 						border: `1px solid ${color.border.value}`,
 						':hover': {
 							backgroundColor: color.palette.neutral[75].value,
