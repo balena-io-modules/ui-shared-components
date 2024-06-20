@@ -1,4 +1,15 @@
 - commits:
+    - subject: Add collection summary component
+      hash: 7dba8bcb5cbd32472058eddadad6e4f8992c6c16
+      body: ""
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: Andrea Rosci
+  version: 6.1.0
+  title: ""
+  date: 2024-06-20T15:06:00.231Z
+- commits:
     - subject: Bump design-tokens to 0.8.0
       hash: f32ed15dc4f939476e5104d79f6ded273dc088d6
       body: ""
