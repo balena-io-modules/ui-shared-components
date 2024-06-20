@@ -73,9 +73,11 @@ const getFileTypeIcon = (fileType: string) => {
 
 const fileSizeToReadable = (size: number) => {
 	const i = Math.floor(Math.log(size) / Math.log(1024));
-	return `${(size / Math.pow(1024, i)).toFixed(2)}${
-		['B', 'kB', 'MB', 'GB', 'TB'][i]
-	}`;
+	const readableFileSize = size / Math.pow(1024, i);
+	if (Number.isNaN(readableFileSize)) {
+		return '';
+	}
+	return `${readableFileSize.toFixed(2)}${['B', 'kB', 'MB', 'GB', 'TB'][i]}`;
 };
 
 type AcceptedFile = File & {
@@ -376,10 +378,10 @@ export const FileWidget = ({
 												{file.name}
 											</Typography>
 										</Stack>
-										{file.loadingPercentage == null && (
+										{file.loadingPercentage != null && (
 											<LinearProgress
 												variant="determinate"
-												value={file.loadingPercentage ?? 50}
+												value={file.loadingPercentage}
 												sx={{
 													width: mobile ? '100%' : '150px',
 													...(mobile && { maxWidth: '45%' }),
