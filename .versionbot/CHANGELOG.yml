@@ -1,4 +1,22 @@
 - commits:
+    - subject: Bump design-tokens to 0.8.0
+      hash: f32ed15dc4f939476e5104d79f6ded273dc088d6
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: myarmolinsky
+    - subject: Revamp and export FileWidget
+      hash: fbc234c42eaa244a447acad465c297ff1cdc43e2
+      body: ""
+      footer:
+        Change-type: major
+        change-type: major
+      author: Otavio Jacobi
+  version: 6.0.0
+  title: ""
+  date: 2024-06-20T13:04:18.056Z
+- commits:
     - subject: "Form/SelectWidget: Use deep equality checking for value and options"
       hash: 895e3dccc88726da420c5437713f331c9a1f1d00
       body: ""
