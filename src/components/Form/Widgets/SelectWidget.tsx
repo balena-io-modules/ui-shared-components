@@ -1,5 +1,6 @@
-import { Autocomplete, TextField } from '@mui/material';
+import { Autocomplete, Chip, TextField } from '@mui/material';
 import { WidgetProps } from '@rjsf/utils';
+import omit from 'lodash/omit';
 import isEqual from 'lodash/isEqual';
 
 export const SelectWidget = ({
@@ -67,6 +68,19 @@ export const SelectWidget = ({
 			filterSelectedOptions={multiple}
 			disabled={disabled}
 			options={selectOptions}
+			renderTags={(tagValues, getTagProps) =>
+				tagValues.map((option, index) => {
+					const tagProps = getTagProps({ index });
+					return (
+						<Chip
+							label={(option as (typeof selectOptions)[number]).label}
+							{...((option as (typeof selectOptions)[number]).schema?.disabled
+								? omit(tagProps, 'onDelete')
+								: tagProps)}
+						/>
+					);
+				})
+			}
 			isOptionEqualToValue={(option, value) => isEqual(option, value)}
 			getOptionLabel={(option) =>
 				Array.isArray(option)
