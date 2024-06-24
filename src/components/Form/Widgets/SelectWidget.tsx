@@ -83,6 +83,14 @@ export const SelectWidget = ({
 						...params.inputProps,
 						...(inputProps ?? {}),
 					}}
+					{...(multiple && {
+						onKeyDown: (e) => {
+							// Prevent deleting the last chip with backspace or delete https://github.com/mui/material-ui/issues/21129#issuecomment-636919142
+							if (e.key === 'Backspace' || e.key === 'Delete') {
+								e.stopPropagation();
+							}
+						},
+					})}
 					label={label}
 					required={required}
 				/>
