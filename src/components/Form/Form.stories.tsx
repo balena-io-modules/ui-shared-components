@@ -50,6 +50,11 @@ export const Default: Story = {
 					title: 'Telephone',
 					minLength: 10,
 				},
+				favoriteKantoStarter: {
+					type: 'string',
+					title: 'Favorite Kanto Starter',
+					enum: ['Bulbasaur', 'Charmander', 'Squirtle'],
+				},
 				additionalDocuments: {
 					type: 'string',
 					format: 'data-url',
