@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { RJSForm } from '.';
+import { RJSFSchema } from '@rjsf/utils';
 
 const meta = {
 	title: 'Other/RJS Form',
@@ -49,6 +50,39 @@ export const Default: Story = {
 					type: 'string',
 					title: 'Telephone',
 					minLength: 10,
+				},
+				favoriteKantoStarter: {
+					type: 'string',
+					title: 'Favorite Kanto Starter',
+					enum: ['Bulbasaur', 'Charmander', 'Squirtle'],
+				},
+				leastFavoriteKantoStarter: {
+					type: 'array',
+					title: 'Least Favorite Kanto Starter',
+					items: {
+						type: 'number',
+						oneOf: [
+							{ title: 'Bulbasaur', const: 1 },
+							{ title: 'Charmander', const: 2 },
+							{ title: 'Squirtle', const: 3 },
+						],
+					},
+					uniqueItems: true,
+				},
+				leastFavoriteJohtoStarters: {
+					type: 'array',
+					title:
+						'Least Favorite Johto Starters (Chikorita must be one of them, sorry)',
+					default: [1],
+					items: {
+						type: 'number',
+						oneOf: [
+							{ title: 'Chikorita', const: 1, disabled: true } as RJSFSchema,
+							{ title: 'Cyndaquil', const: 2 },
+							{ title: 'Totodile', const: 3 },
+						],
+					},
+					uniqueItems: true,
 				},
 				additionalDocuments: {
 					type: 'string',
