@@ -1,4 +1,45 @@
 - commits:
+    - subject: "RJSForm stories: Add `multiple` Autocomplete stories"
+      hash: 48ae1eb5a59a6f4003cbf6cb4c2836bc4a7cedab
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: myarmolinsky
+    - subject: "RJSForm stories: Add Autocomplete field"
+      hash: 80c2bb36faf94762a3a64c1dcbbe050e765dea21
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: myarmolinsky
+    - subject: "RJSForm SelectWidget: Make `disabled` options nonclosable for
+        `multiple`"
+      hash: 8fe4e924d43c871ffc0742534f3bbaa146092efd
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: myarmolinsky
+    - subject: "RJSF SelectWidget: Disable deleting chips with backspace or delete
+        when `multiple` is true"
+      hash: a7d0cdc87a24735a5f77d1b875ed111ad6726e2c
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: myarmolinsky
+    - subject: "RJSF SelectWidget: Set `filterSelectedOptions` true if `multiple` true"
+      hash: ce8c59bd1300f5f61873aa34680b31cd9fb7c2ee
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: myarmolinsky
+  version: 6.1.4
+  title: ""
+  date: 2024-06-25T16:04:44.792Z
+- commits:
     - subject: Update TypeScript to 5.5.2
       hash: a0cc1cb43153ef0bc6d2a39085ce3cc9a38a3d05
       body: ""
