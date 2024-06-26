@@ -1,4 +1,16 @@
 - commits:
+    - subject: "RJSF SelectWidget: Fix form thinking field is empty when `multiple`
+        and `required`"
+      hash: 63f46d08b957df7041714f46bd22ad4445f31425
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: myarmolinsky
+  version: 6.1.5
+  title: ""
+  date: 2024-06-26T13:57:20.810Z
+- commits:
     - subject: "RJSForm stories: Add `multiple` Autocomplete stories"
       hash: 48ae1eb5a59a6f4003cbf6cb4c2836bc4a7cedab
       body: ""
