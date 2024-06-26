@@ -1,4 +1,10 @@
-import { Autocomplete, Chip, TextField } from '@mui/material';
+import {
+	Autocomplete,
+	Chip,
+	TextField,
+	FormControl,
+	InputLabel,
+} from '@mui/material';
 import { WidgetProps } from '@rjsf/utils';
 import omit from 'lodash/omit';
 import isEqual from 'lodash/isEqual';
@@ -48,89 +54,96 @@ export const SelectWidget = ({
 	// 	}[]
 
 	return (
-		<Autocomplete
-			fullWidth
-			id={id}
-			value={
-				Array.isArray(value)
-					? selectOptions.filter((option) =>
-							value.some((v) => isEqual(option.value, v)),
-					  )
-					: value !== undefined
-					? selectOptions.find((option) => isEqual(option.value, value))
-					: undefined
-			}
-			{...{
-				name,
-				placeholder,
-				multiple,
-			}}
-			filterSelectedOptions={multiple}
-			disabled={disabled}
-			options={selectOptions}
-			renderTags={(tagValues, getTagProps) =>
-				tagValues.map((option, index) => {
-					const tagProps = getTagProps({ index });
-					return (
-						<Chip
-							label={(option as (typeof selectOptions)[number]).label}
-							{...((option as (typeof selectOptions)[number]).schema?.disabled
-								? omit(tagProps, 'onDelete')
-								: tagProps)}
-						/>
-					);
-				})
-			}
-			isOptionEqualToValue={(option, value) => isEqual(option, value)}
-			getOptionLabel={(option) =>
-				Array.isArray(option)
-					? option.map((o) => o.label).join(', ')
-					: option.label
-			}
-			getOptionDisabled={(option) =>
-				Array.isArray(option) ? option.some((o) => o.disabled) : option.disabled
-			}
-			renderInput={(params) => (
-				<TextField
-					{...params}
-					inputProps={{
-						...params.inputProps,
-						...(inputProps ?? {}),
-					}}
-					{...(multiple && {
-						onKeyDown: (e) => {
-							// Prevent deleting the last chip with backspace or delete https://github.com/mui/material-ui/issues/21129#issuecomment-636919142
-							if (e.key === 'Backspace' || e.key === 'Delete') {
-								e.stopPropagation();
-							}
-						},
-					})}
-					label={label}
-					required={required}
-				/>
-			)}
-			onChange={(_event, selected) => {
-				if (Array.isArray(selected)) {
-					const val = selected
-						.map((item) => {
-							if (item && typeof item === 'object' && 'value' in item) {
-								return item.value;
-							}
-							// this case cover a wrong setup, we just return undefined
-							return undefined;
-						})
-						.filter((v) => v !== undefined);
-					return onChange(val.length > 0 ? val : options.emptyValue);
+		<FormControl>
+			{/* We cannot put the label w/ required directly on the TextField because `multiple`
+			 * does not fill the value of the TextField, it only adds `startAdornments` */}
+			<InputLabel required={required} htmlFor={id}>
+				{label}
+			</InputLabel>
+			<Autocomplete
+				fullWidth
+				id={id}
+				value={
+					Array.isArray(value)
+						? selectOptions.filter((option) =>
+								value.some((v) => isEqual(option.value, v)),
+						  )
+						: value !== undefined
+						? selectOptions.find((option) => isEqual(option.value, value))
+						: undefined
 				}
-				if (selected && typeof selected === 'object' && 'value' in selected) {
-					return onChange(
-						selected.value === '' ? options.emptyValue : selected.value,
-					);
+				{...{
+					name,
+					placeholder,
+					multiple,
+				}}
+				filterSelectedOptions={multiple}
+				disabled={disabled}
+				options={selectOptions}
+				renderTags={(tagValues, getTagProps) =>
+					tagValues.map((option, index) => {
+						const tagProps = getTagProps({ index });
+						return (
+							<Chip
+								label={(option as (typeof selectOptions)[number]).label}
+								{...((option as (typeof selectOptions)[number]).schema?.disabled
+									? omit(tagProps, 'onDelete')
+									: tagProps)}
+							/>
+						);
+					})
 				}
-				return onChange(options.emptyValue);
-			}}
-			disableClearable
-			{...otherUiSchema}
-		/>
+				isOptionEqualToValue={(option, value) => isEqual(option, value)}
+				getOptionLabel={(option) =>
+					Array.isArray(option)
+						? option.map((o) => o.label).join(', ')
+						: option.label
+				}
+				getOptionDisabled={(option) =>
+					Array.isArray(option)
+						? option.some((o) => o.disabled)
+						: option.disabled
+				}
+				renderInput={(params) => (
+					<TextField
+						{...params}
+						inputProps={{
+							...params.inputProps,
+							...(inputProps ?? {}),
+						}}
+						{...(multiple && {
+							onKeyDown: (e) => {
+								// Prevent deleting the last chip with backspace or delete https://github.com/mui/material-ui/issues/21129#issuecomment-636919142
+								if (e.key === 'Backspace' || e.key === 'Delete') {
+									e.stopPropagation();
+								}
+							},
+						})}
+					/>
+				)}
+				onChange={(_event, selected) => {
+					if (Array.isArray(selected)) {
+						const val = selected
+							.map((item) => {
+								if (item && typeof item === 'object' && 'value' in item) {
+									return item.value;
+								}
+								// this case cover a wrong setup, we just return undefined
+								return undefined;
+							})
+							.filter((v) => v !== undefined);
+						return onChange(val.length > 0 ? val : options.emptyValue);
+					}
+					if (selected && typeof selected === 'object' && 'value' in selected) {
+						return onChange(
+							selected.value === '' ? options.emptyValue : selected.value,
+						);
+					}
+					return onChange(options.emptyValue);
+				}}
+				disableClearable
+				{...otherUiSchema}
+			/>
+		</FormControl>
 	);
 };
