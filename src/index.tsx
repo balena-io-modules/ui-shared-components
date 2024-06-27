@@ -77,6 +77,11 @@ export { Markdown } from './components/Markdown';
 export { Truncate } from './components/Truncate';
 export { IconButtonWithTracking } from './components/IconButtonWithTracking';
 export type { IconButtonWithTrackingProps } from './components/IconButtonWithTracking';
+export type {
+	SettingsCardProps,
+	SettingsCardItemProps,
+} from './components/SettingsCard';
+export { SettingsCard, SettingsCardItem } from './components/SettingsCard';
 export {
 	AnalyticsContextProvider,
 	useAnalyticsContext,
