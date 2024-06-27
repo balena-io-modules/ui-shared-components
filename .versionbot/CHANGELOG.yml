@@ -1,4 +1,15 @@
 - commits:
+    - subject: Add SettingsCard component
+      hash: 75bdb5434976c5b362b4408d36e38efe1c833a99
+      body: ""
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: Jonathan Berger
+  version: 6.2.0
+  title: ""
+  date: 2024-06-27T14:00:56.560Z
+- commits:
     - subject: "RJSF SelectWidget: Fix form thinking field is empty when `multiple`
         and `required`"
       hash: 63f46d08b957df7041714f46bd22ad4445f31425
