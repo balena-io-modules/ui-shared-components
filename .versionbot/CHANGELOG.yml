@@ -1,4 +1,16 @@
 - commits:
+    - subject: "RJSForm SelectWidget: Include a `None` option when !multiple and
+        !required"
+      hash: bfe6a0b31218987c860af72d72208a3b812c0039
+      body: ""
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: myarmolinsky
+  version: 6.3.0
+  title: ""
+  date: 2024-06-28T15:20:22.055Z
+- commits:
     - subject: Upgrade storybook to v8
       hash: 875ddd931d70e13c875b5fdbb0e48ca2ceb71b86
       body: ""
