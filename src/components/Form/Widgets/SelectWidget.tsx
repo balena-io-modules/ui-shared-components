@@ -4,10 +4,18 @@ import {
 	TextField,
 	FormControl,
 	InputLabel,
+	Typography,
 } from '@mui/material';
 import { WidgetProps } from '@rjsf/utils';
 import omit from 'lodash/omit';
 import isEqual from 'lodash/isEqual';
+
+const noneOption = {
+	disabled: false,
+	value: undefined,
+	label: 'None',
+	schema: { disabled: false, label: 'None', const: undefined },
+};
 
 export const SelectWidget = ({
 	id,
@@ -23,6 +31,7 @@ export const SelectWidget = ({
 	uiSchema,
 }: WidgetProps) => {
 	const { inputProps, ...otherUiSchema } = uiSchema ?? {};
+	const includeNoneOption = !multiple && !required;
 	const { enumOptions, enumDisabled } = options;
 	if (!Array.isArray(enumOptions)) {
 		return null;
@@ -38,6 +47,10 @@ export const SelectWidget = ({
 				sanitizedEnumDisabled.includes(option.value),
 		};
 	});
+
+	if (includeNoneOption) {
+		selectOptions.unshift(noneOption);
+	}
 
 	// 	This components needs to handle two cases, single selection and multiple selections.
 	// 	value, getOptionLabel, getOptionDisabled and onChange has to consider 2 scenarios following this type:
@@ -70,6 +83,8 @@ export const SelectWidget = ({
 						  )
 						: value !== undefined
 						? selectOptions.find((option) => isEqual(option.value, value))
+						: includeNoneOption
+						? noneOption
 						: undefined
 				}
 				{...{
@@ -121,6 +136,21 @@ export const SelectWidget = ({
 						})}
 					/>
 				)}
+				{...(includeNoneOption && {
+					renderOption: (props, option: (typeof selectOptions)[number]) =>
+						option.value === null ? (
+							<Typography
+								{...props}
+								fontStyle="italic"
+								color="text.secondary"
+								component="li"
+							>
+								{option.label}
+							</Typography>
+						) : (
+							<li {...props}>{option.schema?.label ?? option.label}</li>
+						),
+				})}
 				onChange={(_event, selected) => {
 					if (Array.isArray(selected)) {
 						const val = selected
@@ -135,6 +165,9 @@ export const SelectWidget = ({
 						return onChange(val.length > 0 ? val : options.emptyValue);
 					}
 					if (selected && typeof selected === 'object' && 'value' in selected) {
+						if (includeNoneOption && selected.value === null) {
+							return onChange(options.emptyValue);
+						}
 						return onChange(
 							selected.value === '' ? options.emptyValue : selected.value,
 						);
