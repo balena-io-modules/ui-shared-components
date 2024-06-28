@@ -1,4 +1,15 @@
 - commits:
+    - subject: Upgrade storybook to v8
+      hash: 875ddd931d70e13c875b5fdbb0e48ca2ceb71b86
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Jonathan Berger
+  version: 6.2.1
+  title: ""
+  date: 2024-06-28T11:16:37.356Z
+- commits:
     - subject: Add SettingsCard component
       hash: 75bdb5434976c5b362b4408d36e38efe1c833a99
       body: ""
