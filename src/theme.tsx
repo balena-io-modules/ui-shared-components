@@ -8,6 +8,13 @@ import {
 import type {} from '@mui/x-data-grid/themeAugmentation';
 import { TypographyStyleOptions } from '@mui/material/styles/createTypography';
 import { color, typography } from '@balena/design-tokens';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+	faCheckCircle,
+	faExclamationCircle,
+	faInfoCircle,
+	faWarning,
+} from '@fortawesome/free-solid-svg-icons';
 
 type CustomPaletteColor = PaletteColor & { xlight?: string };
 type CustomPaletteColorOptions = PaletteColorOptions & {
@@ -95,6 +102,16 @@ declare module '@mui/material/Typography' {
 		codeLg: true;
 		code: true;
 		codeSm: true;
+	}
+}
+
+declare module '@mui/material/Alert' {
+	interface AlertPropsColorOverrides {
+		neutral: true;
+	}
+
+	interface AlertPropsVariantOverrides {
+		callout: true;
 	}
 }
 
@@ -401,8 +418,108 @@ export const theme = createTheme({
 	spacing: [0, 4, 8, 16, 32, 64, 128],
 	components: {
 		MuiAlert: {
+			defaultProps: {
+				severity: 'neutral',
+				iconMapping: {
+					neutral: <FontAwesomeIcon icon={faInfoCircle} />,
+					info: <FontAwesomeIcon icon={faInfoCircle} />,
+					success: <FontAwesomeIcon icon={faCheckCircle} />,
+					warning: <FontAwesomeIcon icon={faWarning} />,
+					error: <FontAwesomeIcon icon={faExclamationCircle} />,
+				},
+			},
+			variants: [
+				{
+					props: { severity: 'neutral' },
+					style: {
+						borderColor: color.border.subtle.value,
+						'.MuiAlert-icon': {
+							color: color.icon.value,
+						},
+					},
+				},
+				{
+					props: { severity: 'info' },
+					style: {
+						borderColor: color.border.info.value,
+						'.MuiAlert-icon': {
+							color: color.icon.info.value,
+						},
+					},
+				},
+				{
+					props: { severity: 'success' },
+					style: {
+						borderColor: color.border.success.value,
+						'.MuiAlert-icon': {
+							color: color.icon.success.value,
+						},
+					},
+				},
+				{
+					props: { severity: 'warning' },
+					style: {
+						borderColor: color.border.warning.value,
+						'.MuiAlert-icon': {
+							color: color.icon.warning.value,
+						},
+					},
+				},
+				{
+					props: { severity: 'error' },
+					style: {
+						borderColor: color.border.danger.value,
+						'.MuiAlert-icon': {
+							color: color.icon.danger.value,
+						},
+					},
+				},
+				{
+					props: { variant: 'standard', severity: 'neutral' },
+					style: {
+						backgroundColor: color.bg.value,
+						color: color.text.info.value,
+					},
+				},
+				{
+					props: { variant: 'standard', severity: 'info' },
+					style: {
+						backgroundColor: color.bg.info.value,
+						color: color.text.info.value,
+					},
+				},
+				{
+					props: { variant: 'standard', severity: 'success' },
+					style: {
+						backgroundColor: color.bg.success.value,
+						color: color.text.success.value,
+					},
+				},
+				{
+					props: { variant: 'standard', severity: 'warning' },
+					style: {
+						backgroundColor: color.bg.warning.value,
+						color: color.text.warning.value,
+					},
+				},
+				{
+					props: { variant: 'standard', severity: 'error' },
+					style: {
+						backgroundColor: color.bg.danger.value,
+						color: color.text.danger.value,
+					},
+				},
+				{
+					props: { variant: 'callout' },
+					style: {
+						border: `1px solid ${color.border.subtle.value}`,
+						backgroundColor: 'transparent',
+					},
+				},
+			],
 			styleOverrides: {
-				root: {
+				root: ({ theme }) => ({
+					padding: theme.spacing(3),
 					fontSize: '1rem',
 					border: 'solid 1px',
 					a: {
@@ -417,30 +534,19 @@ export const theme = createTheme({
 					'.MuiPaper-rounded': {
 						borderRadius: '10px',
 					},
+				}),
+				message: {
+					padding: 0,
 				},
-				standardInfo: {
-					borderColor: color.border.info.value,
-					backgroundColor: color.bg.info.value,
-					color: color.text.info.value,
-				},
-				standardSuccess: {
-					borderColor: color.border.success.value,
-					backgroundColor: color.bg.success.value,
-					color: color.text.success.value,
-				},
-				standardWarning: {
-					borderColor: color.border.warning.value,
-					backgroundColor: color.bg.warning.value,
-					color: color.text.warning.value,
-				},
-				standardError: {
-					borderColor: color.border.danger.value,
-					backgroundColor: color.bg.danger.value,
-					color: color.text.danger.value,
-				},
-				action: {
+				action: ({ theme }) => ({
+					marginTop: `-${theme.spacing(2)}`,
+					marginBottom: `-${theme.spacing(2)}`,
 					paddingTop: 0,
-				},
+				}),
+				icon: ({ theme }) => ({
+					padding: theme.spacing('3px', 0, 0),
+					fontSize: '1rem',
+				}),
 			},
 		},
 		MuiAlertTitle: {
