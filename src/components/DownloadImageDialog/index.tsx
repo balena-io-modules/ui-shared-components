@@ -454,7 +454,7 @@ export const DownloadImageDialog: React.FC<DownloadImageDialogProps> = ({
 						) : (
 							<>
 								{isEmpty(osVersions) && (
-									<Alert color="warning">
+									<Alert severity="warning">
 										No OS versions available for download
 									</Alert>
 								)}
