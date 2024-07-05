@@ -1,4 +1,15 @@
 - commits:
+    - subject: Add callout variant and improve Alerts
+      hash: 0cf634570b7fcf120ff763286b71de636779c930
+      body: ""
+      footer:
+        Change-type: major
+        change-type: major
+      author: Jonathan Berger
+  version: 7.0.0
+  title: ""
+  date: 2024-07-05T14:54:30.785Z
+- commits:
     - subject: "RJSForm SelectWidget: Include a `None` option when !multiple and
         !required"
       hash: bfe6a0b31218987c860af72d72208a3b812c0039
