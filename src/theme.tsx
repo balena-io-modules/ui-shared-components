@@ -14,11 +14,23 @@ import {
 	faExclamationCircle,
 	faInfoCircle,
 	faWarning,
+	IconDefinition,
 } from '@fortawesome/free-solid-svg-icons';
 
 type CustomPaletteColor = PaletteColor & { xlight?: string };
 type CustomPaletteColorOptions = PaletteColorOptions & {
 	xlight?: string;
+};
+
+export type Severity = 'info' | 'success' | 'warning' | 'danger';
+
+export const severityIcons: {
+	[key in Severity]: IconDefinition;
+} = {
+	info: faInfoCircle,
+	success: faCheckCircle,
+	warning: faWarning,
+	danger: faExclamationCircle,
 };
 
 declare module '@mui/material/styles' {
@@ -102,16 +114,6 @@ declare module '@mui/material/Typography' {
 		codeLg: true;
 		code: true;
 		codeSm: true;
-	}
-}
-
-declare module '@mui/material/Alert' {
-	interface AlertPropsColorOverrides {
-		neutral: true;
-	}
-
-	interface AlertPropsVariantOverrides {
-		callout: true;
 	}
 }
 
@@ -419,25 +421,14 @@ export const theme = createTheme({
 	components: {
 		MuiAlert: {
 			defaultProps: {
-				severity: 'neutral',
 				iconMapping: {
-					neutral: <FontAwesomeIcon icon={faInfoCircle} />,
-					info: <FontAwesomeIcon icon={faInfoCircle} />,
-					success: <FontAwesomeIcon icon={faCheckCircle} />,
-					warning: <FontAwesomeIcon icon={faWarning} />,
-					error: <FontAwesomeIcon icon={faExclamationCircle} />,
+					info: <FontAwesomeIcon icon={severityIcons.info} />,
+					success: <FontAwesomeIcon icon={severityIcons.success} />,
+					warning: <FontAwesomeIcon icon={severityIcons.warning} />,
+					error: <FontAwesomeIcon icon={severityIcons.danger} />,
 				},
 			},
 			variants: [
-				{
-					props: { severity: 'neutral' },
-					style: {
-						borderColor: color.border.subtle.value,
-						'.MuiAlert-icon': {
-							color: color.icon.value,
-						},
-					},
-				},
 				{
 					props: { severity: 'info' },
 					style: {
@@ -475,13 +466,6 @@ export const theme = createTheme({
 					},
 				},
 				{
-					props: { variant: 'standard', severity: 'neutral' },
-					style: {
-						backgroundColor: color.bg.value,
-						color: color.text.info.value,
-					},
-				},
-				{
 					props: { variant: 'standard', severity: 'info' },
 					style: {
 						backgroundColor: color.bg.info.value,
@@ -507,13 +491,6 @@ export const theme = createTheme({
 					style: {
 						backgroundColor: color.bg.danger.value,
 						color: color.text.danger.value,
-					},
-				},
-				{
-					props: { variant: 'callout' },
-					style: {
-						border: `1px solid ${color.border.subtle.value}`,
-						backgroundColor: 'transparent',
 					},
 				},
 			],

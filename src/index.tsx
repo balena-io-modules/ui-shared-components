@@ -46,6 +46,8 @@ export type {
 } from './components/DownloadImageDialog';
 export type { DeviceType as DownloadImageDeviceType } from './components/DownloadImageDialog/models';
 export type { VirtualizedAutocompleteProps } from './components/VirtualizedAutocomplete';
+export type { CalloutProps } from './components/Callout';
+export { Callout } from './components/Callout';
 export type { ChipProps } from './components/Chip';
 export { Chip } from './components/Chip';
 export type { CollectionSummaryProps } from './components/CollectionSummary';

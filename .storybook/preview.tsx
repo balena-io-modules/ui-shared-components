@@ -25,7 +25,13 @@ const preview: Preview = {
 		},
 		options: {
 			storySort: {
-				order: ['Introduction', 'Foundations', 'Mui Components', 'Other'],
+				order: [
+					'Introduction',
+					'Foundations',
+					'Components',
+					'Mui Components',
+					'Other',
+				],
 			},
 		},
 	},
