@@ -33,8 +33,9 @@ export type ChipProps<
  * @param props
  * @constructor
  */
-export const Chip: OverridableComponent<ChipTypeMap> = function (
+export const Chip = React.forwardRef<HTMLDivElement, ChipProps>(function Chip(
 	props: ChipProps,
+	ref,
 ) {
-	return <MuiChip {...props} />;
-};
+	return <MuiChip {...props} ref={ref} />;
+});
