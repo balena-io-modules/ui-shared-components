@@ -1572,6 +1572,9 @@ export const theme = createTheme({
 						opacity: 1,
 					},
 				},
+				icon: ({ theme }) => ({
+					marginLeft: theme.spacing(2),
+				}),
 				label: ({ theme }) => ({
 					padding: `${theme.spacing(1)} 12px`,
 				}),

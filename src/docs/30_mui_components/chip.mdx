@@ -3,6 +3,8 @@ import * as ChipStories from '../../components/Chip/Chip.stories';
 import { Stack, ThemeProvider, Typography } from '@mui/material';
 import { Chip } from '../../components/Chip';
 import { theme } from '../../theme';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faWarning } from '@fortawesome/free-solid-svg-icons';
 
 <Meta of={ChipStories} title="Chip" />
 
@@ -140,6 +142,16 @@ export const handleDelete = (e) => console.log(e);
 			<Chip onDelete={handleDelete} label="Success" color="success" variant="strong" />
 			<Chip onDelete={handleDelete} label="warning" color="warning" variant="strong" />
 			<Chip onDelete={handleDelete} label="error" color="error" variant="strong" />
+		</Stack>
+	</ThemeProvider>
+</Unstyled>
+
+# With Icon
+
+<Unstyled>
+	<ThemeProvider theme={theme}>
+		<Stack direction="row" gap={1}>
+			<Chip icon={<FontAwesomeIcon icon={faWarning} />} label="Lorem ipsum" color="orange" />
 		</Stack>
 	</ThemeProvider>
 </Unstyled>

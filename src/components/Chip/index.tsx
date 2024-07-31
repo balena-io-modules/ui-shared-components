@@ -16,7 +16,6 @@ type ChipTypeMap<
 			| 'clickable'
 			| 'onClick'
 			| 'avatar'
-			| 'icon'
 			| 'disabled'
 			| 'skipFocusWhenDisabled'
 		>;
