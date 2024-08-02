@@ -7,7 +7,7 @@ import { color } from '@balena/design-tokens';
 export interface CalloutProps {
 	children: React.ReactNode;
 	severity?: Severity;
-	color?: 'default' | 'white';
+	variant?: 'default' | 'subtle';
 	icon?: React.ReactNode;
 	sx?: SxProps<Theme>;
 }
@@ -20,11 +20,11 @@ const CalloutRoot = styled(Box, {
 	padding: theme.spacing(3),
 	borderLeft: 'solid 3px',
 	borderLeftColor: 'var(--callout-border-color)',
-	...(ownerState.color === 'default' && {
+	...(ownerState.variant === 'default' && {
 		backgroundColor: color.bg.value,
 	}),
-	...(ownerState.color === 'white' && {
-		backgroundColor: 'white',
+	...(ownerState.variant === 'subtle' && {
+		backgroundColor: color.bg.subtlest.value,
 	}),
 	'--callout-border-color': color.border.info.value,
 	'--callout-icon-color': color.icon.info.value,
@@ -72,12 +72,12 @@ export const Callout = React.forwardRef<HTMLDivElement, CalloutProps>(
 		const props = useThemeProps({ props: inProps, name: 'Callout' });
 		const {
 			severity = 'info',
-			color = 'default',
+			variant = 'default',
 			icon,
 			children,
 			...other
 		} = props;
-		const ownerState = { ...props, severity, color };
+		const ownerState = { ...props, severity, variant };
 
 		return (
 			<CalloutRoot ownerState={ownerState} ref={ref} {...other}>

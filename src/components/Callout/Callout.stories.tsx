@@ -50,9 +50,9 @@ export const Danger: Story = {
 	},
 };
 
-export const ColorWhite: Story = {
+export const VariantSubtle: Story = {
 	args: {
 		...Default.args,
-		color: 'white',
+		variant: 'subtle',
 	},
 };
