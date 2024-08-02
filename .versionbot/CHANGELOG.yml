@@ -1,4 +1,15 @@
 - commits:
+    - subject: Add Callout component and remove callout variant on Alerts
+      hash: 3c73b3a35c2851939471848eca0cdf5eaa6fc7ea
+      body: ""
+      footer:
+        Change-type: major
+        change-type: major
+      author: Jonathan Berger
+  version: 8.0.0
+  title: ""
+  date: 2024-08-02T12:03:31.389Z
+- commits:
     - subject: Add callout variant and improve Alerts
       hash: 0cf634570b7fcf120ff763286b71de636779c930
       body: ""
