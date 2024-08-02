@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Chip } from '.';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faWarning } from '@fortawesome/free-solid-svg-icons';
 
 const meta = {
 	title: 'Mui Components/Data Display/Chip',
@@ -12,5 +14,12 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
 	args: {
 		label: 'Chip',
+	},
+};
+
+export const WithIcon: Story = {
+	args: {
+		...Default.args,
+		icon: <FontAwesomeIcon icon={faWarning} />,
 	},
 };
