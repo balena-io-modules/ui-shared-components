@@ -112,7 +112,9 @@ export const getCategoriesFromTokens = (tokens: JsonToken[]) => {
 	}, []);
 };
 
-export const LensToggle = (props: ToggleButtonGroupProps) => {
+export const LensToggle = (
+	props: React.PropsWithChildren<ToggleButtonGroupProps>,
+) => {
 	const [lens, setLens] = useState<'grid' | 'table'>('grid');
 
 	const handleChange = (
@@ -125,14 +127,14 @@ export const LensToggle = (props: ToggleButtonGroupProps) => {
 	return (
 		<ToggleButtonGroup onChange={handleChange} exclusive {...props}>
 			<ToggleButton value={'grid'} title="Grid lens" selected={lens === 'grid'}>
-				<GridView />
+				{props.children || <GridView />}
 			</ToggleButton>
 			<ToggleButton
 				value={'table'}
 				title="Table lens"
 				selected={lens === 'table'}
 			>
-				<TableRows />
+				{props.children ? `${props.children} 1` : <TableRows />}
 			</ToggleButton>
 		</ToggleButtonGroup>
 	);
