@@ -1,4 +1,15 @@
 - commits:
+    - subject: Restyle ToggleButtonGroup component
+      hash: 25b27a8972898088c740359b796b785b21d97d9b
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Andrea Rosci
+  version: 8.0.1
+  title: ""
+  date: 2024-08-05T12:47:27.422Z
+- commits:
     - subject: Add Callout component and remove callout variant on Alerts
       hash: 3c73b3a35c2851939471848eca0cdf5eaa6fc7ea
       body: ""
