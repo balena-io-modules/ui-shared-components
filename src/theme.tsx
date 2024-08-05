@@ -715,7 +715,7 @@ export const theme = createTheme({
 				},
 			],
 			styleOverrides: {
-				root: ({ theme, ownerState }) => ({
+				root: ({ theme }) => ({
 					borderRadius: '24px',
 					paddingLeft: '20px',
 					paddingRight: '20px',
@@ -840,71 +840,93 @@ export const theme = createTheme({
 				},
 			},
 		},
-		MuiToggleButton: {
+		MuiToggleButtonGroup: {
+			defaultProps: {
+				color: 'secondary',
+			},
 			styleOverrides: {
 				root: {
-					border: `1px solid ${color.border.value} !important`,
-					color: color.text.value,
-					'&:hover': {
-						backgroundColor: color.bg.value,
-					},
-					'&.Mui-selected': {
-						backgroundColor: color.bg.subtle.value,
-						'&:hover': {
-							backgroundColor: color.bg.subtle.value,
-						},
-					},
+					border: `1px solid ${color.border.palette.neutral.value} !important`,
+					borderRadius: '50px',
+					width: 'fit-content',
+				},
+			},
+		},
+		MuiToggleButton: {
+			styleOverrides: {
+				root: ({ theme }) => ({
+					textTransform: 'none',
+					border: `none !important`,
+					borderRadius: '50px !important',
+					margin: '2px',
+					padding: '8px',
 					'&.MuiToggleButton-primary': {
-						border: `1px solid ${color.border.accent.value} !important`,
 						color: color.text.accent.value,
-						'&:hover': {
-							backgroundColor: color.bg.accent.value,
-						},
 						'&.Mui-selected': {
-							backgroundColor: color.bg.accent.value,
+							backgroundColor: theme.palette.primary.main,
+							color: color.text.inverse.value,
+						},
+						'&:hover': {
+							backgroundColor: theme.palette.primary.dark,
+							color: color.text.inverse.value,
+						},
+					},
+					'&.MuiToggleButton-secondary': {
+						color: color.text.value,
+						'&.Mui-selected': {
+							color: color.text.inverse.value,
+							backgroundColor: theme.palette.secondary.main,
+						},
+						'&:hover': {
+							color: color.text.inverse.value,
+							backgroundColor: theme.palette.secondary.dark,
 						},
 					},
 					'&.MuiToggleButton-info': {
-						border: `1px solid ${color.border.info.value} !important`,
 						color: color.text.info.value,
-						'&:hover': {
-							backgroundColor: color.bg.info.value,
-						},
 						'&.Mui-selected': {
-							backgroundColor: color.bg.info.value,
+							color: color.text.inverse.value,
+							backgroundColor: theme.palette.info.main,
+						},
+						'&:hover': {
+							color: color.text.inverse.value,
+							backgroundColor: theme.palette.info.dark,
 						},
 					},
 					'&.MuiToggleButton-success': {
-						border: `1px solid ${color.border.success.value} !important`,
 						color: color.text.success.value,
-						'&:hover': {
-							backgroundColor: color.bg.success.value,
-						},
 						'&.Mui-selected': {
-							backgroundColor: color.bg.success.value,
+							color: color.text.inverse.value,
+							backgroundColor: theme.palette.success.main,
+						},
+						'&:hover': {
+							color: color.text.inverse.value,
+							backgroundColor: theme.palette.success.dark,
 						},
 					},
 					'&.MuiToggleButton-warning': {
-						border: `1px solid ${color.border.warning.value} !important`,
 						color: color.text.warning.value,
-						'&:hover': {
-							backgroundColor: color.bg.warning.value,
-						},
 						'&.Mui-selected': {
-							backgroundColor: color.bg.warning.value,
+							color: color.text.inverse.value,
+							backgroundColor: theme.palette.warning.main,
+						},
+						'&:hover': {
+							color: color.text.inverse.value,
+							backgroundColor: theme.palette.warning.dark,
 						},
 					},
 					'&.Mui-error': {
-						border: `1px solid ${color.border.danger.value} !important`,
 						color: color.text.danger.value,
-						'&:hover': {
-							backgroundColor: color.bg.danger.value,
-						},
 						'&.Mui-selected': {
-							backgroundColor: color.bg.danger.value,
+							color: color.text.inverse.value,
+							backgroundColor: theme.palette.error.main,
+						},
+						'&:hover': {
+							color: color.text.inverse.value,
+							backgroundColor: theme.palette.error.dark,
 						},
 					},
-				},
+				}),
 			},
 		},
 		MuiAppBar: {

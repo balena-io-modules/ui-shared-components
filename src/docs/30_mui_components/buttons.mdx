@@ -118,12 +118,21 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 <ThemeProvider theme={theme}>
 	<Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
-		<LensToggle color="standard" />
+		<LensToggle />
 		<LensToggle color="primary" />
 		<LensToggle color="secondary" />
 		<LensToggle color="info" />
 		<LensToggle color="success" />
 		<LensToggle color="warning" />
 		<LensToggle color="error" />
+	</Box>
+	<Box sx={{ display: 'flex', gap: 2, mt: 2, flexWrap: 'wrap' }}>
+		<LensToggle>Default</LensToggle>
+		<LensToggle color="primary">Primary</LensToggle>
+		<LensToggle color="secondary">Secondary</LensToggle>
+		<LensToggle color="info">Info</LensToggle>
+		<LensToggle color="success">Success</LensToggle>
+		<LensToggle color="warning">Warning</LensToggle>
+		<LensToggle color="error">Error</LensToggle>
 	</Box>
 </ThemeProvider> 
