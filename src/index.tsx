@@ -89,6 +89,7 @@ export {
 	useAnalyticsContext,
 	AnalyticsStoreActions,
 } from './contexts/AnalyticsContext';
+export * as AnalyticsClient from 'analytics-client';
 export * as Material from '@mui/material';
 export * as MaterialLab from '@mui/lab';
 export * as MaterialDataGrid from '@mui/x-data-grid';
