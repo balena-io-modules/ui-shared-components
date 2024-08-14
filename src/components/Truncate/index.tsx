@@ -1,7 +1,7 @@
-import { Tooltip, Typography } from '@mui/material';
+import { Tooltip, Typography, TypographyProps } from '@mui/material';
 import React from 'react';
 
-export interface TruncateProps {
+export interface TruncateProps extends TypographyProps {
 	lineCamp: number;
 	tooltip?: boolean;
 }
@@ -13,6 +13,7 @@ export const Truncate: React.FC<React.PropsWithChildren<TruncateProps>> = ({
 	children,
 	lineCamp,
 	tooltip,
+	...typographyProps
 }) => {
 	return (
 		<Tooltip
@@ -20,6 +21,7 @@ export const Truncate: React.FC<React.PropsWithChildren<TruncateProps>> = ({
 		>
 			<Typography
 				component="span"
+				{...typographyProps}
 				sx={{
 					lineHeight: '2rem',
 					display: '-webkit-box',
