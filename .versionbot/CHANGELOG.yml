@@ -1,4 +1,15 @@
 - commits:
+    - subject: Fix truncate passing typography props
+      hash: f200d5468cbc8541bb1f20d8911cacd32f63cb71
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Andrea Rosci
+  version: 8.0.2
+  title: ""
+  date: 2024-08-14T17:48:54.087Z
+- commits:
     - subject: Restyle ToggleButtonGroup component
       hash: 25b27a8972898088c740359b796b785b21d97d9b
       body: ""
