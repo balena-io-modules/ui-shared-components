@@ -1,13 +1,21 @@
-import { Meta } from '@storybook/blocks';
+import { Meta, Unstyled } from '@storybook/blocks';
 import {
 	Box,
-	Button,
+	Button, Stack,
 	ThemeProvider,
 } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import { theme } from '../../theme';
 import { LensToggle } from '../utils';
-import { faMagic, faTrashCan, faPlus, faDownload, faUpRightAndDownLeftFromCenter, faClose } from '@fortawesome/free-solid-svg-icons';
+import {
+	faMagic,
+	faTrashCan,
+	faPlus,
+	faDownload,
+	faUpRightAndDownLeftFromCenter,
+	faClose,
+	faGrip, faTable,
+} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 <Meta title="Mui Components/Input/Button" />
@@ -116,23 +124,55 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 ## Toggle Button
 
-<ThemeProvider theme={theme}>
-	<Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
-		<LensToggle />
-		<LensToggle color="primary" />
-		<LensToggle color="secondary" />
-		<LensToggle color="info" />
-		<LensToggle color="success" />
-		<LensToggle color="warning" />
-		<LensToggle color="error" />
-	</Box>
-	<Box sx={{ display: 'flex', gap: 2, mt: 2, flexWrap: 'wrap' }}>
-		<LensToggle>Default</LensToggle>
-		<LensToggle color="primary">Primary</LensToggle>
-		<LensToggle color="secondary">Secondary</LensToggle>
-		<LensToggle color="info">Info</LensToggle>
-		<LensToggle color="success">Success</LensToggle>
-		<LensToggle color="warning">Warning</LensToggle>
-		<LensToggle color="error">Error</LensToggle>
-	</Box>
-</ThemeProvider> 
+While MUI provides color variants, stick to the default one as the colored variant don't make much semantic sense (expect 
+maybe for the _danger_ one).
+
+### Text
+
+<Unstyled>
+	<ThemeProvider theme={theme}>
+		<Stack gap={3} direction="row">
+			<LensToggle segments={[{label: 'Geo location' }, {label: 'Manual location' }]} />
+			<LensToggle segments={[{label: 'Geo location' }, {label: 'Manual location' }]} color="primary" />
+		</Stack>
+	</ThemeProvider>
+</Unstyled>
+
+### Icon
+
+<Unstyled>
+	<ThemeProvider theme={theme}>
+		<Stack gap={3} direction="row">
+			<LensToggle segments={[{icon: faGrip }, {icon: faTable }]} />
+			<LensToggle segments={[{icon: faGrip }, {icon: faTable }]} color="primary" />
+		</Stack>
+	</ThemeProvider>
+</Unstyled>
+
+### Text + Icon
+
+<Unstyled>
+	<ThemeProvider theme={theme}>
+		<Stack gap={3} direction="row">
+			<LensToggle segments={[{icon: faGrip, label: 'Geo location' }, {icon: faTable, label: 'Manual location' }]} />
+			<LensToggle segments={[{icon: faGrip, label: 'Geo location' }, {icon: faTable, label: 'Manual location' }]} color="primary" />
+		</Stack>
+	</ThemeProvider>
+</Unstyled>
+
+<strong>⚠️ Notice that the padding is smaller in this case</strong>. The reason is that, in order to have a circle
+on icon only toggles, we have to decrease the padding so that the total size is less or equal to 31px.
+
+The root issue is that we use `:only-child` selector on icon only toggle buttons, but text nodes are not considered children
+elements in CSS, so icon + text is mistakenly selected by the rule. 
+
+If you want to prevent that, you can wrap the text in a `span` element, like so:
+
+<Unstyled>
+	<ThemeProvider theme={theme}>
+		<Stack gap={3} direction="row">
+			<LensToggle withWrapAroundLabel segments={[{icon: faGrip, label: 'Geo location' }, {icon: faTable, label: 'Manual location' }]} />
+			<LensToggle withWrapAroundLabel segments={[{icon: faGrip, label: 'Geo location' }, {icon: faTable, label: 'Manual location' }]} color="primary" />
+		</Stack>
+	</ThemeProvider>
+</Unstyled>

@@ -4,11 +4,17 @@ import {
 	ToggleButton,
 	ToggleButtonGroup,
 	ToggleButtonGroupProps,
+	ToggleButtonProps,
 	Typography,
 	TypographyVariant,
 } from '@mui/material';
-import { GridView, TableRows } from '@mui/icons-material';
 import { color } from '@balena/design-tokens';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+	faBars,
+	faGrip,
+	IconDefinition,
+} from '@fortawesome/free-solid-svg-icons';
 
 // TODO move this type to the Design Tokens package
 type JsonToken = {
@@ -112,30 +118,34 @@ export const getCategoriesFromTokens = (tokens: JsonToken[]) => {
 	}, []);
 };
 
-export const LensToggle = (
-	props: React.PropsWithChildren<ToggleButtonGroupProps>,
-) => {
-	const [lens, setLens] = useState<'grid' | 'table'>('grid');
+interface LensToggleProps
+	extends React.PropsWithChildren<ToggleButtonGroupProps> {
+	withWrapAroundLabel?: boolean;
+	segments: Array<{
+		icon?: IconDefinition;
+		label?: string;
+	}>;
+}
 
-	const handleChange = (
-		_: React.MouseEvent<HTMLElement>,
-		newLens: 'grid' | 'table',
-	) => {
-		setLens(newLens);
+export const LensToggle = ({
+	segments,
+	withWrapAroundLabel,
+	...props
+}: LensToggleProps) => {
+	const [value, setValue] = useState(0);
+
+	const handleChange = (_: React.MouseEvent<HTMLElement>, newLens: number) => {
+		setValue(newLens);
 	};
 
 	return (
 		<ToggleButtonGroup onChange={handleChange} exclusive {...props}>
-			<ToggleButton value={'grid'} title="Grid lens" selected={lens === 'grid'}>
-				{props.children || <GridView />}
-			</ToggleButton>
-			<ToggleButton
-				value={'table'}
-				title="Table lens"
-				selected={lens === 'table'}
-			>
-				{props.children ? `${props.children} 1` : <TableRows />}
-			</ToggleButton>
+			{segments.map((segment, i) => (
+				<ToggleButton value={i} selected={value === i}>
+					{segment.icon && <FontAwesomeIcon icon={segment.icon} />}
+					{withWrapAroundLabel ? <span>{segment.label}</span> : segment.label}
+				</ToggleButton>
+			))}
 		</ToggleButtonGroup>
 	);
 };
