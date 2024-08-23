@@ -182,7 +182,11 @@ export const FileWidget = ({
 						// see: https://github.com/rjsf-team/react-jsonschema-form/blob/297dac059fdf64fd1453bebb8366f0602c722f90/packages/utils/src/schema/isFilesArray.ts#L24
 						onChange(
 							[...files, ...acceptedFiles]
-								.filter((file) => file.loadingPercentage === null)
+								.filter(
+									(file) =>
+										!('loadingPercentage' in file) ||
+										file.loadingPercentage === null,
+								)
 								.map(
 									(file) =>
 										`data:${file.type};name=${file.name};base64,${base64Data}`,
