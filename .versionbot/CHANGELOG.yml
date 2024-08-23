@@ -1,4 +1,22 @@
 - commits:
+    - subject: Improve buttons and toggle buttons styles
+      hash: 8195917ba30d94181d2a582a010a208abe95858a
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Jonathan Berger
+    - subject: Fix token list in Storybook
+      hash: e86edb6caeab285682d277690a978954d11ddef5
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Jonathan Berger
+  version: 8.0.4
+  title: ""
+  date: 2024-08-23T12:24:42.042Z
+- commits:
     - subject: Fix FileUpload widget when multiple
       hash: c8f04d2ec081043ec57bcab802b493f4339f2ffc
       body: ""
