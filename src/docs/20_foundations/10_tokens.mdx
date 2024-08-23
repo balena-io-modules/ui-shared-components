@@ -37,7 +37,7 @@ For information on how to use the tokens, visit [the project repository](https:/
 					</thead>
 					<tbody>
 						{
-							tokens.filter((token) => token.type === category).map((token) => {
+							tokens.filter((token) => token.attributes.category === category).map((token) => {
 								const tokenSeparatedWithDots = formatTokenName(token.name, '.');
 								
 								return (

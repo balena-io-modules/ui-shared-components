@@ -7,7 +7,7 @@ import {
 } from '@mui/material';
 import type {} from '@mui/x-data-grid/themeAugmentation';
 import { TypographyStyleOptions } from '@mui/material/styles/createTypography';
-import { color, typography } from '@balena/design-tokens';
+import { color, typography, shape } from '@balena/design-tokens';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
 	faCheckCircle,
@@ -643,7 +643,8 @@ export const theme = createTheme({
 					style: {
 						color: color.text.value,
 						backgroundColor: color.bg.accent.value,
-						border: `1px solid ${color.border.accent.value}`,
+						outline: `1px solid ${color.border.accent.value}`,
+						outlineOffset: '-1px',
 						':hover': {
 							backgroundColor: color.palette.blue[100].value,
 						},
@@ -654,7 +655,10 @@ export const theme = createTheme({
 					style: {
 						color: color.text.value,
 						backgroundColor: color.bg.value,
-						border: `1px solid ${color.border.value}`,
+						// using `outline` instead of `border`as a hack to display borders inside
+						// (thus keeping the same height as the contained variant)
+						outline: `1px solid ${color.border.value}`,
+						outlineOffset: '-1px',
 						':hover': {
 							backgroundColor: color.palette.neutral[75].value,
 						},
@@ -665,7 +669,8 @@ export const theme = createTheme({
 					style: {
 						color: color.text.info.value,
 						backgroundColor: color.bg.info.value,
-						border: `1px solid ${color.border.info.value}`,
+						outline: `1px solid ${color.border.info.value}`,
+						outlineOffset: '-1px',
 						':hover': {
 							backgroundColor: color.palette.blue[100].value,
 						},
@@ -676,7 +681,8 @@ export const theme = createTheme({
 					style: {
 						color: color.text.success.value,
 						backgroundColor: color.bg.success.value,
-						border: `1px solid ${color.border.success.value}`,
+						outline: `1px solid ${color.border.success.value}`,
+						outlineOffset: '-1px',
 						':hover': {
 							backgroundColor: color.palette.green[100].value,
 						},
@@ -687,7 +693,8 @@ export const theme = createTheme({
 					style: {
 						color: color.text.warning.value,
 						backgroundColor: color.bg.warning.value,
-						border: `1px solid ${color.border.warning.value}`,
+						outline: `1px solid ${color.border.warning.value}`,
+						outlineOffset: '-1px',
 						':hover': {
 							backgroundColor: color.palette.orange[100].value,
 						},
@@ -698,7 +705,8 @@ export const theme = createTheme({
 					style: {
 						color: color.text.danger.value,
 						backgroundColor: color.bg.danger.value,
-						border: `1px solid ${color.border.danger.value}`,
+						outline: `1px solid ${color.border.danger.value}`,
+						outlineOffset: '-1px',
 						':hover': {
 							backgroundColor: color.palette.red[100].value,
 						},
@@ -708,8 +716,67 @@ export const theme = createTheme({
 					props: { variant: 'light', disabled: true },
 					style: {
 						color: `${color.text.value} !important`,
-						border: `1px solid ${color.border.value}`,
+						outline: `1px solid ${color.border.value}`,
+						outlineOffset: '-1px',
 						backgroundColor: color.bg.value,
+						opacity: 0.4,
+					},
+				},
+				{
+					props: { variant: 'outlined' },
+					style: {
+						border: 'none !important',
+						outline: '1px solid',
+						outlineOffset: '-1px',
+					},
+				},
+				{
+					props: { variant: 'outlined', color: 'primary' },
+					style: {
+						color: color.text.value,
+						outlineColor: color.border.accent.value,
+						outlineOffset: '-1px',
+					},
+				},
+				{
+					props: { variant: 'outlined', color: 'secondary' },
+					style: {
+						color: color.text.value,
+						outlineColor: color.border.value,
+					},
+				},
+				{
+					props: { variant: 'outlined', color: 'info' },
+					style: {
+						color: color.text.info.value,
+						outlineColor: color.border.info.value,
+					},
+				},
+				{
+					props: { variant: 'outlined', color: 'success' },
+					style: {
+						color: color.text.success.value,
+						outlineColor: color.border.success.value,
+					},
+				},
+				{
+					props: { variant: 'outlined', color: 'warning' },
+					style: {
+						color: color.text.warning.value,
+						outlineColor: color.border.warning.value,
+					},
+				},
+				{
+					props: { variant: 'outlined', color: 'error' },
+					style: {
+						color: color.text.danger.value,
+						outlineColor: color.border.danger.value,
+					},
+				},
+				{
+					props: { variant: 'outlined', disabled: true },
+					style: {
+						color: `${color.text.value} !important`,
 						opacity: 0.4,
 					},
 				},
@@ -717,9 +784,8 @@ export const theme = createTheme({
 			styleOverrides: {
 				root: ({ theme }) => ({
 					borderRadius: '24px',
-					paddingLeft: '20px',
-					paddingRight: '20px',
-					fontSize: theme.typography.body1.fontSize,
+					font: typography.body.md.shorthand.value,
+					padding: `${theme.spacing(2)} 20px`,
 					textTransform: 'none',
 				}),
 				contained: ({ theme, ownerState }) => ({
@@ -783,30 +849,6 @@ export const theme = createTheme({
 					color: color.text.inverse.value,
 					backgroundColor: color.bg.danger.strong.value,
 				},
-				outlinedPrimary: {
-					borderColor: color.border.accent.value,
-					color: color.text.value,
-				},
-				outlinedSecondary: {
-					color: color.text.value,
-					borderColor: color.border.value,
-				},
-				outlinedInfo: {
-					color: color.text.info.value,
-					borderColor: color.border.info.value,
-				},
-				outlinedSuccess: {
-					color: color.text.success.value,
-					borderColor: color.border.success.value,
-				},
-				outlinedWarning: {
-					color: color.text.warning.value,
-					borderColor: color.border.warning.value,
-				},
-				outlinedError: {
-					color: color.text.danger.value,
-					borderColor: color.border.danger.value,
-				},
 				startIcon: {
 					' > :nth-of-type(1)': {
 						fontSize: '14px',
@@ -849,81 +891,66 @@ export const theme = createTheme({
 					border: `1px solid ${color.border.palette.neutral.value} !important`,
 					borderRadius: '50px',
 					width: 'fit-content',
+					gap: '2px',
 				},
 			},
 		},
 		MuiToggleButton: {
+			defaultProps: {
+				disableRipple: true, // needs to be disabled to target with :only-child (see below)
+			},
 			styleOverrides: {
 				root: ({ theme }) => ({
 					textTransform: 'none',
 					border: `none !important`,
-					borderRadius: '50px !important',
+					borderRadius: `${shape.border_radius.full.value}px !important`,
+					font: typography.body.md.shorthand.value,
+					gap: theme.spacing(2),
+					height: '31px', // Fix height to prevent variations due to different icon sizes
 					margin: '2px',
-					padding: '8px',
+					paddingTop: '5px', // 5px = button padding - margin - border width
+					paddingBottom: '5px',
+					paddingLeft: theme.spacing(3),
+					paddingRight: theme.spacing(3),
+					'&:has(> svg:only-child)': {
+						// Make sure width is not over 31px when icon only
+						// FIXME this also targets buttons that have an icon + some text node.
+						//  Text needs to be wrapped in a HTML element to prevent the fixed width.
+						minWidth: '31px',
+						paddingLeft: theme.spacing(2),
+						paddingRight: theme.spacing(2),
+						svg: {
+							maxWidth: '15px',
+						},
+					},
+					'> svg': {
+						fontSize: typography.icon.md.regular.fontSize.value,
+					},
+					'&:focus-visible': {
+						outline: `solid 2px ${color.bg.accent.strong.value}`,
+						outlineOffset: '1px',
+					},
 					'&.MuiToggleButton-primary': {
-						color: color.text.accent.value,
+						color: color.text.value,
 						'&.Mui-selected': {
-							backgroundColor: theme.palette.primary.main,
+							backgroundColor: color.bg.accent.strong.value,
 							color: color.text.inverse.value,
 						},
-						'&:hover': {
-							backgroundColor: theme.palette.primary.dark,
-							color: color.text.inverse.value,
+						'&:not(.Mui-selected):hover': {
+							backgroundColor: color.bg.accent.value,
 						},
 					},
 					'&.MuiToggleButton-secondary': {
 						color: color.text.value,
 						'&.Mui-selected': {
+							backgroundColor: color.bg.strong.value,
 							color: color.text.inverse.value,
-							backgroundColor: theme.palette.secondary.main,
 						},
-						'&:hover': {
-							color: color.text.inverse.value,
-							backgroundColor: theme.palette.secondary.dark,
+						'&:not(.Mui-selected):hover': {
+							backgroundColor: color.bg.value,
 						},
-					},
-					'&.MuiToggleButton-info': {
-						color: color.text.info.value,
-						'&.Mui-selected': {
-							color: color.text.inverse.value,
-							backgroundColor: theme.palette.info.main,
-						},
-						'&:hover': {
-							color: color.text.inverse.value,
-							backgroundColor: theme.palette.info.dark,
-						},
-					},
-					'&.MuiToggleButton-success': {
-						color: color.text.success.value,
-						'&.Mui-selected': {
-							color: color.text.inverse.value,
-							backgroundColor: theme.palette.success.main,
-						},
-						'&:hover': {
-							color: color.text.inverse.value,
-							backgroundColor: theme.palette.success.dark,
-						},
-					},
-					'&.MuiToggleButton-warning': {
-						color: color.text.warning.value,
-						'&.Mui-selected': {
-							color: color.text.inverse.value,
-							backgroundColor: theme.palette.warning.main,
-						},
-						'&:hover': {
-							color: color.text.inverse.value,
-							backgroundColor: theme.palette.warning.dark,
-						},
-					},
-					'&.Mui-error': {
-						color: color.text.danger.value,
-						'&.Mui-selected': {
-							color: color.text.inverse.value,
-							backgroundColor: theme.palette.error.main,
-						},
-						'&:hover': {
-							color: color.text.inverse.value,
-							backgroundColor: theme.palette.error.dark,
+						'&:focus-visible': {
+							outlineColor: color.bg.strong.value,
 						},
 					},
 				}),
