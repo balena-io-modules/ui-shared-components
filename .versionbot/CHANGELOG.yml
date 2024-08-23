@@ -1,4 +1,15 @@
 - commits:
+    - subject: Fix FileUpload widget when multiple
+      hash: c8f04d2ec081043ec57bcab802b493f4339f2ffc
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Andrea Rosci
+  version: 8.0.3
+  title: ""
+  date: 2024-08-23T10:12:20.134Z
+- commits:
     - subject: Fix truncate passing typography props
       hash: f200d5468cbc8541bb1f20d8911cacd32f63cb71
       body: ""
