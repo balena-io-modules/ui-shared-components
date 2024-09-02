@@ -1,4 +1,15 @@
 - commits:
+    - subject: "Link: Set the default cursor style to `pointer`"
+      hash: f949675454d5dcb2bc96d7cac5444322c41d5cc9
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: myarmolinsky
+  version: 8.0.5
+  title: ""
+  date: 2024-09-02T19:19:52.931Z
+- commits:
     - subject: Improve buttons and toggle buttons styles
       hash: 8195917ba30d94181d2a582a010a208abe95858a
       body: ""
