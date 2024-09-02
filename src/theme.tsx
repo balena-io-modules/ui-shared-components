@@ -1135,6 +1135,7 @@ export const theme = createTheme({
 					'&:hover': {
 						color: color.palette.blue[800].value,
 					},
+					cursor: 'pointer',
 				},
 			},
 		},
