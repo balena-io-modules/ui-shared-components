@@ -9,12 +9,14 @@ import {
 
 const Toast = React.forwardRef(
 	({ message, id, variant }: CustomContentProps, ref) => {
+		const severity = variant === 'default' ? 'success' : variant;
 		return (
 			<Alert
 				ref={ref as React.ForwardedRef<HTMLDivElement>}
 				onClose={() => closeSnackbar(id)}
-				severity={variant === 'default' ? 'success' : variant}
+				severity={severity}
 				sx={{ alignItems: 'center' }}
+				data-test={`toast--${severity}`}
 			>
 				{message}
 			</Alert>
