@@ -229,13 +229,6 @@ export const DownloadImageDialog: React.FC<DownloadImageDialogProps> = ({
 	const [isFetching, setIsFetching] = useState(isEmpty(osVersions));
 	const [downloadSize, setDownloadSize] = useState<string | null>(null);
 
-	const logoSrc = useMemo(
-		() =>
-			formModel.deviceType?.logo ??
-			formModel.deviceType?.logoUrl ??
-			FALLBACK_LOGO_UNKNOWN_DEVICE,
-		[formModel.deviceType?.logo, formModel.deviceType?.logoUrl],
-	);
 	const defaultDisplayName = useMemo(
 		() => formModel.deviceType?.name ?? '-',
 		[formModel.deviceType?.name],
@@ -422,7 +415,7 @@ export const DownloadImageDialog: React.FC<DownloadImageDialogProps> = ({
 					<Avatar
 						variant="square"
 						alt={defaultDisplayName}
-						src={logoSrc}
+						src={formModel.deviceType?.logo ?? FALLBACK_LOGO_UNKNOWN_DEVICE}
 						sx={{ mr: 2 }}
 					/>
 					<Typography variant="h5">Add new device</Typography>

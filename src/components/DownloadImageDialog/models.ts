@@ -97,6 +97,4 @@ export interface DeviceType {
 		| OsSpecificContractInstructions;
 	/** @deprecated */
 	options?: DeviceTypeOptions[];
-	/** @deprecated use DeviceType.logo */
-	logoUrl?: string;
 }
