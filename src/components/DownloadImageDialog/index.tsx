@@ -228,10 +228,6 @@ export const DownloadImageDialog: React.FC<DownloadImageDialogProps> = ({
 	);
 	const [isFetching, setIsFetching] = useState(isEmpty(osVersions));
 	const [downloadSize, setDownloadSize] = useState<string | null>(null);
-	const hasDockerImageDownload = useMemo(
-		() => formModel.deviceType?.yocto?.deployArtifact === 'docker-image',
-		[formModel.deviceType?.yocto?.deployArtifact],
-	);
 
 	const logoSrc = useMemo(
 		() =>
@@ -264,11 +260,8 @@ export const DownloadImageDialog: React.FC<DownloadImageDialogProps> = ({
 						<img width="20px" alt="etcher" src={etcherLogoBase64} /> Flash
 					</>
 				),
-				disabled: hasDockerImageDownload,
 				tooltip: {
-					title: hasDockerImageDownload
-						? 'This image is deployed to docker so you can only download its config'
-						: 'Etcher v1.7.2 or greater is required',
+					title: 'Etcher v1.7.2 or greater is required',
 					placement: 'top',
 				},
 			},
@@ -292,10 +285,6 @@ export const DownloadImageDialog: React.FC<DownloadImageDialogProps> = ({
 						{formModel.version && downloadSize ? ` (~${downloadSize})` : ''}
 					</>
 				),
-				disabled: hasDockerImageDownload,
-				tooltip: hasDockerImageDownload
-					? 'This image is deployed to docker so you can only download its config'
-					: '',
 			},
 		];
 
@@ -325,7 +314,6 @@ export const DownloadImageDialog: React.FC<DownloadImageDialogProps> = ({
 		downloadSize,
 		downloadUrl,
 		formModel,
-		hasDockerImageDownload,
 		dialogActions,
 		onDownloadStart,
 	]);

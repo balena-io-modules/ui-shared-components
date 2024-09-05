@@ -105,13 +105,8 @@ export const ApplicationInstructions = memo(
 			),
 		);
 
-		const hasConfigDownloadOnly =
-			deviceType.yocto?.deployArtifact === 'docker-image';
-
 		const finalInstructions = [
-			hasConfigDownloadOnly
-				? 'Use the form on the left to download a configuration for your new device.'
-				: 'Use the form on the left to configure and download balenaOS for your new device.',
+			'Use the form on the left to configure and download balenaOS for your new device.',
 			...interpolatedInstructions,
 			'Your device should appear in your application dashboard within a few minutes. Have fun!',
 		];
