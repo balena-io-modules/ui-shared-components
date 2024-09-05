@@ -1,4 +1,15 @@
 - commits:
+    - subject: Add `data-test` attribute to `Toast`s
+      hash: 7621318f6a40b901bec05d8554894abedc37f772
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: myarmolinsky
+  version: 8.0.6
+  title: ""
+  date: 2024-09-05T14:46:27.648Z
+- commits:
     - subject: "Link: Set the default cursor style to `pointer`"
       hash: f949675454d5dcb2bc96d7cac5444322c41d5cc9
       body: ""
