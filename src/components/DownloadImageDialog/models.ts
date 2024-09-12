@@ -97,11 +97,4 @@ export interface DeviceType {
 		| OsSpecificContractInstructions;
 	/** @deprecated */
 	options?: DeviceTypeOptions[];
-	/** @deprecated */
-	yocto?: {
-		fstype?: string;
-		deployArtifact: string;
-	};
-	/** @deprecated use DeviceType.logo */
-	logoUrl?: string;
 }

@@ -68,14 +68,6 @@ const deviceTypes: any[] = [
 				],
 			},
 		],
-		yocto: {
-			machine: 'raspberrypi3-64',
-			image: 'balena-image',
-			fstype: 'balenaos-img',
-			version: 'yocto-honister',
-			deployArtifact: 'balena-image-raspberrypi3-64.balenaos-img',
-			compressed: true,
-		},
 		is_default_for__application: [
 			{
 				application_tag: [
@@ -212,14 +204,6 @@ const deviceTypes: any[] = [
 				],
 			},
 		],
-		yocto: {
-			machine: 'raspberrypi4-64',
-			image: 'balena-image',
-			fstype: 'balenaos-img',
-			version: 'yocto-honister',
-			deployArtifact: 'balena-image-raspberrypi4-64.balenaos-img',
-			compressed: true,
-		},
 		is_default_for__application: [
 			{
 				application_tag: [
@@ -354,14 +338,6 @@ const deviceTypes: any[] = [
 				],
 			},
 		],
-		yocto: {
-			machine: 'jetson-nano',
-			image: 'balena-image',
-			fstype: 'balenaos-img',
-			version: 'yocto-honister',
-			deployArtifact: 'balena-image-jetson-nano.balenaos-img',
-			compressed: true,
-		},
 		is_default_for__application: [
 			{
 				application_tag: [
@@ -483,14 +459,6 @@ const deviceTypes: any[] = [
 				],
 			},
 		],
-		yocto: {
-			machine: 'jetson-xavier-nx-devkit-emmc',
-			image: 'balena-image',
-			fstype: 'balenaos-img',
-			version: 'yocto-honister',
-			deployArtifact: 'balena-image-jetson-xavier-nx-devkit-emmc.balenaos-img',
-			compressed: true,
-		},
 		is_default_for__application: [
 			{
 				application_tag: [],
@@ -609,14 +577,6 @@ const initialDeviceType: any = {
 			],
 		},
 	],
-	yocto: {
-		machine: 'raspberrypi4-64',
-		image: 'balena-image',
-		fstype: 'balenaos-img',
-		version: 'yocto-honister',
-		deployArtifact: 'balena-image-raspberrypi4-64.balenaos-img',
-		compressed: true,
-	},
 	is_default_for__application: [
 		{
 			application_tag: [

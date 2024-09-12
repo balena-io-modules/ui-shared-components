@@ -228,18 +228,7 @@ export const DownloadImageDialog: React.FC<DownloadImageDialogProps> = ({
 	);
 	const [isFetching, setIsFetching] = useState(isEmpty(osVersions));
 	const [downloadSize, setDownloadSize] = useState<string | null>(null);
-	const hasDockerImageDownload = useMemo(
-		() => formModel.deviceType?.yocto?.deployArtifact === 'docker-image',
-		[formModel.deviceType?.yocto?.deployArtifact],
-	);
 
-	const logoSrc = useMemo(
-		() =>
-			formModel.deviceType?.logo ??
-			formModel.deviceType?.logoUrl ??
-			FALLBACK_LOGO_UNKNOWN_DEVICE,
-		[formModel.deviceType?.logo, formModel.deviceType?.logoUrl],
-	);
 	const defaultDisplayName = useMemo(
 		() => formModel.deviceType?.name ?? '-',
 		[formModel.deviceType?.name],
@@ -264,11 +253,8 @@ export const DownloadImageDialog: React.FC<DownloadImageDialogProps> = ({
 						<img width="20px" alt="etcher" src={etcherLogoBase64} /> Flash
 					</>
 				),
-				disabled: hasDockerImageDownload,
 				tooltip: {
-					title: hasDockerImageDownload
-						? 'This image is deployed to docker so you can only download its config'
-						: 'Etcher v1.7.2 or greater is required',
+					title: 'Etcher v1.7.2 or greater is required',
 					placement: 'top',
 				},
 			},
@@ -292,10 +278,6 @@ export const DownloadImageDialog: React.FC<DownloadImageDialogProps> = ({
 						{formModel.version && downloadSize ? ` (~${downloadSize})` : ''}
 					</>
 				),
-				disabled: hasDockerImageDownload,
-				tooltip: hasDockerImageDownload
-					? 'This image is deployed to docker so you can only download its config'
-					: '',
 			},
 		];
 
@@ -325,7 +307,6 @@ export const DownloadImageDialog: React.FC<DownloadImageDialogProps> = ({
 		downloadSize,
 		downloadUrl,
 		formModel,
-		hasDockerImageDownload,
 		dialogActions,
 		onDownloadStart,
 	]);
@@ -434,7 +415,7 @@ export const DownloadImageDialog: React.FC<DownloadImageDialogProps> = ({
 					<Avatar
 						variant="square"
 						alt={defaultDisplayName}
-						src={logoSrc}
+						src={formModel.deviceType?.logo ?? FALLBACK_LOGO_UNKNOWN_DEVICE}
 						sx={{ mr: 2 }}
 					/>
 					<Typography variant="h5">Add new device</Typography>
