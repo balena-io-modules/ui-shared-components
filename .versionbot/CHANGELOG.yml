@@ -1,4 +1,33 @@
 - commits:
+    - subject: "DownloadImageDialog: Remove the fallback to the DeviceType's logoUrl"
+      hash: 7ac54a1c6b6d9be762d5a8c46fc999882f37a62c
+      body: ""
+      footer:
+        Change-type: major
+        change-type: major
+      author: Thodoris Greasidis
+    - subject: "DownloadImageDialog: Drop the deprecated yocto property from the
+        DeviceType type"
+      hash: 26a3c4577f118f561deab565e8361c80fe02120f
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Thodoris Greasidis
+    - subject: "DownloadImageDialog: Drop support for device types with docker-image
+        deployArtifact"
+      hash: 683721e0047d3ea8aa491fabee20f97e4b4eb692
+      body: ""
+      footer:
+        Change-type: major
+        change-type: major
+        See: https://balena.fibery.io/Work/Project/Stop-using-device-type.json-fields-in-the-UI-791
+        see: https://balena.fibery.io/Work/Project/Stop-using-device-type.json-fields-in-the-UI-791
+      author: Thodoris Greasidis
+  version: 9.0.0
+  title: ""
+  date: 2024-09-12T10:46:01.484Z
+- commits:
     - subject: Add `data-test` attribute to `Toast`s
       hash: 7621318f6a40b901bec05d8554894abedc37f772
       body: ""
