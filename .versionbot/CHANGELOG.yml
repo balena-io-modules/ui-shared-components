@@ -1,4 +1,15 @@
 - commits:
+    - subject: "DownloadImageDialog: Display device type alerts as Callouts"
+      hash: 28df46c095a894c03177fb21e852a42e5b6abb68
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: myarmolinsky
+  version: 9.1.1
+  title: ""
+  date: 2024-10-03T15:03:03.062Z
+- commits:
     - subject: "Tabs: Use MUI's `scrollable` variant"
       hash: 2d91103c9b7718fbac95397301db6b3eb38e03ef
       body: ""
