@@ -1,6 +1,12 @@
-import * as React from 'react';
-import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
-import { Box } from '@mui/material';
+import React from 'react';
+import { GoogleMap, LoadScript, InfoWindow } from '@react-google-maps/api';
+import { Box, Stack } from '@mui/material';
+import {
+	MarkerClusterer,
+	Cluster,
+	ClusterStats,
+	DefaultRenderer,
+} from '@googlemaps/markerclusterer';
 
 export interface UIMarker {
 	id: string | number;
@@ -62,7 +68,7 @@ const getMapBounds = (markers: UIMarker[]) => {
 	return bounds;
 };
 
-// Fit map to its bounds after the api is loaded
+// Fit map to its bounds after the API is loaded
 const onGoogleMapsApiLoad = (map: google.maps.Map, markers: UIMarker[]) => {
 	if (!markers.length) {
 		map.setCenter(DEFAULT_LATLNG);
@@ -81,7 +87,7 @@ const onGoogleMapsApiLoad = (map: google.maps.Map, markers: UIMarker[]) => {
 
 	// If we run `setZoom` right after `fitBounds` the map won't refresh. With this we first wait for the map to be idle (from fitBounds), and then set the zoom level.
 	const listener = google.maps.event.addListenerOnce(map, 'idle', () => {
-		// Don't allow to zoom closer than the defailt detail zoom level on initial load.
+		// Don't allow to zoom closer than the default detail zoom level on initial load.
 		const currentZoom = map.getZoom();
 		if (currentZoom != null && currentZoom > DETAIL_ZOOM_LEVEL) {
 			map.setZoom(DETAIL_ZOOM_LEVEL);
@@ -118,7 +124,7 @@ const BaseMap = <T extends any>({
 	apiKey,
 	mapClick,
 }: MapProps<T>) => {
-	const markers = React.useMemo(
+	const markersData = React.useMemo(
 		() =>
 			data
 				.map((entry) => {
@@ -139,11 +145,127 @@ const BaseMap = <T extends any>({
 						return null;
 					}
 
-					return marker;
+					return marker as UIMarker;
 				})
-				.filter((x) => !!x) as UIMarker[],
+				.filter((x): x is UIMarker => !!x),
 		[data, dataMap, getIcon, onItemClick],
 	);
+
+	const mapRef = React.useRef<google.maps.Map | null>(null);
+	const markerClustererRef = React.useRef<MarkerClusterer | null>(null);
+	const markersRef = React.useRef<google.maps.Marker[]>([]);
+
+	const [infoWindowData, setInfoWindowData] = React.useState<{
+		position: google.maps.LatLng | google.maps.LatLngLiteral;
+		content: React.ReactNode;
+	} | null>(null);
+
+	const onMapLoad = React.useCallback(
+		(map: google.maps.Map) => {
+			onGoogleMapsApiLoad(map, markersData);
+			mapRef.current = map;
+
+			const googleMarkers = markersData.map((marker) => {
+				const googleMarker = new google.maps.Marker({
+					position: { lat: marker.lat, lng: marker.lng },
+					title: marker.title,
+					icon: marker.icon,
+				});
+
+				if (marker.click) {
+					googleMarker.addListener('click', marker.click);
+				}
+
+				return googleMarker;
+			});
+
+			markersRef.current = googleMarkers;
+
+			markerClustererRef.current = new MarkerClusterer({
+				markers: googleMarkers,
+				map,
+				renderer: {
+					render(
+						cluster: Cluster,
+						stats: ClusterStats,
+						map: google.maps.Map,
+					): google.maps.Marker {
+						const defaultRenderer = new DefaultRenderer();
+						const marker = defaultRenderer.render(
+							cluster,
+							stats,
+							map,
+						) as google.maps.Marker;
+						marker.addListener('mouseover', () => {
+							setInfoWindowData({
+								position: cluster.position,
+								content: (
+									<Box p="2">
+										{cluster.markers?.map((marker: any) => {
+											const onClick = markersData.find(
+												(m) => m.title === marker.title,
+											)?.click;
+											return (
+												<Stack
+													direction="row"
+													alignItems="center"
+													sx={{ cursor: onClick ? 'pointer' : 'inherit' }}
+													onClick={onClick}
+												>
+													<img src={marker.icon} />
+													{marker.title}
+												</Stack>
+											);
+										})}
+									</Box>
+								),
+							});
+						});
+
+						return marker;
+					},
+				},
+			});
+		},
+		[markersData, onItemClick],
+	);
+
+	React.useEffect(() => {
+		if (mapRef.current && markerClustererRef.current) {
+			markerClustererRef.current.clearMarkers();
+
+			const newGoogleMarkers = markersData.map((marker) => {
+				const googleMarker = new google.maps.Marker({
+					position: { lat: marker.lat, lng: marker.lng },
+					title: marker.title,
+					icon: marker.icon,
+				});
+
+				if (marker.click) {
+					googleMarker.addListener('click', marker.click);
+				}
+
+				return googleMarker;
+			});
+
+			markersRef.current = newGoogleMarkers;
+
+			markerClustererRef.current.addMarkers(newGoogleMarkers);
+		}
+	}, [markersData]);
+
+	React.useEffect(() => {
+		return () => {
+			if (markerClustererRef.current) {
+				markerClustererRef.current.clearMarkers();
+			}
+			markersRef.current.forEach((marker) => marker.setMap(null));
+		};
+	}, []);
+
+	if (!data.length || !markersData.length) {
+		return null;
+	}
 
 	return (
 		<Box height="100%" className={className}>
@@ -156,22 +278,17 @@ const BaseMap = <T extends any>({
 							opacity: 1,
 						}}
 						options={defaultMapOptions}
-						onLoad={(map) => onGoogleMapsApiLoad(map, markers)}
+						onLoad={onMapLoad}
 						onClick={mapClick}
 					>
-						{markers.map((marker) => (
-							<Marker
-								key={marker.id}
-								position={{
-									lat: isNaN(marker.lat) ? 0 : marker.lat,
-									lng: isNaN(marker.lng) ? 0 : marker.lng,
-								}}
-								clickable={markers.length > 1}
-								onClick={marker.click}
-								title={marker.title}
-								icon={marker.icon}
-							/>
-						))}
+						{infoWindowData && (
+							<InfoWindow
+								position={infoWindowData.position}
+								onCloseClick={() => setInfoWindowData(null)}
+							>
+								{infoWindowData.content}
+							</InfoWindow>
+						)}
 					</GoogleMap>
 				</LoadScript>
 			)}
