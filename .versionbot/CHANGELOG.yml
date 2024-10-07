@@ -1,4 +1,15 @@
 - commits:
+    - subject: Fix Map existence checks for latitude and longitude
+      hash: d9f04e3e5f5661117d9347f7a7cb36c6bdb0dcbe
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Andrea Rosci
+  version: 9.1.2
+  title: ""
+  date: 2024-10-07T09:18:55.798Z
+- commits:
     - subject: "DownloadImageDialog: Display device type alerts as Callouts"
       hash: 28df46c095a894c03177fb21e852a42e5b6abb68
       body: ""
