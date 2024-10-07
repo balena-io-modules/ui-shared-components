@@ -131,7 +131,11 @@ const BaseMap = <T extends any>({
 						click: onItemClick ? () => onItemClick(entry) : undefined,
 					};
 
-					if (!marker.lng || !marker.lat || !marker.id) {
+					if (
+						isNaN(Number(marker.lng)) ||
+						isNaN(Number(marker.lat)) ||
+						!marker.id
+					) {
 						return null;
 					}
 
