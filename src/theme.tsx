@@ -882,6 +882,15 @@ export const theme = createTheme({
 				},
 			},
 		},
+		MuiPopper: {
+			styleOverrides: {
+				root: {
+					'.MuiAutocomplete-option:not(:last-of-type)': {
+						borderBottom: `1px solid ${color.border.subtle.value}`,
+					},
+				},
+			},
+		},
 		MuiToggleButtonGroup: {
 			defaultProps: {
 				color: 'secondary',
