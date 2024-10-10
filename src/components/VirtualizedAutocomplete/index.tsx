@@ -1,10 +1,10 @@
+import { color } from '@balena/design-tokens';
 import {
 	Autocomplete,
 	AutocompleteProps,
 	ChipTypeMap,
 	Box,
 	ListItemButton,
-	ListItemButtonProps,
 } from '@mui/material';
 import throttle from 'lodash/throttle';
 import * as React from 'react';
@@ -70,6 +70,8 @@ const ListboxComponent = ({
 			<VList
 				style={{
 					flex: 1,
+					paddingTop: MUI_LIST_VERTICAL_PADDING,
+					paddingBottom: MUI_LIST_VERTICAL_PADDING,
 				}}
 				onRangeChange={(_, lastItemIndex) => {
 					if (
@@ -82,19 +84,19 @@ const ListboxComponent = ({
 				}}
 			>
 				{itemData.map((item, i) => (
-					<ListItemButton
-						{...(item.props as ListItemButtonProps)}
-						key={Math.random()}
-						sx={{
-							mt: i === 0 ? `${MUI_LIST_VERTICAL_PADDING}px` : 0,
-							mb:
-								i === (itemCount ?? itemData.length) - 1
-									? `${MUI_LIST_VERTICAL_PADDING}px`
-									: 0,
-						}}
+					<Box
+						component={ListItemButton}
+						{...item.props}
+						{...(i < itemData.length - 1
+							? {
+									sx: {
+										borderBottom: `1px solid ${color.border.subtle.value}`,
+									},
+							  }
+							: {})}
 					>
 						{item.option}
-					</ListItemButton>
+					</Box>
 				))}
 			</VList>
 			{isNextPageLoading && (
