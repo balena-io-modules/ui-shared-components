@@ -1,4 +1,15 @@
 - commits:
+    - subject: "Autocomplete: Add border between items"
+      hash: ecdb6322671be1956ed4623f9e4cbd18e5eb1f5a
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: myarmolinsky
+  version: 9.2.1
+  title: ""
+  date: 2024-10-14T16:04:06.087Z
+- commits:
     - subject: Export `analytics-client`
       hash: e90c487d11cb7c06f8bb69fb80214f0387d9a9bb
       body: ""
