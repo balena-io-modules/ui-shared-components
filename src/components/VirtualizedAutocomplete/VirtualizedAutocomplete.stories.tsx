@@ -18,11 +18,7 @@ type VirtualizedStory = StoryObj<typeof virtualizedMeta>;
 export const Default: VirtualizedStory = {
 	args: {
 		options: Array.from({ length: 1000 }, () => Math.random().toString()),
-		renderOption: (props, option) => (
-			<Box component="li" {...props}>
-				{option as string}
-			</Box>
-		),
+		renderOption: (_props, option) => option as string,
 		renderInput: (params) => <TextField {...params} />,
 		disableClearable: true,
 		fullWidth: true,

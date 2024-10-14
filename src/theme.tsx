@@ -882,6 +882,30 @@ export const theme = createTheme({
 				},
 			},
 		},
+		MuiPaper: {
+			styleOverrides: {
+				root: ({ theme }) => ({
+					// For VirtualizedAutocomplete
+					'.MuiAutocomplete-listbox .MuiAutocomplete-option': {
+						paddingTop: theme.spacing(3),
+						paddingBottom: theme.spacing(3),
+					},
+				}),
+			},
+		},
+		MuiPopper: {
+			styleOverrides: {
+				root: ({ theme }) => ({
+					'.MuiAutocomplete-option': {
+						paddingTop: theme.spacing(3),
+						paddingBottom: theme.spacing(3),
+						'&:not(:last-of-type)': {
+							borderBottom: `1px solid ${color.border.subtle.value}`,
+						},
+					},
+				}),
+			},
+		},
 		MuiToggleButtonGroup: {
 			defaultProps: {
 				color: 'secondary',
