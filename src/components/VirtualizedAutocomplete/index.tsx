@@ -10,8 +10,6 @@ import throttle from 'lodash/throttle';
 import * as React from 'react';
 import { VList } from 'virtua';
 
-const MUI_LIST_VERTICAL_PADDING = 8;
-
 interface ItemDataElement {
 	props: React.HTMLAttributes<HTMLElement>;
 	option: React.ReactNode;
@@ -28,20 +26,18 @@ const ListboxComponent = ({
 }) => {
 	const itemData = (children as ItemDataElement[]).slice();
 	const { itemCount, loadNextPage } = props.pagination;
-	const [optionHeightsTotal, setOptionHeightsTotal] = React.useState(
-		MUI_LIST_VERTICAL_PADDING * 2,
-	);
+	const [optionHeightsTotal, setOptionHeightsTotal] = React.useState(0);
 
 	React.useEffect(() => {
 		if (!isNextPageLoading) {
-			setOptionHeightsTotal(MUI_LIST_VERTICAL_PADDING * 2);
+			setOptionHeightsTotal(0);
 		}
 	}, [isNextPageLoading]);
 
 	React.useEffect(() => {
 		if (optionHeightsTotal < document.documentElement.clientHeight * 0.4) {
 			const options = document.getElementsByClassName('MuiAutocomplete-option');
-			let total = MUI_LIST_VERTICAL_PADDING * 2;
+			let total = 0;
 			for (const option of options) {
 				total += option.clientHeight;
 			}
@@ -70,8 +66,6 @@ const ListboxComponent = ({
 			<VList
 				style={{
 					flex: 1,
-					paddingTop: MUI_LIST_VERTICAL_PADDING,
-					paddingBottom: MUI_LIST_VERTICAL_PADDING,
 				}}
 				onRangeChange={(_, lastItemIndex) => {
 					if (
