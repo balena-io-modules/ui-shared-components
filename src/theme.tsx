@@ -896,6 +896,9 @@ export const theme = createTheme({
 		MuiPopper: {
 			styleOverrides: {
 				root: ({ theme }) => ({
+					'.MuiAutocomplete-listbox': {
+						padding: 0,
+					},
 					'.MuiAutocomplete-option': {
 						paddingTop: theme.spacing(3),
 						paddingBottom: theme.spacing(3),
