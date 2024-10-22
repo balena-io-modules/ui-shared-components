@@ -56,3 +56,10 @@ export const VariantSubtle: Story = {
 		variant: 'subtle',
 	},
 };
+
+export const SizeSmall: Story = {
+	args: {
+		...Default.args,
+		size: 'sm',
+	},
+};

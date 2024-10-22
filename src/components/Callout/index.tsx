@@ -10,6 +10,7 @@ export interface CalloutProps {
 	variant?: 'default' | 'subtle';
 	icon?: React.ReactNode;
 	sx?: SxProps<Theme>;
+	size?: 'sm' | 'lg';
 }
 const CalloutRoot = styled(Box, {
 	name: 'Callout',
@@ -17,7 +18,7 @@ const CalloutRoot = styled(Box, {
 })<{ ownerState: CalloutProps }>(({ theme, ownerState }) => ({
 	display: 'flex',
 	gap: theme.spacing(2),
-	padding: theme.spacing(3),
+	padding: theme.spacing(ownerState.size === 'sm' ? 2 : 3),
 	borderLeft: 'solid 3px',
 	borderLeftColor: 'var(--callout-border-color)',
 	...(ownerState.variant === 'default' && {
@@ -45,16 +46,17 @@ const CalloutRoot = styled(Box, {
 const CalloutIcon = styled('div', {
 	name: 'Callout',
 	slot: 'icon',
-})(({ theme }) => ({
+})<{ size?: 'sm' | 'lg' }>(({ theme, size }) => ({
 	color: 'var(--callout-icon-color)',
 	marginTop: '1px',
+	...theme.typography[size === 'sm' ? 'bodySm' : 'body'],
 }));
 
 const CalloutMessage = styled('div', {
 	name: 'Callout',
 	slot: 'message',
-})(({ theme }) => ({
-	...theme.typography.body,
+})<{ size?: 'sm' | 'lg' }>(({ theme, size }) => ({
+	...theme.typography[size === 'sm' ? 'bodySm' : 'body'],
 }));
 
 /**
@@ -75,16 +77,17 @@ export const Callout = React.forwardRef<HTMLDivElement, CalloutProps>(
 			variant = 'default',
 			icon,
 			children,
+			size = 'lg',
 			...other
 		} = props;
-		const ownerState = { ...props, severity, variant };
+		const ownerState = { ...props, severity, variant, size };
 
 		return (
 			<CalloutRoot ownerState={ownerState} ref={ref} {...other}>
-				<CalloutIcon>
+				<CalloutIcon size={size}>
 					{icon ?? <FontAwesomeIcon icon={severityIcons[severity]} />}
 				</CalloutIcon>
-				<CalloutMessage>{children}</CalloutMessage>
+				<CalloutMessage size={size}>{children}</CalloutMessage>
 			</CalloutRoot>
 		);
 	},
