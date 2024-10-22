@@ -54,16 +54,15 @@ const OsTypeOption = ({ osType }: { osType: OsTypeObj | undefined }) => {
 				width="100%"
 				justifyContent="space-between"
 				alignItems="center"
+				gap={1}
 			>
 				<Typography variant="body1">{getOsTypeName(osType.slug)}</Typography>
-				<Box>
-					{!osType.supportedForDeviceType && (
-						<Chip label="no versions yet" color="blue" />
-					)}
-					{!osType.supportedForApp && (
-						<Chip label="production and enterprise plan only" color="orange" />
-					)}
-				</Box>
+				{!osType.supportedForDeviceType && (
+					<Chip label="no versions yet" color="blue" />
+				)}
+				{!osType.supportedForApp && (
+					<Chip label="production and enterprise plan only" color="orange" />
+				)}
 			</Box>
 		</Tooltip>
 	);
@@ -131,7 +130,12 @@ export const OsTypeSelector = ({
 				}}
 			>
 				{selectOsTypes.map((option) => (
-					<MenuItem value={option.slug} key={option.slug}>
+					// TODO: Consider adding a tooltip for the disabled options
+					<MenuItem
+						value={option.slug}
+						key={option.slug}
+						disabled={option.disabled}
+					>
 						<OsTypeOption osType={option} />
 					</MenuItem>
 				))}
