@@ -207,7 +207,7 @@ export const DownloadImageDialog: React.FC<DownloadImageDialogProps> = ({
 	authToken,
 }) => {
 	const formElement = useRef<HTMLFormElement | null>(null);
-	const [formModel, setFromModel] = useState(
+	const [formModel, setFormModel] = useState(
 		getInitialState(initialDeviceType, applicationId, releaseId),
 	);
 
@@ -400,12 +400,12 @@ export const DownloadImageDialog: React.FC<DownloadImageDialogProps> = ({
 			key: keyof DownloadImageFormModel,
 			value: DownloadImageFormModel[keyof DownloadImageFormModel],
 		) => {
-			setFromModel((oldState) => ({
+			setFormModel((oldState) => ({
 				...oldState,
 				[key]: value,
 			}));
 		},
-		[setFromModel],
+		[setFormModel],
 	);
 
 	return (
@@ -455,7 +455,7 @@ export const DownloadImageDialog: React.FC<DownloadImageDialogProps> = ({
 										model={formModel}
 										onSelectedOsTypeChange={setOsTypeCallback}
 										onSelectedDeviceTypeChange={(deviceType) =>
-											setFromModel(
+											setFormModel(
 												getInitialState(deviceType, applicationId, releaseId),
 											)
 										}

@@ -19,6 +19,7 @@ import {
 	Tooltip,
 	Typography,
 	IconButton,
+	Autocomplete,
 } from '@mui/material';
 import HelpIcon from '@mui/icons-material/Help';
 import { memo, useCallback, useEffect, useMemo, useState } from 'react';
@@ -226,45 +227,53 @@ export const ImageForm: React.FC<ImageFormProps> = memo(
 									/>
 								</Tooltip>
 							</InputLabel>
-							<Select
+							<Autocomplete
 								fullWidth
 								id="device-type-select"
-								value={model.deviceType.slug}
-								inputProps={{
-									name: 'deviceType',
-								}}
-								renderValue={(dt) => (
-									<DeviceTypeItem
-										deviceType={
-											compatibleDeviceTypes.find((c) => c.slug === dt)!
-										}
+								value={model.deviceType}
+								options={compatibleDeviceTypes}
+								getOptionLabel={(option) => option.slug}
+								renderOption={(props, option) => (
+									<Box component="li" {...props}>
+										<Avatar
+											variant="square"
+											src={option.logo ?? FALLBACK_LOGO_UNKNOWN_DEVICE}
+											sx={{ mr: 3, width: '20px', height: '20px' }}
+										/>
+										<Typography noWrap>{option.name}</Typography>
+									</Box>
+								)}
+								renderInput={({ InputProps, ...params }) => (
+									<TextField
+										{...params}
+										InputProps={{
+											...InputProps,
+											name: 'deviceType',
+											startAdornment: (
+												<Avatar
+													variant="square"
+													src={
+														model.deviceType.logo ??
+														FALLBACK_LOGO_UNKNOWN_DEVICE
+													}
+													sx={{ mr: 3, width: '20px', height: '20px' }}
+												/>
+											),
+										}}
 									/>
 								)}
-								onChange={(event) => {
-									return handleSelectedDeviceTypeChange(
-										compatibleDeviceTypes.find(
-											(c) => c.slug === event?.target.value,
-										)!,
-									);
+								onChange={(_event, value) => {
+									if (!value) {
+										return;
+									}
+									return handleSelectedDeviceTypeChange(value);
 								}}
-							>
-								{compatibleDeviceTypes?.map((dt) => {
-									return (
-										<MenuItem
-											value={dt.slug}
-											key={dt.slug}
-											sx={{ maxWidth: '100%' }}
-										>
-											<Avatar
-												variant="square"
-												src={dt.logo ?? FALLBACK_LOGO_UNKNOWN_DEVICE}
-												sx={{ mr: 3, width: '20px', height: '20px' }}
-											/>
-											<Typography noWrap>{dt.name}</Typography>
-										</MenuItem>
-									);
-								})}
-							</Select>
+								disableClearable
+								// TODO: consider whether there is a better solution than letting the width vary as you search
+								componentsProps={{
+									popper: { sx: { width: 'fit-content' } },
+								}}
+							/>
 						</Box>
 					)}
 					{(!isInitialDefault || osType) &&
