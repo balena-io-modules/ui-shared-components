@@ -328,12 +328,16 @@ export const ImageForm: React.FC<ImageFormProps> = memo(
 								// TODO: find a better way to center the checkbox with the input only (without label)
 								height={54}
 							>
-								<Checkbox
-									id="e2e-show-all-versions-check"
-									checked={showAllVersions}
-									onChange={handleShowAllVersions}
+								<FormControlLabel
+									control={
+										<Checkbox
+											id="e2e-show-all-versions-check"
+											checked={showAllVersions}
+											onChange={handleShowAllVersions}
+										/>
+									}
+									label="Show outdated versions"
 								/>
-								<Typography>Show outdated versions</Typography>
 							</Box>
 						)}
 					</Box>
