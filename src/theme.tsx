@@ -102,6 +102,7 @@ declare module '@mui/material/styles' {
 		disabled: string;
 	}
 }
+
 declare module '@mui/material/Typography' {
 	interface TypographyPropsVariantOverrides {
 		bodyLg: true;
@@ -116,7 +117,11 @@ declare module '@mui/material/Typography' {
 		codeSm: true;
 	}
 }
-
+declare module '@mui/material/Avatar' {
+	interface AvatarOwnProps {
+		size?: 'xl' | 'lg' | 'md' | 'sm';
+	}
+}
 declare module '@mui/material/Button' {
 	interface ButtonPropsColorOverrides {
 		customBlue: true;
@@ -535,11 +540,42 @@ export const theme = createTheme({
 			},
 		},
 		MuiAvatar: {
+			defaultProps: { size: 'md' },
+			variants: [
+				{
+					props: { size: 'xl' },
+					style: {
+						width: 64,
+						height: 64,
+						fontSize: '32px',
+					},
+				},
+				{
+					props: { size: 'lg' },
+					style: {
+						width: 48,
+						height: 48,
+						fontSize: '24px',
+					},
+				},
+				{
+					props: { size: 'sm' },
+					style: {
+						width: 24,
+						height: 24,
+						fontSize: '12px',
+					},
+				},
+			],
 			styleOverrides: {
 				root: {
 					img: {
 						objectFit: 'contain',
 					},
+				},
+				colorDefault: {
+					backgroundColor: color.bg.subtle.value,
+					color: color.text.value,
 				},
 			},
 		},
