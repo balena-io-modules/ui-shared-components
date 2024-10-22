@@ -1,4 +1,22 @@
 - commits:
+    - subject: Tweak Autocomplete dropdowns styling
+      hash: a1de590b88bb930497086934b2c43d2e8c9c2ed6
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: myarmolinsky
+    - subject: "Callout: Add `size` prop with `sm` option"
+      hash: 27f3bdf2d3418bfcac5ca8e3b86886236c3c8108
+      body: ""
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: myarmolinsky
+  version: 9.3.0
+  title: ""
+  date: 2024-10-22T14:07:30.239Z
+- commits:
     - subject: "Download Image Dialog: Make `Show outdated versions` label clickable"
       hash: 578cb067e1473461c14c69ac0286090ce2332206
       body: ""
