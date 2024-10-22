@@ -1,4 +1,15 @@
 - commits:
+    - subject: "Download Image Dialog: Make `Show outdated versions` label clickable"
+      hash: 578cb067e1473461c14c69ac0286090ce2332206
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: myarmolinsky
+  version: 9.2.2
+  title: ""
+  date: 2024-10-22T12:04:20.669Z
+- commits:
     - subject: "Autocomplete: Add border between items"
       hash: ecdb6322671be1956ed4623f9e4cbd18e5eb1f5a
       body: ""
