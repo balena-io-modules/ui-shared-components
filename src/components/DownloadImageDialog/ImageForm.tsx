@@ -386,8 +386,8 @@ export const ImageForm: React.FC<ImageFormProps> = memo(
 								value={model.wifiSsid}
 								id="device-wifi-ssid"
 								inputProps={{
-									name: 'wifiSsid',
-									autocomplete: 'wifiSsid-auto-complete',
+									name: 'wifi-ssid',
+									autocomplete: 'section-wifi-ssid',
 								}}
 								onChange={(event) => onChange('wifiSsid', event.target.value)}
 							/>
@@ -399,7 +399,8 @@ export const ImageForm: React.FC<ImageFormProps> = memo(
 								id="device-wifi-password"
 								value={model.wifiKey}
 								inputProps={{
-									name: 'wifiKey',
+									name: 'wifi-key',
+									autocomplete: 'section-wifi-password',
 								}}
 								// InputProps and inputProps are different https://mui.com/material-ui/api/text-field/#TextField-prop-InputProps
 								InputProps={{
