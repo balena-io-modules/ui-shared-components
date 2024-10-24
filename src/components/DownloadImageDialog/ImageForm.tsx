@@ -22,6 +22,7 @@ import {
 	Autocomplete,
 	useTheme,
 	Stack,
+	InputBaseComponentProps,
 } from '@mui/material';
 import HelpIcon from '@mui/icons-material/Help';
 import { memo, useCallback, useEffect, useMemo, useState } from 'react';
@@ -206,12 +207,6 @@ export const ImageForm: React.FC<ImageFormProps> = memo(
 			}
 		}, [version, variant, onChange, versionSelectionOpts]);
 
-		const selectedOSVersion = useMemo(
-			() =>
-				versionSelectionOpts.find((version) => version.value === model.version),
-			[model.version, versionSelectionOpts],
-		);
-
 		return (
 			<Box
 				action={downloadUrl}
@@ -225,6 +220,7 @@ export const ImageForm: React.FC<ImageFormProps> = memo(
 				<input type="hidden" name="_token" value={authToken} />
 				<input type="hidden" name="appId" value={applicationId} />
 				<input type="hidden" name="fileType" value=".zip" />
+				<input type="hidden" name="version" value={model.version} />
 				<Box py={3} display="flex" flexWrap="wrap" gap={2}>
 					{compatibleDeviceTypes && compatibleDeviceTypes.length > 1 && (
 						<Box display="flex" flexDirection="column" flex="1" maxWidth="100%">
@@ -316,8 +312,11 @@ export const ImageForm: React.FC<ImageFormProps> = memo(
 							<Autocomplete
 								fullWidth
 								id="e2e-download-image-versions-list"
-								value={selectedOSVersion}
+								value={version}
 								getOptionLabel={(option) => option.value}
+								isOptionEqualToValue={(option, value) =>
+									option.value === value.value
+								}
 								options={versionSelectionOpts}
 								onChange={(_event, version) => {
 									setVersion(version);
@@ -334,11 +333,10 @@ export const ImageForm: React.FC<ImageFormProps> = memo(
 										{...params}
 										InputProps={{
 											...InputProps,
-											name: 'version',
 											endAdornment: (
 												<>
-													{!!selectedOSVersion?.knownIssueList && (
-														<Tooltip title={selectedOSVersion.knownIssueList}>
+													{!!version?.knownIssueList && (
+														<Tooltip title={version.knownIssueList}>
 															<FontAwesomeIcon
 																icon={faTriangleExclamation}
 																color={theme.palette.warning.main}
@@ -533,21 +531,6 @@ export const ImageForm: React.FC<ImageFormProps> = memo(
 		);
 	},
 );
-
-const DeviceTypeItem: React.FC<{ deviceType: DeviceType }> = ({
-	deviceType,
-}) => {
-	return (
-		<Box display="flex">
-			<Avatar
-				variant="square"
-				src={deviceType.logo ?? FALLBACK_LOGO_UNKNOWN_DEVICE}
-				sx={{ mr: 3, width: '20px', height: '20px' }}
-			/>
-			<Typography noWrap>{deviceType.name}</Typography>
-		</Box>
-	);
-};
 
 // TODO: We need a better way than just copying the styling. Consider creating a component to export
 export const VersionSelectItem = ({
