@@ -1166,6 +1166,10 @@ export const theme = createTheme({
 						height: '20px',
 					},
 				}),
+				input: {
+					paddingTop: '14px',
+					paddingBottom: '12px',
+				},
 			},
 		},
 		MuiInput: {
@@ -1207,6 +1211,16 @@ export const theme = createTheme({
 					position: 'relative',
 					color: color.text.value,
 				},
+			},
+		},
+		MuiAutocomplete: {
+			styleOverrides: {
+				root: ({ theme }) => ({
+					'.MuiOutlinedInput-root .MuiAutocomplete-input': {
+						paddingTop: theme.spacing(1),
+						paddingBottom: theme.spacing(1),
+					},
+				}),
 			},
 		},
 		MuiLink: {
