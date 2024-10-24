@@ -1261,6 +1261,7 @@ export const theme = createTheme({
 			},
 			styleOverrides: {
 				root: {
+					color: color.text.value,
 					textTransform: 'none',
 					fontSize: '1rem',
 				},
