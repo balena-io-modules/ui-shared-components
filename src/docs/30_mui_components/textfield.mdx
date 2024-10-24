@@ -1,10 +1,36 @@
 import { Meta, Unstyled } from '@storybook/blocks';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { IconButton, InputAdornment, TextField, ThemeProvider } from '@mui/material';
+import {
+	Autocomplete,
+	Box, Button, FormControl,
+	IconButton,
+	InputAdornment, InputLabel,
+	MenuItem,
+	Select,
+	Stack,
+	TextField,
+	ThemeProvider,
+} from '@mui/material';
 import { faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { theme } from '../../theme';
+import { color } from '@balena/design-tokens';
 
 <Meta title="Mui Components/Input/Textfield" />
+
+# Default
+
+<Unstyled>
+	<ThemeProvider theme={theme}>
+		<Stack gap={3} padding={3} sx={{ backgroundColor: color.bg.value }}>
+			<TextField label="default" />
+			<TextField label="standard" variant="standard" />
+		</Stack>
+	</ThemeProvider>
+</Unstyled>
+
+
+
+# Adornments
 
 <Unstyled>
 	<ThemeProvider theme={theme}>
@@ -26,5 +52,49 @@ import { theme } from '../../theme';
 				),
 			}}
 		/>
+	</ThemeProvider>
+</Unstyled>
+
+# Height compared to other fields 
+
+<Unstyled>
+	<ThemeProvider theme={theme}>
+		<Stack gap={4}>
+			<Stack direction="row" gap={2} padding={3} sx={{ backgroundColor: color.bg.value }}>
+				<TextField />
+				<Select
+					value={10}
+				>
+					<MenuItem value={10}>Ten</MenuItem>
+					<MenuItem value={20}>Twenty</MenuItem>
+					<MenuItem value={30}>Thirty</MenuItem>
+				</Select>
+				<Autocomplete
+					options={['The Godfather', 'Pulp Fiction']}
+					sx={{ width: 200 }}
+					renderInput={(params) => <TextField {...params} />}
+				/>
+				<Button>Submit</Button>
+			</Stack>
+			<Stack gap={2} padding={3} sx={{ backgroundColor: color.bg.value, width: 300 }}>
+				<TextField label="Full name" />
+	
+				<FormControl>
+					<InputLabel>What's your age?</InputLabel>
+					<Select
+						value={10}
+					>
+						<MenuItem value={10}>Ten</MenuItem>
+						<MenuItem value={20}>Twenty</MenuItem>
+						<MenuItem value={30}>Thirty</MenuItem>
+					</Select>
+				</FormControl>
+				
+				<Autocomplete
+					options={['The Godfather', 'Pulp Fiction']}
+					renderInput={(params) => <TextField {...params} label="What's your favorite movie?" />}
+				/>
+			</Stack>
+		</Stack>
 	</ThemeProvider>
 </Unstyled>
