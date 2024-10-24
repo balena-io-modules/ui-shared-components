@@ -102,6 +102,7 @@ declare module '@mui/material/styles' {
 		disabled: string;
 	}
 }
+
 declare module '@mui/material/Typography' {
 	interface TypographyPropsVariantOverrides {
 		bodyLg: true;
@@ -116,7 +117,11 @@ declare module '@mui/material/Typography' {
 		codeSm: true;
 	}
 }
-
+declare module '@mui/material/Avatar' {
+	interface AvatarOwnProps {
+		size?: 'xl' | 'lg' | 'md' | 'sm';
+	}
+}
 declare module '@mui/material/Button' {
 	interface ButtonPropsColorOverrides {
 		customBlue: true;
@@ -535,8 +540,37 @@ export const theme = createTheme({
 			},
 		},
 		MuiAvatar: {
+			defaultProps: { size: 'md' },
+			variants: [
+				{
+					props: { size: 'xl' },
+					style: {
+						width: 64,
+						height: 64,
+						fontSize: '32px',
+					},
+				},
+				{
+					props: { size: 'lg' },
+					style: {
+						width: 48,
+						height: 48,
+						fontSize: '24px',
+					},
+				},
+				{
+					props: { size: 'sm' },
+					style: {
+						width: 24,
+						height: 24,
+						fontSize: '12px',
+					},
+				},
+			],
 			styleOverrides: {
 				root: {
+					backgroundColor: color.bg.subtle.value,
+					color: color.text.value,
 					img: {
 						objectFit: 'contain',
 					},
@@ -993,7 +1027,7 @@ export const theme = createTheme({
 							color: color.text.inverse.value,
 						},
 						'&:not(.Mui-selected):hover': {
-							backgroundColor: color.bg.value,
+							backgroundColor: color.bg.active.value,
 						},
 						'&:focus-visible': {
 							outlineColor: color.bg.strong.value,
@@ -1114,6 +1148,7 @@ export const theme = createTheme({
 			},
 			styleOverrides: {
 				root: ({ theme }) => ({
+					background: 'white',
 					legend: {
 						// We should be able to remove this but there is a css override somewhere that
 						// set the fieldset > legend max-width to 100%, and this invalidate the notched: false rule for some inputs.
@@ -1130,6 +1165,10 @@ export const theme = createTheme({
 						height: '20px',
 					},
 				}),
+				input: {
+					paddingTop: '14px',
+					paddingBottom: '12px',
+				},
 			},
 		},
 		MuiInput: {
@@ -1173,6 +1212,16 @@ export const theme = createTheme({
 				},
 			},
 		},
+		MuiAutocomplete: {
+			styleOverrides: {
+				root: {
+					'.MuiOutlinedInput-root .MuiAutocomplete-input': {
+						paddingTop: '4px',
+						paddingBottom: '4px',
+					},
+				},
+			},
+		},
 		MuiLink: {
 			defaultProps: { underline: 'none' },
 			styleOverrides: {
@@ -1210,6 +1259,7 @@ export const theme = createTheme({
 			},
 			styleOverrides: {
 				root: {
+					color: color.text.value,
 					textTransform: 'none',
 					fontSize: '1rem',
 				},
@@ -1689,6 +1739,24 @@ export const theme = createTheme({
 				gutterBottom: ({ theme }) => ({
 					marginBottom: theme.spacing(3),
 				}),
+			},
+		},
+		MuiMenuItem: {
+			styleOverrides: {
+				root: {
+					'&.Mui-selected': {
+						background: color.bg.active.value,
+						'&:hover': {
+							background: color.bg.active.value,
+						},
+					},
+					'&:hover': {
+						background: color.bg.hover.value,
+					},
+				},
+				selected: {
+					background: color.bg.active.value,
+				},
 			},
 		},
 	},

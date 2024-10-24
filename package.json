@@ -10,7 +10,7 @@
     "README.md"
   ],
   "dependencies": {
-    "@balena/design-tokens": "^0.9.1",
+    "@balena/design-tokens": "^0.10.0-build-add-hover-colors-171e327ca3bdf05f6faecda9ccb682d6b93aca77-1",
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
     "@fortawesome/free-solid-svg-icons": "^6.5.1",
