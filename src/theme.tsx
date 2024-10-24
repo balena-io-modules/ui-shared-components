@@ -1719,6 +1719,24 @@ export const theme = createTheme({
 				}),
 			},
 		},
+		MuiMenuItem: {
+			styleOverrides: {
+				root: {
+					'&.Mui-selected': {
+						background: color.bg.active.value,
+						'&:hover': {
+							background: color.bg.active.value,
+						},
+					},
+					'&:hover': {
+						background: color.bg.hover.value,
+					},
+				},
+				selected: {
+					background: color.bg.active.value,
+				},
+			},
+		},
 	},
 });
 
