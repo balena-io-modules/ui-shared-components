@@ -19,6 +19,9 @@ import {
 	Tooltip,
 	Typography,
 	IconButton,
+	Autocomplete,
+	useTheme,
+	Stack,
 } from '@mui/material';
 import HelpIcon from '@mui/icons-material/Help';
 import { memo, useCallback, useEffect, useMemo, useState } from 'react';
@@ -39,6 +42,9 @@ import { DeviceType, Dictionary, OsVersionsByDeviceType } from './models';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { FALLBACK_LOGO_UNKNOWN_DEVICE } from './utils';
 import { ChipProps } from '../Chip';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
+import { Callout } from '../Callout';
 
 const POLL_INTERVAL_DOCS =
 	'https://www.balena.io/docs/reference/supervisor/bandwidth-reduction/#side-effects--warnings';
@@ -107,6 +113,8 @@ export const ImageForm: React.FC<ImageFormProps> = memo(
 		onSelectedDeviceTypeChange,
 		onChange,
 	}) => {
+		const theme = useTheme();
+
 		const [showAdvancedSettings, setShowAdvancedSettings] = useState(false);
 		const [showPassword, setShowPassword] = useState(false);
 		const [version, setVersion] = useState<
@@ -198,6 +206,12 @@ export const ImageForm: React.FC<ImageFormProps> = memo(
 			}
 		}, [version, variant, onChange, versionSelectionOpts]);
 
+		const selectedOSVersion = useMemo(
+			() =>
+				versionSelectionOpts.find((version) => version.value === model.version),
+			[model.version, versionSelectionOpts],
+		);
+
 		return (
 			<Box
 				action={downloadUrl}
@@ -226,45 +240,53 @@ export const ImageForm: React.FC<ImageFormProps> = memo(
 									/>
 								</Tooltip>
 							</InputLabel>
-							<Select
+							<Autocomplete
 								fullWidth
 								id="device-type-select"
-								value={model.deviceType.slug}
-								inputProps={{
-									name: 'deviceType',
-								}}
-								renderValue={(dt) => (
-									<DeviceTypeItem
-										deviceType={
-											compatibleDeviceTypes.find((c) => c.slug === dt)!
-										}
+								value={model.deviceType}
+								options={compatibleDeviceTypes}
+								getOptionLabel={(option) => option.slug}
+								renderOption={(props, option) => (
+									<Box component="li" {...props}>
+										<Avatar
+											variant="square"
+											src={option.logo ?? FALLBACK_LOGO_UNKNOWN_DEVICE}
+											sx={{ mr: 3, width: '20px', height: '20px' }}
+										/>
+										<Typography noWrap>{option.name}</Typography>
+									</Box>
+								)}
+								renderInput={({ InputProps, ...params }) => (
+									<TextField
+										{...params}
+										InputProps={{
+											...InputProps,
+											name: 'deviceType',
+											startAdornment: (
+												<Avatar
+													variant="square"
+													src={
+														model.deviceType.logo ??
+														FALLBACK_LOGO_UNKNOWN_DEVICE
+													}
+													sx={{ mr: 3, width: '20px', height: '20px' }}
+												/>
+											),
+										}}
 									/>
 								)}
-								onChange={(event) => {
-									return handleSelectedDeviceTypeChange(
-										compatibleDeviceTypes.find(
-											(c) => c.slug === event?.target.value,
-										)!,
-									);
+								onChange={(_event, value) => {
+									if (!value) {
+										return;
+									}
+									return handleSelectedDeviceTypeChange(value);
 								}}
-							>
-								{compatibleDeviceTypes?.map((dt) => {
-									return (
-										<MenuItem
-											value={dt.slug}
-											key={dt.slug}
-											sx={{ maxWidth: '100%' }}
-										>
-											<Avatar
-												variant="square"
-												src={dt.logo ?? FALLBACK_LOGO_UNKNOWN_DEVICE}
-												sx={{ mr: 3, width: '20px', height: '20px' }}
-											/>
-											<Typography noWrap>{dt.name}</Typography>
-										</MenuItem>
-									);
-								})}
-							</Select>
+								disableClearable
+								// TODO: consider whether there is a better solution than letting the width vary as you search
+								componentsProps={{
+									popper: { sx: { width: 'fit-content' } },
+								}}
+							/>
 						</Box>
 					)}
 					{(!isInitialDefault || osType) &&
@@ -291,33 +313,41 @@ export const ImageForm: React.FC<ImageFormProps> = memo(
 							>
 								Select version
 							</InputLabel>
-							<Select
+							<Autocomplete
 								fullWidth
 								id="e2e-download-image-versions-list"
-								value={model.version}
-								inputProps={{
-									name: 'version',
-								}}
-								onChange={(event) => {
-									const version = versionSelectionOpts.find(
-										(v) => v.value === event.target.value,
-									);
+								value={selectedOSVersion}
+								getOptionLabel={(option) => option.value}
+								options={versionSelectionOpts}
+								onChange={(_event, version) => {
 									setVersion(version);
 									onChange('version', version?.value);
 								}}
 								placeholder="Choose a version..."
-								renderValue={() => {
-									return <VersionSelectItem option={version} />;
-								}}
-							>
-								{versionSelectionOpts?.map((option, index) => {
-									return (
-										<MenuItem key={index} value={option.value}>
-											<VersionSelectItem option={option} />
-										</MenuItem>
-									);
-								})}
-							</Select>
+								renderOption={(props, option) => (
+									<Box component="li" {...props}>
+										<VersionSelectItem option={option} />
+									</Box>
+								)}
+								renderInput={({ InputProps, ...params }) => (
+									<TextField
+										{...params}
+										InputProps={{
+											...InputProps,
+											name: 'version',
+											endAdornment: !!selectedOSVersion?.knownIssueList && (
+												<Tooltip title={selectedOSVersion.knownIssueList}>
+													<FontAwesomeIcon
+														icon={faTriangleExclamation}
+														color={theme.palette.warning.main}
+													/>
+												</Tooltip>
+											),
+										}}
+									/>
+								)}
+								disableClearable
+							/>
 						</Box>
 						{showAllVersionsToggle && (
 							<Box
@@ -514,36 +544,29 @@ const DeviceTypeItem: React.FC<{ deviceType: DeviceType }> = ({
 	);
 };
 
-export const VersionSelectItem = ({ option }: any) => {
+// TODO: We need a better way than just copying the styling. Consider creating a component to export
+export const VersionSelectItem = ({
+	option,
+}: {
+	option: {
+		title: string;
+		isRecommended?: boolean;
+		knownIssueList: string | null;
+	};
+}) => {
 	return (
-		<Tooltip title={option.knownIssueList ?? undefined}>
-			<Box
-				display="flex"
-				alignItems="center"
-				gap={2}
-				flexWrap="nowrap"
-				maxWidth="100%"
-			>
-				<Box>{option.title}</Box>
-				{!!option.line && (
-					<Chip label={option.line} color={lineMap[option.line]} />
+		<Stack direction="column" flexWrap="wrap" maxWidth="100%" rowGap={1}>
+			<Typography noWrap maxWidth="100%" variant="titleSm">
+				{option.title}
+				{option.isRecommended && (
+					<Chip sx={{ ml: 1 }} color="green" label="recommended" />
 				)}
-				{!!option.isRecommended && (
-					<Chip
-						label="recommended"
-						sx={{
-							height: 20,
-							backgroundColor: '#CAFECD',
-						}}
-					/>
-				)}
-				{!!option.knownIssueList && (
-					<Box alignItems="center" flex={1} display="contents">
-						<WarningAmberIcon color="warning" />
-						<Typography noWrap>{option.knownIssueList}</Typography>
-					</Box>
-				)}
-			</Box>
-		</Tooltip>
+			</Typography>
+			{!!option.knownIssueList && (
+				<Callout severity="warning" size="sm">
+					{option.knownIssueList}
+				</Callout>
+			)}
+		</Stack>
 	);
 };

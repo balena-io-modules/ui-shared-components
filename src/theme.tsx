@@ -909,6 +909,25 @@ export const theme = createTheme({
 				}),
 			},
 		},
+		MuiPopover: {
+			styleOverrides: {
+				root: ({ theme }) => ({
+					'.MuiMenu-list': {
+						paddingTop: 0,
+						paddingBottom: 0,
+
+						'> .MuiMenuItem-root:not([data-custom-class="balena_DropDownButton_MenuItem"])':
+							{
+								paddingTop: theme.spacing(3),
+								paddingBottom: theme.spacing(3),
+								'&:not(:last-of-type)': {
+									borderBottom: `1px solid ${color.border.subtle.value}`,
+								},
+							},
+					},
+				}),
+			},
+		},
 		MuiToggleButtonGroup: {
 			defaultProps: {
 				color: 'secondary',

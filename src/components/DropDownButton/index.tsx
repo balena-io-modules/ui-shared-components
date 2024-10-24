@@ -192,7 +192,11 @@ export const MenuItemWithTracking: React.FC<MenuItemWithTrackingProps> = ({
 
 	return (
 		<Tooltip {...tooltipProps}>
-			<MenuItem {...menuItem} onClick={handleClick}>
+			<MenuItem
+				{...menuItem}
+				onClick={handleClick}
+				data-custom-class="balena_DropDownButton_MenuItem"
+			>
 				{children}
 			</MenuItem>
 		</Tooltip>
