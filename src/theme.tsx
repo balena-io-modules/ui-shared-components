@@ -1005,7 +1005,7 @@ export const theme = createTheme({
 							color: color.text.inverse.value,
 						},
 						'&:not(.Mui-selected):hover': {
-							backgroundColor: color.bg.value,
+							backgroundColor: color.bg.active.value,
 						},
 						'&:focus-visible': {
 							outlineColor: color.bg.strong.value,
