@@ -1,4 +1,49 @@
 - commits:
+    - subject: "DownloadImageDialog: Fix ESR OS Type appearing selectable when it is
+        not"
+      hash: 10bd4f5e91a5f73a7fa0c930e99b5db0d1be2190
+      body: ""
+      footer:
+        Fibery: https://balena.fibery.io/Work/Task/Add-Device-Modal---Select-OS-type-balenaOS-ESR-should-look-disabled-2278
+        fibery: https://balena.fibery.io/Work/Task/Add-Device-Modal---Select-OS-type-balenaOS-ESR-should-look-disabled-2278
+        Change-type: patch
+        change-type: patch
+      author: myarmolinsky
+    - subject: "DownloadImageDialog: Update Version dropdown styling to match the UI's"
+      hash: e451cacded06b4152ddc34048c675fa8f2ffdf59
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: myarmolinsky
+    - subject: "DownloadImageDialog: Use Autocomplete for device type selector"
+      hash: 2d6dddd8490ad0d598553563a03ab72ad05479bb
+      body: ""
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: myarmolinsky
+    - subject: Apply same styling as Autocomplete has to Selects
+      hash: 8d94badff69e6e852f177ad8ca4e6f71eb7345db
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: myarmolinsky
+    - subject: "DownloadImageDialog: Use our Spinner component instead of a custom
+        spinner"
+      hash: 18e19cee8b7a0df6c7c738d76fd023849a7be736
+      body: ""
+      footer:
+        Fibery: https://balena.fibery.io/Work/Task/Weird-backdrop-when-add-device-modal-loading-2267
+        fibery: https://balena.fibery.io/Work/Task/Weird-backdrop-when-add-device-modal-loading-2267
+        Change-type: patch
+        change-type: patch
+      author: myarmolinsky
+  version: 9.4.0
+  title: ""
+  date: 2024-10-24T15:16:26.346Z
+- commits:
     - subject: Tweak Autocomplete dropdowns styling
       hash: a1de590b88bb930497086934b2c43d2e8c9c2ed6
       body: ""
