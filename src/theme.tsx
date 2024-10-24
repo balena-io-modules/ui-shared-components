@@ -1150,6 +1150,7 @@ export const theme = createTheme({
 			},
 			styleOverrides: {
 				root: ({ theme }) => ({
+					background: 'white',
 					legend: {
 						// We should be able to remove this but there is a css override somewhere that
 						// set the fieldset > legend max-width to 100%, and this invalidate the notched: false rule for some inputs.
