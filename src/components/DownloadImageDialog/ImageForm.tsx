@@ -206,11 +206,14 @@ export const ImageForm: React.FC<ImageFormProps> = memo(
 			}
 		}, [version, variant, onChange, versionSelectionOpts]);
 
-		const selectedOSVersion = useMemo(
-			() =>
-				versionSelectionOpts.find((version) => version.value === model.version),
-			[model.version, versionSelectionOpts],
-		);
+		const selectedOSVersion = useMemo(() => {
+			return versionSelectionOpts.find((version) => {
+				if ('rawVersions' in version) {
+					return version.rawVersions[variant] === model.version;
+				}
+				return version.value === model.version;
+			});
+		}, [model.version, versionSelectionOpts, variant]);
 
 		return (
 			<Box
@@ -335,13 +338,18 @@ export const ImageForm: React.FC<ImageFormProps> = memo(
 										InputProps={{
 											...InputProps,
 											name: 'version',
-											endAdornment: !!selectedOSVersion?.knownIssueList && (
-												<Tooltip title={selectedOSVersion.knownIssueList}>
-													<FontAwesomeIcon
-														icon={faTriangleExclamation}
-														color={theme.palette.warning.main}
-													/>
-												</Tooltip>
+											endAdornment: (
+												<>
+													{!!selectedOSVersion?.knownIssueList && (
+														<Tooltip title={selectedOSVersion.knownIssueList}>
+															<FontAwesomeIcon
+																icon={faTriangleExclamation}
+																color={theme.palette.warning.main}
+															/>
+														</Tooltip>
+													)}
+													{InputProps.endAdornment}
+												</>
 											),
 										}}
 									/>
