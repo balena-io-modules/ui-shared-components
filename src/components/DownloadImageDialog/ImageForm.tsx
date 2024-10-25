@@ -206,12 +206,6 @@ export const ImageForm: React.FC<ImageFormProps> = memo(
 			}
 		}, [version, variant, onChange, versionSelectionOpts]);
 
-		const selectedOSVersion = useMemo(
-			() =>
-				versionSelectionOpts.find((version) => version.value === model.version),
-			[model.version, versionSelectionOpts],
-		);
-
 		return (
 			<Box
 				action={downloadUrl}
@@ -316,7 +310,7 @@ export const ImageForm: React.FC<ImageFormProps> = memo(
 							<Autocomplete
 								fullWidth
 								id="e2e-download-image-versions-list"
-								value={selectedOSVersion}
+								value={version}
 								getOptionLabel={(option) => option.value}
 								options={versionSelectionOpts}
 								onChange={(_event, version) => {
@@ -334,9 +328,8 @@ export const ImageForm: React.FC<ImageFormProps> = memo(
 										{...params}
 										InputProps={{
 											...InputProps,
-											name: 'version',
-											endAdornment: !!selectedOSVersion?.knownIssueList && (
-												<Tooltip title={selectedOSVersion.knownIssueList}>
+											endAdornment: !!version?.knownIssueList && (
+												<Tooltip title={version.knownIssueList}>
 													<FontAwesomeIcon
 														icon={faTriangleExclamation}
 														color={theme.palette.warning.main}
@@ -348,6 +341,7 @@ export const ImageForm: React.FC<ImageFormProps> = memo(
 								)}
 								disableClearable
 							/>
+							<input type="hidden" name="version" value={model.version} />
 						</Box>
 						{showAllVersionsToggle && (
 							<Box
