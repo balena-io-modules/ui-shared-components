@@ -11,10 +11,8 @@ import {
 	FormLabel,
 	InputAdornment,
 	InputLabel,
-	MenuItem,
 	Radio,
 	RadioGroup,
-	Select,
 	TextField,
 	Tooltip,
 	Typography,
@@ -30,7 +28,6 @@ import {
 	transformVersions,
 	VersionSelectionOptions,
 } from './version';
-import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import { OsTypeSelector } from './OsTypeSelector';
 import { BuildVariant, VariantSelector } from './VariantSelector';
 import { DownloadImageFormModel } from '.';
@@ -522,21 +519,6 @@ export const ImageForm: React.FC<ImageFormProps> = memo(
 		);
 	},
 );
-
-const DeviceTypeItem: React.FC<{ deviceType: DeviceType }> = ({
-	deviceType,
-}) => {
-	return (
-		<Box display="flex">
-			<Avatar
-				variant="square"
-				src={deviceType.logo ?? FALLBACK_LOGO_UNKNOWN_DEVICE}
-				sx={{ mr: 3, width: '20px', height: '20px' }}
-			/>
-			<Typography noWrap>{deviceType.name}</Typography>
-		</Box>
-	);
-};
 
 // TODO: We need a better way than just copying the styling. Consider creating a component to export
 export const VersionSelectItem = ({
