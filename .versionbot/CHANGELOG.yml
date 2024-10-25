@@ -1,4 +1,59 @@
 - commits:
+    - subject: Change hover and active colors on menu items
+      hash: a69ec8c7be3140f1c1da8057fc926824619e195f
+      body: >
+        Fibery:
+        https://balena.fibery.io/Work/Task/We-are-lacking-a-background-color-for-hover-state-2293
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Jonathan Berger
+    - subject: Add hover color to toggle buttons
+      hash: 6eb5a72d40efdb166d5e640c8f7ee7a091b2c6e8
+      body: >
+        Fibery:
+        https://balena.fibery.io/Work/Task/Lens-icons-don't-have-a-hover-effect-2264
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Jonathan Berger
+    - subject: Update design-tokens package
+      hash: 7d6af5eff6e11baf1e62f0d77540b9833812f379
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Jonathan Berger
+    - subject: Darken tab item text color
+      hash: 49ade5f559ef5fc539cecc712ef6952eb43b2993
+      body: >
+        Fibery:
+        https://balena.fibery.io/Work/Task/Normal-state-color-for-tab-items-is-too-light-2275
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Jonathan Berger
+    - subject: Add a white background to inputs
+      hash: 58a445c8c6cd08295e3250dbbce8071a2d8f5f70
+      body: >
+        Fibery:
+        https://balena.fibery.io/Work/Task/Inputs-should-have-a-background-color-2277
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Jonathan Berger
+    - subject: Reduce input height
+      hash: babbd89f4ad7fa3101e5178b1d444c1294e963cd
+      body: |
+        Fibery: https://balena.fibery.io/Work/Task/Input-height-is-too-big-2295
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Jonathan Berger
+  version: 9.4.2
+  title: ""
+  date: 2024-10-25T17:47:27.609Z
+- commits:
     - subject: "DownloadImageDialog: Fix ESR versions missing line Chips"
       hash: 1f9daffe2986a453951b6a715aa4e937909c6e34
       body: ""
