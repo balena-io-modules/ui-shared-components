@@ -1,0 +1,33 @@
+import { Meta, Unstyled } from '@storybook/blocks';
+import {
+	MenuItem,
+	MenuList, Paper,
+	Stack,
+	ThemeProvider,
+} from '@mui/material';
+import { theme } from '../../theme';
+
+<Meta title="Mui Components/Navigation/Menu" />
+
+<Unstyled>
+	<ThemeProvider theme={theme}>
+		<Stack>
+			<Paper>
+				<MenuList>
+					<MenuItem selected>
+						Lorem
+					</MenuItem>
+					<MenuItem>
+						Ipsum
+					</MenuItem>
+					<MenuItem>
+						Dolor
+					</MenuItem>
+					<MenuItem>
+						Sit
+					</MenuItem>
+				</MenuList>
+			</Paper>
+		</Stack>
+	</ThemeProvider>
+</Unstyled>

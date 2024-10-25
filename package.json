@@ -10,7 +10,7 @@
     "README.md"
   ],
   "dependencies": {
-    "@balena/design-tokens": "^0.9.1",
+    "@balena/design-tokens": "^0.10.0",
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
     "@fortawesome/free-solid-svg-icons": "^6.5.1",
