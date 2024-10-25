@@ -335,13 +335,18 @@ export const ImageForm: React.FC<ImageFormProps> = memo(
 										InputProps={{
 											...InputProps,
 											name: 'version',
-											endAdornment: !!selectedOSVersion?.knownIssueList && (
-												<Tooltip title={selectedOSVersion.knownIssueList}>
-													<FontAwesomeIcon
-														icon={faTriangleExclamation}
-														color={theme.palette.warning.main}
-													/>
-												</Tooltip>
+											endAdornment: (
+												<>
+													{!!selectedOSVersion?.knownIssueList && (
+														<Tooltip title={selectedOSVersion.knownIssueList}>
+															<FontAwesomeIcon
+																icon={faTriangleExclamation}
+																color={theme.palette.warning.main}
+															/>
+														</Tooltip>
+													)}
+													{InputProps.endAdornment}
+												</>
 											),
 										}}
 									/>
