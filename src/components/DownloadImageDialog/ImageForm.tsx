@@ -11,10 +11,8 @@ import {
 	FormLabel,
 	InputAdornment,
 	InputLabel,
-	MenuItem,
 	Radio,
 	RadioGroup,
-	Select,
 	TextField,
 	Tooltip,
 	Typography,
@@ -22,7 +20,6 @@ import {
 	Autocomplete,
 	useTheme,
 	Stack,
-	InputBaseComponentProps,
 } from '@mui/material';
 import HelpIcon from '@mui/icons-material/Help';
 import { memo, useCallback, useEffect, useMemo, useState } from 'react';
@@ -31,7 +28,6 @@ import {
 	transformVersions,
 	VersionSelectionOptions,
 } from './version';
-import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import { OsTypeSelector } from './OsTypeSelector';
 import { BuildVariant, VariantSelector } from './VariantSelector';
 import { DownloadImageFormModel } from '.';
@@ -540,12 +536,20 @@ export const VersionSelectItem = ({
 		title: string;
 		isRecommended?: boolean;
 		knownIssueList: string | null;
+		line?: keyof typeof lineMap;
 	};
 }) => {
 	return (
 		<Stack direction="column" flexWrap="wrap" maxWidth="100%" rowGap={1}>
 			<Typography noWrap maxWidth="100%" variant="titleSm">
 				{option.title}
+				{!!option.line && (
+					<Chip
+						sx={{ ml: 1 }}
+						label={option.line}
+						color={lineMap[option.line]}
+					/>
+				)}
 				{option.isRecommended && (
 					<Chip sx={{ ml: 1 }} color="green" label="recommended" />
 				)}
