@@ -11,10 +11,8 @@ import {
 	FormLabel,
 	InputAdornment,
 	InputLabel,
-	MenuItem,
 	Radio,
 	RadioGroup,
-	Select,
 	TextField,
 	Tooltip,
 	Typography,
@@ -30,7 +28,6 @@ import {
 	transformVersions,
 	VersionSelectionOptions,
 } from './version';
-import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import { OsTypeSelector } from './OsTypeSelector';
 import { BuildVariant, VariantSelector } from './VariantSelector';
 import { DownloadImageFormModel } from '.';
@@ -206,12 +203,6 @@ export const ImageForm: React.FC<ImageFormProps> = memo(
 			}
 		}, [version, variant, onChange, versionSelectionOpts]);
 
-		const selectedOSVersion = useMemo(
-			() =>
-				versionSelectionOpts.find((version) => version.value === model.version),
-			[model.version, versionSelectionOpts],
-		);
-
 		return (
 			<Box
 				action={downloadUrl}
@@ -225,6 +216,7 @@ export const ImageForm: React.FC<ImageFormProps> = memo(
 				<input type="hidden" name="_token" value={authToken} />
 				<input type="hidden" name="appId" value={applicationId} />
 				<input type="hidden" name="fileType" value=".zip" />
+				<input type="hidden" name="version" value={model.version} />
 				<Box py={3} display="flex" flexWrap="wrap" gap={2}>
 					{compatibleDeviceTypes && compatibleDeviceTypes.length > 1 && (
 						<Box display="flex" flexDirection="column" flex="1" maxWidth="100%">
@@ -316,8 +308,11 @@ export const ImageForm: React.FC<ImageFormProps> = memo(
 							<Autocomplete
 								fullWidth
 								id="e2e-download-image-versions-list"
-								value={selectedOSVersion}
+								value={version}
 								getOptionLabel={(option) => option.value}
+								isOptionEqualToValue={(option, value) =>
+									option.value === value.value
+								}
 								options={versionSelectionOpts}
 								onChange={(_event, version) => {
 									setVersion(version);
@@ -334,14 +329,18 @@ export const ImageForm: React.FC<ImageFormProps> = memo(
 										{...params}
 										InputProps={{
 											...InputProps,
-											name: 'version',
-											endAdornment: !!selectedOSVersion?.knownIssueList && (
-												<Tooltip title={selectedOSVersion.knownIssueList}>
-													<FontAwesomeIcon
-														icon={faTriangleExclamation}
-														color={theme.palette.warning.main}
-													/>
-												</Tooltip>
+											endAdornment: (
+												<>
+													{!!version?.knownIssueList && (
+														<Tooltip title={version.knownIssueList}>
+															<FontAwesomeIcon
+																icon={faTriangleExclamation}
+																color={theme.palette.warning.main}
+															/>
+														</Tooltip>
+													)}
+													{InputProps.endAdornment}
+												</>
 											),
 										}}
 									/>
@@ -529,21 +528,6 @@ export const ImageForm: React.FC<ImageFormProps> = memo(
 	},
 );
 
-const DeviceTypeItem: React.FC<{ deviceType: DeviceType }> = ({
-	deviceType,
-}) => {
-	return (
-		<Box display="flex">
-			<Avatar
-				variant="square"
-				src={deviceType.logo ?? FALLBACK_LOGO_UNKNOWN_DEVICE}
-				sx={{ mr: 3, width: '20px', height: '20px' }}
-			/>
-			<Typography noWrap>{deviceType.name}</Typography>
-		</Box>
-	);
-};
-
 // TODO: We need a better way than just copying the styling. Consider creating a component to export
 export const VersionSelectItem = ({
 	option,
@@ -552,12 +536,20 @@ export const VersionSelectItem = ({
 		title: string;
 		isRecommended?: boolean;
 		knownIssueList: string | null;
+		line?: keyof typeof lineMap;
 	};
 }) => {
 	return (
 		<Stack direction="column" flexWrap="wrap" maxWidth="100%" rowGap={1}>
 			<Typography noWrap maxWidth="100%" variant="titleSm">
 				{option.title}
+				{!!option.line && (
+					<Chip
+						sx={{ ml: 1 }}
+						label={option.line}
+						color={lineMap[option.line]}
+					/>
+				)}
 				{option.isRecommended && (
 					<Chip sx={{ ml: 1 }} color="green" label="recommended" />
 				)}
