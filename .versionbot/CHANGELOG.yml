@@ -1,4 +1,29 @@
 - commits:
+    - subject: "DownloadImageDialog: Fix ESR versions missing line Chips"
+      hash: 1f9daffe2986a453951b6a715aa4e937909c6e34
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: myarmolinsky
+    - subject: "DownloadImageDialog: Fix support for versions with prod & dev variants"
+      hash: b81321e3a274b6888d846eef1d4ed8d089241412
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: myarmolinsky
+    - subject: "DownloadImageDialog: Fix versions dropdown missing dropdown arrow"
+      hash: 6f97933646f27cf5bf3fe17faf6fb54650238383
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: myarmolinsky
+  version: 9.4.1
+  title: ""
+  date: 2024-10-25T13:17:46.106Z
+- commits:
     - subject: "DownloadImageDialog: Fix ESR OS Type appearing selectable when it is
         not"
       hash: 10bd4f5e91a5f73a7fa0c930e99b5db0d1be2190
