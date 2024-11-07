@@ -1,4 +1,15 @@
 - commits:
+    - subject: Add Announcement component
+      hash: 43054064e1ba56d53951383aedfca6dc9cf4a2c5
+      body: ""
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: Jonathan Berger
+  version: 9.5.0
+  title: ""
+  date: 2024-11-07T12:15:48.110Z
+- commits:
     - subject: Change hover and active colors on menu items
       hash: a69ec8c7be3140f1c1da8057fc926824619e195f
       body: >
