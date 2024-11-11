@@ -1,4 +1,16 @@
 - commits:
+    - subject: Update dependency eslint-plugin-storybook to ^0.11.0
+      hash: a1eaf4323c5150569ce9c0f6be5e4ccf877c53ad
+      body: |
+        Update eslint-plugin-storybook from 0.8.0 to 0.11.0
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Self-hosted Renovate Bot
+  version: 9.6.3
+  title: ""
+  date: 2024-11-11T20:53:47.945Z
+- commits:
     - subject: Update dependency virtua to ^0.36.0
       hash: ba01a14921eaa1818ebb635931ee699c6c68f728
       body: |
