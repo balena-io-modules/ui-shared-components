@@ -1,4 +1,16 @@
 - commits:
+    - subject: Add HighlightedName component to dynamically highlight text based on
+        input string
+      hash: 528e63945f8a67f3f03c4aff0d992737a7c92b95
+      body: ""
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: Andrea Rosci
+  version: 9.6.0
+  title: ""
+  date: 2024-11-11T17:35:03.148Z
+- commits:
     - subject: Add `renovate.json` to `.github`
       hash: 3cd642cdf521a0a1776970acbaefe27f1b9a6e16
       body: ""
