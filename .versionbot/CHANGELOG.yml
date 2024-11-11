@@ -1,4 +1,15 @@
 - commits:
+    - subject: Add `renovate.json` to `.github`
+      hash: 3cd642cdf521a0a1776970acbaefe27f1b9a6e16
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: myarmolinsky
+  version: 9.5.1
+  title: ""
+  date: 2024-11-11T16:50:28.137Z
+- commits:
     - subject: Add Announcement component
       hash: 43054064e1ba56d53951383aedfca6dc9cf4a2c5
       body: ""
