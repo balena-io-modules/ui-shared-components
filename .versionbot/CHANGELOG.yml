@@ -1,4 +1,16 @@
 - commits:
+    - subject: Update dependency webpack to v5.94.0 [SECURITY]
+      hash: 8544a90c7aaf6b125c70d973d396f715c878dccd
+      body: |
+        Update webpack from 5.88.2 to 5.94.0
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Self-hosted Renovate Bot
+  version: 9.6.1
+  title: ""
+  date: 2024-11-11T19:32:29.944Z
+- commits:
     - subject: Add HighlightedName component to dynamically highlight text based on
         input string
       hash: 528e63945f8a67f3f03c4aff0d992737a7c92b95
