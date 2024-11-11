@@ -65,6 +65,7 @@ export type {
 export { Announcement } from './components/Announcement';
 export type { OrderedListItemProps } from './components/OrderedListItem';
 export { OrderedListItem } from './components/OrderedListItem';
+export { HighlightedName } from './components/HighlightedName';
 export type { RouterLinkWithTrackingProps } from './components/RouterLinkWithTracking';
 export { RouterLinkWithTracking } from './components/RouterLinkWithTracking';
 export { SnackbarProviderBase as SnackbarProvider } from './components/SnackbarProvider';
