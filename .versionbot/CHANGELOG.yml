@@ -1,4 +1,16 @@
 - commits:
+    - subject: Update dependency @types/node to v20
+      hash: 1f99b1072238921bd4c93f17f5ec7c8e01c9b6cd
+      body: |
+        Update @types/node from 18.19.39 to 20.17.6
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Self-hosted Renovate Bot
+  version: 9.6.6
+  title: ""
+  date: 2024-11-12T17:54:14.562Z
+- commits:
     - subject: Update dependency rimraf to v6
       hash: 6248d85924d7407371a139efcd0af40fa86a538a
       body: |
