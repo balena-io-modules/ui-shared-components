@@ -1,4 +1,16 @@
 - commits:
+    - subject: Update dependency lint-staged to v15
+      hash: ef78d7f783d29a8718da7baba522426a0ee8afc1
+      body: |
+        Update lint-staged from 14.0.1 to 15.2.10
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Self-hosted Renovate Bot
+  version: 9.6.4
+  title: ""
+  date: 2024-11-12T16:09:46.265Z
+- commits:
     - subject: Update dependency eslint-plugin-storybook to ^0.11.0
       hash: a1eaf4323c5150569ce9c0f6be5e4ccf877c53ad
       body: |
