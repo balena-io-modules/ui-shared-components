@@ -1,4 +1,16 @@
 - commits:
+    - subject: Update dependency rimraf to v6
+      hash: 6248d85924d7407371a139efcd0af40fa86a538a
+      body: |
+        Update rimraf from 5.0.7 to 6.0.1
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Self-hosted Renovate Bot
+  version: 9.6.5
+  title: ""
+  date: 2024-11-12T17:00:29.846Z
+- commits:
     - subject: Update dependency lint-staged to v15
       hash: ef78d7f783d29a8718da7baba522426a0ee8afc1
       body: |
