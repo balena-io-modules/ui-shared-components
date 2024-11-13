@@ -1,4 +1,15 @@
 - commits:
+    - subject: export the generateHexColorFromString helper
+      hash: cd1cb694d6ae1286ab7489991da98cf58f895daa
+      body: ""
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: Thodoris Greasidis
+  version: 9.7.0
+  title: ""
+  date: 2024-11-13T14:31:52.670Z
+- commits:
     - subject: Update dependency @types/node to v20
       hash: 1f99b1072238921bd4c93f17f5ec7c8e01c9b6cd
       body: |
