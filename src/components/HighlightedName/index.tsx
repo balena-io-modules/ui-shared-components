@@ -6,7 +6,7 @@ import { Typography, TypographyProps, useTheme } from '@mui/material';
 
 const colorHash = new ColorHash();
 
-export const generateColorFromString = memoize((text: string): string => {
+export const generateHexColorFromString = memoize((text: string): string => {
 	return colorHash.hex(text.replace(/\s/g, ''));
 });
 
@@ -25,7 +25,10 @@ export const HighlightedName = ({
 	...props
 }: HighlightedNameProps) => {
 	const theme = useTheme();
-	const bgColor = useMemo(() => generateColorFromString(children), [children]);
+	const bgColor = useMemo(
+		() => generateHexColorFromString(children),
+		[children],
+	);
 
 	return (
 		<Typography
