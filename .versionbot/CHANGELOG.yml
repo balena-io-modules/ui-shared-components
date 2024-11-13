@@ -1,4 +1,15 @@
 - commits:
+    - subject: Update markdown dependencies
+      hash: 9ff98c81a6a013a1809146d709181efbed1c3a3d
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: myarmolinsky
+  version: 9.7.1
+  title: ""
+  date: 2024-11-13T16:50:57.612Z
+- commits:
     - subject: export the generateHexColorFromString helper
       hash: cd1cb694d6ae1286ab7489991da98cf58f895daa
       body: ""
