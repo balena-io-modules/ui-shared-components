@@ -1,7 +1,7 @@
 import {
-	ReactMarkdown,
-	ReactMarkdownOptions,
-} from 'react-markdown/lib/react-markdown';
+	default as ReactMarkdown,
+	Options as ReactMarkdownOptions,
+} from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
 import { theme } from '../../theme';
