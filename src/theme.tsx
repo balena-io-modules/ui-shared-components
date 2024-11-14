@@ -1168,8 +1168,10 @@ export const theme = createTheme({
 					},
 				}),
 				input: {
-					paddingTop: '14px',
-					paddingBottom: '12px',
+					'&:not(.MuiInputBase-inputMultiline)': {
+						paddingTop: '14px',
+						paddingBottom: '12px',
+					},
 				},
 			},
 		},
