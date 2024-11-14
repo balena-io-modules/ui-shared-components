@@ -386,10 +386,6 @@ export const DownloadImageDialog: React.FC<DownloadImageDialogProps> = ({
 		}
 	}, [formModel.deviceType.slug, osType, osVersions]);
 
-	useEffect(() => {
-		onFieldChange?.(formModel);
-	}, [formModel, onFieldChange]);
-
 	const setOsTypeCallback = useCallback(
 		(osType: string) => setOsType(osType),
 		[],
@@ -400,12 +396,20 @@ export const DownloadImageDialog: React.FC<DownloadImageDialogProps> = ({
 			key: keyof DownloadImageFormModel,
 			value: DownloadImageFormModel[keyof DownloadImageFormModel],
 		) => {
-			setFormModel((oldState) => ({
-				...oldState,
-				[key]: value,
-			}));
+			let newFormModelState: DownloadImageFormModel;
+			if (key === 'deviceType') {
+				newFormModelState = getInitialState(
+					value as DeviceType,
+					applicationId,
+					releaseId,
+				);
+			} else {
+				newFormModelState = { ...formModel, [key]: value };
+				onFieldChange?.(newFormModelState);
+			}
+			setFormModel(newFormModelState);
 		},
-		[setFormModel],
+		[formModel],
 	);
 
 	return (
@@ -454,11 +458,6 @@ export const DownloadImageDialog: React.FC<DownloadImageDialogProps> = ({
 										osTypes={osTypes}
 										model={formModel}
 										onSelectedOsTypeChange={setOsTypeCallback}
-										onSelectedDeviceTypeChange={(deviceType) =>
-											setFormModel(
-												getInitialState(deviceType, applicationId, releaseId),
-											)
-										}
 										onChange={handleChange}
 									/>
 								)}

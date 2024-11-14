@@ -86,7 +86,6 @@ interface ImageFormProps {
 	model: DownloadImageFormModel;
 	hasEsrVersions?: boolean;
 	onSelectedOsTypeChange: (osType: string) => void;
-	onSelectedDeviceTypeChange: (deviceType: DeviceType) => void;
 	onChange: (
 		key: keyof DownloadImageFormModel,
 		value: DownloadImageFormModel[keyof DownloadImageFormModel],
@@ -107,7 +106,6 @@ export const ImageForm: React.FC<ImageFormProps> = memo(
 		applicationId,
 		authToken,
 		onSelectedOsTypeChange,
-		onSelectedDeviceTypeChange,
 		onChange,
 	}) => {
 		const theme = useTheme();
@@ -132,6 +130,48 @@ export const ImageForm: React.FC<ImageFormProps> = memo(
 			[preferredSelectionOpts.length, selectionOpts.length],
 		);
 
+		const handleVariantChange = useCallback(
+			(v: typeof variant) => {
+				setVariant(v);
+				onChange('developmentMode', v === 'dev');
+			},
+			[onChange],
+		);
+
+		const handleVersionChange = useCallback(
+			(ver: typeof version) => {
+				if (!ver) {
+					const newVersion =
+						versionSelectionOpts.find((v) => v.isRecommended) ??
+						versionSelectionOpts[0];
+					onChange('version', newVersion?.value);
+					setVersion(newVersion);
+					return;
+				}
+
+				if (ver.hasPrebuiltVariants) {
+					const versionWithVariant = ver.rawVersions[variant];
+					if (versionWithVariant) {
+						onChange('version', versionWithVariant);
+						setVersion(ver);
+					}
+					if (!ver.rawVersions[variant]) {
+						handleVariantChange(variant === 'dev' ? 'prod' : 'dev');
+					}
+					return;
+				}
+				onChange('version', ver.rawVersion);
+				setVersion(ver);
+			},
+			[versionSelectionOpts, variant, onChange, handleVariantChange],
+		);
+
+		// TODO: Revisit this as it is clearly not using hooks as intended
+		useEffect(() => {
+			handleVersionChange(undefined);
+			// eslint-disable-next-line react-hooks/exhaustive-deps -- we only want to run this effect when the device type changes
+		}, [model.deviceType, osType]);
+
 		const handleShowAllVersions = (e: React.ChangeEvent<HTMLInputElement>) => {
 			const isChecked = e.target.checked;
 			setShowAllVersions(isChecked);
@@ -151,7 +191,7 @@ export const ImageForm: React.FC<ImageFormProps> = memo(
 				preferredSelectionOpts.find((ver) => ver.isRecommended) ??
 				preferredSelectionOpts[0];
 			if (preferred) {
-				setVersion(preferred);
+				handleVersionChange(preferred);
 			}
 		};
 
@@ -170,38 +210,10 @@ export const ImageForm: React.FC<ImageFormProps> = memo(
 				if (!newDeviceType) {
 					return;
 				}
-				onSelectedDeviceTypeChange(newDeviceType);
-				setVersion(undefined);
+				onChange('deviceType', newDeviceType);
 			},
-			[
-				compatibleDeviceTypes,
-				model.deviceType.slug,
-				onSelectedDeviceTypeChange,
-			],
+			[compatibleDeviceTypes, model.deviceType.slug, onChange],
 		);
-
-		useEffect(() => {
-			if (!version) {
-				const newVersion =
-					versionSelectionOpts.find((ver) => ver.isRecommended) ??
-					versionSelectionOpts[0];
-				onChange('version', newVersion?.value);
-				setVersion(newVersion);
-				return;
-			}
-
-			const versionWithVariant = version.hasPrebuiltVariants
-				? version.rawVersions[variant]
-				: version.rawVersion;
-			if (versionWithVariant) {
-				onChange('version', versionWithVariant);
-				onChange('developmentMode', variant === 'dev');
-			}
-
-			if (version.hasPrebuiltVariants && !version.rawVersions[variant]) {
-				setVariant(variant === 'dev' ? 'prod' : 'dev');
-			}
-		}, [version, variant, onChange, versionSelectionOpts]);
 
 		return (
 			<Box
@@ -288,15 +300,11 @@ export const ImageForm: React.FC<ImageFormProps> = memo(
 								supportedOsTypes={osTypes}
 								hasEsrVersions={hasEsrVersions ?? false}
 								selectedOsTypeSlug={osType}
-								onSelectedOsTypeChange={(ot) => {
-									onSelectedOsTypeChange(ot);
-									setVersion(undefined);
-									onChange('version', undefined);
-								}}
+								onSelectedOsTypeChange={onSelectedOsTypeChange}
 							/>
 						)}
 				</Box>
-				{!isInitialDefault && model.version && (
+				{!isInitialDefault && version && (
 					<Box display="flex" flexWrap="wrap" maxWidth="100%">
 						<Box display="flex" flexDirection="column" maxWidth="100%" flex={1}>
 							<InputLabel
@@ -315,8 +323,7 @@ export const ImageForm: React.FC<ImageFormProps> = memo(
 								}
 								options={versionSelectionOpts}
 								onChange={(_event, version) => {
-									setVersion(version);
-									onChange('version', version?.value);
+									handleVersionChange(version);
 								}}
 								placeholder="Choose a version..."
 								renderOption={(props, option) => (
@@ -377,7 +384,7 @@ export const ImageForm: React.FC<ImageFormProps> = memo(
 							version={version}
 							variant={variant}
 							onVariantChange={(variant) => {
-								setVariant(variant ? 'dev' : 'prod');
+								handleVariantChange(variant ? 'dev' : 'prod');
 							}}
 						/>
 					</Box>
