@@ -1,4 +1,15 @@
 - commits:
+    - subject: Fix textarea vertical spacing being too big
+      hash: dba4414d50424cc3d10a245a04f13ae21b81d2fe
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Jonathan Berger
+  version: 9.7.4
+  title: ""
+  date: 2024-11-14T20:41:55.721Z
+- commits:
     - subject: Update dependency husky to v9
       hash: e17fb97ff3f3ccf82978903bd485ca14411544ce
       body: |
