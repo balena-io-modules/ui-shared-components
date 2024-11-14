@@ -1,4 +1,15 @@
 - commits:
+    - subject: "DownloadImageDialog: Fix extra `onFieldChange` calls"
+      hash: a441381c48ec4cffe18847e6f4a2290c104892c1
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: myarmolinsky
+  version: 9.7.2
+  title: ""
+  date: 2024-11-14T16:33:42.216Z
+- commits:
     - subject: Update markdown dependencies
       hash: 9ff98c81a6a013a1809146d709181efbed1c3a3d
       body: ""
