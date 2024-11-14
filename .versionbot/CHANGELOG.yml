@@ -1,4 +1,16 @@
 - commits:
+    - subject: Update dependency husky to v9
+      hash: e17fb97ff3f3ccf82978903bd485ca14411544ce
+      body: |
+        Update husky from 8.0.3 to 9.1.6
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Self-hosted Renovate Bot
+  version: 9.7.3
+  title: ""
+  date: 2024-11-14T20:31:26.560Z
+- commits:
     - subject: "DownloadImageDialog: Fix extra `onFieldChange` calls"
       hash: a441381c48ec4cffe18847e6f4a2290c104892c1
       body: ""
