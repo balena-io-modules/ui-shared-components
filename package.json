@@ -40,7 +40,7 @@
     "remark-gfm": "^4.0.0",
     "rimraf": "^6.0.0",
     "typescript": "^5.5.2",
-    "virtua": "^0.36.0",
+    "virtua": "^0.37.3",
     "zxcvbn": "^4.4.2"
   },
   "devDependencies": {
