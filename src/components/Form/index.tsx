@@ -8,13 +8,15 @@ import { FileWidget } from './Widgets/FileWidget';
 
 import { Fragment, forwardRef } from 'react';
 import { ObjectFieldTemplate } from './FieldTemplates/ObjectFieldTemplate';
-import { IChangeEvent } from '@rjsf/core';
-import {
+import type { IChangeEvent } from '@rjsf/core';
+import type RJSFCoreForm from '@rjsf/core';
+import type {
 	FieldTemplateProps,
 	WidgetProps,
 	RJSFValidationError,
 	UiSchema,
 	FormValidation,
+	RJSFSchema,
 } from '@rjsf/utils';
 
 import { Templates } from '@rjsf/mui';
@@ -46,76 +48,76 @@ export interface RJSFormProps
 	actionButtons?: ButtonProps[];
 }
 
-export const RJSForm: React.FC<React.PropsWithChildren<RJSFormProps>> =
-	forwardRef(
-		(
-			{
-				hideSubmitButton,
-				submitButtonProps,
-				actionButtons,
-				validator = ajvValidator,
-				widgets,
-				children,
-				sx,
-				onFocus,
-				onBlur,
-				onClick,
-				templates,
-				...otherProps
-			},
-			ref,
-		) => {
-			// paddingY is resolving an outline glitch that is truncated when inside a container.
-			return (
-				<FormWrapper>
-					<Box
-						sx={{ paddingY: '1px', ...sx }}
-						onFocus={onFocus}
-						onBlur={onBlur}
-						onClick={onClick}
-					>
-						<Form
-							ref={ref}
-							validator={validator}
-							showErrorList={false}
-							widgets={{ ...internalWidgets, ...(widgets || {}) }}
-							templates={{ ObjectFieldTemplate, ...templates }}
-							{...otherProps}
-						>
-							{/* RJSF need a child to not show the submit button https://github.com/rjsf-team/react-jsonschema-form/issues/1602  */}
-							{hideSubmitButton && <Fragment />}
-
-							{actionButtons?.map(({ sx, ...buttonProps }, index) => (
-								<Button
-									sx={[
-										{
-											mr:
-												index < actionButtons.length || !hideSubmitButton
-													? 1
-													: 0,
-										},
-										...(Array.isArray(sx) ? sx : [sx]),
-									]}
-									{...buttonProps}
-								/>
-							))}
-
-							{!hideSubmitButton && (
-								<Button
-									children={'Submit'}
-									{...submitButtonProps}
-									color="primary"
-									variant="contained"
-									type="submit"
-								/>
-							)}
-							{children}
-						</Form>
-					</Box>
-				</FormWrapper>
-			);
+export const RJSForm = forwardRef<
+	RJSFCoreForm<any, RJSFSchema, any>,
+	RJSFormProps
+>(
+	(
+		{
+			hideSubmitButton,
+			submitButtonProps,
+			actionButtons,
+			validator = ajvValidator,
+			widgets,
+			children,
+			sx,
+			onFocus,
+			onBlur,
+			onClick,
+			templates,
+			...otherProps
 		},
-	);
+		ref,
+	) => {
+		// paddingY is resolving an outline glitch that is truncated when inside a container.
+		return (
+			<FormWrapper>
+				<Box
+					sx={{ paddingY: '1px', ...sx }}
+					onFocus={onFocus}
+					onBlur={onBlur}
+					onClick={onClick}
+				>
+					<Form
+						ref={ref}
+						validator={validator}
+						showErrorList={false}
+						widgets={{ ...internalWidgets, ...(widgets || {}) }}
+						templates={{ ObjectFieldTemplate, ...templates }}
+						{...otherProps}
+					>
+						{/* RJSF need a child to not show the submit button https://github.com/rjsf-team/react-jsonschema-form/issues/1602  */}
+						{hideSubmitButton && <Fragment />}
+
+						{actionButtons?.map(({ sx, ...buttonProps }, index) => (
+							<Button
+								sx={[
+									{
+										mr:
+											index < actionButtons.length || !hideSubmitButton ? 1 : 0,
+									},
+									...(Array.isArray(sx) ? sx : [sx]),
+								]}
+								{...buttonProps}
+							/>
+						))}
+
+						{!hideSubmitButton && (
+							<Button
+								children={'Submit'}
+								{...submitButtonProps}
+								color="primary"
+								variant="contained"
+								type="submit"
+							/>
+						)}
+						{children}
+					</Form>
+				</Box>
+			</FormWrapper>
+		);
+	},
+);
 
 export type {
 	IChangeEvent,
