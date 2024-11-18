@@ -1,14 +1,15 @@
 import { useState } from 'react';
 import { Button } from '@mui/material';
 import { removeFromLocalStorage } from '../../utils/storage';
-import { CookiesBanner, CookiesBannerProps } from '.';
-import { Meta, StoryObj } from '@storybook/react';
+import type { CookiesBannerProps } from '.';
+import { CookiesBanner } from '.';
+import type { Meta, StoryObj } from '@storybook/react';
 
-const CookiesTemplateBanner: React.FC<CookiesBannerProps> = ({
+const CookiesTemplateBanner = ({
 	show,
 	onClose,
 	...props
-}) => {
+}: CookiesBannerProps) => {
 	const [demoShow, setDemoShow] = useState(show);
 	const localStorageKey = props.productName + '-cookies-set';
 

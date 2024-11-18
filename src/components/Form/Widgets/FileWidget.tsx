@@ -1,10 +1,10 @@
-import {
-	type Accept,
-	type DropzoneOptions,
-	useDropzone,
+import type {
+	Accept,
+	DropzoneOptions,
 	ErrorCode,
 	FileRejection,
 } from 'react-dropzone';
+import { useDropzone } from 'react-dropzone';
 import {
 	Typography,
 	InputLabel,
@@ -20,8 +20,8 @@ import type { WidgetProps } from '@rjsf/utils';
 import { useCallback, useMemo, useState } from 'react';
 import { IconButtonWithTracking, Tooltip, designTokens } from '../../..';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import type { IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import {
-	IconDefinition,
 	faCircleExclamation,
 	faFile,
 	faFileImage,
@@ -183,13 +183,11 @@ export const FileWidget = ({
 						onChange(
 							[...files, ...acceptedFiles]
 								.filter(
-									(file) =>
-										!('loadingPercentage' in file) ||
-										file.loadingPercentage === null,
+									(f) =>
+										!('loadingPercentage' in f) || f.loadingPercentage === null,
 								)
 								.map(
-									(file) =>
-										`data:${file.type};name=${file.name};base64,${base64Data}`,
+									(f) => `data:${f.type};name=${f.name};base64,${base64Data}`,
 								),
 						);
 						return;
@@ -204,7 +202,7 @@ export const FileWidget = ({
 			if (multiple) {
 				setFiles([...files, ...acceptedFiles]);
 			} else {
-				setFiles(!!acceptedFiles.length ? [acceptedFiles[0]] : []);
+				setFiles(acceptedFiles.length ? [acceptedFiles[0]] : []);
 			}
 			setErrorFiles(rejectedFiles);
 		},
@@ -229,7 +227,7 @@ export const FileWidget = ({
 			}
 			onChange();
 		},
-		[files, setFiles, multiple],
+		[files, setFiles, multiple, onChange],
 	);
 
 	const { getRootProps, getInputProps, isDragActive } = useDropzone({
@@ -250,8 +248,8 @@ export const FileWidget = ({
 						...(disabled
 							? disabledStyle
 							: isDragActive
-							? dragStyle
-							: restingStyle),
+								? dragStyle
+								: restingStyle),
 						'.browse-files-text': { textDecoration: 'underline' },
 						...(!disabled && { '&:hover': hoverStyle }),
 					},
@@ -283,11 +281,11 @@ export const FileWidget = ({
 					>
 						{/* TODO: remove `uploadIcon` prop when we are able to have pro icons in ui shared */}
 						<FontAwesomeIcon
-							icon={isSmall ? faUpload : uploadIcon ?? faUpload}
+							icon={isSmall ? faUpload : (uploadIcon ?? faUpload)}
 							{...(isSmall
 								? { size: 'lg' }
 								: // TODO: icon sizes need to be properly added to the design tokens
-								  { fontSize: '48px' })}
+									{ fontSize: '48px' })}
 						/>
 						<Typography variant="bodyLg">
 							Drag and drop or{' '}
@@ -296,7 +294,7 @@ export const FileWidget = ({
 								variant="bodyLg"
 								component={Link}
 							>
-								browse {!!browseResourceName ? `${browseResourceName} ` : ''}
+								browse {browseResourceName ? `${browseResourceName} ` : ''}
 								files
 							</Typography>
 						</Typography>
@@ -321,7 +319,7 @@ export const FileWidget = ({
 											.flat()
 											// Remove the dot from the file type and capitalize it
 											.map((fileType) => fileType.slice(1).toUpperCase()),
-								  ).join(', ')}`}
+									).join(', ')}`}
 						</Typography>
 						{maxSize != null && (
 							<Typography
@@ -358,6 +356,7 @@ export const FileWidget = ({
 									p={3}
 									borderRadius="8px"
 									{...(mobile && { flexWrap: 'wrap' })}
+									key={file.name}
 								>
 									<Stack
 										direction="row"
@@ -412,7 +411,9 @@ export const FileWidget = ({
 										<IconButtonWithTracking
 											eventName="FileWidget: Delete uploaded file"
 											aria-label="Delete uploaded file"
-											onClick={() => removeFile(index)}
+											onClick={() => {
+												removeFile(index);
+											}}
 											// So that the Button padding does not affect the Stack padding
 											sx={{ p: '0' }}
 										>
@@ -429,6 +430,7 @@ export const FileWidget = ({
 									borderRadius="8px"
 									border="1px solid"
 									borderColor={designTokens.color.border.danger.value}
+									key={file.name}
 								>
 									<Stack
 										direction="row"
@@ -461,6 +463,7 @@ export const FileWidget = ({
 												color={designTokens.color.text.danger.value}
 												direction="row"
 												alignItems="center"
+												key={error.message}
 											>
 												<FontAwesomeIcon icon={faCircleExclamation} />
 												{getErrorMessage(

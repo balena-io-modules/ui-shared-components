@@ -1,12 +1,12 @@
-import {
+/* eslint-disable @typescript-eslint/no-shadow */
+import type {
 	PaletteColor,
 	PaletteColorOptions,
 	TypographyStyle,
-	createTheme,
-	tableCellClasses,
 } from '@mui/material';
+import { createTheme, tableCellClasses } from '@mui/material';
 import type {} from '@mui/x-data-grid/themeAugmentation';
-import { TypographyStyleOptions } from '@mui/material/styles/createTypography';
+import type { TypographyStyleOptions } from '@mui/material/styles/createTypography';
 import { color, typography, shape } from '@balena/design-tokens';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -14,7 +14,7 @@ import {
 	faExclamationCircle,
 	faInfoCircle,
 	faWarning,
-	IconDefinition,
+	type IconDefinition,
 } from '@fortawesome/free-solid-svg-icons';
 
 type CustomPaletteColor = PaletteColor & { xlight?: string };

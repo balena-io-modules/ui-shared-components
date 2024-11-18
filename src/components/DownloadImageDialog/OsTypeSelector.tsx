@@ -1,10 +1,9 @@
+import type { SelectProps } from '@mui/material';
 import {
-	Badge,
 	Box,
 	InputLabel,
 	MenuItem,
 	Select,
-	SelectProps,
 	Tooltip,
 	Typography,
 } from '@mui/material';
@@ -126,7 +125,9 @@ export const OsTypeSelector = ({
 					const osType = selectOsTypes.find(
 						(os) => os.slug === event.target.value,
 					)!;
-					return !osType.disabled && onSelectedOsTypeChange(osType.slug);
+					if (!osType.disabled) {
+						onSelectedOsTypeChange(osType.slug);
+					}
 				}}
 			>
 				{selectOsTypes.map((option) => (

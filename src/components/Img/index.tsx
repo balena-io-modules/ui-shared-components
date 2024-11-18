@@ -1,5 +1,7 @@
-import { Box, BoxProps } from '@mui/material';
-import { SyntheticEvent, useState, useEffect } from 'react';
+import type { BoxProps } from '@mui/material';
+import { Box } from '@mui/material';
+import type { SyntheticEvent } from 'react';
+import { useState, useEffect } from 'react';
 
 export interface ImgProps extends BoxProps<'img'> {
 	fallback?: BoxProps<'img'>['src'];
@@ -26,7 +28,7 @@ export const Img = ({
 			component="img"
 			src={src}
 			{...props}
-			onError={(e: SyntheticEvent<HTMLImageElement, Event>) => {
+			onError={(e: SyntheticEvent<HTMLImageElement>) => {
 				if (fallback != null) {
 					setSrc(fallback);
 				}

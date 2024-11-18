@@ -1,30 +1,11 @@
-import { Chip as MuiChip, ChipTypeMap as MuiChipTypeMap } from '@mui/material';
+import type { ChipTypeMap as MuiChipTypeMap } from '@mui/material';
+import { Chip as MuiChip } from '@mui/material';
 import React from 'react';
-import {
-	OverridableComponent,
-	OverrideProps,
-} from '@mui/material/OverridableComponent';
-
-type ChipTypeMap<
-	P = {},
-	D extends React.ElementType = MuiChipTypeMap['defaultComponent'],
-> = {
-	props: P &
-		Omit<
-			MuiChipTypeMap['props'],
-			| 'size'
-			| 'clickable'
-			| 'onClick'
-			| 'avatar'
-			| 'disabled'
-			| 'skipFocusWhenDisabled'
-		>;
-	defaultComponent: D;
-};
+import type { OverrideProps } from '@mui/material/OverridableComponent';
 
 export type ChipProps<
 	D extends React.ElementType = MuiChipTypeMap['defaultComponent'],
-	P = {},
+	P = object,
 > = OverrideProps<MuiChipTypeMap<P, D>, D>;
 
 /**

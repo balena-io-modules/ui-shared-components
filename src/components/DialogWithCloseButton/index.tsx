@@ -1,4 +1,5 @@
-import { Dialog, DialogProps, IconButton, DialogTitle } from '@mui/material';
+import type { DialogProps } from '@mui/material';
+import { Dialog, IconButton, DialogTitle } from '@mui/material';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClose } from '@fortawesome/free-solid-svg-icons/faClose';
 

@@ -40,7 +40,9 @@ export const CollectionSummary = ({
 			) : (
 				<Stack alignItems="start">
 					<Button
-						onClick={() => setIsExpanded(!isExpanded)}
+						onClick={() => {
+							setIsExpanded(!isExpanded);
+						}}
 						variant="text"
 						sx={{ color: color.text.subtle.value, minWidth: 'unset' }}
 						endIcon={

@@ -6,7 +6,7 @@ import {
 } from '@mui/material';
 import { Suspense, lazy, useState } from 'react';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { WidgetProps } from '@rjsf/utils';
+import type { WidgetProps } from '@rjsf/utils';
 export interface PasswordStrengthProps {
 	password?: string;
 }
@@ -33,8 +33,8 @@ export const PasswordWidget = ({
 }: WidgetProps) => {
 	const [showPassword, setShowPassword] = useState(false);
 
-	const change = ({ target: { value } }: any) => {
-		return onChange(value === '' ? options.emptyValue : value);
+	const change = ({ target: { value: val } }: any) => {
+		onChange(value === '' ? options.emptyValue : val);
 	};
 
 	return (
@@ -53,19 +53,23 @@ export const PasswordWidget = ({
 				onChange={change}
 				onBlur={
 					onBlur &&
-					((event: React.FocusEvent<HTMLInputElement, Element>) =>
-						onBlur(id, event.target.value))
+					((event: React.FocusEvent<HTMLInputElement>) => {
+						onBlur(id, event.target.value);
+					})
 				}
 				onFocus={
 					onFocus &&
-					((event: React.FocusEvent<HTMLInputElement, Element>) =>
-						onFocus(id, event.target.value))
+					((event: React.FocusEvent<HTMLInputElement>) => {
+						onFocus(id, event.target.value);
+					})
 				}
 				InputProps={{
 					endAdornment: (
 						<InputAdornment position="end">
 							<IconButton
-								onClick={() => setShowPassword((show) => !show)}
+								onClick={() => {
+									setShowPassword((show) => !show);
+								}}
 								onMouseDown={(event: React.MouseEvent<HTMLButtonElement>) => {
 									event.preventDefault();
 								}}

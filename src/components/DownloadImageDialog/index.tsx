@@ -11,21 +11,19 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { FALLBACK_LOGO_UNKNOWN_DEVICE, stripVersionBuild } from './utils';
 import { ImageForm } from './ImageForm';
 import { ApplicationInstructions } from './ApplicationInstructions';
-import { DropDownButton, DropDownButtonProps } from '../DropDownButton';
+import type { DropDownButtonProps } from '../DropDownButton';
+import { DropDownButton } from '../DropDownButton';
 import DownloadIcon from '@mui/icons-material/Download';
 import pickBy from 'lodash/pickBy';
 import debounce from 'lodash/debounce';
 import isEmpty from 'lodash/isEmpty';
-import {
-	DeviceType,
-	Dictionary,
-	OsTypesEnum,
-	OsVersionsByDeviceType,
-} from './models';
+import type { DeviceType, Dictionary, OsVersionsByDeviceType } from './models';
+import { OsTypesEnum } from './models';
 import uniq from 'lodash/uniq';
 import { enqueueSnackbar } from 'notistack';
 import { DialogWithCloseButton } from '../DialogWithCloseButton';
-import { Callout, CalloutProps } from '../Callout';
+import type { CalloutProps } from '../Callout';
+import { Callout } from '../Callout';
 import { Spinner } from '../Spinner';
 
 const etcherLogoBase64 =
@@ -81,7 +79,7 @@ const generateImageUrl = (
 		model.wifiKey = undefined;
 	}
 	const queryParams = Object.entries(model)
-		.map(([key, value]) => (!!value ? `${key}=${value}` : null))
+		.map(([key, value]) => (value ? `${key}=${value}` : null))
 		.filter((param) => !!param)
 		.join('&');
 	return `${downloadUrl}?${queryParams}`;
@@ -185,7 +183,7 @@ export interface DownloadImageDialogProps {
 	onFieldChange?: (fields: { [key: string]: any }) => void;
 }
 
-export const DownloadImageDialog: React.FC<DownloadImageDialogProps> = ({
+export const DownloadImageDialog = ({
 	open,
 	applicationId,
 	releaseId,
@@ -205,7 +203,7 @@ export const DownloadImageDialog: React.FC<DownloadImageDialogProps> = ({
 	onFieldChange,
 	dialogActions,
 	authToken,
-}) => {
+}: DownloadImageDialogProps) => {
 	const formElement = useRef<HTMLFormElement | null>(null);
 	const [formModel, setFormModel] = useState(
 		getInitialState(initialDeviceType, applicationId, releaseId),
@@ -223,7 +221,7 @@ export const DownloadImageDialog: React.FC<DownloadImageDialogProps> = ({
 		initialDeviceType?.slug
 			? {
 					[initialDeviceType.slug]: osTypes.includes(OsTypesEnum.ESR),
-			  }
+				}
 			: {},
 	);
 	const [isFetching, setIsFetching] = useState(isEmpty(osVersions));
@@ -235,7 +233,7 @@ export const DownloadImageDialog: React.FC<DownloadImageDialogProps> = ({
 	);
 
 	const actions: DropDownButtonProps['items'] = useMemo(() => {
-		const actions: DropDownButtonProps['items'] = [
+		const dropDownButtonActions: DropDownButtonProps['items'] = [
 			...(dialogActions ?? []),
 			{
 				eventName: 'Flash With Etcher Clicked',
@@ -265,7 +263,7 @@ export const DownloadImageDialog: React.FC<DownloadImageDialogProps> = ({
 					releaseId: formModel.releaseId,
 					downloadUrl,
 				},
-				onClick: async () => {
+				onClick: () => {
 					if (!formElement?.current) {
 						return;
 					}
@@ -281,8 +279,8 @@ export const DownloadImageDialog: React.FC<DownloadImageDialogProps> = ({
 			},
 		];
 
-		if (!!downloadConfig) {
-			actions.push({
+		if (downloadConfig) {
+			dropDownButtonActions.push({
 				eventName: 'Download Configuration File Only',
 				eventProperties: {
 					appId: formModel.appId,
@@ -300,7 +298,7 @@ export const DownloadImageDialog: React.FC<DownloadImageDialogProps> = ({
 			});
 		}
 
-		return actions satisfies DropDownButtonProps['items'];
+		return dropDownButtonActions satisfies DropDownButtonProps['items'];
 	}, [
 		authToken,
 		downloadConfig,
@@ -318,7 +316,7 @@ export const DownloadImageDialog: React.FC<DownloadImageDialogProps> = ({
 		}
 
 		// Debounce as the version changes right after the devicetype does, resulting in multiple requests.
-		debounceDownloadSize(
+		void debounceDownloadSize(
 			getDownloadSize,
 			formModel.deviceType,
 			formModel.version,
@@ -345,7 +343,9 @@ export const DownloadImageDialog: React.FC<DownloadImageDialogProps> = ({
 				});
 				console.error(e);
 			})
-			.finally(() => setIsFetching(false));
+			.finally(() => {
+				setIsFetching(false);
+			});
 	}, [compatibleDeviceTypes, applicationId, getSupportedOsVersions]);
 
 	useEffect(() => {
@@ -354,7 +354,7 @@ export const DownloadImageDialog: React.FC<DownloadImageDialogProps> = ({
 		}
 		// Fetch the supported os types, so we can show the appropriate values in the Select box.
 		// We only want to do it once, and we rely on the cached data here.
-		getSupportedOsTypes(applicationId, formModel.deviceType.slug).then(
+		void getSupportedOsTypes(applicationId, formModel.deviceType.slug).then(
 			(data) => {
 				setOsTypes(data);
 			},
@@ -365,31 +365,28 @@ export const DownloadImageDialog: React.FC<DownloadImageDialogProps> = ({
 		if (!compatibleDeviceTypes || !hasEsrVersions) {
 			return;
 		}
-		hasEsrVersions(compatibleDeviceTypes.map((dt) => dt.slug)).then(
+		void hasEsrVersions(compatibleDeviceTypes.map((dt) => dt.slug)).then(
 			setDeviceTypeHasEsr,
 		);
 	}, [compatibleDeviceTypes, hasEsrVersions]);
 
 	useEffect(() => {
-		const osTypes = getUniqueOsTypes(osVersions, formModel.deviceType.slug);
-		if (!osTypes.length) {
+		const osTs = getUniqueOsTypes(osVersions, formModel.deviceType.slug);
+		if (!osTs.length) {
 			return;
 		}
-		if (!!osType) {
-			if (!osTypes.includes(osType)) {
-				setOsType(osTypes[0]);
+		if (osType) {
+			if (!osTs.includes(osType)) {
+				setOsType(osTs[0]);
 			}
 		} else {
-			setOsType(
-				osTypes.includes(OsTypesEnum.ESR) ? OsTypesEnum.ESR : osTypes[0],
-			);
+			setOsType(osTs.includes(OsTypesEnum.ESR) ? OsTypesEnum.ESR : osTs[0]);
 		}
 	}, [formModel.deviceType.slug, osType, osVersions]);
 
-	const setOsTypeCallback = useCallback(
-		(osType: string) => setOsType(osType),
-		[],
-	);
+	const setOsTypeCallback = useCallback((osT: string) => {
+		setOsType(osT);
+	}, []);
 
 	const handleChange = useCallback(
 		(
@@ -409,7 +406,7 @@ export const DownloadImageDialog: React.FC<DownloadImageDialogProps> = ({
 			}
 			setFormModel(newFormModelState);
 		},
-		[formModel],
+		[formModel, applicationId, releaseId, onFieldChange],
 	);
 
 	return (
@@ -484,14 +481,14 @@ export const DownloadImageDialog: React.FC<DownloadImageDialogProps> = ({
 									? getDockerArtifact(
 											formModel.deviceType.slug,
 											stripVersionBuild(formModel.version),
-									  )
+										)
 									: '',
 							}}
 						/>
 					</Grid>
 					{(formModel.deviceType.imageDownloadAlerts ?? []).map((alert) => {
 						return (
-							<Grid xs={12} pt={0}>
+							<Grid xs={12} pt={0} key={alert.message}>
 								<Callout
 									key={alert.message}
 									severity={alert.type as CalloutProps['severity']}

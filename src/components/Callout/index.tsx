@@ -1,7 +1,9 @@
 import * as React from 'react';
-import { Box, styled, SxProps, Theme, useThemeProps } from '@mui/material';
+import type { SxProps, Theme } from '@mui/material';
+import { Box, styled, useThemeProps } from '@mui/material';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Severity, severityIcons } from '../../theme';
+import type { Severity } from '../../theme';
+import { severityIcons } from '../../theme';
 import { color } from '@balena/design-tokens';
 
 export interface CalloutProps {

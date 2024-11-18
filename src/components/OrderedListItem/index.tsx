@@ -1,21 +1,16 @@
-import {
-	Box,
-	ListItem,
-	ListItemIcon,
-	ListItemProps,
-	Typography,
-} from '@mui/material';
+import type { ListItemProps } from '@mui/material';
+import { Box, ListItem, ListItemIcon, Typography } from '@mui/material';
 
 export interface OrderedListItemProps extends ListItemProps {
 	index: number;
 }
 
-export const OrderedListItem: React.FC<OrderedListItemProps> = ({
+export const OrderedListItem = ({
 	index,
 	children,
 	sx,
 	...orderedListItemProps
-}) => {
+}: OrderedListItemProps) => {
 	return (
 		<ListItem sx={{ pl: 0, ...sx }} {...orderedListItemProps}>
 			<ListItemIcon>

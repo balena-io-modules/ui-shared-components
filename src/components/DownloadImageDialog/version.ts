@@ -1,6 +1,6 @@
 import uniq from 'lodash/uniq';
 import partition from 'lodash/partition';
-import { Dictionary, OsVersion } from './models';
+import type { Dictionary, OsVersion } from './models';
 
 export type VersionSelectionOptions = {
 	title: string;
@@ -45,7 +45,7 @@ export const transformVersions = (versions: OsVersion[]) => {
 				? {
 						hasPrebuiltVariants: false,
 						rawVersion: version.raw_version,
-				  }
+					}
 				: {
 						hasPrebuiltVariants: true,
 						rawVersions: {
@@ -54,7 +54,7 @@ export const transformVersions = (versions: OsVersion[]) => {
 								existingSelectionOpt.rawVersions),
 							[version.variant]: version.raw_version,
 						},
-				  }),
+					}),
 		};
 	});
 

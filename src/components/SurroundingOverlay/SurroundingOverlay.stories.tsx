@@ -4,15 +4,16 @@ import { useEffect, useState } from 'react';
 import { Box, Button } from '@mui/material';
 
 const Template = (props: Omit<SurroundingOverlayProps, 'targetElement'>) => {
-	const [element, setElement] = useState<any | null>(null);
+	const [element, setElement] = useState<any>(null);
 	useEffect(() => {
 		document.addEventListener('click', () => {
 			setElement(null);
 		});
-		return () =>
+		return () => {
 			document.removeEventListener('click', () => {
 				setElement(null);
 			});
+		};
 	}, []);
 	return (
 		<SurroundingOverlay targetElement={element} {...props}>

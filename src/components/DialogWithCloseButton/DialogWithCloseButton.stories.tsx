@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { DialogWithCloseButton, DialogWithCloseButtonProps } from '.';
+import type { DialogWithCloseButtonProps } from '.';
+import { DialogWithCloseButton } from '.';
 import { useState } from 'react';
 import { Button, DialogContent } from '@mui/material';
 
@@ -9,10 +10,18 @@ const Template = (
 	const [show, setShow] = useState(false);
 	return (
 		<>
-			<Button onClick={() => setShow(true)}>Open modal</Button>
+			<Button
+				onClick={() => {
+					setShow(true);
+				}}
+			>
+				Open modal
+			</Button>
 			<DialogWithCloseButton
 				open={show}
-				onClose={() => setShow(false)}
+				onClose={() => {
+					setShow(false);
+				}}
 				{...args}
 			/>
 		</>

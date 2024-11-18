@@ -18,7 +18,9 @@ export const Default: Story = {
 				eventProperties: {
 					prop: 'this is a property I want to track for analytics',
 				},
-				onClick: () => console.log('first action clicked'),
+				onClick: () => {
+					console.log('first action clicked');
+				},
 				children: 'first action button title',
 				tooltip: 'This is a tooltip',
 			},
@@ -27,7 +29,9 @@ export const Default: Story = {
 				eventProperties: {
 					anotherProp: 'this is another property I want to track for analytics',
 				},
-				onClick: () => console.log('second action clicked'),
+				onClick: () => {
+					console.log('second action clicked');
+				},
 				children: <>This can also be a component</>,
 				disabled: true,
 				tooltip:

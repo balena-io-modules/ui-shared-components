@@ -1,5 +1,5 @@
-import { Tooltip, Typography, TypographyProps } from '@mui/material';
-import React from 'react';
+import type { TypographyProps } from '@mui/material';
+import { Tooltip, Typography } from '@mui/material';
 
 export interface TruncateProps extends TypographyProps {
 	lineCamp: number;
@@ -9,12 +9,12 @@ export interface TruncateProps extends TypographyProps {
 /**
  * This component will truncate text depending on the settings passed by props.
  */
-export const Truncate: React.FC<React.PropsWithChildren<TruncateProps>> = ({
+export const Truncate = ({
 	children,
 	lineCamp,
 	tooltip,
 	...typographyProps
-}) => {
+}: React.PropsWithChildren<TruncateProps>) => {
 	return (
 		<Tooltip
 			title={tooltip && typeof children === 'string' ? children : undefined}

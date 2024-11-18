@@ -1,10 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import {
-	VirtualizedAutocomplete,
-	VirtualizedAutocompleteWithPaginationProps,
-} from '.';
-import { Box, ChipTypeMap, TextField } from '@mui/material';
-import { ElementType, useState } from 'react';
+import type { VirtualizedAutocompleteWithPaginationProps } from '.';
+import { VirtualizedAutocomplete } from '.';
+import type { ChipTypeMap } from '@mui/material';
+import { Box, TextField } from '@mui/material';
+import type { ElementType } from 'react';
 
 const virtualizedMeta = {
 	title: 'Other/VirtualizedAutocomplete',
@@ -25,69 +24,84 @@ export const Default: VirtualizedStory = {
 	},
 };
 
-// TODO: FIGURE OUT WHY THIS IS NOT WORKING
-const VirtualizedPaginatedTemplate = <
-	Value,
-	Multiple extends boolean | undefined = false,
-	DisableClearable extends boolean | undefined = false,
-	FreeSolo extends boolean | undefined = false,
-	ChipComponent extends ElementType = ChipTypeMap['defaultComponent'],
->(
-	args: Omit<
-		VirtualizedAutocompleteWithPaginationProps<
+type VirtualizedPaginatedStory = StoryObj<
+	Meta<
+		<
 			Value,
-			Multiple,
-			DisableClearable,
-			FreeSolo,
-			ChipComponent
-		>,
-		'loadNext'
-	>,
-) => {
-	const [prevQuery, setPrevQuery] = useState('');
-	const [paginatedArray, setPaginatedArray] = useState<Value[]>([]);
-	const [page, setPage] = useState(-1);
+			Multiple extends boolean | undefined = false,
+			DisableClearable extends boolean | undefined = false,
+			FreeSolo extends boolean | undefined = false,
+			ChipComponent extends ElementType = ChipTypeMap['defaultComponent'],
+		>(
+			args: Omit<
+				VirtualizedAutocompleteWithPaginationProps<
+					Value,
+					Multiple,
+					DisableClearable,
+					FreeSolo,
+					ChipComponent
+				>,
+				'loadNext'
+			>,
+		) => ReturnType<typeof VirtualizedAutocomplete>
+	>
+>;
 
-	return (
-		<VirtualizedAutocomplete<
-			Value,
-			Multiple,
-			DisableClearable,
-			FreeSolo,
-			ChipComponent
-		>
-			{...args}
-			loadNext={async (pageToLoad, query) => {
-				if (pageToLoad > page) {
-					setPage(pageToLoad);
-					setPaginatedArray(
-						paginatedArray.concat(
-							Array.from({ length: 50 }, () =>
-								Math.random().toString(),
-							) as Value[],
-						),
-					);
-				}
-				if (query !== prevQuery) {
-					setPrevQuery(query ?? '');
-					const filteredArray = paginatedArray.filter((option) =>
-						JSON.stringify(option).includes(query ?? ''),
-					);
-					return { data: filteredArray, totalItems: filteredArray.length + 1 };
-				}
-				return { data: paginatedArray, totalItems: paginatedArray.length + 1 };
-			}}
-		/>
-	);
-};
+// TODO: GET THIS STORY WORKING
+// const VirtualizedPaginatedTemplate = <
+// 	Value,
+// 	Multiple extends boolean | undefined = false,
+// 	DisableClearable extends boolean | undefined = false,
+// 	FreeSolo extends boolean | undefined = false,
+// 	ChipComponent extends ElementType = ChipTypeMap['defaultComponent'],
+// >(
+// 	args: Omit<
+// 		VirtualizedAutocompleteWithPaginationProps<
+// 			Value,
+// 			Multiple,
+// 			DisableClearable,
+// 			FreeSolo,
+// 			ChipComponent
+// 		>,
+// 		'loadNext'
+// 	>,
+// ) => {
+// 	const [prevQuery, setPrevQuery] = useState('');
+// 	const [paginatedArray, setPaginatedArray] = useState<Value[]>([]);
+// 	const [page, setPage] = useState(-1);
 
-const virtualizedPaginatedMeta = {
-	title: 'Other/VirtualizedPaginatedAutocomplete',
-	component: VirtualizedPaginatedTemplate,
-	tags: ['autodocs'],
-} satisfies Meta<typeof VirtualizedPaginatedTemplate>;
-
-type VirtualizedPaginatedStory = StoryObj<typeof virtualizedPaginatedMeta>;
+// 	return (
+// 		<VirtualizedAutocomplete<
+// 			Value,
+// 			Multiple,
+// 			DisableClearable,
+// 			FreeSolo,
+// 			ChipComponent
+// 		>
+// 			{...args}
+// 			loadNext={async (pageToLoad, query) => {
+// 				if (pageToLoad > page) {
+// 					setPage(pageToLoad);
+// 					setPaginatedArray(
+// 						paginatedArray.concat(
+// 							Array.from({ length: 50 }, () =>
+// 								Math.random().toString(),
+// 							) as Value[],
+// 						),
+// 					);
+// 				}
+// 				if (query !== prevQuery) {
+// 					setPrevQuery(query ?? '');
+// 					const filteredArray = paginatedArray.filter((option) =>
+// 						JSON.stringify(option).includes(query ?? ''),
+// 					);
+// 					return { data: filteredArray, totalItems: filteredArray.length + 1 };
+// 				}
+// 				return { data: paginatedArray, totalItems: paginatedArray.length + 1 };
+// 			}}
+// 		/>
+// 	);
+// };
 
 export const WithPagination: VirtualizedPaginatedStory = {
 	args: {

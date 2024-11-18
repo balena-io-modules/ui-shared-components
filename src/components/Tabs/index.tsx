@@ -51,12 +51,17 @@ export const Tabs = ({
 			>
 				<TabList onChange={handleChange} variant="scrollable">
 					{tabs.map(({ label, tabProps }, index) => (
-						<Tab label={label} value={index.toString()} {...tabProps} />
+						<Tab
+							label={label}
+							value={index.toString()}
+							{...tabProps}
+							key={label}
+						/>
 					))}
 				</TabList>
 			</Box>
-			{tabs.map(({ render, tabPanelProps }, index) => (
-				<TabPanel value={index.toString()} {...tabPanelProps}>
+			{tabs.map(({ render, tabPanelProps, label }, index) => (
+				<TabPanel value={index.toString()} {...tabPanelProps} key={label}>
 					{render}
 				</TabPanel>
 			))}

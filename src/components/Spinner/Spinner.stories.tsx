@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Spinner } from '.';
-import { Box, Button } from '@mui/material';
+import { Box } from '@mui/material';
 
 const meta = {
 	title: 'Other/Spinner',

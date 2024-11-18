@@ -9,10 +9,10 @@ export interface LimitedRowImagesProps {
  * This component will show a set of images/logos in a horizontal way and collapse those that will not fit the
  * `numberBeforeTruncate` property.
  */
-export const LimitedRowImages: React.FC<LimitedRowImagesProps> = ({
+export const LimitedRowImages = ({
 	items,
 	numberBeforeTruncate,
-}) => {
+}: LimitedRowImagesProps) => {
 	if (!items?.length) {
 		return <>No supported devices</>;
 	}

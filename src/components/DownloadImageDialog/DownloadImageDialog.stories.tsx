@@ -1,8 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { DownloadImageDialog, DownloadImageDialogProps } from '.';
+import type { DownloadImageDialogProps } from '.';
+import { DownloadImageDialog } from '.';
 import { useState } from 'react';
 import { Button } from '@mui/material';
-import { DeviceType } from './models';
+import type { DeviceType } from './models';
 
 const deviceTypes: any[] = [
 	{
@@ -772,10 +773,18 @@ const Template = (
 
 	return (
 		<>
-			<Button onClick={() => setShow(true)}>Open download image dialog</Button>
+			<Button
+				onClick={() => {
+					setShow(true);
+				}}
+			>
+				Open download image dialog
+			</Button>
 			<DownloadImageDialog
 				open={show}
-				onClose={() => setShow(false)}
+				onClose={() => {
+					setShow(false);
+				}}
 				{...props}
 			/>
 		</>

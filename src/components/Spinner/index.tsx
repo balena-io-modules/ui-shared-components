@@ -1,11 +1,5 @@
-import {
-	Box,
-	BoxProps,
-	CircularProgress,
-	Typography,
-	Backdrop,
-	SxProps,
-} from '@mui/material';
+import type { BoxProps } from '@mui/material';
+import { Box, CircularProgress, Typography, Backdrop } from '@mui/material';
 import { color } from '@balena/design-tokens';
 
 export interface SpinnerProps extends Pick<BoxProps, 'sx' | 'children'> {

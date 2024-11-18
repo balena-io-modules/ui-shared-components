@@ -1,9 +1,11 @@
 import Grid from '@mui/material/Grid';
-import {
+import type {
 	FormContextType,
 	ObjectFieldTemplateProps,
 	RJSFSchema,
 	StrictRJSFSchema,
+} from '@rjsf/utils';
+import {
 	canExpand,
 	descriptionId,
 	getTemplate,
@@ -99,6 +101,7 @@ export const ObjectFieldTemplate = <
 							<AddButton
 								className="object-property-expand"
 								onClick={onAddClick(schema)}
+								// eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing -- If `disabled` is false, we still want to disable the button if `readonly` is true
 								disabled={disabled || readonly}
 								uiSchema={uiSchema}
 								registry={registry}

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { Box, styled, type CSSObject } from '@mui/material';
 
 const Layer = styled(Box)<Omit<SurroundingOverlayProps, 'targetElement'>>(
@@ -38,15 +38,13 @@ export interface SurroundingOverlayProps {
 	opacity?: number;
 }
 
-export const SurroundingOverlay: React.FC<
-	React.PropsWithChildren<SurroundingOverlayProps>
-> = ({
+export const SurroundingOverlay = ({
 	children,
 	targetElement,
 	scrollingElement,
 	padding = 0,
 	...otherProps
-}) => {
+}: React.PropsWithChildren<SurroundingOverlayProps>) => {
 	const containerRef = useRef<HTMLElement>(null);
 	const [clickedRect, setClickedRect] =
 		useState<ReturnType<typeof getClickedRect>>();
@@ -57,14 +55,22 @@ export const SurroundingOverlay: React.FC<
 	}, [setClickedRect, targetElement, containerRef]);
 
 	useEffect(() => {
-		window.addEventListener('resize', () => updateRect());
-		scrollingElement?.addEventListener('scroll', () => updateRect());
+		window.addEventListener('resize', () => {
+			updateRect();
+		});
+		scrollingElement?.addEventListener('scroll', () => {
+			updateRect();
+		});
 
 		updateRect();
 
 		return () => {
-			window.removeEventListener('resize', () => updateRect());
-			scrollingElement?.removeEventListener('scroll', () => updateRect());
+			window.removeEventListener('resize', () => {
+				updateRect();
+			});
+			scrollingElement?.removeEventListener('scroll', () => {
+				updateRect();
+			});
 		};
 	}, [scrollingElement, targetElement, updateRect, containerRef]);
 

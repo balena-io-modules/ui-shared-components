@@ -1,4 +1,3 @@
-import React from 'react';
 import {
 	IconButton,
 	type IconButtonProps,
@@ -16,14 +15,14 @@ export interface IconButtonWithTrackingProps extends IconButtonProps {
 /**
  * This IconButton will send analytics in case the analytics context is passed through the provider (AnalyticsProvider).
  */
-export const IconButtonWithTracking: React.FC<IconButtonWithTrackingProps> = ({
+export const IconButtonWithTracking = ({
 	eventName,
 	eventProperties,
 	children,
 	tooltip,
 	onClick,
 	...rest
-}) => {
+}: IconButtonWithTrackingProps) => {
 	const { state } = useAnalyticsContext();
 
 	const handleClick = (event: any) => {

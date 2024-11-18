@@ -1,7 +1,5 @@
 // Exceptions would only happen if `localStorage` is not supported, which is not the case for the browers we support. We still, however, want to report such exception so we are aware if that happens in the wild.
-export const getFromLocalStorage = <T extends any>(
-	key: string,
-): T | undefined => {
+export const getFromLocalStorage = <T>(key: string): T | undefined => {
 	try {
 		const val = localStorage.getItem(key);
 		if (val != null) {

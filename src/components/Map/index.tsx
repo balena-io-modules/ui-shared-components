@@ -91,7 +91,7 @@ const onGoogleMapsApiLoad = (map: google.maps.Map, markers: UIMarker[]) => {
 	});
 };
 
-const getFieldFromMap = <T extends any>(
+const getFieldFromMap = <T extends object>(
 	entry: T,
 	fieldName: keyof MapProps<T>['dataMap'],
 	dataMap: MapProps<T>['dataMap'],
@@ -109,7 +109,7 @@ const getFieldFromMap = <T extends any>(
 	}
 };
 
-const BaseMap = <T extends any>({
+const BaseMap = <T extends object>({
 	className,
 	data = [],
 	dataMap,
@@ -128,7 +128,11 @@ const BaseMap = <T extends any>({
 						id: getFieldFromMap(entry, 'id', dataMap),
 						title: getFieldFromMap(entry, 'title', dataMap),
 						icon: getIcon ? getIcon(entry) : undefined,
-						click: onItemClick ? () => onItemClick(entry) : undefined,
+						click: onItemClick
+							? () => {
+									onItemClick(entry);
+								}
+							: undefined,
 					};
 
 					if (
@@ -156,7 +160,9 @@ const BaseMap = <T extends any>({
 							opacity: 1,
 						}}
 						options={defaultMapOptions}
-						onLoad={(map) => onGoogleMapsApiLoad(map, markers)}
+						onLoad={(map) => {
+							onGoogleMapsApiLoad(map, markers);
+						}}
 						onClick={mapClick}
 					>
 						{markers.map((marker) => (

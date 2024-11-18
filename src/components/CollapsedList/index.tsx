@@ -16,10 +16,10 @@ export interface CollapsedListProps {
 /**
  * This will collapse a long list and allow to expand it by clicking the "expand" button.
  */
-export const CollapsedList: React.FC<CollapsedListProps> = ({
+export const CollapsedList = ({
 	list,
 	collapseItems = 3,
-}) => {
+}: CollapsedListProps) => {
 	const [showMore, setShowMore] = useState(false);
 	const listItems = useMemo(
 		() => (
@@ -61,7 +61,11 @@ export const CollapsedList: React.FC<CollapsedListProps> = ({
 				{listItems}
 			</Collapse>
 			{list.length > collapseItems && (
-				<Button onClick={() => setShowMore(!showMore)}>
+				<Button
+					onClick={() => {
+						setShowMore(!showMore);
+					}}
+				>
 					{showMore ? 'Less' : 'More'}
 					{showMore ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
 				</Button>
