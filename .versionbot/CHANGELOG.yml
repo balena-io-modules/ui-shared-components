@@ -1,4 +1,15 @@
 - commits:
+    - subject: "Form: Improve forwardRef typings"
+      hash: 11ad8e8ee037b2c8cae5b144817b1500ee4c8cea
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Thodoris Greasidis
+  version: 9.7.5
+  title: ""
+  date: 2024-11-18T20:03:01.825Z
+- commits:
     - subject: Fix textarea vertical spacing being too big
       hash: dba4414d50424cc3d10a245a04f13ae21b81d2fe
       body: ""
