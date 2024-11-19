@@ -19,7 +19,10 @@ import { useEffect } from 'react';
 import { useAnalyticsContext } from '../../contexts/AnalyticsContext';
 import { SnackbarCloseReason } from '@mui/material/Snackbar/Snackbar';
 
-export type AnnouncementCloseReason = SnackbarCloseReason | 'closeButtonClick';
+export type AnnouncementCloseReason =
+	| SnackbarCloseReason
+	| 'closeButtonClick'
+	| 'linkClick';
 
 export interface AnnouncementProps {
 	open?: boolean;
@@ -88,6 +91,10 @@ const AnnouncementContent = styled(Stack, {
 	},
 }));
 
+function SlideTransition(props: SlideProps) {
+	return <Slide {...props} direction="up" />;
+}
+
 /**
  * This component is a notification intended to be displayed in the bottom right
  * corner of the screen, usually sharing updates on the product with our users.
@@ -114,22 +121,28 @@ export const Announcement = React.forwardRef<HTMLDivElement, AnnouncementProps>(
 
 		// TODO remove this event after the first campaign, when we are sure that the notification is being shown properly
 		useEffect(() => {
-			analytics.webTracker?.track('Announcement: open', {
-				campaign_id: campaignId,
-			});
-		}, []);
+			if (open) {
+				analytics.webTracker?.track('Announcement displayed', {
+					campaign_id: campaignId,
+				});
+			}
+		}, [open]);
 
 		return (
 			<Snackbar
 				open={open}
 				anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-				TransitionComponent={(props: SlideProps) => {
-					return <Slide direction="up" {...props} />;
-				}}
+				TransitionComponent={SlideTransition}
+				key={SlideTransition.name}
 				ref={ref}
 				onClose={onClose}
 				sx={[
-					(theme) => ({ maxWidth: 350, zIndex: theme.zIndex.drawer - 1 }),
+					(theme) => ({
+						zIndex: theme.zIndex.drawer - 1,
+						[theme.breakpoints.up('sm')]: {
+							maxWidth: 350,
+						},
+					}),
 					// See: https://mui.com/system/getting-started/the-sx-prop/#passing-the-sx-prop
 					...(Array.isArray(sx) ? sx : [sx]),
 				]}
@@ -144,12 +157,10 @@ export const Announcement = React.forwardRef<HTMLDivElement, AnnouncementProps>(
 							<IconButtonWithTracking
 								edge="end"
 								size="small"
-								eventName="Announcement: dismiss"
+								eventName="Announcement dismissed"
 								eventProperties={{ campaign_id: campaignId }}
 								onClick={(e) => {
-									if (onClose) {
-										onClose(e, 'closeButtonClick');
-									}
+									onClose?.(e, 'closeButtonClick');
 								}}
 								sx={(theme) => ({ ml: 'auto', my: `-${theme.spacing(1)}` })}
 							>
@@ -159,7 +170,10 @@ export const Announcement = React.forwardRef<HTMLDivElement, AnnouncementProps>(
 						{children}
 						<MUILinkWithTracking
 							href={linkHref}
-							eventName="Announcement: click on link"
+							eventName="Announcement link clicked"
+							onClick={(e) => {
+								onClose?.(e, 'linkClick');
+							}}
 							eventProperties={{
 								campaign_id: campaignId,
 								href: linkHref,

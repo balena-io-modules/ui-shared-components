@@ -1763,6 +1763,17 @@ export const theme = createTheme({
 				},
 			},
 		},
+		MuiSnackbar: {
+			styleOverrides: {
+				anchorOriginBottomRight: ({ theme }) => ({
+					[theme.breakpoints.up('sm')]: {
+						// Make room for the 'need help' button
+						// TODO add a theme.spacing entry between 32 and 64
+						right: 48,
+					},
+				}),
+			},
+		},
 	},
 });
 
