@@ -1,4 +1,19 @@
 - commits:
+    - subject: Improvements to the announcement notification
+      hash: afe9f894e492bb99dbad3c49776e8c6bc7540d64
+      body: |
+        * Close the announcement when user has clicked on a link
+        * Announcement slides down when closed
+        * Better responsive styles
+        * Make room for the 'need help' button
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Jonathan Berger
+  version: 9.7.6
+  title: ""
+  date: 2024-11-19T18:36:17.188Z
+- commits:
     - subject: "Form: Improve forwardRef typings"
       hash: 11ad8e8ee037b2c8cae5b144817b1500ee4c8cea
       body: ""
@@ -174,18 +189,16 @@
 - commits:
     - subject: Change hover and active colors on menu items
       hash: a69ec8c7be3140f1c1da8057fc926824619e195f
-      body: >
-        Fibery:
-        https://balena.fibery.io/Work/Task/We-are-lacking-a-background-color-for-hover-state-2293
+      body: |
+        Fibery: https://balena.fibery.io/Work/Task/We-are-lacking-a-background-color-for-hover-state-2293
       footer:
         Change-type: patch
         change-type: patch
       author: Jonathan Berger
     - subject: Add hover color to toggle buttons
       hash: 6eb5a72d40efdb166d5e640c8f7ee7a091b2c6e8
-      body: >
-        Fibery:
-        https://balena.fibery.io/Work/Task/Lens-icons-don't-have-a-hover-effect-2264
+      body: |
+        Fibery: https://balena.fibery.io/Work/Task/Lens-icons-don't-have-a-hover-effect-2264
       footer:
         Change-type: patch
         change-type: patch
@@ -199,18 +212,16 @@
       author: Jonathan Berger
     - subject: Darken tab item text color
       hash: 49ade5f559ef5fc539cecc712ef6952eb43b2993
-      body: >
-        Fibery:
-        https://balena.fibery.io/Work/Task/Normal-state-color-for-tab-items-is-too-light-2275
+      body: |
+        Fibery: https://balena.fibery.io/Work/Task/Normal-state-color-for-tab-items-is-too-light-2275
       footer:
         Change-type: patch
         change-type: patch
       author: Jonathan Berger
     - subject: Add a white background to inputs
       hash: 58a445c8c6cd08295e3250dbbce8071a2d8f5f70
-      body: >
-        Fibery:
-        https://balena.fibery.io/Work/Task/Inputs-should-have-a-background-color-2277
+      body: |
+        Fibery: https://balena.fibery.io/Work/Task/Inputs-should-have-a-background-color-2277
       footer:
         Change-type: patch
         change-type: patch
