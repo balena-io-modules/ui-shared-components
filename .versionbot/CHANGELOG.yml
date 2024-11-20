@@ -1,4 +1,16 @@
 - commits:
+    - subject: Update dependency virtua to ^0.37.0
+      hash: 4c062b3e3981dd7ec4cf8066852cb5d8c29f6b9b
+      body: |
+        Update virtua from 0.36.3 to 0.37.0
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Self-hosted Renovate Bot
+  version: 9.7.8
+  title: ""
+  date: 2024-11-20T15:27:01.112Z
+- commits:
     - subject: Update balena lint
       hash: b637c0c903386db0825a927d515744510914e9cd
       body: ""
