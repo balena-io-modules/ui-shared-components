@@ -10,7 +10,7 @@ import {
 } from '@mui/material';
 import { MUILinkWithTracking } from '../MUILinkWithTracking';
 import { getOsVariantDisplayText } from './utils';
-import { VersionSelectionOptions } from './version';
+import type { VersionSelectionOptions } from './version';
 import { Lightbulb } from '@mui/icons-material';
 
 const variantInfo: {
@@ -51,8 +51,8 @@ const variantInfo: {
 		title: <Typography>{getOsVariantDisplayText('prod')}</Typography>,
 		description: (
 			<>
-				Production images are ready for production deployments, but don't offer
-				easy access for local development.
+				Production images are ready for production deployments, but don&apos;t
+				offer easy access for local development.
 			</>
 		),
 	},
@@ -60,17 +60,17 @@ const variantInfo: {
 
 const BuildVariants = ['dev', 'prod'] as const;
 export type BuildVariant = (typeof BuildVariants)[number];
-interface VaraintSelectorProps {
+interface VariantSelectorProps {
 	version: VersionSelectionOptions | undefined;
 	onVariantChange: (isDev: boolean) => void;
 	variant: BuildVariant;
 }
 
-export const VariantSelector: React.FC<VaraintSelectorProps> = ({
+export const VariantSelector = ({
 	version,
 	variant,
 	onVariantChange,
-}) => {
+}: VariantSelectorProps) => {
 	return (
 		<FormControl>
 			<FormLabel>Select edition</FormLabel>

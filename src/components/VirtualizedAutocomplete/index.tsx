@@ -1,11 +1,6 @@
 import { color } from '@balena/design-tokens';
-import {
-	Autocomplete,
-	AutocompleteProps,
-	ChipTypeMap,
-	Box,
-	ListItemButton,
-} from '@mui/material';
+import type { AutocompleteProps, ChipTypeMap } from '@mui/material';
+import { Autocomplete, Box, ListItemButton } from '@mui/material';
 import throttle from 'lodash/throttle';
 import * as React from 'react';
 import { VList } from 'virtua';
@@ -19,13 +14,16 @@ interface ItemDataElement {
 const ListboxComponent = ({
 	children,
 	isNextPageLoading,
+	style,
+	pagination,
 	...props
 }: React.HTMLAttributes<HTMLElement> & {
 	pagination: { loadNextPage?: () => Promise<void>; itemCount?: number };
 	isNextPageLoading: boolean;
+	style: React.CSSProperties;
 }) => {
 	const itemData = (children as ItemDataElement[]).slice();
-	const { itemCount, loadNextPage } = props.pagination;
+	const { itemCount, loadNextPage } = pagination;
 	const [optionHeightsTotal, setOptionHeightsTotal] = React.useState(0);
 
 	React.useEffect(() => {
@@ -43,17 +41,13 @@ const ListboxComponent = ({
 			}
 			setOptionHeightsTotal(total);
 		}
-	}, [
-		document.documentElement.clientHeight,
-		optionHeightsTotal,
-		document.getElementsByClassName('MuiAutocomplete-option'),
-	]);
+	}, [optionHeightsTotal]);
 
 	return (
 		<Box
 			{...props}
 			style={{
-				...props.style,
+				...style,
 				padding: 0,
 				height:
 					document.documentElement.clientHeight * 0.4 < optionHeightsTotal
@@ -67,13 +61,13 @@ const ListboxComponent = ({
 				style={{
 					flex: 1,
 				}}
-				onRangeChange={(_, lastItemIndex) => {
+				onRangeChange={async (_, lastItemIndex) => {
 					if (
 						itemCount != null &&
 						lastItemIndex + 1 === itemData.length &&
 						lastItemIndex + 1 < itemCount
 					) {
-						loadNextPage?.();
+						await loadNextPage?.();
 					}
 				}}
 			>
@@ -86,8 +80,9 @@ const ListboxComponent = ({
 									sx: {
 										borderBottom: `1px solid ${color.border.subtle.value}`,
 									},
-							  }
+								}
 							: {})}
+						key={item.index}
 					>
 						{item.option}
 					</Box>
@@ -115,22 +110,16 @@ const ListboxComponent = ({
 	);
 };
 
-export interface VirtualizedAutocompleteProps<
+export type VirtualizedAutocompleteProps<
 	Value,
 	Multiple extends boolean | undefined = false,
 	DisableClearable extends boolean | undefined = false,
 	FreeSolo extends boolean | undefined = false,
 	ChipComponent extends React.ElementType = ChipTypeMap['defaultComponent'],
-> extends Omit<
-		AutocompleteProps<
-			Value,
-			Multiple,
-			DisableClearable,
-			FreeSolo,
-			ChipComponent
-		>,
-		'ListboxComponent'
-	> {}
+> = Omit<
+	AutocompleteProps<Value, Multiple, DisableClearable, FreeSolo, ChipComponent>,
+	'ListboxComponent'
+>;
 
 export interface VirtualizedAutocompleteWithPaginationProps<
 	Value,
@@ -152,7 +141,7 @@ export interface VirtualizedAutocompleteWithPaginationProps<
 	loadNext: (
 		page: number,
 		query: string | undefined,
-	) => Promise<{ data: Value[]; totalItems: number }>;
+	) => MaybePromise<{ data: Value[]; totalItems: number }>;
 }
 
 const VirtualizedAutocompleteBase = <
@@ -194,14 +183,17 @@ const VirtualizedAutocompleteBase = <
 	const options = 'options' in props ? props.options : undefined;
 
 	const loadNextPage = React.useCallback(
-		async (page: number, items: Value[], query: string) => {
+		async (pageParam: number, items: Value[], queryParam: string) => {
 			if (loadNext === undefined || isNextPageLoading) {
 				return;
 			}
 			setIsNextPageLoading(true);
-			setQuery(query);
-			const { data: nextItems, totalItems } = await loadNext(page, query);
-			setPage(page + 1);
+			setQuery(queryParam);
+			const { data: nextItems, totalItems } = await loadNext(
+				pageParam,
+				queryParam,
+			);
+			setPage(pageParam + 1);
 			setResponse({ data: items.concat(nextItems), totalItems });
 			setIsNextPageLoading(false);
 		},
@@ -215,12 +207,12 @@ const VirtualizedAutocompleteBase = <
 		],
 	);
 
-	const onInputChange = async (query: string, items: Value[]) =>
-		await loadNextPage(0, items, query);
-
-	const debouncedInputChange = React.useCallback(
-		throttle(onInputChange, 500),
-		[],
+	const debouncedInputChange = React.useMemo(
+		() =>
+			throttle(async (input: string, items: Value[]) => {
+				await loadNextPage(0, items, input);
+			}, 500),
+		[loadNextPage],
 	);
 
 	const pagination = React.useMemo(
@@ -243,7 +235,7 @@ const VirtualizedAutocompleteBase = <
 					props: renderOptionProps,
 					option: renderOption?.(renderOptionProps, option, state, ownerState),
 					index: state.index,
-				} as unknown as React.ReactNode)
+				}) as unknown as React.ReactNode
 			}
 			ListboxProps={
 				{
@@ -260,21 +252,19 @@ const VirtualizedAutocompleteBase = <
 					ChipComponent
 				>['ListboxComponent']
 			}
-			onInputChange={async (event, query) => {
+			onInputChange={async (event, input) => {
 				// dropdown is opened, we should move this in a useEffect
 				if (!event && !response.totalItems) {
 					await loadNextPage(0, [], '');
 				}
 				// input change
 				if (event?.type === 'change') {
-					await debouncedInputChange(query, []);
+					await debouncedInputChange(input, []);
 				}
 			}}
 			getOptionLabel={getOptionLabel}
 			value={value}
-			{...(loadNext === undefined
-				? {}
-				: { filterOptions: (options) => options })}
+			{...(loadNext === undefined ? {} : { filterOptions: (o) => o })}
 		/>
 	);
 };

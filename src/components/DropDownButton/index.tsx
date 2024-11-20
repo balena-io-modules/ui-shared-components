@@ -1,14 +1,11 @@
 import { useMemo, useState } from 'react';
-import {
-	Button,
-	ButtonGroup,
-	ButtonGroupProps,
-	MenuItem,
+import type {
 	MenuItemProps,
-	Menu,
+	ButtonGroupProps,
 	ButtonProps,
 	TooltipProps,
 } from '@mui/material';
+import { Button, ButtonGroup, MenuItem, Menu } from '@mui/material';
 import { ButtonWithTracking } from '../ButtonWithTracking';
 import { useAnalyticsContext } from '../../contexts/AnalyticsContext';
 import groupBy from 'lodash/groupBy';
@@ -32,7 +29,7 @@ export interface DropDownButtonProps<T = unknown>
 	selectedItemIndex?: number;
 	groupByProp?: keyof T;
 	onClick?: (
-		event: React.MouseEvent<HTMLButtonElement | HTMLLIElement, MouseEvent>,
+		event: React.MouseEvent<HTMLButtonElement | HTMLLIElement>,
 		item: MenuItemWithTrackingProps,
 	) => void;
 }
@@ -41,6 +38,7 @@ export interface DropDownButtonProps<T = unknown>
  * This component implements a Dropdown button using MUI (This can be removed as soon as MUI implements it. Check
  * progress: https://mui.com/material-ui/discover-more/roadmap/#new-components)
  */
+// eslint-disable-next-line @typescript-eslint/no-unnecessary-type-constraint
 export const DropDownButton = <T extends unknown>({
 	items,
 	selectedItemIndex = 0,
@@ -103,8 +101,8 @@ export const DropDownButton = <T extends unknown>({
 		<>
 			{children ? (
 				<Button
-					aria-controls={!!anchorEl ? 'dropdown' : undefined}
-					aria-expanded={!!anchorEl ? 'true' : undefined}
+					aria-controls={anchorEl ? 'dropdown' : undefined}
+					aria-expanded={anchorEl ? 'true' : undefined}
 					onClick={(event) => {
 						setAnchorEl(event.currentTarget);
 					}}
@@ -147,7 +145,9 @@ export const DropDownButton = <T extends unknown>({
 					<MenuItemWithTracking
 						key={index}
 						{...item}
-						onClick={(event) => handleMenuItemClick(event, index)}
+						onClick={(event) => {
+							handleMenuItemClick(event, index);
+						}}
 					>
 						{item.children}
 					</MenuItemWithTracking>
@@ -168,17 +168,17 @@ export interface MenuItemWithTrackingProps
 /**
  * This MenuItem will send analytics in case the analytics context is passed through the provider (AnalyticsProvider).
  */
-export const MenuItemWithTracking: React.FC<MenuItemWithTrackingProps> = ({
+export const MenuItemWithTracking = ({
 	eventName,
 	eventProperties,
 	children,
 	tooltip,
 	onClick,
 	...menuItem
-}) => {
+}: MenuItemWithTrackingProps) => {
 	const { state } = useAnalyticsContext();
 
-	const handleClick = (event: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
+	const handleClick = (event: React.MouseEvent<HTMLLIElement>) => {
 		if (state.webTracker) {
 			state.webTracker.track(eventName, eventProperties);
 		}

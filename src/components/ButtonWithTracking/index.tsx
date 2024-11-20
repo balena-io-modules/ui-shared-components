@@ -1,4 +1,3 @@
-import React from 'react';
 import { Button, type ButtonProps, type TooltipProps } from '@mui/material';
 import { useAnalyticsContext } from '../../contexts/AnalyticsContext';
 import { Tooltip } from '../Tooltip';
@@ -12,14 +11,14 @@ export interface ButtonWithTrackingProps extends ButtonProps {
 /**
  * This button will send analytics in case the analytics context is passed through the provider (AnalyticsProvider).
  */
-export const ButtonWithTracking: React.FC<ButtonWithTrackingProps> = ({
+export const ButtonWithTracking = ({
 	eventName,
 	eventProperties,
 	children,
 	tooltip,
 	onClick,
 	...rest
-}) => {
+}: ButtonWithTrackingProps) => {
 	const { state } = useAnalyticsContext();
 
 	const handleClick = (event: any) => {

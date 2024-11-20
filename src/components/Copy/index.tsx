@@ -1,7 +1,7 @@
 import { faCopy } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Box, Tooltip, useTheme } from '@mui/material';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { color } from '@balena/design-tokens';
 
 export interface CopyProps {
@@ -37,18 +37,24 @@ export const Copy = ({
 		if (!closeTooltipTimeout) {
 			return;
 		}
-		return () => clearTimeout(closeTooltipTimeout);
+		return () => {
+			clearTimeout(closeTooltipTimeout);
+		};
 	}, [closeTooltipTimeout]);
 
-	const handleTooltipOpen = () => {
+	const handleTooltipOpen = useCallback(() => {
 		setOpen(true);
 		if (closeTooltipTimeout != null) {
 			clearTimeout(closeTooltipTimeout);
 		}
-		setCloseTooltipTimeout(setTimeout(() => setOpen(false), 1000));
-	};
+		setCloseTooltipTimeout(
+			setTimeout(() => {
+				setOpen(false);
+			}, 1000),
+		);
+	}, [closeTooltipTimeout]);
 
-	const copyClick = React.useCallback(
+	const copyClick = useCallback(
 		(e: React.MouseEvent) => {
 			e.preventDefault();
 			e.stopPropagation();
@@ -58,9 +64,9 @@ export const Copy = ({
 			}
 			handleTooltipOpen();
 			onClick?.();
-			copyToClipboard(copy);
+			void copyToClipboard(copy);
 		},
-		[onClick, copy],
+		[onClick, copy, handleTooltipOpen],
 	);
 
 	if (!copy) {

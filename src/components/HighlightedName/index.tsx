@@ -2,7 +2,8 @@ import { useMemo } from 'react';
 import Color from 'color';
 import ColorHash from 'color-hash';
 import memoize from 'lodash/memoize';
-import { Typography, TypographyProps, useTheme } from '@mui/material';
+import type { TypographyProps } from '@mui/material';
+import { Typography, useTheme } from '@mui/material';
 
 const colorHash = new ColorHash();
 

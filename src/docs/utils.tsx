@@ -1,20 +1,14 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import type { ToggleButtonGroupProps, TypographyVariant } from '@mui/material';
 import {
 	Box,
 	ToggleButton,
 	ToggleButtonGroup,
-	ToggleButtonGroupProps,
-	ToggleButtonProps,
 	Typography,
-	TypographyVariant,
 } from '@mui/material';
 import { color } from '@balena/design-tokens';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-	faBars,
-	faGrip,
-	IconDefinition,
-} from '@fortawesome/free-solid-svg-icons';
+import type { IconDefinition } from '@fortawesome/free-solid-svg-icons';
 
 // TODO move this type to the Design Tokens package
 type JsonToken = {
@@ -141,7 +135,11 @@ export const LensToggle = ({
 	return (
 		<ToggleButtonGroup onChange={handleChange} exclusive {...props}>
 			{segments.map((segment, i) => (
-				<ToggleButton value={i} selected={value === i}>
+				<ToggleButton
+					value={i}
+					selected={value === i}
+					key={`${segment.label ?? segment.icon?.iconName}_${i}`}
+				>
 					{segment.icon && <FontAwesomeIcon icon={segment.icon} />}
 					{withWrapAroundLabel ? <span>{segment.label}</span> : segment.label}
 				</ToggleButton>

@@ -44,7 +44,7 @@
     "zxcvbn": "^4.4.2"
   },
   "devDependencies": {
-    "@balena/lint": "^6.2.2",
+    "@balena/lint": "^9.1.0",
     "@storybook/addon-essentials": "^8.1.11",
     "@storybook/addon-interactions": "^8.1.11",
     "@storybook/addon-links": "^8.1.11",
@@ -77,8 +77,8 @@
     "build": "rimraf dist && tsc",
     "test": "echo 'No tests found, skipping test suite.'",
     "prepack": "npm run build",
-    "lint": "balena-lint --typescript src",
-    "lint:fix": "balena-lint --typescript --fix src",
+    "lint": "balena-lint src",
+    "lint:fix": "balena-lint --fix src",
     "prepare": "husky",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build --docs",

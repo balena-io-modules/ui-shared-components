@@ -1,12 +1,11 @@
 import * as React from 'react';
+import type { SlideProps, SxProps } from '@mui/material';
 import {
 	Box,
 	Slide,
-	SlideProps,
 	Snackbar,
 	Stack,
 	styled,
-	SxProps,
 	useThemeProps,
 } from '@mui/material';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -17,7 +16,7 @@ import { MUILinkWithTracking } from '../MUILinkWithTracking';
 import { IconButtonWithTracking } from '../IconButtonWithTracking';
 import { useEffect } from 'react';
 import { useAnalyticsContext } from '../../contexts/AnalyticsContext';
-import { SnackbarCloseReason } from '@mui/material/Snackbar/Snackbar';
+import type { SnackbarCloseReason } from '@mui/material/Snackbar/Snackbar';
 
 export type AnnouncementCloseReason =
 	| SnackbarCloseReason
@@ -126,7 +125,7 @@ export const Announcement = React.forwardRef<HTMLDivElement, AnnouncementProps>(
 					campaign_id: campaignId,
 				});
 			}
-		}, [open]);
+		}, [open, analytics.webTracker, campaignId]);
 
 		return (
 			<Snackbar

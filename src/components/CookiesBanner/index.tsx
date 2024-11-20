@@ -96,6 +96,7 @@ export const CookiesBanner = ({
 
 	useEffect(() => {
 		onInit?.(localStorageCookies);
+		// eslint-disable-next-line react-hooks/exhaustive-deps -- We only want to run this on mount
 	}, []);
 
 	if (!show || !!localStorageCookies) {
@@ -120,7 +121,9 @@ export const CookiesBanner = ({
 								<Box display="flex">
 									<Switch
 										checked={cookie.value}
-										onChange={() => handleOnChange(key)}
+										onChange={() => {
+											handleOnChange(key);
+										}}
 										disabled={cookie.required}
 									/>
 								</Box>
@@ -131,8 +134,8 @@ export const CookiesBanner = ({
 					<Box display="flex" justifyContent="center">
 						<Typography variant="body1">
 							We use cookies to enhance your browsing experience and analyze our
-							traffic. By clicking "Accept All" you consent to our use of
-							cookies. Read more about our{' '}
+							traffic. By clicking &quot;Accept All&quot; you consent to our use
+							of cookies. Read more about our{' '}
 							<Link href="https://www.balena.io/privacy-policy" target="_blank">
 								privacy policy
 							</Link>
@@ -152,7 +155,9 @@ export const CookiesBanner = ({
 					</Button>
 					<Button
 						variant="outlined"
-						onClick={() => setShowCustomizeView(!showCustomizeView)}
+						onClick={() => {
+							setShowCustomizeView(!showCustomizeView);
+						}}
 					>
 						{showCustomizeView ? 'Back' : 'Customize'}
 					</Button>

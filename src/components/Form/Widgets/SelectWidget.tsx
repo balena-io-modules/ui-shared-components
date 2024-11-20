@@ -6,7 +6,7 @@ import {
 	InputLabel,
 	Typography,
 } from '@mui/material';
-import { WidgetProps } from '@rjsf/utils';
+import type { WidgetProps } from '@rjsf/utils';
 import omit from 'lodash/omit';
 import isEqual from 'lodash/isEqual';
 
@@ -42,9 +42,7 @@ export const SelectWidget = ({
 	const selectOptions = enumOptions.map((option) => {
 		return {
 			...option,
-			disabled:
-				sanitizedEnumDisabled != null &&
-				sanitizedEnumDisabled.includes(option.value),
+			disabled: sanitizedEnumDisabled?.includes(option.value),
 		};
 	});
 
@@ -80,12 +78,12 @@ export const SelectWidget = ({
 					Array.isArray(value)
 						? selectOptions.filter((option) =>
 								value.some((v) => isEqual(option.value, v)),
-						  )
+							)
 						: value !== undefined
-						? selectOptions.find((option) => isEqual(option.value, value))
-						: includeNoneOption
-						? noneOption
-						: undefined
+							? selectOptions.find((option) => isEqual(option.value, value))
+							: includeNoneOption
+								? noneOption
+								: undefined
 				}
 				{...{
 					name,
@@ -99,16 +97,17 @@ export const SelectWidget = ({
 					tagValues.map((option, index) => {
 						const tagProps = getTagProps({ index });
 						return (
+							// eslint-disable-next-line react/jsx-key -- `key` is provided by getTagProps
 							<Chip
-								label={(option as (typeof selectOptions)[number]).label}
-								{...((option as (typeof selectOptions)[number]).schema?.disabled
+								label={option.label}
+								{...(option.schema?.disabled
 									? omit(tagProps, 'onDelete')
 									: tagProps)}
 							/>
 						);
 					})
 				}
-				isOptionEqualToValue={(option, value) => isEqual(option, value)}
+				isOptionEqualToValue={(option, val) => isEqual(option, val)}
 				getOptionLabel={(option) =>
 					Array.isArray(option)
 						? option.map((o) => o.label).join(', ')
@@ -117,7 +116,7 @@ export const SelectWidget = ({
 				getOptionDisabled={(option) =>
 					Array.isArray(option)
 						? option.some((o) => o.disabled)
-						: option.disabled
+						: !!option.disabled
 				}
 				renderInput={(params) => (
 					<TextField
@@ -162,17 +161,20 @@ export const SelectWidget = ({
 								return undefined;
 							})
 							.filter((v) => v !== undefined);
-						return onChange(val.length > 0 ? val : options.emptyValue);
+						onChange(val.length > 0 ? val : options.emptyValue);
+						return;
 					}
 					if (selected && typeof selected === 'object' && 'value' in selected) {
 						if (includeNoneOption && selected.value === null) {
-							return onChange(options.emptyValue);
+							onChange(options.emptyValue);
+							return;
 						}
-						return onChange(
+						onChange(
 							selected.value === '' ? options.emptyValue : selected.value,
 						);
+						return;
 					}
-					return onChange(options.emptyValue);
+					onChange(options.emptyValue);
 				}}
 				disableClearable
 				{...otherUiSchema}

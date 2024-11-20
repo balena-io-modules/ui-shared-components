@@ -1,5 +1,6 @@
 import template from 'lodash/template';
-import { Dictionary, OptionalNavigationResource, OsTypesEnum } from './models';
+import type { Dictionary, OptionalNavigationResource } from './models';
+import { OsTypesEnum } from './models';
 
 // TODO: find a way to no release to a link but also not duplicate
 export const FALLBACK_LOGO_UNKNOWN_DEVICE =
@@ -11,7 +12,7 @@ export const OS_VARIANT_FULL_DISPLAY_TEXT_MAP: Dictionary<string> = {
 };
 
 export const getExpanded = <T>(obj: OptionalNavigationResource<T>) =>
-	(Array.isArray(obj) && obj[0]) || undefined;
+	(Array.isArray(obj) && obj[0]) ?? undefined;
 
 export const stripVersionBuild = (version: string) =>
 	version.replace(/(\.dev|\.prod)/, '');

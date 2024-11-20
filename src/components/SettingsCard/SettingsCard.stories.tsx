@@ -23,8 +23,8 @@ export const Default: Story = {
 						<Stack gap={2}>
 							<Code sx={{ width: 'fit-content' }}>johndoe113</Code>
 							<Typography component="p">
-								Your username is auto-generated. Currently it's impossible to
-								change it, but we are working on making it editable.
+								Your username is auto-generated. Currently it&apos;s impossible
+								to change it, but we are working on making it editable.
 							</Typography>
 						</Stack>
 					}

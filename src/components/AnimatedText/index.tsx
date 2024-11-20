@@ -10,11 +10,11 @@ export interface AnimatedTextProps {
 /**
  * This component will animate the array of strings passed as words.
  */
-export const AnimatedText: React.FC<AnimatedTextProps> = ({
+export const AnimatedText = ({
 	words,
 	animationType,
 	animationTimeout = 4000,
-}) => {
+}: AnimatedTextProps) => {
 	const [wordIndex, setWordIndex] = useState(0);
 	const [showSlide, setSetShowSlide] = useState(true);
 	const indexInterval = useRef<any>();
@@ -24,14 +24,17 @@ export const AnimatedText: React.FC<AnimatedTextProps> = ({
 		const setupTimeouts = () => {
 			indexInterval.current = setTimeout(() => {
 				setSetShowSlide(false);
-				slideInterval.current = setTimeout(() => {
-					if (wordIndex + 1 === words.length) {
-						setWordIndex(0);
-					} else {
-						setWordIndex(wordIndex + 1);
-					}
-					setSetShowSlide(true);
-				}, animationTimeout - (animationTimeout - 1200));
+				slideInterval.current = setTimeout(
+					() => {
+						if (wordIndex + 1 === words.length) {
+							setWordIndex(0);
+						} else {
+							setWordIndex(wordIndex + 1);
+						}
+						setSetShowSlide(true);
+					},
+					animationTimeout - (animationTimeout - 1200),
+				);
 			}, animationTimeout);
 		};
 		setupTimeouts();

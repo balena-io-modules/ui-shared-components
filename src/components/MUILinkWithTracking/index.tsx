@@ -11,14 +11,14 @@ export interface MUILinkWithTrackingProps extends LinkProps {
  * This Link will send analytics in case the analytics context is passed through
  * the provider (AnalyticsProvider).
  */
-export const MUILinkWithTracking: React.FC<MUILinkWithTrackingProps> = ({
+export const MUILinkWithTracking = ({
 	eventName,
 	eventProperties,
 	children,
 	onClick,
 	target = '_blank',
 	...rest
-}) => {
+}: MUILinkWithTrackingProps) => {
 	const { state } = useAnalyticsContext();
 
 	const handleClick = (event: any) => {

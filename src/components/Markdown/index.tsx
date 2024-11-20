@@ -1,7 +1,5 @@
-import {
-	default as ReactMarkdown,
-	Options as ReactMarkdownOptions,
-} from 'react-markdown';
+import type { Options as ReactMarkdownOptions } from 'react-markdown';
+import { default as ReactMarkdown } from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
 import { theme } from '../../theme';
@@ -12,7 +10,7 @@ import { color } from '@balena/design-tokens';
  */
 export const Markdown: React.FC<ReactMarkdownOptions> = ({
 	components,
-	...otherProps
+	...props
 }) => {
 	return (
 		<ReactMarkdown
@@ -114,7 +112,7 @@ export const Markdown: React.FC<ReactMarkdownOptions> = ({
 				},
 				...components,
 			}}
-			{...otherProps}
+			{...props}
 		/>
 	);
 };
