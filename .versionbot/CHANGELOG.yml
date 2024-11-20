@@ -1,4 +1,15 @@
 - commits:
+    - subject: Update balena lint
+      hash: b637c0c903386db0825a927d515744510914e9cd
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: myarmolinsky
+  version: 9.7.7
+  title: ""
+  date: 2024-11-20T14:18:00.565Z
+- commits:
     - subject: Improvements to the announcement notification
       hash: afe9f894e492bb99dbad3c49776e8c6bc7540d64
       body: |
