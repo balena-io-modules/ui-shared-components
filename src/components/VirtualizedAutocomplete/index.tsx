@@ -1,8 +1,9 @@
 import { color } from '@balena/design-tokens';
 import type { AutocompleteProps, ChipTypeMap } from '@mui/material';
-import { Autocomplete, Box, ListItemButton } from '@mui/material';
+import { Autocomplete, Box, ListItemButton, Stack } from '@mui/material';
 import throttle from 'lodash/throttle';
 import * as React from 'react';
+import type { VListHandle } from 'virtua';
 import { VList } from 'virtua';
 
 interface ItemDataElement {
@@ -25,6 +26,7 @@ const ListboxComponent = ({
 	const itemData = (children as ItemDataElement[]).slice();
 	const { itemCount, loadNextPage } = pagination;
 	const [optionHeightsTotal, setOptionHeightsTotal] = React.useState(0);
+	const ref = React.useRef<VListHandle>(null);
 
 	React.useEffect(() => {
 		if (!isNextPageLoading) {
@@ -44,7 +46,7 @@ const ListboxComponent = ({
 	}, [optionHeightsTotal]);
 
 	return (
-		<Box
+		<Stack
 			{...props}
 			style={{
 				...style,
@@ -53,19 +55,21 @@ const ListboxComponent = ({
 					document.documentElement.clientHeight * 0.4 < optionHeightsTotal
 						? '40vh'
 						: optionHeightsTotal,
-				display: 'flex',
-				flexDirection: 'column',
 			}}
 		>
 			<VList
+				ref={ref}
 				style={{
 					flex: 1,
 				}}
-				onRangeChange={async (_, lastItemIndex) => {
+				onScroll={async () => {
+					if (!ref.current) {
+						return;
+					}
 					if (
 						itemCount != null &&
-						lastItemIndex + 1 === itemData.length &&
-						lastItemIndex + 1 < itemCount
+						itemData.length < itemCount &&
+						ref.current.findEndIndex() + 50 > itemCount
 					) {
 						await loadNextPage?.();
 					}
@@ -80,7 +84,7 @@ const ListboxComponent = ({
 									sx: {
 										borderBottom: `1px solid ${color.border.subtle.value}`,
 									},
-								}
+							  }
 							: {})}
 						key={item.index}
 					>
@@ -106,7 +110,7 @@ const ListboxComponent = ({
 					Loading...
 				</Box>
 			)}
-		</Box>
+		</Stack>
 	);
 };
 
@@ -235,7 +239,7 @@ const VirtualizedAutocompleteBase = <
 					props: renderOptionProps,
 					option: renderOption?.(renderOptionProps, option, state, ownerState),
 					index: state.index,
-				}) as unknown as React.ReactNode
+				} as unknown as React.ReactNode)
 			}
 			ListboxProps={
 				{
