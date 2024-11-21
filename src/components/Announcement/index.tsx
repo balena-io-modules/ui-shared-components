@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Typography } from '@mui/material';
 import type { SlideProps, SxProps } from '@mui/material';
 import {
 	Box,
@@ -10,9 +11,7 @@ import {
 } from '@mui/material';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClose } from '@fortawesome/free-solid-svg-icons/faClose';
-import { faArrowUpRightFromSquare } from '@fortawesome/free-solid-svg-icons/faArrowUpRightFromSquare';
 import { shape } from '@balena/design-tokens';
-import { MUILinkWithTracking } from '../MUILinkWithTracking';
 import { IconButtonWithTracking } from '../IconButtonWithTracking';
 import { useEffect } from 'react';
 import { useAnalyticsContext } from '../../contexts/AnalyticsContext';
@@ -33,8 +32,6 @@ export interface AnnouncementProps {
 	children: React.ReactNode;
 	illustration?: React.ReactNode;
 	title: string;
-	linkHref: string;
-	linkLabel: string;
 	sx?: SxProps;
 }
 
@@ -59,7 +56,7 @@ const AnnouncementIllustration = styled('figure', {
 })(({ theme }) => ({
 	margin: 0,
 	maxWidth: 48,
-	minWidth: 32,
+	minWidth: 48,
 	[theme.breakpoints.up('sm')]: {
 		maxWidth: 72,
 	},
@@ -109,8 +106,6 @@ export const Announcement = React.forwardRef<HTMLDivElement, AnnouncementProps>(
 			campaignId,
 			children,
 			title,
-			linkHref,
-			linkLabel,
 			onClose,
 			open,
 			sx,
@@ -166,22 +161,7 @@ export const Announcement = React.forwardRef<HTMLDivElement, AnnouncementProps>(
 								<FontAwesomeIcon icon={faClose} />
 							</IconButtonWithTracking>
 						</AnnouncementTitle>
-						{children}
-						<MUILinkWithTracking
-							href={linkHref}
-							eventName="Announcement link clicked"
-							onClick={(e) => {
-								onClose?.(e, 'linkClick');
-							}}
-							eventProperties={{
-								campaign_id: campaignId,
-								href: linkHref,
-								label: linkLabel,
-							}}
-						>
-							{linkLabel}{' '}
-							<FontAwesomeIcon size="sm" icon={faArrowUpRightFromSquare} />
-						</MUILinkWithTracking>
+						<Typography>{children}</Typography>
 					</AnnouncementContent>
 				</AnnouncementRoot>
 			</Snackbar>
