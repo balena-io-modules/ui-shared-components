@@ -14,15 +14,20 @@ export const Default: Story = {
 	args: {
 		open: true,
 		campaignId: 'storybook-test',
-		children: <>Discover everything we’ve done these past two months!</>,
+		children: (
+			<>
+				Discover what we&apos;ve been working on recently in our{' '}
+				<a>Product Roundup</a>.
+			</>
+		),
 		title: 'balena Cycle Round-Up',
-		linkLabel: "Check out this cycle's roundup!",
-		linkHref: 'https://blog.balena.io',
 		illustration: <img alt="" src="/images/logo-icon.svg" />,
 		onClose: () => {
 			console.log('click on close button');
 		},
 		sx: {
+			// force Snackbar relative positioning for the story
+			right: 'auto !important',
 			position: 'relative',
 		},
 	},
