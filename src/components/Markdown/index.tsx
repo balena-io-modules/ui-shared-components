@@ -112,6 +112,7 @@ export const Markdown: React.FC<ReactMarkdownOptions> = ({
 				},
 				...components,
 			}}
+			skipHtml
 			{...props}
 		/>
 	);
