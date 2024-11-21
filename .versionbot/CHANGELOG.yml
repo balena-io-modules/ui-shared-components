@@ -1,4 +1,16 @@
 - commits:
+    - subject: Remove mandatory link in the announcement component (will be added as
+        part of the content in the UI)
+      hash: 2cd81efe7455275af600e9b0cd75c75876178690
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Jonathan Berger
+  version: 9.7.9
+  title: ""
+  date: 2024-11-21T13:32:55.076Z
+- commits:
     - subject: Update dependency virtua to ^0.37.0
       hash: 4c062b3e3981dd7ec4cf8066852cb5d8c29f6b9b
       body: |
