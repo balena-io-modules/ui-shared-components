@@ -1,0 +1,39 @@
+import { Meta, Unstyled } from '@storybook/blocks';
+import { theme } from '../../theme';
+import { Pagination, TablePagination, ThemeProvider } from '@mui/material';
+import {
+	faAngleLeft,
+	faAngleRight,
+	faAnglesLeft,
+	faAnglesRight,
+} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+<Meta title="Mui Components/Navigation/Pagination" />
+
+## Pagination
+
+<Unstyled>
+	<ThemeProvider theme={theme}>
+		<Pagination />
+	</ThemeProvider>
+</Unstyled>
+
+## Table Pagination
+
+<Unstyled>
+	<ThemeProvider theme={theme}>
+		<TablePagination rowsPerPageOptions={[5, 10, 25, 50, 100]} count={200} rowsPerPage={50} page={0}
+										 onPageChange={() => {}}
+										 showFirstButton
+										 slotProps={{
+											 actions: {
+												 firstButton: { size: 'small' },
+												 lastButton: { size: 'small' },
+												 nextButton: { size: 'small' },
+												 previousButton: { size: 'small' },
+											 }
+										 }}
+										 showLastButton />
+	</ThemeProvider>
+</Unstyled>

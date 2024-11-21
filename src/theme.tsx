@@ -1063,28 +1063,44 @@ export const theme = createTheme({
 		MuiTableRow: {
 			styleOverrides: {
 				root: {
-					'&:nth-of-type(even)': { backgroundColor: color.bg.value },
+					background: 'white',
+					'&:nth-of-type(even)': {
+						backgroundColor: color.components.table.row.value,
+					},
+					'&:hover': {
+						backgroundColor: color.bg.accent.value,
+					},
+					'&.Mui-selected': {
+						backgroundColor: color.palette.blue[25].value,
+						'&:hover': {
+							backgroundColor: color.bg.accent.value,
+						},
+					},
 				},
 			},
 		},
 		MuiTableCell: {
 			styleOverrides: {
 				root: ({ theme }) => ({
-					padding: `14px ${theme.spacing(2)}`,
+					height: 50,
 					fontSize: '1rem',
 					borderBottom: 'none',
 					[`&.${tableCellClasses.head}`]: {
-						backgroundColor: color.bg.value,
-						padding: `10px ${theme.spacing(2)}`,
-						borderBottom: `1px solid ${color.border.subtle.value}`,
+						backgroundColor: color.components.table.header.value,
+						borderBottom: `1px solid ${color.border.value}`,
 						fontWeight: 'bold',
 					},
+					'&:not(.MuiTableCell-paddingNone):not(.MuiTableCell-paddingCheckbox)':
+						{
+							padding: `14px ${theme.spacing(2)}`,
+						},
 				}),
 			},
 		},
 		MuiTableBody: {
 			styleOverrides: {
 				root: {
+					background: 'white',
 					borderBottom: `1px solid ${color.border.subtle.value}`,
 				},
 			},
@@ -1763,6 +1779,13 @@ export const theme = createTheme({
 				},
 			},
 		},
+		MuiToolbar: {
+			styleOverrides: {
+				root: {
+					minHeight: 'inherit !important',
+				},
+			},
+		},
 		MuiSnackbar: {
 			styleOverrides: {
 				anchorOriginBottomRight: ({ theme }) => ({
@@ -1771,6 +1794,30 @@ export const theme = createTheme({
 						// TODO add a theme.spacing entry between 32 and 64
 						right: 48,
 					},
+				}),
+			},
+		},
+		MuiTableSortLabel: {
+			styleOverrides: {
+				root: {
+					'&.Mui-active .MuiTableSortLabel-icon': {
+						color: color.icon.accent.value,
+					},
+				},
+				icon: {
+					color: color.icon.value,
+					fontSize: '16px',
+				},
+			},
+		},
+		MuiTablePagination: {
+			styleOverrides: {
+				actions: ({ theme }) => ({
+					marginLeft: theme.spacing(2),
+				}),
+				input: ({ theme }) => ({
+					marginLeft: theme.spacing(1),
+					marginRight: theme.spacing(2),
 				}),
 			},
 		},
