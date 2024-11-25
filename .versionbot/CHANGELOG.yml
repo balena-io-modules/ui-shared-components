@@ -1,4 +1,15 @@
 - commits:
+    - subject: Add useRandomUUID hook
+      hash: 52293a9e79fd1e10d216f832c88bcd84c4610efa
+      body: ""
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: Andrea Rosci
+  version: 9.8.0
+  title: ""
+  date: 2024-11-25T13:25:02.508Z
+- commits:
     - subject: Remove mandatory link in the announcement component (will be added as
         part of the content in the UI)
       hash: 2cd81efe7455275af600e9b0cd75c75876178690
