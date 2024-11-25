@@ -28,6 +28,7 @@ import {
 	faTrash,
 	faUpload,
 } from '@fortawesome/free-solid-svg-icons';
+import { useRandomUUID } from '../../../hooks/useRandomUUID';
 import uniq from 'lodash/uniq';
 
 const restingStyle: SxProps = {
@@ -135,8 +136,9 @@ export const FileWidget = ({
 	const [errorFiles, setErrorFiles] = useState<FileRejection[]>([]);
 	const theme = useTheme();
 	const mobile = useMediaQuery(theme.breakpoints.down('md'));
+	const formId = useRandomUUID();
 
-	const fileUploadId = useMemo(() => `file-upload-${crypto.randomUUID()}`, []);
+	const fileUploadId = useMemo(() => `file-upload-${formId}`, []);
 
 	const options = uiSchema?.['ui:options'] as UIOptions | undefined;
 	const accept = options?.accept;
