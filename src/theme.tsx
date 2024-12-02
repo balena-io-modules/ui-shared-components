@@ -900,8 +900,13 @@ export const theme = createTheme({
 		MuiIconButton: {
 			styleOverrides: {
 				root: {
+					color: color.icon.value,
 					svg: {
 						width: '1em',
+					},
+					'&.Mui-disabled': {
+						color: color.icon.value,
+						opacity: 0.4,
 					},
 				},
 				sizeSmall: {

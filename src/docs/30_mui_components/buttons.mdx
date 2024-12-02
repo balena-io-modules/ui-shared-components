@@ -98,7 +98,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 ## Icon Button
 
 <ThemeProvider theme={theme}>
-	<Box sx={{ display: 'flex', gap: 3, flexWrap: 'wrap' }}>
+	<Stack direction="row" gap={3} sx={{ flexWrap: 'wrap' }}>
 		<IconButton aria-label="download">
 			<FontAwesomeIcon icon={faDownload} />
 		</IconButton>
@@ -108,8 +108,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 		<IconButton aria-label="expand">
 			<FontAwesomeIcon icon={faUpRightAndDownLeftFromCenter} />
 		</IconButton>
-	</Box>
-	<Box sx={{ display: 'flex', alignItems: 'center', gap: 3, flexWrap: 'wrap', mt: 2 }}>
+	</Stack>
+	<Stack direction="row" gap={3} sx={{ flexWrap: 'wrap' }}>
 		<IconButton aria-label="close" size="small">
 			<FontAwesomeIcon icon={faClose} />
 		</IconButton>
@@ -119,7 +119,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 		<IconButton aria-label="close" size="large">
 			<FontAwesomeIcon icon={faClose} />
 		</IconButton>
-	</Box>
+	</Stack>
+	<Stack direction="row" gap={3} sx={{ flexWrap: 'wrap' }}>
+		<IconButton disabled>
+			<FontAwesomeIcon icon={faClose} />
+		</IconButton>
+	</Stack>
 </ThemeProvider>
 
 ## Toggle Button
