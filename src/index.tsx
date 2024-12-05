@@ -88,6 +88,8 @@ export {
 	Markdown,
 	defaultMarkdownComponentOverrides,
 } from './components/Markdown';
+export type { NewChipProps } from './components/NewChip';
+export { NewChip } from './components/NewChip';
 export { Truncate } from './components/Truncate';
 export { IconButtonWithTracking } from './components/IconButtonWithTracking';
 export type { IconButtonWithTrackingProps } from './components/IconButtonWithTracking';
