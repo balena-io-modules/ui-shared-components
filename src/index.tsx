@@ -84,7 +84,10 @@ export type { VirtualizedAutocompleteWithPaginationProps } from './components/Vi
 export { VirtualizedAutocomplete } from './components/VirtualizedAutocomplete';
 export type { UIMarker, MapProps } from './components/Map';
 export { Map } from './components/Map';
-export { Markdown } from './components/Markdown';
+export {
+	Markdown,
+	defaultMarkdownComponentOverrides,
+} from './components/Markdown';
 export { Truncate } from './components/Truncate';
 export { IconButtonWithTracking } from './components/IconButtonWithTracking';
 export type { IconButtonWithTrackingProps } from './components/IconButtonWithTracking';
