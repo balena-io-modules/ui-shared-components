@@ -1,7 +1,6 @@
 import type { Options as ReactMarkdownOptions } from 'react-markdown';
 import { default as ReactMarkdown } from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import rehypeRaw from 'rehype-raw';
 import { MUILinkWithTracking } from '../MUILinkWithTracking';
 import type { MUILinkWithTrackingProps } from '../MUILinkWithTracking';
 
@@ -158,7 +157,6 @@ export const Markdown = ({ components, ...props }: ReactMarkdownOptions) => {
 	return (
 		<ReactMarkdown
 			remarkPlugins={[remarkGfm]}
-			rehypePlugins={[rehypeRaw]}
 			components={componentsWithOverrides}
 			allowedElements={[
 				...defaultAllowedElements,
