@@ -1,4 +1,24 @@
 - commits:
+    - subject: Add styles for the Table component
+      hash: 19afef87f3f19ac4b331e0312dc4e5b26d4d2fa7
+      body: ""
+      footer:
+        Co-authored-by: drskullster <drskullster@pm.me>
+        co-authored-by: drskullster <drskullster@pm.me>
+        Change-type: patch
+        change-type: patch
+      author: Andrea Rosci
+    - subject: Update design tokens package
+      hash: a2cf19dc6c5dbf93ff153b2f4169a1549e5c1485
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Jonathan Berger
+  version: 9.8.1
+  title: ""
+  date: 2024-12-06T12:22:06.822Z
+- commits:
     - subject: Add useRandomUUID hook
       hash: 52293a9e79fd1e10d216f832c88bcd84c4610efa
       body: ""
