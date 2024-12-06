@@ -11,18 +11,50 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const markdown = `
-# Title
+# Title 1
 
-## SubTitle
+## Title 2
 
-### List:
+### Title 3
 
 - item 1
 - item 2
 - item 3
 
-\`const test = "code block example";\`
+1. item 1
+1. item 2
+1. item 3
 
+Testing some \`inline code\` example.
+
+\`\`\`
+{
+  "firstName": "John",
+  "lastName": "Smith",
+  "age": 25
+}
+\`\`\`
+
+---
+
+[Markdown Cheat Sheet](https://www.markdownguide.org/cheat-sheet/)
+
+**bold text**
+
+*italicized text*
+
+> Quote quote lorem ipsum
+
+ | Syntax | Description |
+| ----------- | ----------- |
+| Header | Title |
+| Paragraph | Text | 
+
+~~The world is flat.~~
+
+- [x] Write the press release
+- [ ] Update the website
+- [ ] Contact the media 
 `;
 
 export const Default: Story = {
