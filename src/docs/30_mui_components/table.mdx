@@ -1,5 +1,13 @@
 import { Meta } from '@storybook/blocks';
-import { TableContainer, Table, TableHead, TableBody, TableRow, TableCell, Paper, ThemeProvider } from '@mui/material';
+import {
+	Table,
+	TableHead,
+	TableBody,
+	TableRow,
+	TableCell,
+	ThemeProvider,
+	Checkbox,
+} from '@mui/material';
 import { theme } from '../../theme';
 
 <Meta title="Mui Components/Data Display/Table" />
@@ -28,6 +36,9 @@ export const rows = [
 	<Table sx={{ minWidth: 650 }} aria-label="simple table" className="sb-unstyled">
 		<TableHead>
 			<TableRow>
+				<TableCell padding="none">
+					<Checkbox />
+				</TableCell>
 				<TableCell>Dessert (100g serving)</TableCell>
 				<TableCell align="right">Calories</TableCell>
 				<TableCell align="right">Fat&nbsp;(g)</TableCell>
@@ -40,6 +51,9 @@ export const rows = [
 				<TableRow
 					key={row.name}
 				>
+					<TableCell padding="none">
+						<Checkbox />
+					</TableCell>
 					<TableCell component="th" scope="row">{row.name}</TableCell>
 					<TableCell align="right">{row.calories}</TableCell>
 					<TableCell align="right">{row.fat}</TableCell>
