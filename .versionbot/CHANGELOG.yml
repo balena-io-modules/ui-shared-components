@@ -1,4 +1,50 @@
 - commits:
+    - subject: Add `MarkdownSupportedSyntax` component
+      hash: c2d69a504bde6fd9fd2e0304c80a7b12378fd064
+      body: ""
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: myarmolinsky
+    - subject: "Markdown: Remove `rehype-raw` plugin"
+      hash: bfd8febb0dd7f7054512c1967dc45737bdb9d815
+      body: ""
+      footer:
+        Change-type: major
+        change-type: major
+      author: Jonathan Berger
+    - subject: Add component overrides for markdown
+      hash: 1fd17ed255cfa4fd364d4ee5aae6cd5d71584e44
+      body: ""
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: Jonathan Berger
+    - subject: Add `NewChip` component
+      hash: 8a1acafdb176477db567aa53b684da19071ca616
+      body: ""
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: myarmolinsky
+    - subject: "Markdown: Only allow components with explicit overrides"
+      hash: b2eb3af59a6df9937bbb46c06c5e8780a8a23933
+      body: ""
+      footer:
+        Change-type: major
+        change-type: major
+      author: myarmolinsky
+    - subject: "Markdown: Ignore HTML in markdown (only allow explicit markdown)"
+      hash: 01ca7b8a5f195ecbfd7d67920c65f5296b7619e9
+      body: ""
+      footer:
+        Change-type: major
+        change-type: major
+      author: myarmolinsky
+  version: 10.0.0
+  title: ""
+  date: 2024-12-09T16:43:34.804Z
+- commits:
     - subject: Add styles for the Table component
       hash: 19afef87f3f19ac4b331e0312dc4e5b26d4d2fa7
       body: ""
