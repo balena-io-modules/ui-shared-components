@@ -84,10 +84,11 @@ export type { VirtualizedAutocompleteWithPaginationProps } from './components/Vi
 export { VirtualizedAutocomplete } from './components/VirtualizedAutocomplete';
 export type { UIMarker, MapProps } from './components/Map';
 export { Map } from './components/Map';
-export {
-	Markdown,
-	defaultMarkdownComponentOverrides,
+export type {
+	MarkdownComponents,
+	ComponentSyntax,
 } from './components/Markdown';
+export { Markdown, MarkdownSupportedSyntax } from './components/Markdown';
 export type { NewChipProps } from './components/NewChip';
 export { NewChip } from './components/NewChip';
 export { Truncate } from './components/Truncate';
