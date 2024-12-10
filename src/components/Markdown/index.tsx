@@ -1,6 +1,7 @@
 import type { Options as ReactMarkdownOptions } from 'react-markdown';
 import { default as ReactMarkdown } from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import remarkBreaks from 'remark-breaks';
 import { MUILinkWithTracking } from '../MUILinkWithTracking';
 import type { MUILinkWithTrackingProps } from '../MUILinkWithTracking';
 export type MarkdownComponents = ReactMarkdownOptions['components'];
@@ -28,6 +29,7 @@ import designTokens from '@balena/design-tokens';
 const defaultSxProps: SxProps = { mb: 2 };
 
 const defaultMarkdownComponentOverrides: ReactMarkdownOptions['components'] = {
+	br: (props) => <br {...props} />,
 	li: (props) => <li {...props} />,
 	strong: (props) => <strong {...props} />,
 	em: (props) => <em {...props} />,
@@ -153,7 +155,7 @@ export const Markdown = ({ components, ...props }: ReactMarkdownOptions) => {
 
 	return (
 		<ReactMarkdown
-			remarkPlugins={[remarkGfm]}
+			remarkPlugins={[remarkGfm, remarkBreaks]}
 			components={componentsWithOverrides}
 			allowedElements={Object.keys(componentsWithOverrides)}
 			skipHtml
