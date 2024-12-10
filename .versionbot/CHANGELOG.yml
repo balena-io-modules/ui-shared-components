@@ -1,4 +1,22 @@
 - commits:
+    - subject: "Markdown: Fix linebreaks not working"
+      hash: f46a550ae27b3c77540923cc22c5942e1a8b78f8
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: myarmolinsky
+    - subject: Add dependency `remark-breaks`
+      hash: bc1a6c2205a4b360ea029153483a371fd92b7c13
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: myarmolinsky
+  version: 10.0.1
+  title: ""
+  date: 2024-12-10T20:23:08.577Z
+- commits:
     - subject: Add `MarkdownSupportedSyntax` component
       hash: c2d69a504bde6fd9fd2e0304c80a7b12378fd064
       body: ""
