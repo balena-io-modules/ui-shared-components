@@ -99,6 +99,11 @@ export type {
 	SettingsCardItemProps,
 } from './components/SettingsCard';
 export { SettingsCard, SettingsCardItem } from './components/SettingsCard';
+export { Tag, type TagProps, type TagItem } from './components/Tag';
+export {
+	TagManagementDialog,
+	type TagManagementDialogProps,
+} from './components/TagManagementDialog';
 export {
 	AnalyticsContextProvider,
 	useAnalyticsContext,

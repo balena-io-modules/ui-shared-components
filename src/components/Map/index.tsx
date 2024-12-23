@@ -206,5 +206,4 @@ export interface MapProps<T> extends React.HTMLAttributes<HTMLElement> {
 	mapClick?: (e: google.maps.MapMouseEvent) => void;
 }
 
-/** [View story source](https://github.com/balena-io-modules/rendition/blob/master/src/components/Map/Map.stories.tsx) */
 export const Map = BaseMap;

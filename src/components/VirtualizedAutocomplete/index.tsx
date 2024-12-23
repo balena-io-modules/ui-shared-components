@@ -84,7 +84,7 @@ const ListboxComponent = ({
 									sx: {
 										borderBottom: `1px solid ${color.border.subtle.value}`,
 									},
-							  }
+								}
 							: {})}
 						key={item.index}
 					>
@@ -239,7 +239,7 @@ const VirtualizedAutocompleteBase = <
 					props: renderOptionProps,
 					option: renderOption?.(renderOptionProps, option, state, ownerState),
 					index: state.index,
-				} as unknown as React.ReactNode)
+				}) as unknown as React.ReactNode
 			}
 			ListboxProps={
 				{

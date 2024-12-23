@@ -138,7 +138,7 @@ export const FileWidget = ({
 	const mobile = useMediaQuery(theme.breakpoints.down('md'));
 	const formId = useRandomUUID();
 
-	const fileUploadId = useMemo(() => `file-upload-${formId}`, []);
+	const fileUploadId = useMemo(() => `file-upload-${formId}`, [formId]);
 
 	const options = uiSchema?.['ui:options'] as UIOptions | undefined;
 	const accept = options?.accept;
