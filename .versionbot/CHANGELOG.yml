@@ -1,4 +1,15 @@
 - commits:
+    - subject: Update `react-router-dom` to v6
+      hash: b5e8e28f0caa1f636c39d2e00e7873d48597fa4e
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: myarmolinsky
+  version: 10.1.1
+  title: ""
+  date: 2025-01-02T14:15:53.902Z
+- commits:
     - subject: Add Tag, TagManagementDialog and SimpleConfirmationDialog components
       hash: d0df74c772225f0940a261984b39dbae1e50687a
       body: ""
