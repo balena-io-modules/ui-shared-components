@@ -12,7 +12,9 @@ export interface TabsProps {
 	tabsListBoxProps?: BoxProps;
 	/** defaultTab is a number corresponding to the default tab's index in the tabs property */
 	defaultTab?: number;
+	currentTab?: string;
 	onTabChange?: (newTab: number) => void;
+	setTab?: (newTab: string) => void;
 }
 
 export const Tabs = ({
@@ -20,8 +22,10 @@ export const Tabs = ({
 	tabsListBoxProps,
 	defaultTab,
 	onTabChange,
+	setTab,
+	currentTab,
 }: TabsProps) => {
-	const [tab, setTab] = React.useState(
+	const [tabState, setTabState] = React.useState(
 		(defaultTab !== undefined && defaultTab > 0 && defaultTab < tabs.length
 			? defaultTab
 			: 0
@@ -33,14 +37,18 @@ export const Tabs = ({
 	}
 
 	const handleChange = (_event: React.SyntheticEvent, newValue: string) => {
-		setTab(newValue);
+		if (setTab) {
+			setTab(newValue);
+		} else {
+			setTabState(newValue);
+		}
 		onTabChange?.(parseInt(newValue, 10));
 	};
 
 	const { sx, ...boxProps } = tabsListBoxProps ?? {};
 
 	return (
-		<TabContext value={tab}>
+		<TabContext value={currentTab ?? tabState}>
 			<Box
 				sx={[
 					{ borderBottom: 1, borderColor: 'divider' },
