@@ -1,4 +1,16 @@
 - commits:
+    - subject: "Tabs: Add `currentTab` and `setTab` properties for controlled Tabs
+        state"
+      hash: f1ef5fee7b16e064225109edd3ecc424e41f66a2
+      body: ""
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: myarmolinsky
+  version: 10.2.0
+  title: ""
+  date: 2025-01-07T14:30:53.816Z
+- commits:
     - subject: Update `react-router-dom` to v6
       hash: b5e8e28f0caa1f636c39d2e00e7873d48597fa4e
       body: ""
