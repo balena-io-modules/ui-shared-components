@@ -8,7 +8,14 @@ import { Tooltip as MuiTooltip } from '@mui/material';
 const Tooltip = ({ children, ...tooltipProps }: TooltipProps) => {
 	return (
 		<MuiTooltip {...tooltipProps}>
-			{children.props.disabled ? <span>{children}</span> : children}
+			{typeof children.props === 'object' &&
+			children.props != null &&
+			'disabled' in children.props &&
+			children.props.disabled ? (
+				<span>{children}</span>
+			) : (
+				children
+			)}
 		</MuiTooltip>
 	);
 };
