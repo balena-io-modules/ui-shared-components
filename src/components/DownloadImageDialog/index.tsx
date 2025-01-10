@@ -4,7 +4,7 @@ import {
 	DialogActions,
 	DialogContent,
 	Divider,
-	Unstable_Grid2 as Grid,
+	Grid2 as Grid,
 	Typography,
 } from '@mui/material';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
@@ -430,7 +430,14 @@ export const DownloadImageDialog = ({
 		>
 			<DialogContent sx={{ m: 0 }}>
 				<Grid container pb={5} spacing={[0, 0, 4]}>
-					<Grid xs={12} sm={12} md={6} lg={7}>
+					<Grid
+						size={{
+							xs: 12,
+							sm: 12,
+							md: 6,
+							lg: 7,
+						}}
+					>
 						{isFetching ? (
 							<Spinner />
 						) : (
@@ -461,7 +468,15 @@ export const DownloadImageDialog = ({
 							</>
 						)}
 					</Grid>
-					<Grid xs={12} sm={12} md={6} lg={5} pb={0}>
+					<Grid
+						pb={0}
+						size={{
+							xs: 12,
+							sm: 12,
+							md: 6,
+							lg: 5,
+						}}
+					>
 						<Divider
 							variant="fullWidth"
 							sx={{
@@ -488,7 +503,7 @@ export const DownloadImageDialog = ({
 					</Grid>
 					{(formModel.deviceType.imageDownloadAlerts ?? []).map((alert) => {
 						return (
-							<Grid xs={12} pt={0} key={alert.message}>
+							<Grid pt={0} key={alert.message} size={12}>
 								<Callout
 									key={alert.message}
 									severity={alert.type as CalloutProps['severity']}
