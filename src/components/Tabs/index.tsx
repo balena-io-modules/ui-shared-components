@@ -15,6 +15,7 @@ export interface TabsProps {
 	currentTab?: string;
 	onTabChange?: (newTab: number) => void;
 	setTab?: (newTab: string) => void;
+	leftElement?: JSX.Element;
 }
 
 export const Tabs = ({
@@ -24,6 +25,7 @@ export const Tabs = ({
 	onTabChange,
 	setTab,
 	currentTab,
+	leftElement,
 }: TabsProps) => {
 	const [tabState, setTabState] = React.useState(
 		(defaultTab !== undefined && defaultTab > 0 && defaultTab < tabs.length
@@ -57,6 +59,7 @@ export const Tabs = ({
 				]}
 				{...boxProps}
 			>
+				{leftElement}
 				<TabList onChange={handleChange} variant="scrollable">
 					{tabs.map(({ label, tabProps }, index) => (
 						<Tab
