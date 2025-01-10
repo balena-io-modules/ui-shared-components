@@ -1,7 +1,14 @@
 import React from 'react';
 import { faTimes } from '@fortawesome/free-solid-svg-icons/faTimes';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Box, type BoxProps, Button, Tooltip, Typography } from '@mui/material';
+import {
+	Box,
+	type BoxProps,
+	Button,
+	IconButton,
+	Tooltip,
+	Typography,
+} from '@mui/material';
 
 // Prevent the tags taking up too much horizontal space
 const MAX_ITEMS_TO_DISPLAY = 3;
@@ -125,20 +132,28 @@ export const Tag = ({
 
 	return (
 		<Box {...props}>
-			{onClick ? <Button onClick={onClick}>{tagContent}</Button> : tagContent}
+			{onClick ? (
+				<Button variant="text" onClick={onClick}>
+					{tagContent}
+				</Button>
+			) : (
+				tagContent
+			)}
 			{onClose && (
-				<Button
-					sx={(theme) => ({
+				<IconButton
+					size="small"
+					disableFocusRipple
+					disableRipple
+					color="secondary"
+					sx={{
 						py: 1,
-						pl: 2,
-						pr: 3,
-						fontSize: 1,
-						color: theme.palette.customGrey.main,
-					})}
+						pl: 1,
+						pr: 2,
+					}}
 					onClick={onClose}
 				>
 					<FontAwesomeIcon icon={faTimes} />
-				</Button>
+				</IconButton>
 			)}
 		</Box>
 	);
