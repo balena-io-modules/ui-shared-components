@@ -1,4 +1,15 @@
 - commits:
+    - subject: "Tabs: Add `leftElement` prop"
+      hash: a78e3e7fb8648720059794a349b4b1e070833ec4
+      body: ""
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: myarmolinsky
+  version: 10.3.0
+  title: ""
+  date: 2025-01-10T15:00:55.179Z
+- commits:
     - subject: "Tabs: Add `currentTab` and `setTab` properties for controlled Tabs
         state"
       hash: f1ef5fee7b16e064225109edd3ecc424e41f66a2
