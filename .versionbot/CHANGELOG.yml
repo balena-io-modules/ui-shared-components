@@ -1,4 +1,16 @@
 - commits:
+    - subject: Update MUI to v6
+      hash: 2a2d493b7f423f1324c1844137fd6eaf0202d5b2
+      body: |
+        Update packages and fix breaking changes
+      footer:
+        Change-type: major
+        change-type: major
+      author: Jonathan Berger
+  version: 11.0.0
+  title: ""
+  date: 2025-01-14T09:32:18.377Z
+- commits:
     - subject: "Tabs: Add `leftElement` prop"
       hash: a78e3e7fb8648720059794a349b4b1e070833ec4
       body: ""
