@@ -12,6 +12,7 @@ import {
 } from '../components/Filters/SchemaSieve';
 import { isJSONSchema } from '../schemaOps';
 import { useAnalyticsContext } from '../../../contexts/AnalyticsContext';
+import type { NavigateFunction } from 'react-router-dom';
 
 export interface ListQueryStringFilterObject {
 	n: string;
@@ -85,7 +86,7 @@ export function listFilterQuery(filters: JSONSchema[], stringify = true) {
 export const loadRulesFromUrl = (
 	searchLocation: string,
 	schema: JSONSchema,
-	history: unknown,
+	navigate?: NavigateFunction,
 ): JSONSchema[] => {
 	const { properties } = schema;
 	if (!searchLocation || !properties) {
@@ -154,8 +155,8 @@ export const loadRulesFromUrl = (
 				});
 
 				// In case of invalid signatures, remove search params to avoid Errors.
-				if (isSignaturesInvalid && typeof history === 'function') {
-					history({ search: '' }, { replace: true });
+				if (isSignaturesInvalid) {
+					navigate?.({ search: '' }, { replace: true });
 				}
 
 				if (signatures[0].operator === FULL_TEXT_SLUG) {
@@ -176,7 +177,7 @@ export const loadRulesFromUrl = (
 };
 
 interface PersistentFiltersProps extends FiltersProps {
-	history: unknown;
+	navigate?: NavigateFunction;
 }
 
 export const PersistentFilters = ({
@@ -185,7 +186,7 @@ export const PersistentFilters = ({
 	filters,
 	onViewsChange,
 	onFiltersChange,
-	history,
+	navigate,
 	onSearch,
 	...otherProps
 }: PersistentFiltersProps &
@@ -193,8 +194,8 @@ export const PersistentFilters = ({
 	const { state: analytics } = useAnalyticsContext();
 	const { pathname, search } = document.location;
 	const storedFilters = React.useMemo(() => {
-		return loadRulesFromUrl(search, schema, history);
-	}, [search, schema, history]);
+		return loadRulesFromUrl(search, schema, navigate);
+	}, [search, schema, navigate]);
 
 	const onFiltersUpdate = React.useCallback(
 		(updatedFilters: JSONSchema[]) => {
@@ -203,15 +204,14 @@ export const PersistentFilters = ({
 			const filterQuery = qs.stringify(parsedFilters, {
 				strictNullHandling: true,
 			});
-			if (typeof history === 'function') {
-				history(
-					{
-						pathname,
-						search: filterQuery,
-					},
-					{ replace: true },
-				);
-			}
+
+			navigate?.(
+				{
+					pathname,
+					search: filterQuery,
+				},
+				{ replace: true },
+			);
 
 			onFiltersChange?.(updatedFilters);
 
@@ -223,7 +223,7 @@ export const PersistentFilters = ({
 				});
 			}
 		},
-		[onFiltersChange, analytics.webTracker, history, pathname, search],
+		[onFiltersChange, analytics.webTracker, navigate, pathname, search],
 	);
 
 	// When the component mounts, filters from the page URL,

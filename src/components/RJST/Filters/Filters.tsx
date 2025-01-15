@@ -11,7 +11,7 @@ import {
 	removeFieldsWithNoFilter,
 	removeRefSchemeSeparatorsFromFilters,
 } from './utils';
-import { useHistory } from '../../../hooks/useHistory';
+import { useNavigate } from '../../../hooks/useNavigate';
 
 export interface FiltersProps {
 	schema: JSONSchema;
@@ -38,7 +38,7 @@ export const Filters = ({
 	onSearch,
 	persistFilters,
 }: FiltersProps) => {
-	const history = useHistory();
+	const navigate = useNavigate();
 
 	const filteredSchema = React.useMemo(
 		() => removeFieldsWithNoFilter(schema),
@@ -59,10 +59,10 @@ export const Filters = ({
 
 	return (
 		<>
-			{!!history && persistFilters ? (
+			{!!navigate && persistFilters ? (
 				<PersistentFilters
 					viewsRestorationKey={viewsRestorationKey}
-					history={history}
+					navigate={navigate}
 					schema={reworkedSchema}
 					filters={filters}
 					views={views}

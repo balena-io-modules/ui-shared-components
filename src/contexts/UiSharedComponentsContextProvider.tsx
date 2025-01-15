@@ -1,14 +1,15 @@
 import { createContext } from 'react';
 import type { TFunction } from '../hooks/useTranslations';
+import type { NavigateFunction } from 'react-router-dom';
 export interface UiSharedComponentsContextProviderInterface {
-	history: unknown;
+	navigate?: NavigateFunction;
 	t?: TFunction;
 	externalTranslationMap?: Dictionary<string>;
 }
 
 export const UiSharedComponentsContextProvider =
 	createContext<UiSharedComponentsContextProviderInterface>({
-		history: {},
+		navigate: undefined,
 	});
 
 export const UiSharedComponentsProvider = ({

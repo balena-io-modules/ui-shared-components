@@ -1,6 +1,6 @@
 import React from 'react';
 import debounce from 'lodash/debounce';
-import { useHistory } from '../../../../hooks/useHistory';
+import { useNavigate } from '../../../../hooks/useNavigate';
 import { ajvFilter, createFullTextSearchFilter } from './SchemaSieve';
 import { Box, styled, Typography } from '@mui/material';
 import { convertToPineClientFilter } from '../../oData/jsonToOData';
@@ -52,7 +52,7 @@ export const FocusSearch = <T extends { id: number; [key: string]: any }>({
 	model,
 	rowKey = 'id',
 }: FocusSearchProps<T>) => {
-	const history = useHistory();
+	const navigate = useNavigate();
 	const [searchResults, setSearchResults] = React.useState<T[]>([]);
 	const [isLoading, setIsLoading] = React.useState<boolean>(false);
 	const inputSearch = rjstContext.sdk?.inputSearch;
@@ -128,12 +128,12 @@ export const FocusSearch = <T extends { id: number; [key: string]: any }>({
 								key={entity[rowKey]}
 								onClick={(e) => {
 									e.preventDefault();
-									if (rjstContext.getBaseUrl && typeof history === 'function') {
+									if (rjstContext.getBaseUrl && navigate) {
 										try {
 											const url = new URL(rjstContext.getBaseUrl(entity));
 											window.open(url.toString(), '_blank');
 										} catch {
-											history(rjstContext.getBaseUrl(entity));
+											navigate(rjstContext.getBaseUrl(entity));
 										}
 									}
 								}}

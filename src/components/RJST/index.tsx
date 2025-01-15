@@ -60,7 +60,7 @@ import type {
 import type { TFunction } from '../../hooks/useTranslations';
 import { useTranslation } from '../../hooks/useTranslations';
 import { useAnalyticsContext } from '../../contexts/AnalyticsContext';
-import { useHistory } from '../../hooks/useHistory';
+import { useNavigate } from '../../hooks/useNavigate';
 import type { FiltersView } from './components/Filters';
 import type { PineFilterObject } from './oData/jsonToOData';
 import { convertToPineClientFilter, orderbyBuilder } from './oData/jsonToOData';
@@ -174,7 +174,7 @@ export const RJST = <T extends RJSTBaseResource<T>>({
 }: RJSTProps<T>) => {
 	const { t } = useTranslation();
 	const { state: analytics } = useAnalyticsContext();
-	const history = useHistory();
+	const navigate = useNavigate();
 
 	const modelRef = React.useRef(modelRaw);
 	// This allows the component to work even if
@@ -352,19 +352,17 @@ export const RJST = <T extends RJSTBaseResource<T>>({
 				return;
 			}
 
-			if (getBaseUrl && !event.ctrlKey && !event.metaKey && history) {
+			if (getBaseUrl && !event.ctrlKey && !event.metaKey && navigate) {
 				event.preventDefault();
 				try {
 					const url = new URL(getBaseUrl(row));
 					window.open(url.toString(), '_blank');
 				} catch {
-					if (typeof history === 'function') {
-						history(getBaseUrl(row));
-					}
+					navigate?.(getBaseUrl(row));
 				}
 			}
 		},
-		[onEntityClick, getBaseUrl, history],
+		[onEntityClick, getBaseUrl, navigate],
 	);
 
 	const rjstContext = React.useMemo((): RJSTContext<T> => {
