@@ -1,6 +1,6 @@
 {
   "name": "@balena/ui-shared-components",
-  "version": "11.0.0",
+  "version": "11.1.0",
   "main": "./dist/index.js",
   "sideEffects": false,
   "files": [
@@ -111,7 +111,7 @@
       "last 1 safari version"
     ]
   },
- "jest": {
+  "jest": {
     "preset": "ts-jest",
     "testRegex": "src/.*spec.tsx?$",
     "moduleFileExtensions": [
@@ -135,6 +135,6 @@
   },
   "homepage": "https://github.com/balena-io/ui-shared-components#readme",
   "versionist": {
-    "publishedAt": "2025-01-14T09:32:18.542Z"
+    "publishedAt": "2025-01-16T09:58:44.216Z"
   }
 }

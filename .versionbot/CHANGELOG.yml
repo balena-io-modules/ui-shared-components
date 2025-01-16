@@ -1,4 +1,29 @@
 - commits:
+    - subject: Add jest and OData converter tests
+      hash: 1e6eecaffa40b60509260283af033ac8a5fa8cfb
+      body: ""
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: Andrea Rosci
+    - subject: Rename hisotry to navigate and fix typing
+      hash: 1e71c22e23f0bea95c2e05af42546fe8349dc21d
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Andrea Rosci
+    - subject: Add RJST (React JSON Schema Table) component
+      hash: 052cab3afaae06f18a633debded12ed3bc5f54b5
+      body: ""
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: Andrea Rosci
+  version: 11.1.0
+  title: ""
+  date: 2025-01-16T09:58:43.981Z
+- commits:
     - subject: Update MUI to v6
       hash: 2a2d493b7f423f1324c1844137fd6eaf0202d5b2
       body: |
