@@ -15,7 +15,7 @@ import {
 import { color } from '@balena/design-tokens';
 import type { DropDownButtonProps } from '../../../DropDownButton';
 import { DropDownButton } from '../../../DropDownButton';
-import { stopEvent } from '../../utils';
+import { stopEvent } from '../../../../utils/eventHandling';
 import { Tooltip } from '../../../Tooltip';
 
 interface FiltersView {

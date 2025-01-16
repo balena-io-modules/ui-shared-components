@@ -21,11 +21,6 @@ export const diff = <T>(a: T, b: T) => {
 	return a > b ? 1 : -1;
 };
 
-export const stopEvent = (event: React.MouseEvent<HTMLElement>) => {
-	event.preventDefault();
-	event.stopPropagation();
-};
-
 export const getFromLocalStorage = <T>(key: string): T | undefined => {
 	try {
 		const val = localStorage.getItem(key);

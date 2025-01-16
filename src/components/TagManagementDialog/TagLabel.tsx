@@ -7,7 +7,7 @@ import type { TypographyProps } from '@mui/material';
 import { ClickAwayListener, styled, Tooltip, Typography } from '@mui/material';
 import { useTranslation } from '../../hooks/useTranslations';
 import { copyToClipboard } from '../Copy';
-import { stopEvent } from './utils';
+import { stopEvent } from '../../utils/eventHandling';
 
 const Label = styled(Typography)(({ theme }) => ({
 	display: 'inline-flex',

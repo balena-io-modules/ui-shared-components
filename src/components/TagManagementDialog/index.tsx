@@ -35,7 +35,10 @@ import {
 import { useTranslation } from '../../hooks/useTranslations';
 import { CollectionSummary } from '../CollectionSummary';
 import { DialogWithCloseButton } from '../DialogWithCloseButton';
-import { stopKeyDownEvent, withPreventDefault } from './utils';
+import {
+	stopKeyDownEvent,
+	withPreventDefault,
+} from '../../utils/eventHandling';
 
 const NBSP = '\u00a0';
 
