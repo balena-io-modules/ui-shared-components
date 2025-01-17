@@ -9,7 +9,10 @@ import { Callout } from '../Callout';
 import { designTokens } from '../..';
 import type { TFunction } from '../../hooks/useTranslations';
 import { useTranslation } from '../../hooks/useTranslations';
-import { stopKeyDownEvent, withPreventDefault } from './utils';
+import {
+	stopKeyDownEvent,
+	withPreventDefault,
+} from '../../utils/eventHandling';
 import {
 	type SimpleConfirmationDialogProps,
 	SimpleConfirmationDialog,

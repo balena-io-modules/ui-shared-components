@@ -94,6 +94,9 @@ const defaultMarkdownComponentOverrides: ReactMarkdownOptions['components'] = {
 		<MUILinkWithTracking
 			target="_blank"
 			rel="noreferrer"
+			onClick={(e) => {
+				e.stopPropagation();
+			}}
 			{...(props as MUILinkWithTrackingProps)}
 		/>
 	),
