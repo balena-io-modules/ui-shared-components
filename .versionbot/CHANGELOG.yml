@@ -1,4 +1,15 @@
 - commits:
+    - subject: "Markdown: Stop propagation for links"
+      hash: 47d4ee5413ffce207f654e6762af637bddd2a0fb
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: myarmolinsky
+  version: 11.1.1
+  title: ""
+  date: 2025-01-17T13:11:51.893Z
+- commits:
     - subject: Add jest and OData converter tests
       hash: 1e6eecaffa40b60509260283af033ac8a5fa8cfb
       body: ""
