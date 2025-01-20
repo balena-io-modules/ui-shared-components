@@ -103,6 +103,9 @@ const translationMap = {
 	'actions.add_columns': 'Add columns',
 
 	'commons.or': 'or',
+
+	// DisabledTextWidget
+	'info.not_defined': 'not defined',
 };
 
 const getTranslation = (str: string, opts?: any) => {
