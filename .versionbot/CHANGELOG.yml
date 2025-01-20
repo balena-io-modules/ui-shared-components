@@ -1,4 +1,15 @@
 - commits:
+    - subject: Run `npm audit fix`
+      hash: 1d206a557b27f78d897ca0cc7b1966d29a04194c
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: myarmolinsky
+  version: 11.1.3
+  title: ""
+  date: 2025-01-20T13:37:25.759Z
+- commits:
     - subject: Update Storybook to v8.5
       hash: 64739f591dcc20113ae98000c44f4cf847a5a10d
       body: ""
