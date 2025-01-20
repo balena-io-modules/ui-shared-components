@@ -1,4 +1,15 @@
 - commits:
+    - subject: Update Storybook to v8.5
+      hash: 64739f591dcc20113ae98000c44f4cf847a5a10d
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Jonathan Berger
+  version: 11.1.2
+  title: ""
+  date: 2025-01-20T12:14:31.120Z
+- commits:
     - subject: "Markdown: Stop propagation for links"
       hash: 47d4ee5413ffce207f654e6762af637bddd2a0fb
       body: ""
