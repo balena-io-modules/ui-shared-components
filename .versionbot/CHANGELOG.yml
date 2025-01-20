@@ -1,4 +1,15 @@
 - commits:
+    - subject: Fix missing `info.not_defined` translation
+      hash: 01608f7bca41291f562dfcd113a7a40a51d50ad1
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Andrea Rosci
+  version: 11.1.4
+  title: ""
+  date: 2025-01-20T16:08:42.990Z
+- commits:
     - subject: Run `npm audit fix`
       hash: 1d206a557b27f78d897ca0cc7b1966d29a04194c
       body: ""
