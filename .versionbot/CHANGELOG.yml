@@ -1,4 +1,23 @@
 - commits:
+    - subject: Deprecate the DeviceTypeOptions & DeviceTypeOptionsGroup types
+      hash: 6c6404d3f6fca80f2693a41c136ab4232f15883d
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Thodoris Greasidis
+    - subject: Deprecate the OsSpecificDeviceTypeJsonInstructions type instead of the
+        whole DeviceType.instructions
+      hash: bc0b8a0db484518d878252a85ed34b9409b384b3
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Thodoris Greasidis
+  version: 11.1.6
+  title: ""
+  date: 2025-01-21T14:30:28.111Z
+- commits:
     - subject: "DownloadImageDialog: Show name instead of slug in device type
         Autocomplete"
       hash: c4c3ed2374a496cc27ded78a6f5eba194df1fb4e
