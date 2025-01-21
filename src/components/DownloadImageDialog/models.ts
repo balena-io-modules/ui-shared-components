@@ -45,7 +45,8 @@ export interface OsVersionsByDeviceType {
 	[deviceTypeSlug: string]: OsVersion[];
 }
 
-// the legacy device-type.json format
+/** @deprecated the legacy device-type.json format */
+// TODO: Drop me in the next major
 export interface OsSpecificDeviceTypeJsonInstructions {
 	linux: string[];
 	osx: string[];
@@ -61,6 +62,8 @@ export interface DeviceTypeDownloadAlert {
 	type: string;
 	message: string;
 }
+// TODO: Drop me in the next major
+/** @deprecated */
 export interface DeviceTypeOptions {
 	options: DeviceTypeOptionsGroup[];
 	collapsed: boolean;
@@ -69,6 +72,8 @@ export interface DeviceTypeOptions {
 	message: string;
 	name: string;
 }
+// TODO: Drop me in the next major
+/** @deprecated */
 export interface DeviceTypeOptionsGroup {
 	default: number | string;
 	message: string;
@@ -90,11 +95,12 @@ export interface DeviceType {
 
 	/** @deprecated */
 	imageDownloadAlerts?: DeviceTypeDownloadAlert[];
-	/** @deprecated */
 	instructions?:
 		| string[]
+		// TODO: Drop me in the next major
 		| OsSpecificDeviceTypeJsonInstructions
 		| OsSpecificContractInstructions;
+	// TODO: Drop me in the next major
 	/** @deprecated */
 	options?: DeviceTypeOptions[];
 }
