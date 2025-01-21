@@ -1,4 +1,16 @@
 - commits:
+    - subject: "DownloadImageDialog: Show name instead of slug in device type
+        Autocomplete"
+      hash: c4c3ed2374a496cc27ded78a6f5eba194df1fb4e
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: myarmolinsky
+  version: 11.1.5
+  title: ""
+  date: 2025-01-21T14:17:10.645Z
+- commits:
     - subject: Fix missing `info.not_defined` translation
       hash: 01608f7bca41291f562dfcd113a7a40a51d50ad1
       body: ""
