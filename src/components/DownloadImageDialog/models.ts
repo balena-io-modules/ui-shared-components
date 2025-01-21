@@ -45,7 +45,8 @@ export interface OsVersionsByDeviceType {
 	[deviceTypeSlug: string]: OsVersion[];
 }
 
-// the legacy device-type.json format
+/** @deprecated the legacy device-type.json format */
+// TODO: Drop me in the next major
 export interface OsSpecificDeviceTypeJsonInstructions {
 	linux: string[];
 	osx: string[];
@@ -90,9 +91,9 @@ export interface DeviceType {
 
 	/** @deprecated */
 	imageDownloadAlerts?: DeviceTypeDownloadAlert[];
-	/** @deprecated */
 	instructions?:
 		| string[]
+		// TODO: Drop me in the next major
 		| OsSpecificDeviceTypeJsonInstructions
 		| OsSpecificContractInstructions;
 	/** @deprecated */
