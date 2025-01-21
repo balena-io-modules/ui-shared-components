@@ -62,6 +62,8 @@ export interface DeviceTypeDownloadAlert {
 	type: string;
 	message: string;
 }
+// TODO: Drop me in the next major
+/** @deprecated */
 export interface DeviceTypeOptions {
 	options: DeviceTypeOptionsGroup[];
 	collapsed: boolean;
@@ -70,6 +72,8 @@ export interface DeviceTypeOptions {
 	message: string;
 	name: string;
 }
+// TODO: Drop me in the next major
+/** @deprecated */
 export interface DeviceTypeOptionsGroup {
 	default: number | string;
 	message: string;
@@ -96,6 +100,7 @@ export interface DeviceType {
 		// TODO: Drop me in the next major
 		| OsSpecificDeviceTypeJsonInstructions
 		| OsSpecificContractInstructions;
+	// TODO: Drop me in the next major
 	/** @deprecated */
 	options?: DeviceTypeOptions[];
 }
