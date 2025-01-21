@@ -217,6 +217,7 @@ export const ImageForm = memo(function ImageForm({
 			p={2}
 			ref={formElement}
 		>
+			<input type="hidden" name="deviceType" value={model.deviceType.slug} />
 			<input type="hidden" name="_token" value={authToken} />
 			<input type="hidden" name="appId" value={applicationId} />
 			<input type="hidden" name="fileType" value=".zip" />
@@ -241,7 +242,7 @@ export const ImageForm = memo(function ImageForm({
 							id="device-type-select"
 							value={model.deviceType}
 							options={compatibleDeviceTypes}
-							getOptionLabel={(option) => option.slug}
+							getOptionLabel={(option) => option.name}
 							renderOption={(props, option) => (
 								<Box component="li" {...props}>
 									<Avatar
@@ -257,7 +258,6 @@ export const ImageForm = memo(function ImageForm({
 									{...params}
 									InputProps={{
 										...InputProps,
-										name: 'deviceType',
 										startAdornment: (
 											<Avatar
 												variant="square"
