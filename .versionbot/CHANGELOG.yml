@@ -1,4 +1,24 @@
 - commits:
+    - subject: "DownloadImageDialog: Show recommended Chip on selected OS version if
+        recommended"
+      hash: d8853d419014166f06262ba642d4c2e62428b126
+      body: ""
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: myarmolinsky
+    - subject: "DownloadImageDialog: Select recommended OS version by whether it has
+        known issues instead of checking the isRecommended property"
+      hash: df3d0abde76076fcf144557f58bafe3d704d241a
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: myarmolinsky
+  version: 11.2.0
+  title: ""
+  date: 2025-01-22T16:43:27.350Z
+- commits:
     - subject: Deprecate the DeviceTypeOptions & DeviceTypeOptionsGroup types
       hash: 6c6404d3f6fca80f2693a41c136ab4232f15883d
       body: ""
