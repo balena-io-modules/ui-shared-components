@@ -337,6 +337,13 @@ export const ImageForm = memo(function ImageForm({
 										...InputProps,
 										endAdornment: (
 											<>
+												{version.value === recommendedVersion && (
+													<Chip
+														sx={{ ml: 1 }}
+														color="green"
+														label="recommended"
+													/>
+												)}
 												{!!version?.knownIssueList && (
 													<Tooltip title={version.knownIssueList}>
 														<FontAwesomeIcon
