@@ -207,6 +207,11 @@ export const ImageForm = memo(function ImageForm({
 		[compatibleDeviceTypes, model.deviceType.slug, onChange],
 	);
 
+	const recommendedVersion = useMemo(
+		() => versionSelectionOpts.find((v) => !v.knownIssueList?.length)?.value,
+		[versionSelectionOpts],
+	);
+
 	return (
 		<Box
 			action={downloadUrl}
@@ -319,7 +324,10 @@ export const ImageForm = memo(function ImageForm({
 							placeholder="Choose a version..."
 							renderOption={(props, option) => (
 								<Box component="li" {...props}>
-									<VersionSelectItem option={option} />
+									<VersionSelectItem
+										option={option}
+										isRecommended={option.value === recommendedVersion}
+									/>
 								</Box>
 							)}
 							renderInput={({ InputProps, ...params }) => (
@@ -329,6 +337,13 @@ export const ImageForm = memo(function ImageForm({
 										...InputProps,
 										endAdornment: (
 											<>
+												{version.value === recommendedVersion && (
+													<Chip
+														sx={{ ml: 1 }}
+														color="green"
+														label="recommended"
+													/>
+												)}
 												{!!version?.knownIssueList && (
 													<Tooltip title={version.knownIssueList}>
 														<FontAwesomeIcon
@@ -533,15 +548,16 @@ export const ImageForm = memo(function ImageForm({
 });
 
 // TODO: We need a better way than just copying the styling. Consider creating a component to export
-export const VersionSelectItem = ({
+const VersionSelectItem = ({
 	option,
+	isRecommended,
 }: {
 	option: {
 		title: string;
-		isRecommended?: boolean;
 		knownIssueList: string | null;
 		line?: keyof typeof lineMap;
 	};
+	isRecommended?: boolean;
 }) => {
 	return (
 		<Stack direction="column" flexWrap="wrap" maxWidth="100%" rowGap={1}>
@@ -554,7 +570,7 @@ export const VersionSelectItem = ({
 						color={lineMap[option.line]}
 					/>
 				)}
-				{option.isRecommended && (
+				{isRecommended && (
 					<Chip sx={{ ml: 1 }} color="green" label="recommended" />
 				)}
 			</Typography>
