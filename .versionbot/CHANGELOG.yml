@@ -1,4 +1,15 @@
 - commits:
+    - subject: Add an event on page view for table column settings
+      hash: 0361ad234f7afa555833ec1cb19e985beb4ef760
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Jonathan Berger
+  version: 11.2.1
+  title: ""
+  date: 2025-01-23T17:53:17.571Z
+- commits:
     - subject: "DownloadImageDialog: Show recommended Chip on selected OS version if
         recommended"
       hash: d8853d419014166f06262ba642d4c2e62428b126
