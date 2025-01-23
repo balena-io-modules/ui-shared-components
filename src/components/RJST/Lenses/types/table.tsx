@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { faTable } from '@fortawesome/free-solid-svg-icons/faTable';
 import type { LensTemplate } from '..';
 import type { CollectionLensRendererProps } from '.';
@@ -225,6 +225,20 @@ const TableRenderer = <T extends { id: number }>({
 		setColumns(columns.concat(additionalColumns));
 		setShowAddTagDialog(false);
 	};
+
+	useEffect(() => {
+		analytics.webTracker?.track('View table - columns', {
+			current_url: location.origin + location.pathname,
+			resource: model.resource,
+			columns: Object.fromEntries(
+				columns.map((col) => [col.field, col.selected]),
+			),
+		});
+
+		// This analytics event should only be fired on page load,
+		// so we make sure the useEffect only runs on mount.
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
 	return (
 		<>
