@@ -23,7 +23,7 @@ export const rjstDefaultPermissions = {
 export const rjstRunTransformers = <
 	T extends Dictionary<any>,
 	TResult extends T,
-	TContext,
+	TContext = null,
 >(
 	data: T | undefined,
 	transformers: Transformers<T, Omit<TResult, keyof T>, TContext>,

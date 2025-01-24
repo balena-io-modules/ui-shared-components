@@ -53,7 +53,9 @@ export const FocusSearch = <T extends { id: number; [key: string]: any }>({
 	rowKey = 'id',
 }: FocusSearchProps<T>) => {
 	const navigate = useNavigate();
-	const [searchResults, setSearchResults] = React.useState<T[]>([]);
+	const [searchResults, setSearchResults] = React.useState<
+		T[] | null | undefined
+	>(null);
 	const [isLoading, setIsLoading] = React.useState<boolean>(false);
 	const inputSearch = rjstContext.sdk?.inputSearch;
 
@@ -76,7 +78,7 @@ export const FocusSearch = <T extends { id: number; [key: string]: any }>({
 				} else if (searchFilter) {
 					setSearchResults(ajvFilter(searchFilter, filtered) || []);
 				} else {
-					setSearchResults([]);
+					setSearchResults(null);
 				}
 				setIsLoading(false);
 			}, 300),
