@@ -1,6 +1,6 @@
 {
   "name": "@balena/ui-shared-components",
-  "version": "11.2.1",
+  "version": "11.2.2",
   "main": "./dist/index.js",
   "sideEffects": false,
   "files": [
@@ -137,6 +137,6 @@
   },
   "homepage": "https://github.com/balena-io/ui-shared-components#readme",
   "versionist": {
-    "publishedAt": "2025-01-24T13:55:23.102Z"
+    "publishedAt": "2025-01-24T15:57:13.590Z"
   }
 }

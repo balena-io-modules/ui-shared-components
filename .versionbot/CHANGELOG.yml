@@ -1,4 +1,16 @@
 - commits:
+    - subject: Update dependency @types/node to v22
+      hash: 816832299f3ea343db0c9da5bfe5874e762e8d0e
+      body: |
+        Update @types/node from 20.17.12 to 22.10.7
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: balena-renovate[bot]
+  version: 11.2.2
+  title: ""
+  date: 2025-01-24T15:57:13.409Z
+- commits:
     - subject: Add an event on page view for table column settings
       hash: 0361ad234f7afa555833ec1cb19e985beb4ef760
       body: ""
