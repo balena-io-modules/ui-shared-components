@@ -1,4 +1,15 @@
 - commits:
+    - subject: Improve typings and export missing PineFilterOption interface
+      hash: 26680ac9041c0ebaa8bbdd59f6b613b84a498ee7
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Andrea Rosci
+  version: 11.2.3
+  title: ""
+  date: 2025-01-27T11:42:47.271Z
+- commits:
     - subject: Update dependency @types/node to v22
       hash: 816832299f3ea343db0c9da5bfe5874e762e8d0e
       body: |
