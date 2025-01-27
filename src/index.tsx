@@ -137,6 +137,8 @@ export {
 	removeRefSchemeSeparatorsFromFilters,
 } from './components/RJST/Filters/utils';
 
+export type { PineFilterObject } from './components/RJST/oData/jsonToOData';
+
 export {
 	type FormData,
 	FULL_TEXT_SLUG,

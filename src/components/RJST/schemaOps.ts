@@ -101,7 +101,9 @@ export interface RJSTAction<T> {
 
 export interface RJSTSdk<T> {
 	tags?: RJSTTagsSdk<T>;
-	inputSearch?: (filter?: PineFilterObject) => Promise<Array<Subset<T>>>;
+	inputSearch?: (
+		filter?: PineFilterObject,
+	) => Promise<Array<Subset<T>> | null | undefined>;
 }
 
 export interface RJSTContext<T> {
