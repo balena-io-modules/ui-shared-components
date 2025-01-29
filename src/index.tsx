@@ -189,3 +189,4 @@ export * as MaterialDataGrid from '@mui/x-data-grid';
 export { enqueueSnackbar, closeSnackbar } from 'notistack';
 export { useRandomUUID } from './hooks/useRandomUUID';
 export * as designTokens from '@balena/design-tokens';
+export * as ReactQuery from '@tanstack/react-query';
