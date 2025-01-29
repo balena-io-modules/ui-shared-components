@@ -1,6 +1,6 @@
 import type { CheckedState } from '../components/Table/utils';
 import type { RJSTAction } from '../schemaOps';
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 
 export const LOADING_DISABLED_REASON = 'Loading';
 

@@ -7,7 +7,7 @@ import {
 	rjstRunTransformers,
 	type RJSTProps,
 } from '.';
-import { QueryClient, QueryClientProvider } from 'react-query';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 const demoModel = {
 	resource: 'demo_resource_membership',
