@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons/faPlus';
 import uniq from 'lodash/uniq';
 import type { RJSTContext } from '../../schemaOps';
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 import { Stack } from '@mui/material';
 
 export function useTagActions<T extends object>(
