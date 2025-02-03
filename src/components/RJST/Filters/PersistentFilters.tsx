@@ -96,36 +96,6 @@ export const loadRulesFromUrl = (
 		qs.parse(searchLocation, {
 			ignoreQueryPrefix: true,
 			strictNullHandling: true,
-			// The 'qs' library doesn't automatically parse values into their respective types (e.g., numbers, booleans).
-			// It treats everything as a string by default, as explained in the documentation:
-			// https://github.com/ljharb/qs#parsing-primitivescalar-values-numbers-booleans-null-etc
-			// To handle this, we use a transformer to avoid scattering parsing logic across multiple filters.
-			decoder: (
-				str: string,
-				defaultDecoder: qs.defaultDecoder,
-				charset: string,
-				type: 'key' | 'value',
-			) => {
-				if (type === 'value') {
-					const num = Number(str);
-					if (!isNaN(num)) {
-						return num;
-					}
-
-					switch (str) {
-						case 'true':
-							return true;
-						case 'false':
-							return false;
-						case 'null':
-							return null;
-						case 'undefined':
-							return undefined;
-					}
-				}
-
-				return defaultDecoder(str, defaultDecoder, charset);
-			},
 		}) || {};
 
 	const rules = (Array.isArray(parsed) ? parsed : Object.values(parsed))
@@ -135,13 +105,46 @@ export const loadRulesFromUrl = (
 				if (!Array.isArray(r)) {
 					r = [r];
 				}
-				const signatures = r.map(
-					({ n, o, v }: ListQueryStringFilterObject) => ({
+				const signatures = r.map(({ n, o, v }: ListQueryStringFilterObject) => {
+					// The 'qs' library doesn't automatically parse values into their respective types (e.g., numbers, booleans).
+					// It treats everything as a string by default, as explained in the documentation:
+					// https://github.com/ljharb/qs#parsing-primitivescalar-values-numbers-booleans-null-etc
+					// To handle this, we use a transformer to avoid scattering parsing logic across multiple filters.
+					let value: any = v;
+					const num = Number(v);
+					// Only try to transform the value from a string if the operator is not full text search and the field cannot be a string
+					if (
+						o !== FULL_TEXT_SLUG &&
+						typeof properties[n] === 'object' &&
+						'type' in properties[n] &&
+						(Array.isArray(properties[n].type)
+							? !properties[n].type.includes('string')
+							: properties[n].type !== 'string')
+					) {
+						if (!isNaN(num)) {
+							value = num;
+						} else {
+							switch (v) {
+								case 'true':
+									value = true;
+									break;
+								case 'false':
+									value = false;
+									break;
+								case 'null':
+									value = null;
+									break;
+								case 'undefined':
+									value = undefined;
+							}
+						}
+					}
+					return {
 						field: n,
 						operator: o,
-						value: v,
-					}),
-				);
+						value,
+					};
+				});
 
 				const isSignaturesInvalid = signatures.some((s) => {
 					const fieldExist =
