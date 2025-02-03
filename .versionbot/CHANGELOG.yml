@@ -1,4 +1,15 @@
 - commits:
+    - subject: "RJST Filters: Fix trimming leading `0`s from int-like strings"
+      hash: 03adfbd9f7b11a9df30a4959564a26b12ecf013c
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: myarmolinsky
+  version: 11.2.4
+  title: ""
+  date: 2025-02-03T19:29:39.344Z
+- commits:
     - subject: Improve typings and export missing PineFilterOption interface
       hash: 26680ac9041c0ebaa8bbdd59f6b613b84a498ee7
       body: ""
