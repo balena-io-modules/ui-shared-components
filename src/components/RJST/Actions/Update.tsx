@@ -137,6 +137,7 @@ export const Update = <T extends RJSTBaseResource<T>>({
 						: undefined,
 				disabled: !!disabledActionReason,
 				section: action.section,
+				'data-test': `rjst-action-${action.type}${action.type === 'update' ? `__${action.title}` : ''}`,
 			};
 		});
 	}, [
@@ -179,6 +180,7 @@ export const Update = <T extends RJSTBaseResource<T>>({
 					<Button
 						key={action.title}
 						data-action={`${action.type}-${model.resource}`}
+						data-test={`rjst-action-${action.type}${action.type === 'update' ? `__${action.title}` : ''}`}
 						onClick={() => {
 							onActionTriggered({
 								action,
@@ -237,6 +239,7 @@ export const Update = <T extends RJSTBaseResource<T>>({
 				startIcon={<FontAwesomeIcon icon={faPenToSquare} />}
 				color="secondary"
 				groupByProp="section"
+				data-test="rjst-action-modify"
 			>
 				{t('labels.modify')}
 			</DropDownButton>
