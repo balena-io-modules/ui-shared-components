@@ -1,4 +1,15 @@
 - commits:
+    - subject: Add `data-test`s to some RJST components
+      hash: 59d3a267c1cbbbd9ef853571529f02584296f1cf
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: myarmolinsky
+  version: 11.2.5
+  title: ""
+  date: 2025-02-13T16:15:16.893Z
+- commits:
     - subject: "RJST Filters: Fix trimming leading `0`s from int-like strings"
       hash: 03adfbd9f7b11a9df30a4959564a26b12ecf013c
       body: ""
