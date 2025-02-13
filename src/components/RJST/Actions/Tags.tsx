@@ -9,7 +9,7 @@ import type {
 	SubmitInfo,
 } from '../../TagManagementDialog/models';
 import { closeSnackbar, enqueueSnackbar } from 'notistack';
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 import { Spinner } from '../../Spinner';
 import { TagManagementDialog } from '../../TagManagementDialog';
 
@@ -57,7 +57,7 @@ export const Tags = <T extends RJSTBaseResource<T>>({
 		return item[rjstContext.nameField as keyof T];
 	};
 
-	const { data: items, isLoading } = useQuery({
+	const { data: items, isPending } = useQuery({
 		queryKey: [
 			'tableTags',
 			internalPineFilter,
@@ -120,7 +120,7 @@ export const Tags = <T extends RJSTBaseResource<T>>({
 	}
 
 	return (
-		<Spinner show={isLoading} sx={{ width: '100%', height: '100%' }}>
+		<Spinner show={isPending} sx={{ width: '100%', height: '100%' }}>
 			<TagManagementDialog<T>
 				items={items}
 				itemType={rjstContext.resource}
