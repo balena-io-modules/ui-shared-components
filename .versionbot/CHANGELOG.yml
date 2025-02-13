@@ -1,4 +1,15 @@
 - commits:
+    - subject: Update react-query and export it
+      hash: 7f8b0653f42772a8a9fd4f44ab68a39d727d5ad2
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Andrea Rosci
+  version: 11.2.6
+  title: ""
+  date: 2025-02-13T16:35:24.860Z
+- commits:
     - subject: Add `data-test`s to some RJST components
       hash: 59d3a267c1cbbbd9ef853571529f02584296f1cf
       body: ""
