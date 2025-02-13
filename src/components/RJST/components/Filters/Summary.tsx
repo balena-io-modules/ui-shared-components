@@ -62,7 +62,11 @@ export const Summary = ({
 						{t('labels.filter_other')}
 					</Typography>
 					<Typography>({filters.length})</Typography>
-					<Button variant="text" onClick={onClearFilters}>
+					<Button
+						variant="text"
+						onClick={onClearFilters}
+						data-test="filters__clear-all-filters"
+					>
 						{t('actions.clear_all')}
 					</Button>
 				</Box>
