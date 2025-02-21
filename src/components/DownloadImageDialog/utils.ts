@@ -37,3 +37,26 @@ export const getOsTypeName = (osTypeSlug: string) => {
 export const getOsVariantDisplayText = (variant: string): string => {
 	return OS_VARIANT_FULL_DISPLAY_TEXT_MAP[variant] || variant;
 };
+
+export const isUrlAccessible = async (
+	url: string,
+	authToken: string | undefined,
+) => {
+	try {
+		const response = await fetch(url, {
+			method: 'GET',
+			...(authToken && {
+				headers: {
+					authorization: `Bearer ${authToken}`,
+				},
+			}),
+		});
+		if (response.ok) {
+			return true;
+		} else {
+			return false;
+		}
+	} catch {
+		return false;
+	}
+};
