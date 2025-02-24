@@ -8,7 +8,11 @@ import {
 	Typography,
 } from '@mui/material';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { FALLBACK_LOGO_UNKNOWN_DEVICE, stripVersionBuild } from './utils';
+import {
+	FALLBACK_LOGO_UNKNOWN_DEVICE,
+	isUrlAccessible,
+	stripVersionBuild,
+} from './utils';
 import { ImageForm } from './ImageForm';
 import { ApplicationInstructions } from './ApplicationInstructions';
 import type { DropDownButtonProps } from '../DropDownButton';
@@ -226,10 +230,33 @@ export const DownloadImageDialog = ({
 	);
 	const [isFetching, setIsFetching] = useState(isEmpty(osVersions));
 	const [downloadSize, setDownloadSize] = useState<string | null>(null);
+	const [isValidatingUrl, setIsValidatingUrl] = useState(false);
 
 	const defaultDisplayName = useMemo(
 		() => formModel.deviceType?.name ?? '-',
 		[formModel.deviceType?.name],
+	);
+
+	const withUrlValidation = useCallback(
+		(action: () => void) => async () => {
+			setIsValidatingUrl(true);
+			const modelCopy = { ...formModel, deviceType: formModel.deviceType.slug };
+			const finalUrl = generateImageUrl(modelCopy, downloadUrl);
+			const isAccessible = await isUrlAccessible(finalUrl, authToken);
+			setIsValidatingUrl(false);
+			if (!isAccessible) {
+				enqueueSnackbar({
+					key: 'balena_download_image_modal',
+					variant: 'error',
+					message:
+						"We're currently experiencing some issues. Please contact support or try again later.",
+					preventDuplicate: true,
+				});
+				return;
+			}
+			action();
+		},
+		[downloadUrl, formModel, authToken],
 	);
 
 	const actions: DropDownButtonProps['items'] = useMemo(() => {
@@ -242,10 +269,10 @@ export const DownloadImageDialog = ({
 					releaseId: formModel.releaseId,
 					downloadUrl,
 				},
-				onClick: () => {
+				onClick: withUrlValidation(() => {
 					onDownloadStart?.(formModel, ActionType.flash);
 					flashWithEtcher(formModel, downloadUrl, authToken);
-				},
+				}),
 				children: (
 					<>
 						<img width="20px" alt="etcher" src={etcherLogoBase64} /> Flash
@@ -263,13 +290,13 @@ export const DownloadImageDialog = ({
 					releaseId: formModel.releaseId,
 					downloadUrl,
 				},
-				onClick: () => {
+				onClick: withUrlValidation(() => {
 					if (!formElement?.current) {
 						return;
 					}
 					onDownloadStart?.(formModel, ActionType.downloadOs);
 					formElement.current.submit();
-				},
+				}),
 				children: (
 					<>
 						<DownloadIcon /> Download balenaOS{' '}
@@ -301,6 +328,7 @@ export const DownloadImageDialog = ({
 		return dropDownButtonActions satisfies DropDownButtonProps['items'];
 	}, [
 		authToken,
+		isValidatingUrl,
 		downloadConfig,
 		downloadSize,
 		downloadUrl,
@@ -429,91 +457,95 @@ export const DownloadImageDialog = ({
 			sx={{ p: 4 }}
 		>
 			<DialogContent sx={{ m: 0 }}>
-				<Grid container pb={5} spacing={[0, 0, 4]}>
-					<Grid
-						size={{
-							xs: 12,
-							sm: 12,
-							md: 6,
-							lg: 7,
-						}}
-					>
-						{isFetching ? (
-							<Spinner />
-						) : (
-							<>
-								{isEmpty(osVersions) && (
-									<Callout severity="warning">
-										No OS versions available for download
+				<Spinner show={isValidatingUrl}>
+					<Grid container pb={5} spacing={[0, 0, 4]}>
+						<Grid
+							size={{
+								xs: 12,
+								sm: 12,
+								md: 6,
+								lg: 7,
+							}}
+						>
+							{isFetching ? (
+								<Spinner />
+							) : (
+								<>
+									{isEmpty(osVersions) && (
+										<Callout severity="warning">
+											No OS versions available for download
+										</Callout>
+									)}
+									{!!osType && !!compatibleDeviceTypes && (
+										<ImageForm
+											applicationId={applicationId}
+											releaseId={releaseId}
+											compatibleDeviceTypes={compatibleDeviceTypes}
+											osVersions={osVersions}
+											isInitialDefault={isInitialDefault}
+											hasEsrVersions={
+												deviceTypeHasEsr[formModel.deviceType.slug]
+											}
+											formElement={formElement}
+											downloadUrl={downloadUrl}
+											authToken={authToken}
+											osType={osType}
+											osTypes={osTypes}
+											model={formModel}
+											onSelectedOsTypeChange={setOsTypeCallback}
+											onChange={handleChange}
+										/>
+									)}
+								</>
+							)}
+						</Grid>
+						<Grid
+							pb={0}
+							size={{
+								xs: 12,
+								sm: 12,
+								md: 6,
+								lg: 5,
+							}}
+						>
+							<Divider
+								variant="fullWidth"
+								sx={{
+									mt: 2,
+									mb: 3,
+									display: {
+										xs: 'block',
+										sm: 'block',
+										md: 'none',
+									},
+								}}
+							/>
+							<ApplicationInstructions
+								deviceType={formModel.deviceType}
+								templateData={{
+									dockerImage: formModel.version
+										? getDockerArtifact(
+												formModel.deviceType.slug,
+												stripVersionBuild(formModel.version),
+											)
+										: '',
+								}}
+							/>
+						</Grid>
+						{(formModel.deviceType.imageDownloadAlerts ?? []).map((alert) => {
+							return (
+								<Grid pt={0} key={alert.message} size={12}>
+									<Callout
+										key={alert.message}
+										severity={alert.type as CalloutProps['severity']}
+									>
+										{alert.message}
 									</Callout>
-								)}
-								{!!osType && !!compatibleDeviceTypes && (
-									<ImageForm
-										applicationId={applicationId}
-										releaseId={releaseId}
-										compatibleDeviceTypes={compatibleDeviceTypes}
-										osVersions={osVersions}
-										isInitialDefault={isInitialDefault}
-										hasEsrVersions={deviceTypeHasEsr[formModel.deviceType.slug]}
-										formElement={formElement}
-										downloadUrl={downloadUrl}
-										authToken={authToken}
-										osType={osType}
-										osTypes={osTypes}
-										model={formModel}
-										onSelectedOsTypeChange={setOsTypeCallback}
-										onChange={handleChange}
-									/>
-								)}
-							</>
-						)}
+								</Grid>
+							);
+						})}
 					</Grid>
-					<Grid
-						pb={0}
-						size={{
-							xs: 12,
-							sm: 12,
-							md: 6,
-							lg: 5,
-						}}
-					>
-						<Divider
-							variant="fullWidth"
-							sx={{
-								mt: 2,
-								mb: 3,
-								display: {
-									xs: 'block',
-									sm: 'block',
-									md: 'none',
-								},
-							}}
-						/>
-						<ApplicationInstructions
-							deviceType={formModel.deviceType}
-							templateData={{
-								dockerImage: formModel.version
-									? getDockerArtifact(
-											formModel.deviceType.slug,
-											stripVersionBuild(formModel.version),
-										)
-									: '',
-							}}
-						/>
-					</Grid>
-					{(formModel.deviceType.imageDownloadAlerts ?? []).map((alert) => {
-						return (
-							<Grid pt={0} key={alert.message} size={12}>
-								<Callout
-									key={alert.message}
-									severity={alert.type as CalloutProps['severity']}
-								>
-									{alert.message}
-								</Callout>
-							</Grid>
-						);
-					})}
-				</Grid>
+				</Spinner>
 			</DialogContent>
 			<DialogActions
 				sx={{
@@ -524,7 +556,11 @@ export const DownloadImageDialog = ({
 					justifyContent: 'end',
 				}}
 			>
-				<DropDownButton className="e2e-download-image-submit" items={actions} />
+				<DropDownButton
+					className="e2e-download-image-submit"
+					items={actions}
+					disabled={isValidatingUrl}
+				/>
 			</DialogActions>
 		</DialogWithCloseButton>
 	);
