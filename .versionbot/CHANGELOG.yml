@@ -1,4 +1,16 @@
 - commits:
+    - subject: Improve error handling for inaccessible download URLs by providing a
+        fallback action.
+      hash: 3be52bf4e12ad566fbff3f695d8709996b12cb47
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Andrea Rosci
+  version: 11.2.7
+  title: ""
+  date: 2025-02-24T17:07:37.462Z
+- commits:
     - subject: Update react-query and export it
       hash: 7f8b0653f42772a8a9fd4f44ab68a39d727d5ad2
       body: ""
