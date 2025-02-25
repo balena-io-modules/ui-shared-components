@@ -1,4 +1,3 @@
-import has from 'lodash/has';
 import { interpolateMustache } from './utils';
 import { Box, List, Tab, Tabs, Typography } from '@mui/material';
 import { memo, useEffect, useState } from 'react';
@@ -6,6 +5,8 @@ import { MUILinkWithTracking } from '../MUILinkWithTracking';
 import type { DeviceType, OsSpecificContractInstructions } from './models';
 import { OrderedListItem } from '../OrderedListItem';
 import { Markdown } from '../Markdown';
+import { Chip } from '../Chip';
+import { token } from '../../utils/token';
 
 export type OsOptions = ReturnType<typeof getUserOs>;
 
@@ -26,12 +27,16 @@ export const getUserOs = () => {
 	return 'Unknown';
 };
 
+const SECURE_BOOT_INSTRUCTION_TO_REPLACE_START = 'Press the F10 key while BIOS';
+
 export const ApplicationInstructions = memo(function ApplicationInstructions({
 	deviceType,
 	templateData,
+	secureboot,
 }: {
 	deviceType: DeviceType;
 	templateData: { dockerImage: string };
+	secureboot: boolean;
 }) {
 	const [currentOs, setCurrentOs] = useState<OsOptions>(getUserOs());
 
@@ -106,7 +111,10 @@ export const ApplicationInstructions = memo(function ApplicationInstructions({
 				</Box>
 			)}
 
-			<InstructionsList instructions={finalInstructions} />
+			<InstructionsList
+				instructions={finalInstructions}
+				secureboot={secureboot}
+			/>
 
 			<Box mt={2}>
 				<Typography>
@@ -124,26 +132,21 @@ export const ApplicationInstructions = memo(function ApplicationInstructions({
 });
 
 interface InstructionsItemProps {
-	node: any;
+	instruction: string;
 	index: number;
+	secureboot: boolean;
 }
 
 interface InstructionsListProps {
-	instructions: any[];
+	instructions: string[];
+	secureboot: boolean;
 }
 
-const InstructionsItem = ({ node, index }: InstructionsItemProps) => {
-	const hasChildren = has(node, 'children');
-	let text = null;
-
-	if (typeof node === 'string') {
-		text = node;
-	}
-
-	if (node?.text) {
-		text = node.text;
-	}
-
+const InstructionsItem = ({
+	instruction,
+	index,
+	secureboot,
+}: InstructionsItemProps) => {
 	return (
 		<OrderedListItem index={index + 1} sx={{ maxWidth: '100%' }}>
 			<Markdown
@@ -166,29 +169,69 @@ const InstructionsItem = ({ node, index }: InstructionsItemProps) => {
 						return <p />;
 					},
 					p: ({ children }) => (
-						<p style={{ marginTop: 0, marginBottom: 0 }}>{children}</p>
+						<p style={{ marginTop: 0, marginBottom: 0 }}>
+							{/* TODO: Find a way to do this via contracts */}
+							{secureboot &&
+							instruction.includes(SECURE_BOOT_INSTRUCTION_TO_REPLACE_START) ? (
+								<>
+									{
+										instruction.split(
+											SECURE_BOOT_INSTRUCTION_TO_REPLACE_START,
+										)[0]
+									}
+									<Box
+										mt={2}
+										borderLeft={1}
+										borderColor={token('color.border.subtle')}
+										pl={2}
+									>
+										<Chip
+											sx={{ marginRight: 1 }}
+											label="Secure Boot"
+											color="purple"
+										/>
+										The device needs to be configured in secure boot setup mode.
+										This depends on the UEFI/BIOS implementation, but in
+										general, this involves resetting the UEFI settings to
+										default configuration, configuring the device to boot in
+										UEFI mode, setting the first boot option to the USB key and
+										disabling the restoration of factory keys. Save and Exit the
+										UEFI/BIOS menu and the device should automatically reboot
+										and begin the provisioning process.{' '}
+										<MUILinkWithTracking href="https://docs.balena.io/reference/OS/secure-boot-and-full-disk-encryption/generic-x86-64-gpt/#provision-the-device">
+											Read more on UEFI settings for secure boot and full disk
+											encryption.
+										</MUILinkWithTracking>
+									</Box>
+								</>
+							) : (
+								children
+							)}
+						</p>
 					),
 				}}
 			>
-				{text}
+				{instruction}
 			</Markdown>
-
-			{hasChildren && (
-				<List>
-					{(node.children as any[]).map((item, i) => {
-						return <InstructionsItem key={i} node={item} index={i} />;
-					})}
-				</List>
-			)}
 		</OrderedListItem>
 	);
 };
 
-const InstructionsList = ({ instructions }: InstructionsListProps) => {
+const InstructionsList = ({
+	instructions,
+	secureboot,
+}: InstructionsListProps) => {
 	return (
 		<List>
-			{instructions.map((item, i) => {
-				return <InstructionsItem key={`${item}_${i}`} node={item} index={i} />;
+			{instructions.map((instruction, i) => {
+				return (
+					<InstructionsItem
+						key={`${instruction}_${i}`}
+						instruction={instruction}
+						index={i}
+						secureboot={secureboot}
+					/>
+				);
 			})}
 		</List>
 	);
