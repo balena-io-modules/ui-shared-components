@@ -10,6 +10,7 @@ import type {
 } from './models';
 import { OrderedListItem } from '../OrderedListItem';
 import { Markdown } from '../Markdown';
+import { Chip } from '../Chip';
 
 export type OsOptions = ReturnType<typeof getUserOs>;
 
@@ -30,6 +31,9 @@ export const getUserOs = () => {
 	return 'Unknown';
 };
 
+const GENERIC_X86_SECURE_BOOT_EXTRA_INSTRUCTION =
+	'A point about clearing the factory UEFI keys and putting the device in set up mode.';
+
 const dtJsonTocontractOsKeyMap = {
 	windows: 'Windows',
 	osx: 'MacOS',
@@ -39,9 +43,11 @@ const dtJsonTocontractOsKeyMap = {
 export const ApplicationInstructions = memo(function ApplicationInstructions({
 	deviceType,
 	templateData,
+	secureboot,
 }: {
 	deviceType: DeviceType;
 	templateData: { dockerImage: string };
+	secureboot: boolean;
 }) {
 	const [currentOs, setCurrentOs] = useState<OsOptions>(getUserOs());
 
@@ -104,6 +110,7 @@ export const ApplicationInstructions = memo(function ApplicationInstructions({
 
 	const finalInstructions = [
 		'Use the form on the left to configure and download balenaOS for your new device.',
+		...(secureboot ? [GENERIC_X86_SECURE_BOOT_EXTRA_INSTRUCTION] : []),
 		...interpolatedInstructions,
 		'Your device should appear in your application dashboard within a few minutes. Have fun!',
 	];
@@ -130,7 +137,10 @@ export const ApplicationInstructions = memo(function ApplicationInstructions({
 				</Box>
 			)}
 
-			<InstructionsList instructions={finalInstructions} />
+			<InstructionsList
+				instructions={finalInstructions}
+				secureboot={secureboot}
+			/>
 
 			<Box mt={2}>
 				<Typography>
@@ -150,13 +160,19 @@ export const ApplicationInstructions = memo(function ApplicationInstructions({
 interface InstructionsItemProps {
 	node: any;
 	index: number;
+	secureboot: boolean;
 }
 
 interface InstructionsListProps {
 	instructions: any[];
+	secureboot: boolean;
 }
 
-const InstructionsItem = ({ node, index }: InstructionsItemProps) => {
+const InstructionsItem = ({
+	node,
+	index,
+	secureboot,
+}: InstructionsItemProps) => {
 	const hasChildren = has(node, 'children');
 	let text = null;
 
@@ -190,7 +206,16 @@ const InstructionsItem = ({ node, index }: InstructionsItemProps) => {
 						return <p />;
 					},
 					p: ({ children }) => (
-						<p style={{ marginTop: 0, marginBottom: 0 }}>{children}</p>
+						<p style={{ marginTop: 0, marginBottom: 0 }}>
+							{secureboot && index === 1 && (
+								<Chip
+									sx={{ marginRight: 1 }}
+									label="Secure Boot"
+									color="purple"
+								/>
+							)}
+							{children}
+						</p>
 					),
 				}}
 			>
@@ -200,7 +225,14 @@ const InstructionsItem = ({ node, index }: InstructionsItemProps) => {
 			{hasChildren && (
 				<List>
 					{(node.children as any[]).map((item, i) => {
-						return <InstructionsItem key={i} node={item} index={i} />;
+						return (
+							<InstructionsItem
+								key={i}
+								node={item}
+								index={i}
+								secureboot={secureboot}
+							/>
+						);
 					})}
 				</List>
 			)}
@@ -208,11 +240,21 @@ const InstructionsItem = ({ node, index }: InstructionsItemProps) => {
 	);
 };
 
-const InstructionsList = ({ instructions }: InstructionsListProps) => {
+const InstructionsList = ({
+	instructions,
+	secureboot,
+}: InstructionsListProps) => {
 	return (
 		<List>
 			{instructions.map((item, i) => {
-				return <InstructionsItem key={`${item}_${i}`} node={item} index={i} />;
+				return (
+					<InstructionsItem
+						key={`${item}_${i}`}
+						node={item}
+						index={i}
+						secureboot={secureboot}
+					/>
+				);
 			})}
 		</List>
 	);
