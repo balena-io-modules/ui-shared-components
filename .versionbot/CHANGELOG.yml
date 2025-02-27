@@ -1,4 +1,20 @@
 - commits:
+    - subject: "DownloadImageDialog: Fix downloading the auto-selected release when it
+        has variants"
+      hash: ee34febd11c01421268ebbbea6c8ef47423ace00
+      body: |
+        An extra case that we forgot and used the
+        stripped version instead of the raw version.
+      footer:
+        Change-type: patch
+        change-type: patch
+        See: https://balena.zulipchat.com/#narrow/channel/403752-channel.2Fsupport-help/topic/Orange.20pi.20Zero.20image.20download.20does.20not.20work/near/502224287
+        see: https://balena.zulipchat.com/#narrow/channel/403752-channel.2Fsupport-help/topic/Orange.20pi.20Zero.20image.20download.20does.20not.20work/near/502224287
+      author: Thodoris Greasidis
+  version: 11.2.8
+  title: ""
+  date: 2025-02-27T13:51:41.075Z
+- commits:
     - subject: Improve error handling for inaccessible download URLs by providing a
         fallback action.
       hash: 3be52bf4e12ad566fbff3f695d8709996b12cb47
