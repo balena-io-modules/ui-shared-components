@@ -136,11 +136,14 @@ export const ImageForm = memo(function ImageForm({
 	const handleVersionChange = useCallback(
 		(ver: typeof version) => {
 			if (!ver) {
-				const newVersion =
+				ver =
 					versionSelectionOpts.find((v) => v.isRecommended) ??
 					versionSelectionOpts[0];
-				onChange('version', newVersion?.value);
-				setVersion(newVersion);
+			}
+			if (ver == null) {
+				// This shouldn't really happen, but if it does, that's all we can do.
+				onChange('version', undefined);
+				setVersion(undefined);
 				return;
 			}
 
