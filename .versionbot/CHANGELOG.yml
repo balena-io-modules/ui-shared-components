@@ -1,4 +1,15 @@
 - commits:
+    - subject: Run `npm audit fix`
+      hash: c99a57e3d8cd1915a2721f0b7530514f719237b4
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: myarmolinsky
+  version: 11.2.9
+  title: ""
+  date: 2025-02-27T16:59:07.387Z
+- commits:
     - subject: "DownloadImageDialog: Fix downloading the auto-selected release when it
         has variants"
       hash: ee34febd11c01421268ebbbea6c8ef47423ace00
