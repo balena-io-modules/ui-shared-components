@@ -101,7 +101,7 @@ export const OsTypeSelector = ({
 				htmlFor="newAppApplicationType"
 				sx={{ display: 'flex', alignItems: 'center', mb: 2 }}
 			>
-				Select OS type{' '}
+				OS type{' '}
 				<MUILinkWithTracking
 					sx={{ height: 14 }}
 					href="https://www.balena.io/docs/reference/OS/extended-support-release"

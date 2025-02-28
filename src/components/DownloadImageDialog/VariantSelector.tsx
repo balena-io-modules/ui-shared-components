@@ -83,7 +83,9 @@ export const VariantSelector = ({
 }: VariantSelectorProps) => {
 	return (
 		<FormControl>
-			<FormLabel>Select edition</FormLabel>
+			<FormLabel>
+				<Typography variant="titleSm">Select edition</Typography>
+			</FormLabel>
 			<RadioGroup
 				aria-labelledby="variant-radio-buttons-group"
 				name="developmentMode"
