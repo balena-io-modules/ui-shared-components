@@ -1,10 +1,8 @@
 import {
 	Avatar,
 	Box,
-	Button,
 	Checkbox,
 	Chip,
-	Collapse,
 	Divider,
 	FormControl,
 	FormControlLabel,
@@ -20,6 +18,9 @@ import {
 	Autocomplete,
 	useTheme,
 	Stack,
+	Accordion,
+	AccordionSummary,
+	AccordionDetails,
 } from '@mui/material';
 import HelpIcon from '@mui/icons-material/Help';
 import { memo, useCallback, useEffect, useMemo, useState } from 'react';
@@ -29,8 +30,6 @@ import { OsTypeSelector } from './OsTypeSelector';
 import type { BuildVariant } from './VariantSelector';
 import { VariantSelector } from './VariantSelector';
 import type { DownloadImageFormModel } from '.';
-import AddIcon from '@mui/icons-material/Add';
-import RemoveIcon from '@mui/icons-material/Remove';
 import ArticleIcon from '@mui/icons-material/Article';
 import { MUILinkWithTracking } from '../MUILinkWithTracking';
 import type { DeviceType, Dictionary, OsVersionsByDeviceType } from './models';
@@ -38,7 +37,10 @@ import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { FALLBACK_LOGO_UNKNOWN_DEVICE } from './utils';
 import type { ChipProps } from '../Chip';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
+import {
+	faChevronRight,
+	faTriangleExclamation,
+} from '@fortawesome/free-solid-svg-icons';
 import { Callout } from '../Callout';
 
 const POLL_INTERVAL_DOCS =
@@ -237,7 +239,7 @@ export const ImageForm = memo(function ImageForm({
 							htmlFor="device-type-select"
 							sx={{ display: 'flex', alignItems: 'center', mb: 2 }}
 						>
-							Select device type{' '}
+							Device type{' '}
 							<Tooltip title="Applications can support any devices that share the same architecture as their default device type.">
 								<HelpIcon
 									color="info"
@@ -387,6 +389,7 @@ export const ImageForm = memo(function ImageForm({
 					)}
 				</Box>
 			)}
+			<Divider variant="fullWidth" sx={{ my: 3, borderStyle: 'dashed' }} />
 			{(!isInitialDefault || !variant) && (
 				<Box sx={{ mt: 3 }}>
 					<VariantSelector
@@ -401,7 +404,9 @@ export const ImageForm = memo(function ImageForm({
 			<Divider variant="fullWidth" sx={{ my: 3, borderStyle: 'dashed' }} />
 			<Box display="flex" flexDirection="column">
 				<FormControl>
-					<FormLabel id="network-radio-buttons-group-label">Network</FormLabel>
+					<FormLabel id="network-radio-buttons-group-label">
+						<Typography variant="titleSm">Network</Typography>
+					</FormLabel>
 					<RadioGroup
 						aria-labelledby="network-radio-buttons-group-label"
 						value={model.network}
@@ -476,76 +481,91 @@ export const ImageForm = memo(function ImageForm({
 				)}
 			</Box>
 			<Divider variant="fullWidth" sx={{ my: 3, borderStyle: 'dashed' }} />
-			<Button
-				onClick={() => {
+			<Accordion
+				disableGutters
+				elevation={0}
+				expanded={showAdvancedSettings}
+				onChange={() => {
 					setShowAdvancedSettings(!showAdvancedSettings);
 				}}
-				variant="outlined"
-				sx={{ mb: 2 }}
+				sx={{
+					border: 'none',
+					'&:not(:last-child)': {
+						borderBottom: 0,
+					},
+					'&::before': {
+						display: 'none',
+					},
+				}}
 			>
-				{showAdvancedSettings ? <RemoveIcon /> : <AddIcon />} Advanced settings
-			</Button>
-			<Collapse in={showAdvancedSettings} collapsedSize={0}>
-				<Box display="flex" flexDirection="column">
-					<FormControl>
-						<FormLabel htmlFor="poll-interval-label" sx={{ display: 'flex' }}>
-							Check for updates every X minutes{' '}
-							<MUILinkWithTracking
-								href={POLL_INTERVAL_DOCS}
-								sx={{
-									display: 'flex',
-									alignItems: 'center',
-									height: '1.5rem',
+				<AccordionSummary
+					expandIcon={<FontAwesomeIcon icon={faChevronRight} />}
+					sx={{ flexDirection: 'row-reverse', gap: 1 }}
+				>
+					<Typography variant="titleSm">Advanced settings</Typography>
+				</AccordionSummary>
+				<AccordionDetails>
+					<Stack>
+						<FormControl>
+							<FormLabel htmlFor="poll-interval-label" sx={{ display: 'flex' }}>
+								Check for updates every X minutes{' '}
+								<MUILinkWithTracking
+									href={POLL_INTERVAL_DOCS}
+									sx={{
+										display: 'flex',
+										alignItems: 'center',
+										height: '1.5rem',
+									}}
+								>
+									<ArticleIcon sx={{ ml: 1, fontSize: '1.15rem' }} />
+								</MUILinkWithTracking>
+							</FormLabel>
+							<TextField
+								id="poll-interval-label"
+								aria-labelledby="poll-interval-label"
+								value={model.appUpdatePollInterval}
+								inputProps={{
+									name: 'appUpdatePollInterval',
+									autocomplete: 'appUpdatePollInterval-auto-complete',
 								}}
-							>
-								<ArticleIcon sx={{ ml: 1, fontSize: '1.15rem' }} />
-							</MUILinkWithTracking>
-						</FormLabel>
+								onChange={(event) => {
+									onChange('appUpdatePollInterval', event.target.value);
+								}}
+							/>
+						</FormControl>
+						<InputLabel htmlFor="provision-key-name" sx={{ my: 2 }}>
+							Provisioning Key name
+						</InputLabel>
 						<TextField
-							id="poll-interval-label"
-							aria-labelledby="poll-interval-label"
-							value={model.appUpdatePollInterval}
+							name="provisioningKeyName"
+							id="provision-key-name"
+							value={model.provisioningKeyName ?? ''}
 							inputProps={{
-								name: 'appUpdatePollInterval',
-								autocomplete: 'appUpdatePollInterval-auto-complete',
+								name: 'provisioningKeyName',
+								autocomplete: 'provisioningKeyName-auto-complete',
 							}}
 							onChange={(event) => {
-								onChange('appUpdatePollInterval', event.target.value);
+								onChange('provisioningKeyName', event.target.value);
 							}}
 						/>
-					</FormControl>
-					<InputLabel htmlFor="provision-key-name" sx={{ my: 2 }}>
-						Provisioning Key name
-					</InputLabel>
-					<TextField
-						name="provisioningKeyName"
-						id="provision-key-name"
-						value={model.provisioningKeyName ?? ''}
-						inputProps={{
-							name: 'provisioningKeyName',
-							autocomplete: 'provisioningKeyName-auto-complete',
-						}}
-						onChange={(event) => {
-							onChange('provisioningKeyName', event.target.value);
-						}}
-					/>
-					<InputLabel htmlFor="provision-key-expiring" sx={{ my: 2 }}>
-						Provisioning Key expiring on
-					</InputLabel>
-					<TextField
-						type="date"
-						id="provision-key-expiring"
-						value={model.provisioningKeyExpiryDate ?? ''}
-						inputProps={{
-							name: 'provisioningKeyExpiryDate',
-							autocomplete: 'provisioningKeyExpiryDate-auto-complete',
-						}}
-						onChange={(event) => {
-							onChange('provisioningKeyExpiryDate', event.target.value);
-						}}
-					/>
-				</Box>
-			</Collapse>
+						<InputLabel htmlFor="provision-key-expiring" sx={{ my: 2 }}>
+							Provisioning Key expiring on
+						</InputLabel>
+						<TextField
+							type="date"
+							id="provision-key-expiring"
+							value={model.provisioningKeyExpiryDate ?? ''}
+							inputProps={{
+								name: 'provisioningKeyExpiryDate',
+								autocomplete: 'provisioningKeyExpiryDate-auto-complete',
+							}}
+							onChange={(event) => {
+								onChange('provisioningKeyExpiryDate', event.target.value);
+							}}
+						/>
+					</Stack>
+				</AccordionDetails>
+			</Accordion>
 		</Box>
 	);
 });
