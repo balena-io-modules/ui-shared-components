@@ -1,4 +1,15 @@
 - commits:
+    - subject: Update TypeScript to 5.8.2
+      hash: 3066ad9125854ff3bd2dd63ea741c53c97387d0b
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Thodoris Greasidis
+  version: 11.2.10
+  title: ""
+  date: 2025-03-04T14:31:02.771Z
+- commits:
     - subject: Run `npm audit fix`
       hash: c99a57e3d8cd1915a2721f0b7530514f719237b4
       body: ""
