@@ -1,10 +1,8 @@
 import {
 	Avatar,
 	Box,
-	Button,
 	Checkbox,
 	Chip,
-	Collapse,
 	Divider,
 	FormControl,
 	FormControlLabel,
@@ -20,6 +18,9 @@ import {
 	Autocomplete,
 	useTheme,
 	Stack,
+	Accordion,
+	AccordionSummary,
+	AccordionDetails,
 } from '@mui/material';
 import HelpIcon from '@mui/icons-material/Help';
 import { memo, useCallback, useEffect, useMemo, useState } from 'react';
@@ -29,8 +30,6 @@ import { OsTypeSelector } from './OsTypeSelector';
 import type { BuildVariant } from './VariantSelector';
 import { VariantSelector } from './VariantSelector';
 import type { DownloadImageFormModel } from '.';
-import AddIcon from '@mui/icons-material/Add';
-import RemoveIcon from '@mui/icons-material/Remove';
 import ArticleIcon from '@mui/icons-material/Article';
 import { MUILinkWithTracking } from '../MUILinkWithTracking';
 import type { DeviceType, Dictionary, OsVersionsByDeviceType } from './models';
@@ -38,7 +37,11 @@ import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { FALLBACK_LOGO_UNKNOWN_DEVICE } from './utils';
 import type { ChipProps } from '../Chip';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
+import {
+	faChevronRight,
+	faTriangleExclamation,
+} from '@fortawesome/free-solid-svg-icons';
+import * as semver from 'balena-semver';
 import { Callout } from '../Callout';
 
 const POLL_INTERVAL_DOCS =
@@ -90,6 +93,9 @@ interface ImageFormProps {
 	) => void;
 }
 
+export const GENERIC_X86_SLUG = 'generic-amd64';
+export const GENERIC_X86_MINIMUM_SUPPORTED_SECUREBOOT_VERSION = '5.0.0';
+
 export const ImageForm = memo(function ImageForm({
 	compatibleDeviceTypes,
 	osVersions,
@@ -124,6 +130,16 @@ export const ImageForm = memo(function ImageForm({
 		() => preferredSelectionOpts.length < selectionOpts.length,
 		[preferredSelectionOpts.length, selectionOpts.length],
 	);
+
+	const supportsSecureBoot = useMemo(() => {
+		return (
+			model.deviceType.slug === GENERIC_X86_SLUG &&
+			semver.gte(
+				model.version,
+				GENERIC_X86_MINIMUM_SUPPORTED_SECUREBOOT_VERSION,
+			)
+		);
+	}, [model.deviceType.slug, model.version]);
 
 	const handleVariantChange = useCallback(
 		(v: typeof variant) => {
@@ -232,12 +248,12 @@ export const ImageForm = memo(function ImageForm({
 			<input type="hidden" name="version" value={model.version} />
 			<Box py={3} display="flex" flexWrap="wrap" gap={2}>
 				{compatibleDeviceTypes && compatibleDeviceTypes.length > 1 && (
-					<Box display="flex" flexDirection="column" flex="1" maxWidth="100%">
+					<Stack flex="1" maxWidth="100%">
 						<InputLabel
 							htmlFor="device-type-select"
 							sx={{ display: 'flex', alignItems: 'center', mb: 2 }}
 						>
-							Select device type{' '}
+							Device type{' '}
 							<Tooltip title="Applications can support any devices that share the same architecture as their default device type.">
 								<HelpIcon
 									color="info"
@@ -290,7 +306,7 @@ export const ImageForm = memo(function ImageForm({
 								popper: { sx: { width: 'fit-content' } },
 							}}
 						/>
-					</Box>
+					</Stack>
 				)}
 				{(!isInitialDefault || osType) &&
 					hasEsrVersions &&
@@ -305,7 +321,7 @@ export const ImageForm = memo(function ImageForm({
 			</Box>
 			{!isInitialDefault && version && (
 				<Box display="flex" flexWrap="wrap" maxWidth="100%">
-					<Box display="flex" flexDirection="column" maxWidth="100%" flex={1}>
+					<Stack maxWidth="100%" flex={1}>
 						<InputLabel
 							sx={{ mb: 2 }}
 							htmlFor="e2e-download-image-versions-list"
@@ -363,7 +379,7 @@ export const ImageForm = memo(function ImageForm({
 							)}
 							disableClearable
 						/>
-					</Box>
+					</Stack>
 					{showAllVersionsToggle && (
 						<Box
 							mx={2}
@@ -387,6 +403,7 @@ export const ImageForm = memo(function ImageForm({
 					)}
 				</Box>
 			)}
+			<Divider variant="fullWidth" sx={{ my: 3, borderStyle: 'dashed' }} />
 			{(!isInitialDefault || !variant) && (
 				<Box sx={{ mt: 3 }}>
 					<VariantSelector
@@ -399,9 +416,11 @@ export const ImageForm = memo(function ImageForm({
 				</Box>
 			)}
 			<Divider variant="fullWidth" sx={{ my: 3, borderStyle: 'dashed' }} />
-			<Box display="flex" flexDirection="column">
+			<Stack>
 				<FormControl>
-					<FormLabel id="network-radio-buttons-group-label">Network</FormLabel>
+					<FormLabel id="network-radio-buttons-group-label">
+						<Typography variant="titleSm">Network</Typography>
+					</FormLabel>
 					<RadioGroup
 						aria-labelledby="network-radio-buttons-group-label"
 						value={model.network}
@@ -474,78 +493,146 @@ export const ImageForm = memo(function ImageForm({
 						/>
 					</>
 				)}
-			</Box>
+			</Stack>
+			{supportsSecureBoot && (
+				<>
+					<Divider variant="fullWidth" sx={{ my: 3, borderStyle: 'dashed' }} />
+					<Stack>
+						<FormControl>
+							<FormLabel id="secure-boot-and-full-disk-encryption-label">
+								<Typography variant="titleSm">
+									Secure Boot and Full Disk Encryption
+								</Typography>
+							</FormLabel>
+							<FormControlLabel
+								control={
+									<Checkbox
+										onChange={(event) => {
+											onChange('secureboot', event.target.checked);
+										}}
+									/>
+								}
+								label={
+									<Stack direction="row">
+										<Typography>
+											Enable Secure Boot and Full Disk Encryption
+										</Typography>
+										<MUILinkWithTracking
+											// TODO: replace with the secure boot docs link
+											href={POLL_INTERVAL_DOCS}
+											sx={{
+												display: 'flex',
+												alignItems: 'center',
+												height: '1.5rem',
+											}}
+										>
+											<ArticleIcon sx={{ ml: 1, fontSize: '1.15rem' }} />
+										</MUILinkWithTracking>
+									</Stack>
+								}
+							/>
+						</FormControl>
+						{model.secureboot && (
+							<Callout severity="warning">
+								Enabling Secure Boot and Full Disk Encryption will have an
+								impact on data, kernel modules, debugging, and more. Make sure
+								you understand the implications and thoroughly test it on your
+								hardware.{' '}
+								{/* TODO: replace with the secure boot learn more link */}
+								<MUILinkWithTracking href={POLL_INTERVAL_DOCS}>
+									Learn more.
+								</MUILinkWithTracking>
+							</Callout>
+						)}
+					</Stack>
+				</>
+			)}
 			<Divider variant="fullWidth" sx={{ my: 3, borderStyle: 'dashed' }} />
-			<Button
-				onClick={() => {
+			<Accordion
+				disableGutters
+				elevation={0}
+				expanded={showAdvancedSettings}
+				onChange={() => {
 					setShowAdvancedSettings(!showAdvancedSettings);
 				}}
-				variant="outlined"
-				sx={{ mb: 2 }}
+				sx={{
+					border: 'none',
+					'&:not(:last-child)': {
+						borderBottom: 0,
+					},
+					'&::before': {
+						display: 'none',
+					},
+				}}
 			>
-				{showAdvancedSettings ? <RemoveIcon /> : <AddIcon />} Advanced settings
-			</Button>
-			<Collapse in={showAdvancedSettings} collapsedSize={0}>
-				<Box display="flex" flexDirection="column">
-					<FormControl>
-						<FormLabel htmlFor="poll-interval-label" sx={{ display: 'flex' }}>
-							Check for updates every X minutes{' '}
-							<MUILinkWithTracking
-								href={POLL_INTERVAL_DOCS}
-								sx={{
-									display: 'flex',
-									alignItems: 'center',
-									height: '1.5rem',
+				<AccordionSummary
+					expandIcon={<FontAwesomeIcon icon={faChevronRight} />}
+					sx={{ flexDirection: 'row-reverse', gap: 1 }}
+				>
+					<Typography variant="titleSm">Advanced settings</Typography>
+				</AccordionSummary>
+				<AccordionDetails>
+					<Stack>
+						<FormControl>
+							<FormLabel htmlFor="poll-interval-label" sx={{ display: 'flex' }}>
+								Check for updates every X minutes{' '}
+								<MUILinkWithTracking
+									href={POLL_INTERVAL_DOCS}
+									sx={{
+										display: 'flex',
+										alignItems: 'center',
+										height: '1.5rem',
+									}}
+								>
+									<ArticleIcon sx={{ ml: 1, fontSize: '1.15rem' }} />
+								</MUILinkWithTracking>
+							</FormLabel>
+							<TextField
+								id="poll-interval-label"
+								aria-labelledby="poll-interval-label"
+								value={model.appUpdatePollInterval}
+								inputProps={{
+									name: 'appUpdatePollInterval',
+									autocomplete: 'appUpdatePollInterval-auto-complete',
 								}}
-							>
-								<ArticleIcon sx={{ ml: 1, fontSize: '1.15rem' }} />
-							</MUILinkWithTracking>
-						</FormLabel>
+								onChange={(event) => {
+									onChange('appUpdatePollInterval', event.target.value);
+								}}
+							/>
+						</FormControl>
+						<InputLabel htmlFor="provision-key-name" sx={{ my: 2 }}>
+							Provisioning Key name
+						</InputLabel>
 						<TextField
-							id="poll-interval-label"
-							aria-labelledby="poll-interval-label"
-							value={model.appUpdatePollInterval}
+							name="provisioningKeyName"
+							id="provision-key-name"
+							value={model.provisioningKeyName ?? ''}
 							inputProps={{
-								name: 'appUpdatePollInterval',
-								autocomplete: 'appUpdatePollInterval-auto-complete',
+								name: 'provisioningKeyName',
+								autocomplete: 'provisioningKeyName-auto-complete',
 							}}
 							onChange={(event) => {
-								onChange('appUpdatePollInterval', event.target.value);
+								onChange('provisioningKeyName', event.target.value);
 							}}
 						/>
-					</FormControl>
-					<InputLabel htmlFor="provision-key-name" sx={{ my: 2 }}>
-						Provisioning Key name
-					</InputLabel>
-					<TextField
-						name="provisioningKeyName"
-						id="provision-key-name"
-						value={model.provisioningKeyName ?? ''}
-						inputProps={{
-							name: 'provisioningKeyName',
-							autocomplete: 'provisioningKeyName-auto-complete',
-						}}
-						onChange={(event) => {
-							onChange('provisioningKeyName', event.target.value);
-						}}
-					/>
-					<InputLabel htmlFor="provision-key-expiring" sx={{ my: 2 }}>
-						Provisioning Key expiring on
-					</InputLabel>
-					<TextField
-						type="date"
-						id="provision-key-expiring"
-						value={model.provisioningKeyExpiryDate ?? ''}
-						inputProps={{
-							name: 'provisioningKeyExpiryDate',
-							autocomplete: 'provisioningKeyExpiryDate-auto-complete',
-						}}
-						onChange={(event) => {
-							onChange('provisioningKeyExpiryDate', event.target.value);
-						}}
-					/>
-				</Box>
-			</Collapse>
+						<InputLabel htmlFor="provision-key-expiring" sx={{ my: 2 }}>
+							Provisioning Key expiring on
+						</InputLabel>
+						<TextField
+							type="date"
+							id="provision-key-expiring"
+							value={model.provisioningKeyExpiryDate ?? ''}
+							inputProps={{
+								name: 'provisioningKeyExpiryDate',
+								autocomplete: 'provisioningKeyExpiryDate-auto-complete',
+							}}
+							onChange={(event) => {
+								onChange('provisioningKeyExpiryDate', event.target.value);
+							}}
+						/>
+					</Stack>
+				</AccordionDetails>
+			</Accordion>
 		</Box>
 	);
 });
@@ -563,7 +650,7 @@ const VersionSelectItem = ({
 	isRecommended?: boolean;
 }) => {
 	return (
-		<Stack direction="column" flexWrap="wrap" maxWidth="100%" rowGap={1}>
+		<Stack flexWrap="wrap" maxWidth="100%" rowGap={1}>
 			<Typography noWrap maxWidth="100%" variant="titleSm">
 				{option.title}
 				{!!option.line && (
