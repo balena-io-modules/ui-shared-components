@@ -135,30 +135,20 @@ export const ImageForm = memo(function ImageForm({
 
 	const handleVersionChange = useCallback(
 		(ver: typeof version) => {
-			if (!ver) {
-				ver =
-					versionSelectionOpts.find((v) => v.isRecommended) ??
-					versionSelectionOpts[0];
-			}
-			if (ver == null) {
-				// This shouldn't really happen, but if it does, that's all we can do.
-				onChange('version', undefined);
-				setVersion(undefined);
-				return;
-			}
-
-			if (ver.hasPrebuiltVariants) {
-				const versionWithVariant = ver.rawVersions[variant];
-				if (versionWithVariant) {
-					onChange('version', versionWithVariant);
+			ver ??=
+				versionSelectionOpts.find((v) => v.isRecommended) ??
+				versionSelectionOpts[0];
+			if (ver?.hasPrebuiltVariants) {
+				const rawVersionForVariant = ver.rawVersions[variant];
+				if (rawVersionForVariant) {
+					onChange('version', rawVersionForVariant);
 					setVersion(ver);
-				}
-				if (!ver.rawVersions[variant]) {
+				} else {
 					handleVariantChange(variant === 'dev' ? 'prod' : 'dev');
 				}
 				return;
 			}
-			onChange('version', ver.rawVersion);
+			onChange('version', ver?.rawVersion);
 			setVersion(ver);
 		},
 		[versionSelectionOpts, variant, onChange, handleVariantChange],
