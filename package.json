@@ -47,7 +47,7 @@
     "remark-gfm": "^4.0.0",
     "rimraf": "^6.0.0",
     "ts-jest": "^29.2.5",
-    "typescript": "^5.5.2",
+    "typescript": "^5.8.2",
     "virtua": "^0.37.3",
     "zxcvbn": "^4.4.2"
   },
