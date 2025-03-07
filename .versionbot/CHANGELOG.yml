@@ -1,4 +1,16 @@
 - commits:
+    - subject: Update dependency color to v5
+      hash: 374b839b88002e4d54b005270084aa4c75f726e3
+      body: |
+        Update color from 4.2.3 to 5.0.0
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: balena-renovate[bot]
+  version: 11.2.11
+  title: ""
+  date: 2025-03-07T17:31:52.318Z
+- commits:
     - subject: Update TypeScript to 5.8.2
       hash: 3066ad9125854ff3bd2dd63ea741c53c97387d0b
       body: ""
