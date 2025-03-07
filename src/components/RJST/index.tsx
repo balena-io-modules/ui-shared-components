@@ -175,6 +175,18 @@ export const RJST = <T extends RJSTBaseResource<T>>({
 	const { t } = useTranslation();
 	const { state: analytics } = useAnalyticsContext();
 	const navigate = useNavigate();
+	// Use a flag to make sure table view event is only triggered once (without the tag
+	// it will be triggered whenever the data is updated)
+	const shouldTableViewEventBeTriggered = React.useRef(true);
+	const totalItems = React.useMemo(
+		() =>
+			pagination && 'totalItems' in pagination
+				? pagination.totalItems
+				: Array.isArray(data)
+					? data.length
+					: null,
+		[pagination, data],
+	);
 
 	const modelRef = React.useRef(modelRaw);
 	// This allows the component to work even if
@@ -288,7 +300,6 @@ export const RJST = <T extends RJSTBaseResource<T>>({
 	);
 
 	const serverSide = pagination?.serverSide;
-	const totalItems = serverSide ? pagination.totalItems : data?.length;
 
 	const hideUtils = React.useMemo(
 		() =>
@@ -455,6 +466,39 @@ export const RJST = <T extends RJSTBaseResource<T>>({
 			!!sdk?.tags,
 		[actions, sdk?.tags],
 	);
+
+	const columns = React.useMemo(
+		() => properties.map((property) => [property.field, property.selected]),
+		[],
+	);
+
+	React.useEffect(() => {
+		if (!lens || !sort || !shouldTableViewEventBeTriggered) {
+			return;
+		}
+
+		console.log('--- table view event', {
+			lens,
+			res: model.resource,
+			filters,
+			sort,
+			totalItems,
+			properties,
+		});
+
+		// const amplitudeFilter = filters.map((f) => convertFilterToHumanReadable(f));
+
+		analytics.webTracker?.track('Resource List View', {
+			lens: lens.slug,
+			resource: model.resource,
+			totalItems,
+			filters: Object.assign({}, filters),
+			columns: Object.fromEntries(columns),
+			sort,
+		});
+
+		shouldTableViewEventBeTriggered.current = false;
+	}, [lens, model.resource, filters, totalItems, sort, columns]);
 
 	if (loading && data == null) {
 		return (
