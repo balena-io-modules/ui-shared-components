@@ -48,6 +48,7 @@ declare module '@mui/material/styles' {
 		orange: PaletteColor;
 		red: PaletteColor;
 	}
+
 	interface PaletteOptions {
 		customBlue: CustomPaletteColorOptions;
 		customYellow: CustomPaletteColorOptions;
@@ -62,6 +63,7 @@ declare module '@mui/material/styles' {
 		orange: PaletteColorOptions;
 		red: PaletteColorOptions;
 	}
+
 	interface PaletteColor {
 		xlight?: string;
 		light: string;
@@ -69,6 +71,7 @@ declare module '@mui/material/styles' {
 		dark: string;
 		contrastText: string;
 	}
+
 	interface TypographyVariants {
 		bodyLg: TypographyStyle;
 		body: TypographyStyle;
@@ -216,6 +219,7 @@ declare module '@mui/material/SvgIcon' {
 }
 
 export const theme = createTheme({
+	cssVariables: true,
 	typography: {
 		fontFamily: typography.fontfamily.body.value,
 		h1: {
@@ -422,7 +426,16 @@ export const theme = createTheme({
 			contrastText: '#ffffff',
 		},
 	},
-	spacing: [0, 4, 8, 16, 32, 64, 128],
+	// FIXME There is a bug in MUI when defining `spacing` as an array and using
+	// css variables, so for now we need to specify it manually.
+	// See https://github.com/mui/material-ui/issues/45500
+	spacing: (factor: number) => {
+		// Equivalent of [0, 4, 8, 16, 32, 64, 128], but with negative spacings included
+		if (factor >= -6 && factor <= 6) {
+			return Math.sign(factor) * 2 ** (Math.abs(factor) + 1);
+		}
+		return 0;
+	},
 	components: {
 		MuiAlert: {
 			defaultProps: {
@@ -521,8 +534,8 @@ export const theme = createTheme({
 					padding: 0,
 				},
 				action: ({ theme }) => ({
-					marginTop: `-${theme.spacing(2)}`,
-					marginBottom: `-${theme.spacing(2)}`,
+					marginTop: theme.spacing(-2),
+					marginBottom: theme.spacing(-2),
 					paddingTop: 0,
 				}),
 				icon: ({ theme }) => ({

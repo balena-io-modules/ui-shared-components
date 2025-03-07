@@ -156,7 +156,7 @@ export const Announcement = React.forwardRef<HTMLDivElement, AnnouncementProps>(
 								onClick={(e) => {
 									onClose?.(e, 'closeButtonClick');
 								}}
-								sx={(theme) => ({ ml: 'auto', my: `-${theme.spacing(1)}` })}
+								sx={{ ml: 'auto', my: -1 }}
 							>
 								<FontAwesomeIcon icon={faClose} />
 							</IconButtonWithTracking>
