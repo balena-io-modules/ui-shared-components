@@ -1,4 +1,16 @@
 - commits:
+    - subject: Update dependency react-markdown to v10
+      hash: 474847781b1656c1b491987366609bfa6f3733d2
+      body: |
+        Update react-markdown from 9.0.1 to 10.0.1
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: balena-renovate[bot]
+  version: 11.2.13
+  title: ""
+  date: 2025-03-07T17:53:57.781Z
+- commits:
     - subject: "DownloadImageDialog: Refactor the handleVersionChange"
       hash: d3e047719860019769c12eddaabe8be1a7124b1a
       body: ""
