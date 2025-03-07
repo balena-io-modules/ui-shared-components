@@ -1,4 +1,15 @@
 - commits:
+    - subject: "DownloadImageDialog: Refactor the handleVersionChange"
+      hash: d3e047719860019769c12eddaabe8be1a7124b1a
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Thodoris Greasidis
+  version: 11.2.12
+  title: ""
+  date: 2025-03-07T17:41:34.077Z
+- commits:
     - subject: Update dependency color to v5
       hash: 374b839b88002e4d54b005270084aa4c75f726e3
       body: |
