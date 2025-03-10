@@ -1,4 +1,15 @@
 - commits:
+    - subject: Migrate config .github/renovate.json
+      hash: 3bc901cf2e05c53f1abcc68971b54332677f7ddf
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: balena-renovate[bot]
+  version: 11.2.14
+  title: ""
+  date: 2025-03-10T12:01:51.554Z
+- commits:
     - subject: Update dependency react-markdown to v10
       hash: 474847781b1656c1b491987366609bfa6f3733d2
       body: |
