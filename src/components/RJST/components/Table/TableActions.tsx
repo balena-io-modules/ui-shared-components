@@ -9,10 +9,18 @@ import {
 	FormControlLabel,
 	FormGroup,
 	IconButton,
+	ListItemIcon,
 	Menu,
 	MenuItem,
 } from '@mui/material';
 import { color } from '@balena/design-tokens';
+import {
+	DragDropContext,
+	Droppable,
+	Draggable,
+	type DropResult,
+} from 'react-beautiful-dnd';
+import { faEllipsisV } from '@fortawesome/free-solid-svg-icons';
 
 interface TableActionsProps<T> {
 	columns: Array<RJSTEntityPropertyDefinition<T>>;
@@ -51,6 +59,23 @@ export const TableActions = <T extends object>({
 		},
 		[onColumnPreferencesChange, columns],
 	);
+
+	const handleDragEnd = (result: DropResult) => {
+		if (!result.destination) {
+			return;
+		}
+
+		const newColumns = Array.from(columns);
+		const [movedColumn] = newColumns.splice(result.source.index, 1);
+		newColumns.splice(result.destination.index, 0, movedColumn);
+		const updatedColumns = newColumns.map((column, newIndex) => ({
+			...column,
+			index: newIndex,
+		}));
+
+		onColumnPreferencesChange?.(updatedColumns);
+	};
+
 	return (
 		<>
 			<IconButton
@@ -69,34 +94,59 @@ export const TableActions = <T extends object>({
 				open={open}
 				onClose={handleClose}
 			>
-				<FormGroup>
-					{columns.map((column) => (
-						<MenuItem key={column.key} sx={{ p: 0 }}>
-							{/* Needed to expand the checkbox click to MenuItem */}
-							<FormControlLabel
-								sx={{
-									flex: 1,
-									width: '100%',
-									height: '100%',
-									py: 1,
-									px: 2,
-									m: 0,
-								}}
-								control={
-									<Checkbox
-										onClick={() => {
-											handleColumnSelection(column);
-										}}
-										checked={column.selected}
-									/>
-								}
-								label={
-									typeof column.label === 'string' ? column.label : column.title
-								}
-							/>
-						</MenuItem>
-					))}
-				</FormGroup>
+				<DragDropContext onDragEnd={handleDragEnd}>
+					<Droppable droppableId="columns" direction="vertical">
+						{(provided) => (
+							<FormGroup ref={provided.innerRef} {...provided.droppableProps}>
+								{columns.map((column, index) => (
+									<Draggable
+										key={column.key}
+										draggableId={column.key}
+										index={index}
+									>
+										{(item) => (
+											<MenuItem
+												ref={item.innerRef}
+												{...item.draggableProps}
+												sx={{ display: 'flex', alignItems: 'center', p: 0 }}
+											>
+												<ListItemIcon
+													{...item.dragHandleProps}
+													sx={{
+														cursor: 'grab',
+														pl: 3,
+														pr: 2,
+														mx: 0,
+														minWidth: 'fit-content',
+													}}
+												>
+													<FontAwesomeIcon icon={faEllipsisV} />
+												</ListItemIcon>
+												<FormControlLabel
+													sx={{ flex: 1, width: '100%', py: 1, pr: 2, m: 0 }}
+													control={
+														<Checkbox
+															onClick={() => {
+																handleColumnSelection(column);
+															}}
+															checked={column.selected}
+														/>
+													}
+													label={
+														typeof column.label === 'string'
+															? column.label
+															: column.title
+													}
+												/>
+											</MenuItem>
+										)}
+									</Draggable>
+								))}
+								{provided.placeholder}
+							</FormGroup>
+						)}
+					</Droppable>
+				</DragDropContext>
 				{actions?.map(({ onClick, ...menuItemProps }, index) => [
 					<Divider key={`divider-${index}`} />,
 					<MenuItem
