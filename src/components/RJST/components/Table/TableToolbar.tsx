@@ -3,14 +3,13 @@ import { Stack, Typography } from '@mui/material';
 import type { RJSTEntityPropertyDefinition } from '../..';
 import { TableActions } from './TableActions';
 import { color } from '@balena/design-tokens';
+import type { ColumnPreferencesChangeProp } from './index';
 
 interface TableToolbarProps<T> {
 	numSelected?: number;
 	columns: Array<RJSTEntityPropertyDefinition<T>>;
 	actions?: MenuItemProps[];
-	onColumnPreferencesChange?: (
-		columns: Array<RJSTEntityPropertyDefinition<T>>,
-	) => void;
+	onColumnPreferencesChange?: ColumnPreferencesChangeProp<T>;
 }
 
 export const TableToolbar = <T extends object>({
