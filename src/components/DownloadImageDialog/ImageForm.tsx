@@ -565,6 +565,10 @@ export const ImageForm = memo(function ImageForm({
 										</Typography>
 										<MUILinkWithTracking
 											// TODO: replace with the secure boot docs link
+											eventProperties={{
+												source:
+													'Application Add Device Modal Secure Boot Doc Icon',
+											}}
 											href={POLL_INTERVAL_DOCS}
 											sx={{
 												display: 'flex',
@@ -613,6 +617,10 @@ export const ImageForm = memo(function ImageForm({
 								>
 									Check for updates every X minutes{' '}
 									<MUILinkWithTracking
+										eventProperties={{
+											source:
+												'Application Add Device Modal Poll Interval Doc Icon',
+										}}
 										href={POLL_INTERVAL_DOCS}
 										sx={{
 											display: 'flex',
@@ -687,7 +695,13 @@ export const ImageForm = memo(function ImageForm({
 							understand the implications and thoroughly test it on your
 							hardware.{' '}
 							{/* TODO: replace with the secure boot learn more link */}
-							<MUILinkWithTracking href={POLL_INTERVAL_DOCS}>
+							<MUILinkWithTracking
+								eventProperties={{
+									source:
+										'Application Add Device Modal Secure Boot Warning Learn More Link',
+								}}
+								href={POLL_INTERVAL_DOCS}
+							>
 								Learn more.
 							</MUILinkWithTracking>
 						</Typography>
