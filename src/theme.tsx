@@ -1779,9 +1779,6 @@ export const theme = createTheme({
 						background: color.bg.hover.value,
 					},
 				},
-				selected: {
-					background: color.bg.active.value,
-				},
 			},
 		},
 		MuiToolbar: {
