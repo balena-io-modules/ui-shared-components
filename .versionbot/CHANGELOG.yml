@@ -1,4 +1,15 @@
 - commits:
+    - subject: Remove unnecessary `MuiMenuItem` styling
+      hash: ef6ec877225b62d172d575e0248bc67e0476e0fb
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: myarmolinsky
+  version: 11.2.15
+  title: ""
+  date: 2025-03-13T13:44:05.089Z
+- commits:
     - subject: Migrate config .github/renovate.json
       hash: 3bc901cf2e05c53f1abcc68971b54332677f7ddf
       body: ""
