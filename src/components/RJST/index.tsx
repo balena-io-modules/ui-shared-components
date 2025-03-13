@@ -74,20 +74,7 @@ import { Tooltip } from '../Tooltip';
 
 const HeaderGrid = styled(Box)(({ theme }) => ({
 	display: 'flex',
-	rowGap: theme.spacing(2),
-	columnGap: theme.spacing(2),
-	'> *': {
-		'&:first-child': {
-			marginRight: 1,
-		},
-		'&:not(:last-child):not(:first-child)': {
-			marginRight: 1,
-			marginLeft: 1,
-		},
-		'&:last-child': {
-			marginLeft: 1,
-		},
-	},
+	gap: theme.spacing(2),
 }));
 
 export interface NoDataInfo {
