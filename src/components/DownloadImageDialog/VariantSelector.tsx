@@ -12,13 +12,14 @@ import { MUILinkWithTracking } from '../MUILinkWithTracking';
 import { getOsVariantDisplayText } from './utils';
 import type { VersionSelectionOptions } from './version';
 import { Lightbulb } from '@mui/icons-material';
+import { Callout } from '../Callout';
 
-const variantInfo: {
+const variantInfo: (selected: BuildVariant) => {
 	[Key in BuildVariant]: {
 		title: React.ReactElement;
 		description: React.ReactElement;
 	};
-} = {
+} = (selected) => ({
 	dev: {
 		title: (
 			<Box display="flex" gap={1} flexDirection="row" alignItems="center">
@@ -41,8 +42,17 @@ const variantInfo: {
 				<MUILinkWithTracking href="https://balena.io/docs/development/local-mode/">
 					local mode
 				</MUILinkWithTracking>{' '}
-				workflow{' '}
-				<strong>This variant should never be used in production.</strong>
+				workflow.
+				{/* TODO: replace `for security reasons` with actual reasons */}
+				{selected === 'dev' && (
+					<Callout severity="warning">
+						This variant should never be used in production for security
+						reasons. {/* TODO: replace this link with a correct link */}
+						<MUILinkWithTracking href="https://balena.io/docs/development/local-mode/">
+							Learn more.
+						</MUILinkWithTracking>
+					</Callout>
+				)}
 			</>
 		),
 	},
@@ -56,7 +66,7 @@ const variantInfo: {
 			</>
 		),
 	},
-};
+});
 
 const BuildVariants = ['dev', 'prod'] as const;
 export type BuildVariant = (typeof BuildVariants)[number];
@@ -73,7 +83,9 @@ export const VariantSelector = ({
 }: VariantSelectorProps) => {
 	return (
 		<FormControl>
-			<FormLabel>Select edition</FormLabel>
+			<FormLabel>
+				<Typography variant="titleSm">Select edition</Typography>
+			</FormLabel>
 			<RadioGroup
 				aria-labelledby="variant-radio-buttons-group"
 				name="developmentMode"
@@ -104,13 +116,13 @@ export const VariantSelector = ({
 									disabled={isDisabled}
 									value={isDev}
 									control={<Radio />}
-									label={variantInfo[buildVariant].title}
+									label={variantInfo(variant)[buildVariant].title}
 								/>
 								<Typography
 									sx={{ opacity: isDisabled ? 0.4 : 1 }}
 									variant="bodySm"
 								>
-									{variantInfo[buildVariant].description}
+									{variantInfo(variant)[buildVariant].description}
 								</Typography>
 							</Box>
 						</Tooltip>
