@@ -1,4 +1,15 @@
 - commits:
+    - subject: Fix `Tooltip` not working with `Code` due to not forwarding ref
+      hash: 53fba64cbf1623e7c42169c0c7059ea424e03097
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: myarmolinsky
+  version: 11.2.16
+  title: ""
+  date: 2025-03-14T16:24:55.991Z
+- commits:
     - subject: Remove unnecessary `MuiMenuItem` styling
       hash: ef6ec877225b62d172d575e0248bc67e0476e0fb
       body: ""
