@@ -209,19 +209,22 @@ const TableRenderer = <T extends { id: number }>({
 			setShowAddTagDialog(false);
 			return;
 		}
-		const additionalColumns = selectedTagColumns.map((key: string) => {
-			return {
-				title: key,
-				label: `Tag: ${key}`,
-				key: `${TAG_COLUMN_PREFIX}${key}`,
-				selected: true,
-				type: 'predefined',
-				field: rjstContext.tagField,
-				sortable: pagination.serverSide ? false : true,
-				priority: '',
-				render: tagKeyRender(key),
-			} as RJSTEntityPropertyDefinition<T>;
-		});
+		const additionalColumns = selectedTagColumns.map(
+			(key: string, index: number) => {
+				return {
+					title: key,
+					label: `Tag: ${key}`,
+					key: `${TAG_COLUMN_PREFIX}${key}`,
+					selected: true,
+					type: 'predefined',
+					field: rjstContext.tagField,
+					sortable: pagination.serverSide ? false : true,
+					index: index + 1 + columns.length,
+					priority: '',
+					render: tagKeyRender(key),
+				} as RJSTEntityPropertyDefinition<T>;
+			},
+		);
 		setColumns(columns.concat(additionalColumns));
 		setShowAddTagDialog(false);
 	};
