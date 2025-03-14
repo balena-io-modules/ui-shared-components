@@ -1,4 +1,15 @@
 - commits:
+    - subject: "RJST: Fix `:first-child` console error"
+      hash: 9331ee17bbff69347317d49065c9b5108b670607
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: myarmolinsky
+  version: 11.2.17
+  title: ""
+  date: 2025-03-14T16:31:49.377Z
+- commits:
     - subject: Fix `Tooltip` not working with `Code` due to not forwarding ref
       hash: 53fba64cbf1623e7c42169c0c7059ea424e03097
       body: ""
