@@ -17,11 +17,6 @@ import {
 	type IconDefinition,
 } from '@fortawesome/free-solid-svg-icons';
 
-type CustomPaletteColor = PaletteColor & { xlight?: string };
-type CustomPaletteColorOptions = PaletteColorOptions & {
-	xlight?: string;
-};
-
 export type Severity = 'info' | 'success' | 'warning' | 'danger';
 
 export const severityIcons: {
@@ -35,11 +30,6 @@ export const severityIcons: {
 
 declare module '@mui/material/styles' {
 	interface Palette {
-		customBlue: CustomPaletteColor;
-		customYellow: CustomPaletteColor;
-		customGreen: CustomPaletteColor;
-		customPurple: CustomPaletteColor;
-		customGrey: CustomPaletteColor;
 		green: PaletteColor;
 		teal: PaletteColor;
 		blue: PaletteColor;
@@ -50,11 +40,6 @@ declare module '@mui/material/styles' {
 	}
 
 	interface PaletteOptions {
-		customBlue: CustomPaletteColorOptions;
-		customYellow: CustomPaletteColorOptions;
-		customGreen: CustomPaletteColorOptions;
-		customPurple: CustomPaletteColorOptions;
-		customGrey: CustomPaletteColorOptions;
 		green: PaletteColorOptions;
 		teal: PaletteColorOptions;
 		blue: PaletteColorOptions;
@@ -126,34 +111,8 @@ declare module '@mui/material/Avatar' {
 	}
 }
 declare module '@mui/material/Button' {
-	interface ButtonPropsColorOverrides {
-		customBlue: true;
-		customYellow: true;
-		customGreen: true;
-		customPurple: true;
-		customGrey: true;
-	}
-
 	interface ButtonPropsVariantOverrides {
 		light: true;
-	}
-}
-declare module '@mui/material/ButtonGroup' {
-	interface ButtonGroupPropsColorOverrides {
-		customBlue: true;
-		customYellow: true;
-		customGreen: true;
-		customPurple: true;
-		customGrey: true;
-	}
-}
-declare module '@mui/material/Badge' {
-	interface BadgePropsColorOverrides {
-		customBlue: true;
-		customYellow: true;
-		customGreen: true;
-		customPurple: true;
-		customGrey: true;
 	}
 }
 
@@ -170,51 +129,6 @@ declare module '@mui/material/Chip' {
 
 	interface ChipPropsVariantOverrides {
 		strong: true;
-	}
-}
-declare module '@mui/material/Icon' {
-	interface IconPropsColorOverrides {
-		customBlue: true;
-		customYellow: true;
-		customGreen: true;
-		customPurple: true;
-		customGrey: true;
-	}
-}
-declare module '@mui/material/IconButton' {
-	interface IconButtonPropsColorOverrides {
-		customBlue: true;
-		customYellow: true;
-		customGreen: true;
-		customPurple: true;
-		customGrey: true;
-	}
-}
-declare module '@mui/material/Tab' {
-	interface TabPropsColorOverrides {
-		customBlue: true;
-		customYellow: true;
-		customGreen: true;
-		customPurple: true;
-		customGrey: true;
-	}
-}
-declare module '@mui/material/TextField' {
-	interface TextFieldPropsColorOverrides {
-		customBlue: true;
-		customYellow: true;
-		customGreen: true;
-		customPurple: true;
-		customGrey: true;
-	}
-}
-declare module '@mui/material/SvgIcon' {
-	interface SvgIconPropsColorOverrides {
-		customBlue: true;
-		customYellow: true;
-		customGreen: true;
-		customPurple: true;
-		customGrey: true;
 	}
 }
 
@@ -316,31 +230,6 @@ export const theme = createTheme({
 			main: color.palette.neutral['800'].value,
 			dark: color.palette.neutral['1000'].value,
 			contrastText: color.palette.neutral['50'].value,
-		},
-		customBlue: {
-			xlight: color.palette.blue['50'].value,
-			light: color.palette.blue['75'].value,
-			main: color.palette.blue['500'].value,
-			dark: color.palette.blue['1000'].value,
-			contrastText: '#FFFFFF',
-		},
-		customYellow: {
-			xlight: color.palette.yellow['700'].value,
-			main: color.palette.yellow['200'].value,
-			contrastText: '#FFFFFF',
-		},
-		customGreen: {
-			xlight: color.palette.teal['50'].value,
-		},
-		customPurple: {
-			main: color.palette.purple['900'].value,
-			xlight: color.palette.purple['50'].value,
-		},
-		customGrey: {
-			xlight: color.palette.neutral['50'].value,
-			light: color.palette.neutral['500'].value,
-			main: color.palette.neutral['900'].value,
-			dark: color.palette.neutral['1000'].value,
 		},
 		error: {
 			main: color.palette.red['500'].value,

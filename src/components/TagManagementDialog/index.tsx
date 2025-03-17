@@ -73,7 +73,7 @@ const TagProperty = styled('div')<{ state?: ResourceTagInfoState }>`
 			: props.state === 'updated'
 				? props.theme.palette.warning.main
 				: props.state === 'deleted'
-					? props.theme.palette.customGrey.main
+					? props.theme.palette.text.secondary
 					: 'inherit'};
 
 	& > div {
@@ -116,7 +116,7 @@ const PreviousTagProperty = styled(TagProperty)`
 
 	td > &,
 	td > & {
-		color: ${(props) => props.theme.palette.customGrey.main};
+		color: ${(props) => props.theme.palette.text.secondary};
 	}
 
 	td > &:after {
