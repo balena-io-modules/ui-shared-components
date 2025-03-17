@@ -158,15 +158,17 @@ const VirtualizedAutocompleteBase = <
 	renderOption,
 	getOptionLabel,
 	value,
+	loadNext,
 	...props
 }:
-	| VirtualizedAutocompleteProps<
+	| (VirtualizedAutocompleteProps<
 			Value,
 			Multiple,
 			DisableClearable,
 			FreeSolo,
 			ChipComponent
-	  >
+			// This is to allow destructuring of loadNext from props
+	  > & { loadNext?: never })
 	| VirtualizedAutocompleteWithPaginationProps<
 			Value,
 			Multiple,
@@ -181,8 +183,6 @@ const VirtualizedAutocompleteBase = <
 		totalItems: number;
 	}>({ data: [], totalItems: 0 });
 	const [query, setQuery] = React.useState('');
-
-	const loadNext = 'loadNext' in props ? props.loadNext : undefined;
 
 	const options = 'options' in props ? props.options : undefined;
 
