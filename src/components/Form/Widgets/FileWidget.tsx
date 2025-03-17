@@ -168,11 +168,9 @@ export const FileWidget = ({
 					file.loadingPercentage = Math.floor(
 						(100 * event.loaded) / event.total,
 					);
-					if (file.loadingPercentage === 100) {
-						delete file.loadingPercentage;
-					}
 				};
-				reader.onload = () => {
+				reader.onloadend = () => {
+					delete file.loadingPercentage;
 					if (typeof reader.result !== 'string' || !reader.result || !file) {
 						return;
 					}
@@ -183,14 +181,9 @@ export const FileWidget = ({
 						// NOTE: JSONSchema array data-url does not expect objects but only strings[]
 						// see: https://github.com/rjsf-team/react-jsonschema-form/blob/297dac059fdf64fd1453bebb8366f0602c722f90/packages/utils/src/schema/isFilesArray.ts#L24
 						onChange(
-							[...files, ...acceptedFiles]
-								.filter(
-									(f) =>
-										!('loadingPercentage' in f) || f.loadingPercentage === null,
-								)
-								.map(
-									(f) => `data:${f.type};name=${f.name};base64,${base64Data}`,
-								),
+							[...files, ...acceptedFiles].map(
+								(f) => `data:${f.type};name=${f.name};base64,${base64Data}`,
+							),
 						);
 						return;
 					}
