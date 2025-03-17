@@ -25,7 +25,7 @@ const variantInfo: {
 				<Typography>{getOsVariantDisplayText('dev')}</Typography>
 				<Typography
 					variant="bodySm"
-					color="customBlue.main"
+					color="primary.main"
 					alignItems="center"
 					display="flex"
 				>
@@ -60,7 +60,7 @@ const variantInfo: {
 
 const BuildVariants = ['dev', 'prod'] as const;
 export type BuildVariant = (typeof BuildVariants)[number];
-interface VariantSelectorProps {
+export interface VariantSelectorProps {
 	version: VersionSelectionOptions | undefined;
 	onVariantChange: (isDev: boolean) => void;
 	variant: BuildVariant;
