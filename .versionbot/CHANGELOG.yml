@@ -1,4 +1,16 @@
 - commits:
+    - subject: "VirtualizedAutocomplete: Fix console error caused by passing
+        `loadNext` to `Autocomplete`"
+      hash: a16059c0d1f5a7a720b39378aa32bb4867d33e06
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: myarmolinsky
+  version: 11.2.19
+  title: ""
+  date: 2025-03-17T15:55:47.009Z
+- commits:
     - subject: Fix upload file widget not working on some browsers
       hash: bd9df660e1c49813dccbde1f286bb30b4d0db12b
       body: ""
