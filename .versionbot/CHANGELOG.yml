@@ -1,4 +1,15 @@
 - commits:
+    - subject: Fix upload file widget not working on some browsers
+      hash: bd9df660e1c49813dccbde1f286bb30b4d0db12b
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Andrea Rosci
+  version: 11.2.18
+  title: ""
+  date: 2025-03-17T10:49:50.460Z
+- commits:
     - subject: "RJST: Fix `:first-child` console error"
       hash: 9331ee17bbff69347317d49065c9b5108b670607
       body: ""
