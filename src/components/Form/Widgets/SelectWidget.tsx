@@ -121,9 +121,11 @@ export const SelectWidget = ({
 				renderInput={(params) => (
 					<TextField
 						{...params}
-						inputProps={{
-							...params.inputProps,
-							...(inputProps ?? {}),
+						slotProps={{
+							htmlInput: {
+								...params.inputProps,
+								...(inputProps ?? {}),
+							},
 						}}
 						{...(multiple && {
 							onKeyDown: (e) => {

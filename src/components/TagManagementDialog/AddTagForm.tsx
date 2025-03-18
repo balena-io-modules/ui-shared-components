@@ -168,8 +168,10 @@ export const AddTagForm = <T extends object>({
 				}}
 			>
 				<TextField
-					inputProps={{
-						form: formUuid,
+					slotProps={{
+						htmlInput: {
+							form: formUuid,
+						},
 					}}
 					fullWidth
 					ref={tagKeyInput}
@@ -183,8 +185,10 @@ export const AddTagForm = <T extends object>({
 				/>
 
 				<TextField
-					inputProps={{
-						form: formUuid,
+					slotProps={{
+						htmlInput: {
+							form: formUuid,
+						},
 					}}
 					fullWidth
 					ref={valueInput}
