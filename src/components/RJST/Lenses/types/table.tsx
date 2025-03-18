@@ -217,7 +217,7 @@ const TableRenderer = <T extends { id: number }>({
 				selected: true,
 				type: 'predefined',
 				field: rjstContext.tagField,
-				sortable: pagination.serverSide ? false : true,
+				sortable: true,
 				priority: '',
 				render: tagKeyRender(key),
 			} as RJSTEntityPropertyDefinition<T>;
