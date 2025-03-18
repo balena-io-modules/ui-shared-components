@@ -423,7 +423,7 @@ export const ImageForm = memo(function ImageForm({
 							slotProps={{
 								htmlInput: {
 									name: 'wifiSsid',
-									autocomplete: 'wifiSsid-auto-complete',
+									autoComplete: 'wifiSsid-auto-complete',
 								},
 							}}
 							onChange={(event) => {
@@ -502,7 +502,7 @@ export const ImageForm = memo(function ImageForm({
 							slotProps={{
 								htmlInput: {
 									name: 'appUpdatePollInterval',
-									autocomplete: 'appUpdatePollInterval-auto-complete',
+									autoComplete: 'appUpdatePollInterval-auto-complete',
 								},
 							}}
 							onChange={(event) => {
@@ -520,7 +520,7 @@ export const ImageForm = memo(function ImageForm({
 						slotProps={{
 							htmlInput: {
 								name: 'provisioningKeyName',
-								autocomplete: 'provisioningKeyName-auto-complete',
+								autoComplete: 'provisioningKeyName-auto-complete',
 							},
 						}}
 						onChange={(event) => {
@@ -537,7 +537,7 @@ export const ImageForm = memo(function ImageForm({
 						slotProps={{
 							htmlInput: {
 								name: 'provisioningKeyExpiryDate',
-								autocomplete: 'provisioningKeyExpiryDate-auto-complete',
+								autoComplete: 'provisioningKeyExpiryDate-auto-complete',
 							},
 						}}
 						onChange={(event) => {
