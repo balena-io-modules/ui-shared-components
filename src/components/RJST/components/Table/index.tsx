@@ -120,7 +120,7 @@ export const Table = <T extends object>({
 	const handleOnSort = React.useCallback(
 		(
 			_event: React.MouseEvent<HTMLSpanElement>,
-			{ key, field, refScheme }: RJSTEntityPropertyDefinition<T>,
+			{ title, key, field, refScheme }: RJSTEntityPropertyDefinition<T>,
 		) => {
 			if (!sort) {
 				return;
@@ -133,6 +133,7 @@ export const Table = <T extends object>({
 				direction: newOrder,
 				field: field,
 				key: key,
+				value: title,
 				refScheme: refScheme,
 			};
 			onSort?.(sortObj);
