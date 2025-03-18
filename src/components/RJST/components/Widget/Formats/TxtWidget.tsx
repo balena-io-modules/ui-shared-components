@@ -44,7 +44,7 @@ const TxtWidget = widgetFactory(
 		JsonTypes.boolean,
 		JsonTypes.array,
 	],
-)(({ value, schema, uiSchema, ...props }) => {
+)(({ value, schema, uiSchema }) => {
 	let displayValue = isArray(value)
 		? getArrayValue(value as Array<Exclude<typeof value, any[]>>, uiSchema)
 		: value?.toString();
@@ -54,11 +54,9 @@ const TxtWidget = widgetFactory(
 	}
 	const lineCamp = get(uiSchema, ['ui:options', 'lineCamp']);
 	return typeof lineCamp === 'number' ? (
-		<Truncate {...props} lineCamp={lineCamp}>
-			{displayValue ?? ''}
-		</Truncate>
+		<Truncate lineCamp={lineCamp}>{displayValue ?? ''}</Truncate>
 	) : (
-		<Typography {...props}>{displayValue ?? ''}</Typography>
+		<Typography>{displayValue ?? ''}</Typography>
 	);
 });
 
