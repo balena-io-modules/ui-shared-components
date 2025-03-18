@@ -1,4 +1,15 @@
 - commits:
+    - subject: "Widgets: Fix `extraFormats` and `extraContexts` console errors"
+      hash: 268ec1150db0b9c04db7cd301613740e18880f7c
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: myarmolinsky
+  version: 11.2.23
+  title: ""
+  date: 2025-03-18T14:52:02.439Z
+- commits:
     - subject: "RJST: Fix nested `th` and `thead` console warning"
       hash: bf8bca27c9894adc13aa41f6d4d20bcae98cbe00
       body: ""
