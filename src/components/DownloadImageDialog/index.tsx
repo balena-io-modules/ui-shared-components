@@ -335,6 +335,7 @@ export const DownloadImageDialog = ({
 		formModel,
 		dialogActions,
 		onDownloadStart,
+		withUrlValidation,
 	]);
 
 	useEffect(() => {

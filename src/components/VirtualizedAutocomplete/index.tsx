@@ -3,6 +3,7 @@ import type { AutocompleteProps, ChipTypeMap } from '@mui/material';
 import { Autocomplete, Box, ListItemButton, Stack } from '@mui/material';
 import throttle from 'lodash/throttle';
 import * as React from 'react';
+import { forwardRef } from 'react';
 import type { VListHandle } from 'virtua';
 import { VList } from 'virtua';
 
@@ -154,28 +155,39 @@ const VirtualizedAutocompleteBase = <
 	DisableClearable extends boolean | undefined = false,
 	FreeSolo extends boolean | undefined = false,
 	ChipComponent extends React.ElementType = ChipTypeMap['defaultComponent'],
->({
-	renderOption,
-	getOptionLabel,
-	value,
-	loadNext,
-	...props
-}:
-	| (VirtualizedAutocompleteProps<
+>(
+	{
+		renderOption,
+		getOptionLabel,
+		value,
+		loadNext,
+		...props
+	}:
+		| (VirtualizedAutocompleteProps<
+				Value,
+				Multiple,
+				DisableClearable,
+				FreeSolo,
+				ChipComponent
+				// This is to allow destructuring of loadNext from props
+		  > & { loadNext?: never })
+		| VirtualizedAutocompleteWithPaginationProps<
+				Value,
+				Multiple,
+				DisableClearable,
+				FreeSolo,
+				ChipComponent
+		  >,
+	ref: React.Ref<
+		typeof Autocomplete<
 			Value,
 			Multiple,
 			DisableClearable,
 			FreeSolo,
 			ChipComponent
-			// This is to allow destructuring of loadNext from props
-	  > & { loadNext?: never })
-	| VirtualizedAutocompleteWithPaginationProps<
-			Value,
-			Multiple,
-			DisableClearable,
-			FreeSolo,
-			ChipComponent
-	  >) => {
+		>
+	>,
+) => {
 	const [page, setPage] = React.useState(0);
 	const [isNextPageLoading, setIsNextPageLoading] = React.useState(false);
 	const [response, setResponse] = React.useState<{
@@ -232,6 +244,7 @@ const VirtualizedAutocompleteBase = <
 	return (
 		<Autocomplete<Value, Multiple, DisableClearable, FreeSolo, ChipComponent>
 			{...props}
+			ref={ref}
 			loading={isNextPageLoading}
 			options={options ?? response.data}
 			renderOption={(renderOptionProps, option, state, ownerState) =>
@@ -274,5 +287,5 @@ const VirtualizedAutocompleteBase = <
 };
 
 export const VirtualizedAutocomplete = React.memo(
-	VirtualizedAutocompleteBase,
+	forwardRef(VirtualizedAutocompleteBase),
 ) as typeof VirtualizedAutocompleteBase;
