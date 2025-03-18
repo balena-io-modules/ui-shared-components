@@ -420,9 +420,11 @@ export const ImageForm = memo(function ImageForm({
 						<TextField
 							value={model.wifiSsid}
 							id="device-wifi-ssid"
-							inputProps={{
-								name: 'wifiSsid',
-								autocomplete: 'wifiSsid-auto-complete',
+							slotProps={{
+								htmlInput: {
+									name: 'wifiSsid',
+									autoComplete: 'wifiSsid-auto-complete',
+								},
 							}}
 							onChange={(event) => {
 								onChange('wifiSsid', event.target.value);
@@ -435,28 +437,30 @@ export const ImageForm = memo(function ImageForm({
 							type={showPassword ? 'text' : 'password'}
 							id="device-wifi-password"
 							value={model.wifiKey}
-							inputProps={{
-								name: 'wifiKey',
-							}}
-							// InputProps and inputProps are different https://mui.com/material-ui/api/text-field/#TextField-prop-InputProps
-							InputProps={{
-								endAdornment: (
-									<InputAdornment position="end">
-										<IconButton
-											onClick={() => {
-												setShowPassword((show) => !show);
-											}}
-											onMouseDown={(
-												event: React.MouseEvent<HTMLButtonElement>,
-											) => {
-												event.preventDefault();
-											}}
-											edge="end"
-										>
-											{showPassword ? <VisibilityOff /> : <Visibility />}
-										</IconButton>
-									</InputAdornment>
-								),
+							slotProps={{
+								htmlInput: {
+									name: 'wifiKey',
+								},
+								// input and htmlInput are different https://mui.com/material-ui/api/text-field/#text-field-prop-slotProps
+								input: {
+									endAdornment: (
+										<InputAdornment position="end">
+											<IconButton
+												onClick={() => {
+													setShowPassword((show) => !show);
+												}}
+												onMouseDown={(
+													event: React.MouseEvent<HTMLButtonElement>,
+												) => {
+													event.preventDefault();
+												}}
+												edge="end"
+											>
+												{showPassword ? <VisibilityOff /> : <Visibility />}
+											</IconButton>
+										</InputAdornment>
+									),
+								},
 							}}
 							onChange={(event) => {
 								onChange('wifiKey', event.target.value);
@@ -495,9 +499,11 @@ export const ImageForm = memo(function ImageForm({
 							id="poll-interval-label"
 							aria-labelledby="poll-interval-label"
 							value={model.appUpdatePollInterval}
-							inputProps={{
-								name: 'appUpdatePollInterval',
-								autocomplete: 'appUpdatePollInterval-auto-complete',
+							slotProps={{
+								htmlInput: {
+									name: 'appUpdatePollInterval',
+									autoComplete: 'appUpdatePollInterval-auto-complete',
+								},
 							}}
 							onChange={(event) => {
 								onChange('appUpdatePollInterval', event.target.value);
@@ -511,9 +517,11 @@ export const ImageForm = memo(function ImageForm({
 						name="provisioningKeyName"
 						id="provision-key-name"
 						value={model.provisioningKeyName ?? ''}
-						inputProps={{
-							name: 'provisioningKeyName',
-							autocomplete: 'provisioningKeyName-auto-complete',
+						slotProps={{
+							htmlInput: {
+								name: 'provisioningKeyName',
+								autoComplete: 'provisioningKeyName-auto-complete',
+							},
 						}}
 						onChange={(event) => {
 							onChange('provisioningKeyName', event.target.value);
@@ -526,9 +534,11 @@ export const ImageForm = memo(function ImageForm({
 						type="date"
 						id="provision-key-expiring"
 						value={model.provisioningKeyExpiryDate ?? ''}
-						inputProps={{
-							name: 'provisioningKeyExpiryDate',
-							autocomplete: 'provisioningKeyExpiryDate-auto-complete',
+						slotProps={{
+							htmlInput: {
+								name: 'provisioningKeyExpiryDate',
+								autoComplete: 'provisioningKeyExpiryDate-auto-complete',
+							},
 						}}
 						onChange={(event) => {
 							onChange('provisioningKeyExpiryDate', event.target.value);
