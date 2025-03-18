@@ -1,4 +1,23 @@
 - commits:
+    - subject: "DownloadImageDialog: Add missing `withUrlValidation` to dependency
+        array"
+      hash: 6dfa44c8ea34a0beef0c10ca96fbad4dae42238d
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: myarmolinsky
+    - subject: "VirtualizedAutocomplete: Fix Tooltip refs not being forwarded"
+      hash: 50901b749bbd7740eb9b4a49bcecfc8cd7a1322e
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: myarmolinsky
+  version: 11.2.20
+  title: ""
+  date: 2025-03-18T14:26:36.975Z
+- commits:
     - subject: "VirtualizedAutocomplete: Fix console error caused by passing
         `loadNext` to `Autocomplete`"
       hash: a16059c0d1f5a7a720b39378aa32bb4867d33e06
