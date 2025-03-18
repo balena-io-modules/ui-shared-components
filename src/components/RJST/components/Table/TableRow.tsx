@@ -70,15 +70,19 @@ export const TableRow = <T extends object>({
 			)}
 			{columns.map((c: any, columnIndex: number) => {
 				return c.selected ? (
-					<TableCell
+					<MaterialTableCell
+						padding="none"
 						key={`${row[rowKey]}_${columnIndex}`}
-						href={href}
-						onRowClick={onRowClick}
-						row={row}
-						rowKey={rowKey}
-						column={c}
-						url={url}
-					/>
+					>
+						<TableCell
+							href={href}
+							onRowClick={onRowClick}
+							row={row}
+							rowKey={rowKey}
+							column={c}
+							url={url}
+						/>
+					</MaterialTableCell>
 				) : null;
 			})}
 		</MaterialTableRow>
