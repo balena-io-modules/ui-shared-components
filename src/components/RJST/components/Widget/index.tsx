@@ -72,7 +72,6 @@ export const Widget = ({
 	return (
 		<WidgetComponent
 			extraContext={extraContext}
-			extraFormats={extraFormats}
 			value={processedValue ?? null}
 			schema={schema}
 		/>
