@@ -1,4 +1,15 @@
 - commits:
+    - subject: "RJST: Fix nested `th` and `thead` console warning"
+      hash: bf8bca27c9894adc13aa41f6d4d20bcae98cbe00
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: myarmolinsky
+  version: 11.2.22
+  title: ""
+  date: 2025-03-18T14:42:53.218Z
+- commits:
     - subject: "DownloadImageDialog: Fix Unknown DOM property `autocomplete` error"
       hash: 75e8a011d9c08e758b0e923353cee85355ebcad4
       body: ""
