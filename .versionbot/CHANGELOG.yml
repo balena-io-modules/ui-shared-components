@@ -1,4 +1,22 @@
 - commits:
+    - subject: "DownloadImageDialog: Fix Unknown DOM property `autocomplete` error"
+      hash: 75e8a011d9c08e758b0e923353cee85355ebcad4
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: myarmolinsky
+    - subject: "TextFields: Migrate from deprecated inputProps/InputProps to slotProps"
+      hash: 739d900bee07c1d86b671c380483aa36c01aaf42
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: myarmolinsky
+  version: 11.2.21
+  title: ""
+  date: 2025-03-18T14:34:48.848Z
+- commits:
     - subject: "DownloadImageDialog: Add missing `withUrlValidation` to dependency
         array"
       hash: 6dfa44c8ea34a0beef0c10ca96fbad4dae42238d
