@@ -8,6 +8,7 @@ import { createTheme, tableCellClasses } from '@mui/material';
 import type {} from '@mui/x-data-grid/themeAugmentation';
 import type { TypographyStyleOptions } from '@mui/material/styles/createTypography';
 import { color, typography, shape } from '@balena/design-tokens';
+import { color as flatColorTokens } from '@balena/design-tokens/build/js/mui-theme-tokens';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
 	faCheckCircle,
@@ -222,6 +223,7 @@ export const theme = createTheme({
 		},
 	},
 	palette: {
+		...flatColorTokens,
 		primary: {
 			main: color.palette.blue['600'].value,
 		},

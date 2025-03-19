@@ -10,7 +10,7 @@
     "README.md"
   ],
   "dependencies": {
-    "@balena/design-tokens": "^0.11.0",
+    "@balena/design-tokens": "^0.12.0-build-add-mui-theme-tokens-7deed4e579256f19966b03485331931e6c1bd3ad-1",
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
     "@fortawesome/free-solid-svg-icons": "^6.5.1",
