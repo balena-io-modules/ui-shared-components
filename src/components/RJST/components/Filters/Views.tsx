@@ -12,7 +12,6 @@ import {
 	useMediaQuery,
 	useTheme,
 } from '@mui/material';
-import { color } from '@balena/design-tokens';
 import type { DropDownButtonProps } from '../../../DropDownButton';
 import { DropDownButton } from '../../../DropDownButton';
 import { stopEvent } from '../../../../utils/eventHandling';
@@ -41,7 +40,7 @@ const darkStyles: SxProps = {
 	// Using !important to override disabled styles on the primary variant
 	backgroundColor: 'white !important',
 	border: 'none !important',
-	color: `${color.text.value} !important`,
+	color: `var(--mui-palette-text) !important`,
 };
 
 export const Views = ({ views, setFilters, deleteView, dark }: ViewsProps) => {

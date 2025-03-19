@@ -1,6 +1,5 @@
 import type { TypographyProps } from '@mui/material';
 import { Typography } from '@mui/material';
-import { color } from '@balena/design-tokens';
 import { forwardRef } from 'react';
 
 /**
@@ -12,8 +11,8 @@ export const Code = forwardRef<TypographyProps['ref'], TypographyProps>(
 			<Typography
 				sx={[
 					{
-						background: color.bg.code.value,
-						color: color.text.code.value,
+						backgroundColor: 'bg-code',
+						color: 'text-code',
 						borderRadius: 1,
 						px: 1,
 						py: '2px',

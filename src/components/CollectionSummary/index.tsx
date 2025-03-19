@@ -1,4 +1,3 @@
-import { color } from '@balena/design-tokens';
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons/faCaretDown';
 import { faCaretUp } from '@fortawesome/free-solid-svg-icons/faCaretUp';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -44,7 +43,7 @@ export const CollectionSummary = ({
 							setIsExpanded(!isExpanded);
 						}}
 						variant="text"
-						sx={{ color: color.text.subtle.value, minWidth: 'unset' }}
+						sx={{ color: 'text-subtle', minWidth: 'unset' }}
 						endIcon={
 							isExpanded ? (
 								<FontAwesomeIcon icon={faCaretUp} />

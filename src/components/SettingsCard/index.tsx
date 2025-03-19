@@ -6,7 +6,6 @@ import {
 	Stack,
 	Typography,
 } from '@mui/material';
-import { color } from '@balena/design-tokens';
 
 export interface SettingsCardProps {
 	title?: string | React.ReactNode;
@@ -35,7 +34,7 @@ export const SettingsCard = ({
 				{...(danger && {
 					sx: {
 						'.MuiCardHeader-title': {
-							color: color.text.danger.value,
+							color: 'text-danger',
 						},
 					},
 				})}
@@ -50,7 +49,7 @@ export const SettingsCard = ({
 				flexDirection: 'column',
 				...(danger && {
 					[`.${settingsCardItemTitleClass}`]: {
-						color: color.text.danger.value,
+						color: 'text-danger',
 					},
 				}),
 			}}
@@ -72,7 +71,7 @@ export const SettingsCardItem = ({
 		alignItems={['start', 'start', 'center']}
 		sx={{
 			'&:not(&:last-child)': {
-				borderBottom: `dashed ${color.border.subtle.value} 1px`,
+				borderBottom: `dashed var(--mui-palette-border-subtle) 1px`,
 				pb: 3,
 			},
 		}}

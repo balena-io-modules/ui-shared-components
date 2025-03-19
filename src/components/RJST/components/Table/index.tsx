@@ -16,7 +16,6 @@ import {
 import type { RJSTEntityPropertyDefinition } from '../..';
 import { useAnalyticsContext } from '../../../../contexts/AnalyticsContext';
 import { DEFAULT_ITEMS_PER_PAGE } from '../../utils';
-import { color } from '@balena/design-tokens';
 
 const StyledMaterialTable = styled(MaterialTable)(() => ({
 	'& [data-table="table_cell__sticky"]': {
@@ -258,7 +257,7 @@ export const Table = <T extends object>({
 				rowsPerPageOptions={[25, DEFAULT_ITEMS_PER_PAGE, 100]}
 				component="div"
 				sx={{
-					borderTop: `1px solid ${color.border.subtle.value}`,
+					borderTop: `1px solid var(--mui-palette-border-subtle)`,
 				}}
 				slotProps={{
 					actions: {

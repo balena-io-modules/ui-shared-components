@@ -1,6 +1,5 @@
 import type { BoxProps } from '@mui/material';
 import { Box, CircularProgress, Typography, Backdrop } from '@mui/material';
-import { color } from '@balena/design-tokens';
 
 export interface SpinnerProps extends Pick<BoxProps, 'sx' | 'children'> {
 	show?: boolean;
@@ -35,9 +34,7 @@ export const Spinner = ({
 				{...(progress != null && { variant: 'determinate', value: progress })}
 			/>
 			{label != null && (
-				<Typography
-					color={bgVariant === 'dark' ? color.text.inverse.value : 'default'}
-				>
+				<Typography color={bgVariant === 'dark' ? 'text-inverse' : 'default'}>
 					{label}
 				</Typography>
 			)}

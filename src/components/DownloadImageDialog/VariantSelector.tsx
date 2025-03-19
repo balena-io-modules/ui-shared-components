@@ -25,7 +25,7 @@ const variantInfo: {
 				<Typography>{getOsVariantDisplayText('dev')}</Typography>
 				<Typography
 					variant="bodySm"
-					color="primary.main"
+					color="primary"
 					alignItems="center"
 					display="flex"
 				>

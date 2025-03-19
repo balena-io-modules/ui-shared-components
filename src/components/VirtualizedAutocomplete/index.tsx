@@ -1,4 +1,3 @@
-import { color } from '@balena/design-tokens';
 import type { AutocompleteProps, ChipTypeMap } from '@mui/material';
 import { Autocomplete, Box, ListItemButton, Stack } from '@mui/material';
 import throttle from 'lodash/throttle';
@@ -83,7 +82,7 @@ const ListboxComponent = ({
 						{...(i < itemData.length - 1
 							? {
 									sx: {
-										borderBottom: `1px solid ${color.border.subtle.value}`,
+										borderBottom: `1px solid var(--mui-palette-border-subtle)`,
 									},
 								}
 							: {})}
