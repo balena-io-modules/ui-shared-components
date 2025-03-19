@@ -1,5 +1,6 @@
 import type { ListItemProps } from '@mui/material';
 import { Box, ListItem, ListItemIcon, Typography } from '@mui/material';
+import { token } from '../../utils/token';
 
 export interface OrderedListItemProps extends ListItemProps {
 	index: number;
@@ -17,7 +18,7 @@ export const OrderedListItem = ({
 				<Box
 					sx={{
 						borderRadius: '50%',
-						backgroundColor: 'info.main',
+						backgroundColor: token('color.bg.accent.strong'),
 						width: '1.5em',
 						height: '1.5em',
 						display: 'flex',
@@ -25,7 +26,7 @@ export const OrderedListItem = ({
 						justifyContent: 'center',
 					}}
 				>
-					<Typography variant="body2" color="white">
+					<Typography variant="bodySm" color={token('color.text.inverse')}>
 						{index}
 					</Typography>
 				</Box>

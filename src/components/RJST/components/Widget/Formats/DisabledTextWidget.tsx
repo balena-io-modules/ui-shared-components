@@ -1,6 +1,7 @@
 import { Tooltip, Typography } from '@mui/material';
 import { useTranslation } from '../../../../../hooks/useTranslations';
 import { JsonTypes, widgetFactory } from '../utils';
+import { token } from '../../../../../utils/token';
 
 export const DisabledTextWidget = widgetFactory('DisabledText', {}, [
 	JsonTypes.string,
@@ -12,7 +13,12 @@ export const DisabledTextWidget = widgetFactory('DisabledText', {}, [
 		value != null && typeof value !== 'string' ? value.toString() : value;
 	return (
 		<Tooltip title={val}>
-			<Typography display="block" color="text.secondary" maxWidth={300} noWrap>
+			<Typography
+				display="block"
+				color={token('color.text.subtle')}
+				maxWidth={300}
+				noWrap
+			>
 				{val ?? t('info.not_defined')}
 			</Typography>
 		</Tooltip>

@@ -71,6 +71,7 @@ import { FocusSearch } from './components/Filters/FocusSearch';
 import { Widget } from './components/Widget';
 import { defaultFormats } from './components/Widget/Formats';
 import { Tooltip } from '../Tooltip';
+import { token } from '../../utils/token';
 
 const HeaderGrid = styled(Box)(({ theme }) => ({
 	display: 'flex',
@@ -687,7 +688,7 @@ const getTitleAndLabel = <T extends object>(
 					<Link
 						sx={{
 							mr: 2,
-							color: 'info',
+							color: token('color.text.accent'),
 						}}
 						target="_blank"
 						// Prevent header click from triggering sort or other parent events

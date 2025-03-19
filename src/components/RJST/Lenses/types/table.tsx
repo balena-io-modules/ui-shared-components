@@ -12,19 +12,19 @@ import {
 import { useTagActions } from '../../components/Table/useTagActions';
 import { AddTagHandler } from '../../components/Table/AddTagHandler';
 import { Box, styled, Tooltip, Typography } from '@mui/material';
-import { color } from '@balena/design-tokens';
 import { Copy } from '../../../Copy';
 import type { RJSTEntityPropertyDefinition } from '../..';
 import { useAnalyticsContext } from '../../../../contexts/AnalyticsContext';
+import { token } from '../../../../utils/token';
 
-const TagContainer = styled(Box)(() => ({
-	border: `0.5px solid ${color.border.accent.value}`,
-	borderRadius: '3px',
-	color: color.text.value,
-	backgroundColor: color.bg.accent.value,
+const TagContainer = styled(Box)({
+	border: `0.5px solid ${token('color.border.accent')}`,
+	borderRadius: token('shape.borderRadius.sm'),
+	color: token('color.text'),
+	backgroundColor: token('color.bg.accent'),
 	position: 'relative',
 	width: 'fit-content',
-}));
+});
 
 export interface TagLabelProps {
 	value: string;

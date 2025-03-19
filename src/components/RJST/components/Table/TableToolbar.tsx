@@ -2,7 +2,7 @@ import type { MenuItemProps } from '@mui/material';
 import { Stack, Typography } from '@mui/material';
 import type { RJSTEntityPropertyDefinition } from '../..';
 import { TableActions } from './TableActions';
-import { color } from '@balena/design-tokens';
+import { token } from '../../../../utils/token';
 import type { ColumnPreferencesChangeProp } from './index';
 
 interface TableToolbarProps<T> {
@@ -29,8 +29,8 @@ export const TableToolbar = <T extends object>({
 						alignSelf: 'flex-end',
 						px: theme.spacing(2),
 						py: theme.spacing(1),
-						borderRadius: '4px 4px 0 0',
-						background: color.bg.subtle.value,
+						borderRadius: `${token('shape.borderRadius.sm')} ${token('shape.borderRadius.sm')} 0 0`,
+						background: token('color.bg.subtle'),
 						boxShadow: 'inset 0px -1px 1px rgba(0,0,0,0.05)',
 					})}
 				>

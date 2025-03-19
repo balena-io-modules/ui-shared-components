@@ -1,0 +1,144 @@
+import { Meta, Unstyled } from '@storybook/blocks';
+import { Box, ThemeProvider, Typography } from '@mui/material';
+import { theme } from '../../theme';
+import { token } from '../../utils/token';
+
+<Meta title="Foundations / Design Tokens / Usage in MUI" />
+
+# How to use design tokens in MUI
+
+MUI's theming system is based on Material Design 2 and is a bit outdated. As such, it works differently
+than more modern systems.
+
+Our design tokens system, and especially the color system, was designed with modern standards in mind and with a
+platform-agnostic approach. So our tokens have to be retrofitted in MUI system.
+
+## Token integration in MUI's theme
+
+Most of the customization should happen in the theme file. There we are importing the design tokens package
+and using the tokens directly.
+
+```ts
+// Simplified example of the customization of MuiButton
+
+import { color } from '@balena/design-tokens';
+
+export const theme = createTheme({
+	MuiButton: {
+		// ...
+		variants: [
+			{
+				props: { variant: 'light', color: 'primary' },
+				style: {
+					color: color.text.value,
+					backgroundColor: color.bg.accent.value,
+					outline: `1px solid ${color.border.accent.value}`,
+				},
+			},
+			// ...
+		],
+	},
+});
+```
+
+## Token integration in components
+
+Most of the tokens are exposed as theme variables:
+
+* Font family: `theme.vars.fontFamily.[code|body]`
+* Font weight: `theme.vars.fontWeight.[normal|strong]`
+* Color: `theme.vars.palette.[color].value` (see below)
+* Border radius: `theme.vars.shape[xs|sm|md|lg]`
+
+Note that the variables are also available under the `theme` object. For example, `theme.palette.bg.accent.value` is valid.
+The output of that though is the color value, and not the CSS variable, which isn't ideal for debugging as well as for
+smooth theme switching. Always try to use `theme.vars` when possible.
+
+### CSS variables
+
+Under the hood, `theme.vars` variables are actually converted to CSS variables. It's also possible to use the CSS
+variables directly, prefixed with `mui`. Examples:
+
+* `color.bg.accent` -> `var(--mui-palette-bg-accent-value)`
+* `shape.borderRadius.sm`: `var(--mui-shape-sm)`
+* `typography.fontFamily.code`: `var(--mui-fontFamily-code)`
+
+💡 If you're unsure about a variable name, you can open the inspector and look at all `--mui-`
+variables available on `:root`.
+
+### Colors
+
+The color tokens are available under `theme.vars.palette`. Note that this is the javascript object being injected,
+so you will have to use the full object path including the `.value` suffix.
+
+Examples:
+
+* `color.bg.accent` -> `theme.vars.palette.bg.accent.value`
+* `color.text.subtle` -> `theme.vars.palette.text.subtle.value`
+* `color.bg.warning.strong ` -> `theme.vars.palette.bg.warning.strong.value`
+
+See [Foundations / Colors](/docs/foundations-colors--docs) to learn more about our color system.
+
+### `sx` props
+
+When defining tokens in sx or component props you can reference the token as a string directly in the value of the prop.
+This is available for all color props (`color`, `bgcolor`, `borderColor`,...), `borderRadius`, `fontFamily` and `fontWeight`.
+
+⚠️ Remember to add the `.value` suffix to the color tokens.
+
+It is available on the component prop directly or as properties of the `sx` prop.
+
+Example:
+
+```tsx
+<Box sx={{
+	backgroundColor: token('color.bg.accent.strong'),
+	color: token('color.text.inverse'),
+	borderRadius: token('shape.borderRadius.lg'),
+	p: 2
+}}>
+	<Typography
+				sx={{ fontFamily: token('typography.fontFamily.code'), fontWeight: token('typography.weight.strong') }}>
+		Example
+	</Typography>
+</Box>
+```
+
+Which results in:
+
+<Unstyled>
+	<ThemeProvider theme={theme}>
+		<Box sx={{
+			backgroundColor: token('color.bg.accent.strong'),
+			color: token('color.text.inverse'),
+			borderRadius: token('shape.borderRadius.lg'),
+			p: 2
+		}}>
+			<Typography
+				sx={{ fontFamily: token('typography.fontFamily.code'), fontWeight: token('typography.weight.strong') }}>
+				Example
+			</Typography>
+		</Box>
+	</ThemeProvider>
+</Unstyled>
+
+
+## Recommendations
+
+### Don't use MUI default palette
+
+MUI is based on an old color system from 2014 and Material Design v2, that uses a baseline of `primary`, `secondary`,
+and different state colors.
+
+While can't remove it in order to keep compatibility with most MUI components (components that haven't been
+customized but are usable), we should refrain from using it and stick to our design tokens.
+
+## Don't import the design tokens package
+
+Make sure to use MUI's theme or MUI css variables instead of relying directly on the design tokens package. The
+reason for that is once we're ready for a dark theme, MUI will handle the theme switching. If we reference static
+variables from the design tokens packages directly, we will break the theme switching capability.
+
+* Use our color tokens (and the dash situation)
+* sx props
+* outside of sx: CSS vars vs. theme vars 

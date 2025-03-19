@@ -39,6 +39,7 @@ import {
 	stopKeyDownEvent,
 	withPreventDefault,
 } from '../../utils/eventHandling';
+import { token } from '../../utils/token';
 
 const NBSP = '\u00a0';
 
@@ -69,11 +70,11 @@ const TagProperty = styled('div')<{ state?: ResourceTagInfoState }>`
 
 	color: ${(props) =>
 		props.state === 'added'
-			? props.theme.palette.warning.main
+			? token('color.text.warning')
 			: props.state === 'updated'
-				? props.theme.palette.warning.main
+				? token('color.text.warning')
 				: props.state === 'deleted'
-					? props.theme.palette.text.secondary
+					? token('color.text.subtle')
 					: 'inherit'};
 
 	& > div {
@@ -109,14 +110,14 @@ const PreviousTagProperty = styled(TagProperty)`
 		left: 0;
 		right: 0;
 		display: block;
-		background: ${(props) => props.theme.palette.warning.main};
+		background: ${token('color.bg.warning')};
 		height: 2px;
 		top: 50%;
 	}
 
 	td > &,
 	td > & {
-		color: ${(props) => props.theme.palette.text.secondary};
+		color: ${token('color.text.subtle')};
 	}
 
 	td > &:after {
