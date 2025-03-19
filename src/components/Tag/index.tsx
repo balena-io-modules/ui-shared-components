@@ -9,6 +9,7 @@ import {
 	Tooltip,
 	Typography,
 } from '@mui/material';
+import { token } from '../../utils/token';
 
 // Prevent the tags taking up too much horizontal space
 const MAX_ITEMS_TO_DISPLAY = 3;
@@ -64,15 +65,15 @@ export const Tag = ({
 	const tagContent = (
 		<Tooltip title={overflow ? tagItemsToString(multiple ?? []) : undefined}>
 			<Box
-				sx={(theme) => ({
-					backgroundColor: theme.palette.blue.light,
-					border: `1px solid ${theme.palette.info.main}`,
-					borderRadius: '2px',
+				sx={{
+					backgroundColor: token('color.bg.accent'),
+					border: `1px solid ${token('color.border.accent')}`,
+					borderRadius: token('shape.borderRadius.xs'),
 					lineHeight: 1.5,
 					width: 'fit-content',
 					py: 1,
 					px: 2,
-				})}
+				}}
 			>
 				{tagArray.map((tagEntry, index) => {
 					const nameValueSeparator = tagEntry.operator
@@ -86,16 +87,16 @@ export const Tag = ({
 									sx={{
 										whitespace: 'pre',
 										fontStyle: 'italic',
-										color: 'palette.primary',
 									}}
-								>{`  ${tagEntry.prefix ?? ','}  `}</Typography>
+								>
+									{`  ${tagEntry.prefix ?? ','}  `}
+								</Typography>
 							)}
 
 							{!tagEntry.value && !tagEntry.name && (
 								<Typography
 									sx={{
 										fontStyle: 'italic',
-										color: 'palette.primary',
 									}}
 								>
 									no value
@@ -106,7 +107,6 @@ export const Tag = ({
 								<Typography
 									sx={{
 										whitespace: 'pre',
-										color: 'palette.primary',
 									}}
 								>
 									{`${tagEntry.name}${tagEntry.value ? nameValueSeparator : ''}`}
@@ -117,7 +117,6 @@ export const Tag = ({
 								<Typography
 									sx={{
 										fontWeight: 'bold',
-										color: 'palette.primary',
 									}}
 								>
 									{tagEntry.value}

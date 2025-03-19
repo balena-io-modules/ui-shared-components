@@ -7,7 +7,13 @@ import type {
 import { createTheme, tableCellClasses } from '@mui/material';
 import type {} from '@mui/x-data-grid/themeAugmentation';
 import type { TypographyStyleOptions } from '@mui/material/styles/createTypography';
-import { color, typography, shape } from '@balena/design-tokens';
+import { color, typography, shape, spacing } from '@balena/design-tokens';
+import type {
+	ColorTokens,
+	ShapeTokens,
+	SpacingTokens,
+	TypographyTokens,
+} from '@balena/design-tokens';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
 	faCheckCircle,
@@ -16,6 +22,7 @@ import {
 	faWarning,
 	type IconDefinition,
 } from '@fortawesome/free-solid-svg-icons';
+import type {} from '@mui/material/themeCssVarsAugmentation';
 
 export type Severity = 'info' | 'success' | 'warning' | 'danger';
 
@@ -89,6 +96,24 @@ declare module '@mui/material/styles' {
 		tertiary: string;
 		disabled: string;
 	}
+
+	interface Theme {
+		tokens: {
+			color: ColorTokens;
+			shape: ShapeTokens;
+			spacing: SpacingTokens;
+			typography: TypographyTokens;
+		};
+	}
+
+	interface ThemeOptions {
+		tokens: {
+			color: ColorTokens;
+			shape: ShapeTokens;
+			spacing: SpacingTokens;
+			typography: TypographyTokens;
+		};
+	}
 }
 
 declare module '@mui/material/Typography' {
@@ -132,10 +157,37 @@ declare module '@mui/material/Chip' {
 	}
 }
 
+declare module '@mui/system' {
+	interface Shape {
+		xs: number;
+		sm: number;
+		md: number;
+		lg: number;
+		full: number;
+	}
+}
+
 export const theme = createTheme({
 	cssVariables: true,
+	unstable_sxConfig: {
+		borderRadius: {
+			themeKey: 'shape',
+		},
+		fontFamily: {
+			themeKey: 'fontFamily',
+		},
+		fontWeight: {
+			themeKey: 'fontWeight',
+		},
+	},
+	tokens: {
+		color,
+		shape,
+		typography,
+		spacing,
+	},
 	typography: {
-		fontFamily: typography.fontfamily.body.value,
+		fontFamily: typography.fontFamily.body.value,
 		h1: {
 			fontSize: '2.75rem',
 			'@media (min-width:600px)': {
@@ -215,7 +267,7 @@ export const theme = createTheme({
 		overline: {
 			color: color.text.subtle.value,
 			// Can't use the shorthand token as `overline` is already defined by Mui
-			fontFamily: typography.fontfamily.body.value,
+			fontFamily: typography.fontFamily.body.value,
 			fontWeight: typography.overline.fontWeight.value,
 			lineHeight: typography.overline.lineHeight.value,
 			fontSize: typography.overline.fontSize.value,
@@ -324,6 +376,13 @@ export const theme = createTheme({
 			return Math.sign(factor) * 2 ** (Math.abs(factor) + 1);
 		}
 		return 0;
+	},
+	shape: {
+		xs: shape.borderRadius.xs.value,
+		sm: shape.borderRadius.sm.value,
+		md: shape.borderRadius.md.value,
+		lg: shape.borderRadius.lg.value,
+		full: shape.borderRadius.full.value,
 	},
 	components: {
 		MuiAlert: {
@@ -519,7 +578,7 @@ export const theme = createTheme({
 			styleOverrides: {
 				root: ({ theme }) => ({
 					'&:hover': {
-						boxShadow: `0 0 0 3px ${theme.palette.primary.light}`,
+						boxShadow: `0 0 0 3px ${theme.vars.palette.primary.light}`, // TODO replace with token
 					},
 					borderRadius: '10px',
 					fontFamily: 'inherit',
@@ -731,8 +790,8 @@ export const theme = createTheme({
 						opacity: 0.5,
 						color: 'white',
 						backgroundColor: (
-							theme.palette[
-								ownerState.color as keyof typeof theme.palette
+							theme.vars.palette[
+								ownerState.color as keyof typeof theme.vars.palette
 							] as PaletteColor
 						).main,
 					},
@@ -892,7 +951,7 @@ export const theme = createTheme({
 				root: ({ theme }) => ({
 					textTransform: 'none',
 					border: `none !important`,
-					borderRadius: `${shape.border_radius.full.value}px !important`,
+					borderRadius: `${shape.borderRadius.full.value}px !important`,
 					font: typography.body.md.shorthand.value,
 					gap: theme.spacing(2),
 					height: '31px', // Fix height to prevent variations due to different icon sizes
@@ -1205,7 +1264,10 @@ export const theme = createTheme({
 		},
 		MuiLinearProgress: {
 			styleOverrides: {
-				root: { borderRadius: 3, backgroundColor: color.bg.subtle.value },
+				root: {
+					borderRadius: shape.borderRadius.sm.value,
+					backgroundColor: color.bg.subtle.value,
+				},
 			},
 		},
 		MuiCheckbox: {

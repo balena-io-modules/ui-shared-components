@@ -12,11 +12,11 @@ import {
 	useMediaQuery,
 	useTheme,
 } from '@mui/material';
-import { color } from '@balena/design-tokens';
 import type { DropDownButtonProps } from '../../../DropDownButton';
 import { DropDownButton } from '../../../DropDownButton';
 import { stopEvent } from '../../../../utils/eventHandling';
 import { Tooltip } from '../../../Tooltip';
+import { token } from '../../../../utils/token';
 
 interface FiltersView {
 	id: string;
@@ -41,7 +41,7 @@ const darkStyles: SxProps = {
 	// Using !important to override disabled styles on the primary variant
 	backgroundColor: 'white !important',
 	border: 'none !important',
-	color: `${color.text.value} !important`,
+	color: `var(--mui-palette-text-value) !important`, // Can't use a palette variable because of !important
 };
 
 export const Views = ({ views, setFilters, deleteView, dark }: ViewsProps) => {
@@ -66,7 +66,7 @@ export const Views = ({ views, setFilters, deleteView, dark }: ViewsProps) => {
 						>
 							<Box display="flex" flexDirection="column">
 								<Typography>{view.name}</Typography>
-								<Typography color="grey">
+								<Typography color={token('color.text.subtle')}>
 									{view.filters.length}{' '}
 									{view.filters.length === 1
 										? t('labels.filter_one').toLowerCase()

@@ -18,7 +18,7 @@ import {
 } from '@mui/material';
 import type { WidgetProps } from '@rjsf/utils';
 import { useCallback, useMemo, useState } from 'react';
-import { IconButtonWithTracking, Tooltip, designTokens } from '../../..';
+import { IconButtonWithTracking, Tooltip } from '../../..';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import type { IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import {
@@ -30,31 +30,32 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { useRandomUUID } from '../../../hooks/useRandomUUID';
 import uniq from 'lodash/uniq';
+import { token } from '../../../utils/token';
 
 const restingStyle: SxProps = {
-	borderColor: designTokens.color.border.value,
+	borderColor: token('color.border'),
 	borderWidth: '1px',
-	backgroundColor: designTokens.color.bg.value,
+	backgroundColor: token('color.bg'),
 };
 
 const hoverStyle: SxProps = {
-	borderColor: designTokens.color.border.strong.value,
+	borderColor: token('color.border.strong'),
 	borderWidth: '1px',
-	backgroundColor: designTokens.color.bg.value,
+	backgroundColor: token('color.bg'),
 	'.browse-files-text': { textDecoration: 'none' },
 };
 
 const disabledStyle: SxProps = {
-	borderColor: designTokens.color.border.strong.value,
+	borderColor: token('color.border.strong'),
 	borderWidth: '1px',
-	backgroundColor: designTokens.color.bg.value,
+	backgroundColor: token('color.bg'),
 	opacity: '40%',
 };
 
 const dragStyle: SxProps = {
-	borderColor: designTokens.color.border.accent.strong.value,
+	borderColor: token('color.border.accent.strong'),
 	borderWidth: '2px',
-	backgroundColor: designTokens.color.bg.accent.value,
+	backgroundColor: token('color.bg.accent'),
 };
 
 // These are just the ones we use in the dashboard at the moment
@@ -258,7 +259,7 @@ export const FileWidget = ({
 					className="dropzone"
 					sx={{
 						borderStyle: 'dashed',
-						borderRadius: '8px',
+						borderRadius: token('shape.borderRadius.md'),
 						flexDirection: 'column',
 						alignItems: 'center',
 						justifyContent: 'center',
@@ -295,17 +296,14 @@ export const FileWidget = ({
 						</Typography>
 					</Stack>
 					{!!descriptiveText && (
-						<Typography
-							color={designTokens.color.text.subtle.value}
-							component="p"
-						>
+						<Typography color={token('color.text.subtle')} component="p">
 							{descriptiveText}
 						</Typography>
 					)}
 				</Stack>
 				<Stack gap={2}>
 					<Stack direction="row" justifyContent="space-between" gap={3}>
-						<Typography color={designTokens.color.text.subtle.value}>
+						<Typography color={token('color.text.subtle')}>
 							{accept == null
 								? ''
 								: `Supported formats: ${uniq(
@@ -317,17 +315,14 @@ export const FileWidget = ({
 									).join(', ')}`}
 						</Typography>
 						{maxSize != null && (
-							<Typography
-								color={designTokens.color.text.subtle.value}
-								align="right"
-							>
+							<Typography color={token('color.text.subtle')} align="right">
 								Maximum size: {fileSizeToReadable(maxSize)}
 							</Typography>
 						)}
 					</Stack>
 
 					{hideUploadedFiles && !!errorFiles.length && (
-						<Stack color="error.main" gap={1}>
+						<Stack color={token('color.text.danger')} gap={1}>
 							{errorFiles
 								.flatMap((errorFile) => errorFile.errors)
 								.map((error) =>
@@ -347,9 +342,9 @@ export const FileWidget = ({
 									justifyContent="space-between"
 									alignItems="center"
 									gap={2}
-									bgcolor={designTokens.color.bg.value}
+									bgcolor={token('color.bg')}
 									p={3}
-									borderRadius="8px"
+									borderRadius={token('shape.borderRadius.md')}
 									{...(mobile && { flexWrap: 'wrap' })}
 									key={file.name}
 								>
@@ -396,10 +391,10 @@ export const FileWidget = ({
 										alignItems="center"
 									>
 										<Stack direction="row" gap={2}>
-											<Typography color={designTokens.color.text.subtle.value}>
+											<Typography color={token('color.text.subtle')}>
 												{file.type}
 											</Typography>
-											<Typography color={designTokens.color.text.subtle.value}>
+											<Typography color={token('color.text.subtle')}>
 												{fileSizeToReadable(file.size)}
 											</Typography>
 										</Stack>
@@ -420,11 +415,11 @@ export const FileWidget = ({
 							{errorFiles.map(({ file, errors }) => (
 								<Stack
 									gap={1}
-									bgcolor={designTokens.color.bg.value}
+									bgcolor={token('color.bg')}
 									p={3}
-									borderRadius="8px"
+									borderRadius={token('shape.borderRadius.md')}
 									border="1px solid"
-									borderColor={designTokens.color.border.danger.value}
+									borderColor={token('color.border.danger')}
 									key={file.name}
 								>
 									<Stack
@@ -443,10 +438,10 @@ export const FileWidget = ({
 											<Typography>{file.name}</Typography>
 										</Stack>
 										<Stack direction="row" gap={2} alignItems="center">
-											<Typography color={designTokens.color.text.subtle.value}>
+											<Typography color={token('color.text.subtle')}>
 												{file.type}
 											</Typography>
-											<Typography color={designTokens.color.text.subtle.value}>
+											<Typography color={token('color.text.subtle')}>
 												{fileSizeToReadable(file.size)}
 											</Typography>
 										</Stack>
@@ -455,7 +450,7 @@ export const FileWidget = ({
 										{errors.map((error) => (
 											<Stack
 												gap={2}
-												color={designTokens.color.text.danger.value}
+												color={token('color.text.danger')}
 												direction="row"
 												alignItems="center"
 												key={error.message}

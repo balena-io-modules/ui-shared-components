@@ -16,7 +16,7 @@ import {
 	useMediaQuery,
 	Typography,
 } from '@mui/material';
-import { color } from '@balena/design-tokens';
+import { token } from '../../../../utils/token';
 import { DndContext, type DragEndEvent } from '@dnd-kit/core';
 import { CSS } from '@dnd-kit/utilities';
 import { arrayMove, SortableContext, useSortable } from '@dnd-kit/sortable';
@@ -149,7 +149,7 @@ export const TableActions = <T extends object>({
 			<Button
 				aria-label="handle column settings"
 				onClick={handleClick}
-				sx={{ ml: 'auto', p: 1, color: color.text.value }}
+				sx={{ ml: 'auto', p: 1, color: token('color.text') }}
 				variant="text"
 			>
 				<FontAwesomeIcon icon={faCog} />
