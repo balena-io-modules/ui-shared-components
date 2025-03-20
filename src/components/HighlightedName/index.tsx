@@ -34,7 +34,7 @@ export const HighlightedName = ({
 	return (
 		<Typography
 			sx={{
-				borderRadius: '2px',
+				borderRadius: 'xs',
 				display: 'inline-block',
 				p: 2,
 				color: color || isLight(bgColor) ? theme.palette.text.primary : '#fff',

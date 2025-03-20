@@ -13,7 +13,7 @@ export const Code = forwardRef<TypographyProps['ref'], TypographyProps>(
 					{
 						backgroundColor: 'bg-code',
 						color: 'text-code',
-						borderRadius: 1,
+						borderRadius: 'sm',
 						px: 1,
 						py: '2px',
 					},

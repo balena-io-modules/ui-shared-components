@@ -90,6 +90,30 @@ declare module '@mui/material/styles' {
 		tertiary: string;
 		disabled: string;
 	}
+
+	interface Theme {
+		fontWeight: {
+			normal: number;
+			strong: number;
+		};
+
+		fontFamily: {
+			body: string;
+			code: string;
+		};
+	}
+
+	interface ThemeOptions {
+		fontWeight: {
+			normal: number;
+			strong: number;
+		};
+
+		fontFamily: {
+			body: string;
+			code: string;
+		};
+	}
 }
 
 declare module '@mui/material/Typography' {
@@ -133,8 +157,29 @@ declare module '@mui/material/Chip' {
 	}
 }
 
+declare module '@mui/system' {
+	interface Shape {
+		xs: number;
+		sm: number;
+		md: number;
+		lg: number;
+		full: number;
+	}
+}
+
 export const theme = createTheme({
 	cssVariables: true,
+	unstable_sxConfig: {
+		borderRadius: {
+			themeKey: 'shape',
+		},
+		fontFamily: {
+			themeKey: 'fontFamily',
+		},
+		fontWeight: {
+			themeKey: 'fontWeight',
+		},
+	},
 	typography: {
 		fontFamily: typography.fontfamily.body.value,
 		h1: {
@@ -223,7 +268,7 @@ export const theme = createTheme({
 		},
 	},
 	palette: {
-		...flatColorTokens,
+		...flatColorTokens, // Inject color design tokens for use in component props
 		primary: {
 			main: color.palette.blue['600'].value,
 		},
@@ -326,6 +371,21 @@ export const theme = createTheme({
 			return Math.sign(factor) * 2 ** (Math.abs(factor) + 1);
 		}
 		return 0;
+	},
+	shape: {
+		xs: 2, // TODO add a design token
+		sm: shape.border_radius.sm.value,
+		md: shape.border_radius.md.value,
+		lg: shape.border_radius.lg.value,
+		full: shape.border_radius.full.value,
+	},
+	fontWeight: {
+		normal: typography.weight.value,
+		strong: typography.weight.strong.value,
+	},
+	fontFamily: {
+		body: typography.fontfamily.body.value,
+		code: typography.fontfamily.code.value,
 	},
 	components: {
 		MuiAlert: {
@@ -1203,7 +1263,10 @@ export const theme = createTheme({
 		},
 		MuiLinearProgress: {
 			styleOverrides: {
-				root: { borderRadius: 3, backgroundColor: color.bg.subtle.value },
+				root: {
+					borderRadius: shape.border_radius.sm.value,
+					backgroundColor: color.bg.subtle.value,
+				},
 			},
 		},
 		MuiCheckbox: {

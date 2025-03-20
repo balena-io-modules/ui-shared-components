@@ -11,7 +11,6 @@ import {
 } from '@mui/material';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClose } from '@fortawesome/free-solid-svg-icons/faClose';
-import { shape } from '@balena/design-tokens';
 import { IconButtonWithTracking } from '../IconButtonWithTracking';
 import { useEffect } from 'react';
 import { useAnalyticsContext } from '../../contexts/AnalyticsContext';
@@ -41,7 +40,7 @@ const AnnouncementRoot = styled(Box, {
 })(({ theme }) => ({
 	alignItems: 'center',
 	backgroundColor: 'white',
-	borderRadius: shape.border_radius.md.value + 'px',
+	borderRadius: 'md',
 	boxShadow: '0px 0px 8px 0px rgba(35, 68, 94, 0.3)', // TODO add a design token for box shadows
 	display: 'flex',
 	gap: theme.spacing(3),

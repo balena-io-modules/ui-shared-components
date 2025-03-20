@@ -67,7 +67,7 @@ export const Tag = ({
 				sx={(theme) => ({
 					backgroundColor: theme.palette.blue.light,
 					border: `1px solid ${theme.palette.info.main}`,
-					borderRadius: '2px',
+					borderRadius: 'xs',
 					lineHeight: 1.5,
 					width: 'fit-content',
 					py: 1,

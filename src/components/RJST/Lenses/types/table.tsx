@@ -18,7 +18,7 @@ import { useAnalyticsContext } from '../../../../contexts/AnalyticsContext';
 
 const TagContainer = styled(Box)(() => ({
 	border: `0.5px solid var(--mui-palette-border-accent)`,
-	borderRadius: '3px',
+	borderRadius: 'sm',
 	color: 'text',
 	backgroundColor: 'bg-accent',
 	position: 'relative',

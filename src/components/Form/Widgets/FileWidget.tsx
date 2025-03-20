@@ -258,7 +258,7 @@ export const FileWidget = ({
 					className="dropzone"
 					sx={{
 						borderStyle: 'dashed',
-						borderRadius: '8px',
+						borderRadius: 'sm',
 						flexDirection: 'column',
 						alignItems: 'center',
 						justifyContent: 'center',
@@ -343,7 +343,7 @@ export const FileWidget = ({
 									gap={2}
 									bgcolor="bg"
 									p={3}
-									borderRadius="8px"
+									borderRadius="sm"
 									{...(mobile && { flexWrap: 'wrap' })}
 									key={file.name}
 								>
@@ -414,7 +414,7 @@ export const FileWidget = ({
 									gap={1}
 									bgcolor="bg"
 									p={3}
-									borderRadius="8px"
+									borderRadius="sm"
 									border="1px solid"
 									borderColor="border-danger"
 									key={file.name}

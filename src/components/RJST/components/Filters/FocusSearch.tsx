@@ -17,7 +17,7 @@ const Focus = styled(Box)(({ theme }) => ({
 	position: 'absolute',
 	width: '100%',
 	zIndex: 1,
-	borderRadius: '0 0 4px 4px',
+	borderRadius: '0 0 var(--mui-shape-sm) var(--mui-shape-sm)',
 	overflow: 'hidden',
 	boxShadow: theme.shadows[8],
 }));

@@ -19,7 +19,7 @@ const Label = styled(Typography)(({ theme }) => ({
 	border: `0.5px solid ${theme.palette.info.main}`,
 	fontSize: '11px',
 	fontWeight: 'bold',
-	borderRadius: '3px',
+	borderRadius: 'sx',
 	color: theme.palette.info.main,
 	backgroundColor: theme.palette.info.light,
 	position: 'relative',

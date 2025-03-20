@@ -24,8 +24,6 @@ import type {
 	TypographyProps,
 } from '@mui/material';
 
-import designTokens from '@balena/design-tokens';
-
 const defaultSxProps: SxProps = { mb: 2 };
 
 const defaultMarkdownComponentOverrides: ReactMarkdownOptions['components'] = {
@@ -71,7 +69,7 @@ const defaultMarkdownComponentOverrides: ReactMarkdownOptions['components'] = {
 				maxWidth: '100%',
 				width: '100%',
 				backgroundColor: 'bg',
-				borderRadius: `${designTokens.shape.border_radius.sm.value}px`,
+				borderRadius: 'sm',
 				p: 2,
 				...defaultSxProps,
 			}}
@@ -119,7 +117,7 @@ const defaultMarkdownComponentOverrides: ReactMarkdownOptions['components'] = {
 			component="p"
 			sx={{
 				fontSize: 14,
-				fontWeight: designTokens.typography.weight.strong.value,
+				fontWeight: 'strong',
 				...defaultSxProps,
 			}}
 			{...(props as TypographyProps)}
@@ -128,9 +126,9 @@ const defaultMarkdownComponentOverrides: ReactMarkdownOptions['components'] = {
 	code: (props) => (
 		<Typography
 			sx={{
-				fontFamily: designTokens.typography.fontfamily.code.value,
+				fontFamily: 'code',
 				backgroundColor: 'bg',
-				borderRadius: `${designTokens.shape.border_radius.sm.value}px`,
+				borderRadius: 'xs',
 				px: 1,
 				py: '2px',
 			}}
