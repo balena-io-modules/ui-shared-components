@@ -9,6 +9,7 @@ import type {} from '@mui/x-data-grid/themeAugmentation';
 import type { TypographyStyleOptions } from '@mui/material/styles/createTypography';
 import { color, typography, shape } from '@balena/design-tokens';
 import { color as flatColorTokens } from '@balena/design-tokens/build/js/mui-theme-tokens';
+import type { ColorTokensType } from '@balena/design-tokens/build/js/mui-theme-tokens';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
 	faCheckCircle,
@@ -17,6 +18,7 @@ import {
 	faWarning,
 	type IconDefinition,
 } from '@fortawesome/free-solid-svg-icons';
+import type {} from '@mui/material/themeCssVarsAugmentation';
 
 export type Severity = 'info' | 'success' | 'warning' | 'danger';
 
@@ -30,7 +32,7 @@ export const severityIcons: {
 };
 
 declare module '@mui/material/styles' {
-	interface Palette {
+	interface Palette extends ColorTokensType {
 		green: PaletteColor;
 		teal: PaletteColor;
 		blue: PaletteColor;
@@ -40,7 +42,7 @@ declare module '@mui/material/styles' {
 		red: PaletteColor;
 	}
 
-	interface PaletteOptions {
+	interface PaletteOptions extends ColorTokensType {
 		green: PaletteColorOptions;
 		teal: PaletteColorOptions;
 		blue: PaletteColorOptions;
