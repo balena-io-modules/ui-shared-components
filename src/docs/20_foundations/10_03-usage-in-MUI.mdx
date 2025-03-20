@@ -1,0 +1,128 @@
+import { Meta, Unstyled } from '@storybook/blocks';
+import { Box, ThemeProvider, Typography } from '@mui/material';
+import { theme } from '../../theme';
+
+<Meta title="Foundations / Design Tokens / Usage in MUI" />
+
+# How to use design tokens in MUI
+
+MUI's theming system is based on Material Design 2 and is a bit outdated. As such, it works differently
+than more modern systems.
+
+Our design tokens system, and especially the color system, was designed with modern standards in mind and with a
+platform-agnostic approach. So our tokens have to be retrofitted in MUI system.
+
+## Token integration in MUI's theme
+
+Most of the customization should happen in the theme file. There we are importing the design tokens package 
+and using the tokens directly.
+
+```ts
+// Simplified example of the customization of MuiButton
+
+import { color } from '@balena/design-tokens';
+
+export const theme = createTheme({
+	MuiButton: {
+		// ...
+		variants: [
+			{
+				props: { variant: 'light', color: 'primary' },
+				style: {
+					color: color.text.value,
+					backgroundColor: color.bg.accent.value,
+					outline: `1px solid ${color.border.accent.value}`,
+				},
+			},
+			// ...
+		],
+	},
+});
+```
+
+## Token integration in components
+
+Most of the tokens are exposed as theme variables:
+
+* Font family: `theme.vars.fontFamily.[code|body]`
+* Font weight: `theme.vars.fontWeight.[normal|strong]`
+* Color: `theme.vars.palette[_color-token_]` (see below)
+* Border radius: `theme.vars.shape[xs|sm|md|lg]`
+
+Note that the variables are also available under the `theme` object. For example, `theme.palette['bg-accent']` is valid.
+The output of that though is the color value, and not the CSS variable, which isn't ideal for debugging as well as for
+smooth theme switching. Always try to use `theme.vars` when possible.
+
+### CSS variables
+
+Under the hood `theme.vars` variables are actually CSS variables. It's also possible to use the CSS variables directly,
+prefixed with `mui`. Examples:
+
+* `color.bg.accent` -> `var(--mui-palette-bg-accent)`
+* `shape.border_radius.sm`: `var(--mui-shape-sm)`
+* `typography.fontfamily.code`: `var(--mui-fontFamily-code)`
+
+💡 If you're unsure about a variable name, you can open the inspector and look at all `--mui-` 
+variables available on `:root`.
+
+### Colors
+
+Contrary to the other variables, color tokens are separated by dashes instead of dots. The reason is that MUI infers 
+the variable names based on the object passed in the theme (hence the dots), but we use implicit defaults for our
+token nomenclature resulting in potential clashes like `color.bg` and `color.bg.accent`. 
+
+Examples:
+
+* `color.bg.accent` -> `theme.vars.palette['bg-accent']` 
+* `color.text.subtle` -> `theme.vars.palette['text-subtle']` 
+* `color.bg.warning.strong ` -> `theme.vars.palette['bg-warning-strong']` 
+
+### `sx` props
+
+When defining tokens in sx or component props you can reference the token as a string directly in the value of the prop.
+This is available for all color props (`color`, `bgcolor`, `borderColor`,...), `borderRadius`, `fontFamily` and `fontWeight`. 
+
+It is available on the component prop directly or as properties of the `sx` prop.
+
+Example:
+
+```tsx
+<Box sx={{ backgroundColor: 'bg-accent-strong', color: 'text-inverse', borderRadius: 'lg', p: 2 }}>
+	<Typography sx={{ fontFamily: 'code', fontWeight: 'strong' }}>
+		danger!
+	</Typography>
+</Box>
+```
+
+Which results in:
+
+<Unstyled>
+	<ThemeProvider theme={theme}>
+<Box sx={{ backgroundColor: 'bg-accent-strong', color: 'text-inverse', borderRadius: 'lg', p: 2 }}>
+	<Typography sx={{ fontFamily: 'code', fontWeight: 'strong' }}>
+		danger!
+	</Typography>
+</Box>
+	</ThemeProvider>
+</Unstyled>
+
+
+## Recommendations
+
+### Don't use MUI default palette
+
+MUI is based on an old color system from 2014 and Material Design v2, that uses a baseline of `primary`, `secondary`,
+and different state colors.
+
+While can't remove it in order to keep compatibility with most MUI components (components that haven't been 
+customized but are usable), we should refrain from using it and stick to our design tokens.
+
+## Don't import the design tokens package
+
+Make sure to use MUI's theme or MUI css variables instead of relying directly on the design tokens package. The
+reason for that is once we're ready for a dark theme, MUI will handle the theme switching. If we reference static
+variables from the design tokens packages directly, we will break the theme switching capability.
+
+* Use our color tokens (and the dash situation)
+* sx props
+* outside of sx: CSS vars vs. theme vars 
