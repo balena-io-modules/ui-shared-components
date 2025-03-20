@@ -10,7 +10,7 @@
     "README.md"
   ],
   "dependencies": {
-    "@balena/design-tokens": "^1.0.0-build-remove-mui-tokens-d682ac78b7a51b03dd483cab56a2e6af7c442854-1",
+    "@balena/design-tokens": "^0.12.0",
     "@dnd-kit/core": "^6.3.1",
     "@dnd-kit/sortable": "^10.0.0",
     "@emotion/react": "^11.10.6",
