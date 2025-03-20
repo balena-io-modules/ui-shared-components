@@ -16,12 +16,12 @@ const Label = styled(Typography)(({ theme }) => ({
 	maxWidth: '100%',
 	height: '30px',
 	padding: '7px',
-	border: `0.5px solid ${theme.palette.info.main}`,
+	border: `0.5px solid ${theme.vars.palette['border-accent-strong']}`,
 	fontSize: '11px',
 	fontWeight: 'bold',
 	borderRadius: 'sx',
-	color: theme.palette.info.main,
-	backgroundColor: theme.palette.info.light,
+	color: theme.vars.palette['text-accent'],
+	backgroundColor: theme.vars.palette['bg-accent'],
 	position: 'relative',
 }));
 
@@ -50,7 +50,8 @@ const CopyButton = styled('span')`
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	color: ${({ theme }) => theme.palette.text.primary};
+	// TODO can't use theme.vars.palette['text'] because it clashes with MUI's default palette, need to figure out a solution
+	color: ${({ theme }) => theme.vars.palette.text.primary};
 	user-select: none;
 	cursor: pointer;
 	visibility: hidden;
@@ -63,8 +64,8 @@ const CopyButton = styled('span')`
 const FaCopyBase = (props: any) => <FontAwesomeIcon icon={faCopy} {...props} />;
 
 const FaCopy = styled(FaCopyBase)`
-	background-color: ${(props) => props.theme.colors.info.light};
-	box-shadow: 0 0 1px 3px ${(props) => props.theme.colors.info.light};
+	background-color: ${(props) => props.theme.vars.palette['bg-accent']};
+	box-shadow: 0 0 1px 3px ${(props) => props.theme.vars.palette['bg-accent']};
 `;
 
 const getTagCompositeText = (tag: ResourceTagBase) => {

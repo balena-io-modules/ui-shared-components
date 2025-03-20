@@ -583,7 +583,7 @@ export const theme = createTheme({
 			styleOverrides: {
 				root: ({ theme }) => ({
 					'&:hover': {
-						boxShadow: `0 0 0 3px ${theme.palette.primary.light}`,
+						boxShadow: `0 0 0 3px ${theme.vars.palette.primary.light}`, // TODO replace with token
 					},
 					borderRadius: '10px',
 					fontFamily: 'inherit',
@@ -795,8 +795,8 @@ export const theme = createTheme({
 						opacity: 0.5,
 						color: 'white',
 						backgroundColor: (
-							theme.palette[
-								ownerState.color as keyof typeof theme.palette
+							theme.vars.palette[
+								ownerState.color as keyof typeof theme.vars.palette
 							] as PaletteColor
 						).main,
 					},

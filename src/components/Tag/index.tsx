@@ -65,8 +65,8 @@ export const Tag = ({
 		<Tooltip title={overflow ? tagItemsToString(multiple ?? []) : undefined}>
 			<Box
 				sx={(theme) => ({
-					backgroundColor: theme.palette.blue.light,
-					border: `1px solid ${theme.palette.info.main}`,
+					backgroundColor: theme.vars.palette['bg-accent'],
+					border: `1px solid ${theme.vars.palette['bg-accent-strong']}`,
 					borderRadius: 'xs',
 					lineHeight: 1.5,
 					width: 'fit-content',
