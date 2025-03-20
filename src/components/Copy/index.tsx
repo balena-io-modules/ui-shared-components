@@ -90,7 +90,7 @@ export const Copy = ({
 				className="copy"
 				size="sm"
 				style={{
-					color: 'var(--mui-palette-icon)',
+					color: theme.vars.palette['icon'],
 					cursor: 'pointer',
 					...('variant' in props &&
 						props.variant === 'absolute' && {

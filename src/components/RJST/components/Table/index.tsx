@@ -256,9 +256,9 @@ export const Table = <T extends object>({
 			<TablePagination
 				rowsPerPageOptions={[25, DEFAULT_ITEMS_PER_PAGE, 100]}
 				component="div"
-				sx={{
-					borderTop: `1px solid var(--mui-palette-border-subtle)`,
-				}}
+				sx={(theme) => ({
+					borderTop: `1px solid ${theme.vars.palette['border-subtle']}`,
+				})}
 				slotProps={{
 					actions: {
 						firstButton: { size: 'small' },

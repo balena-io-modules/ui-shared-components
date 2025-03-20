@@ -69,12 +69,12 @@ export const SettingsCardItem = ({
 		direction={['column', 'column', 'row']}
 		justifyContent="space-between"
 		alignItems={['start', 'start', 'center']}
-		sx={{
+		sx={(theme) => ({
 			'&:not(&:last-child)': {
-				borderBottom: `dashed var(--mui-palette-border-subtle) 1px`,
+				borderBottom: `dashed ${theme.vars.palette['border-subtle']} 1px`,
 				pb: 3,
 			},
-		}}
+		})}
 	>
 		<Stack gap={2} maxWidth={[undefined, undefined, '70%']}>
 			<Typography className={settingsCardItemTitleClass} variant="bodyLg">

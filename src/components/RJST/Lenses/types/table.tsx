@@ -16,8 +16,8 @@ import { Copy } from '../../../Copy';
 import type { RJSTEntityPropertyDefinition } from '../..';
 import { useAnalyticsContext } from '../../../../contexts/AnalyticsContext';
 
-const TagContainer = styled(Box)(() => ({
-	border: `0.5px solid var(--mui-palette-border-accent)`,
+const TagContainer = styled(Box)(({ theme }) => ({
+	border: `0.5px solid ${theme.vars.palette['border-accent']}`,
 	borderRadius: 'sm',
 	color: 'text',
 	backgroundColor: 'bg-accent',

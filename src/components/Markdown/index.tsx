@@ -79,12 +79,12 @@ const defaultMarkdownComponentOverrides: ReactMarkdownOptions['components'] = {
 	blockquote: (props) => (
 		<Typography
 			component="blockquote"
-			sx={{
-				borderLeft: `solid 2px var(--mui-palette-border)`,
+			sx={(theme) => ({
+				borderLeft: `solid 2px ${theme.vars.palette['border']}`,
 				fontStyle: 'italic',
 				pl: 2,
 				...defaultSxProps,
-			}}
+			})}
 			{...(props as TypographyProps)}
 		/>
 	),

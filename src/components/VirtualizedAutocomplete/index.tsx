@@ -81,9 +81,9 @@ const ListboxComponent = ({
 						{...item.props}
 						{...(i < itemData.length - 1
 							? {
-									sx: {
-										borderBottom: `1px solid var(--mui-palette-border-subtle)`,
-									},
+									sx: (theme) => ({
+										borderBottom: `1px solid ${theme.vars.palette['border-subtle']}`,
+									}),
 								}
 							: {})}
 						key={item.index}

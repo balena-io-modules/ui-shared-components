@@ -23,24 +23,24 @@ const CalloutRoot = styled(Box, {
 	borderLeft: 'solid 3px',
 	borderLeftColor: 'var(--callout-border-color)',
 	...(ownerState.variant === 'default' && {
-		backgroundColor: 'var(--mui-palette-bg)',
+		backgroundColor: theme.vars.palette['bg'],
 	}),
 	...(ownerState.variant === 'subtle' && {
-		backgroundColor: 'var(--mui-palette-bg-subtlest)',
+		backgroundColor: theme.vars.palette['bg-subtlest'],
 	}),
-	'--callout-border-color': 'var(--mui-palette-border-info)',
-	'--callout-icon-color': 'var(--mui-palette-icon-info)',
+	'--callout-border-color': theme.vars.palette['border-info'],
+	'--callout-icon-color': theme.vars.palette['icon-info'],
 	...(ownerState.severity === 'success' && {
-		'--callout-border-color': 'var(--mui-palette-border-success)',
-		'--callout-icon-color': 'var(--mui-palette-icon-success)',
+		'--callout-border-color': theme.vars.palette['border-success'],
+		'--callout-icon-color': theme.vars.palette['icon-success'],
 	}),
 	...(ownerState.severity === 'warning' && {
-		'--callout-border-color': 'var(--mui-palette-border-warning)',
-		'--callout-icon-color': 'var(--mui-palette-icon-warning)',
+		'--callout-border-color': theme.vars.palette['border-warning'],
+		'--callout-icon-color': theme.vars.palette['icon-warning'],
 	}),
 	...(ownerState.severity === 'danger' && {
-		'--callout-border-color': 'var(--mui-palette-border-danger)',
-		'--callout-icon-color': 'var(--mui-palette-icon-danger)',
+		'--callout-border-color': theme.vars.palette['border-danger'],
+		'--callout-icon-color': theme.vars.palette['icon-danger'],
 	}),
 }));
 
