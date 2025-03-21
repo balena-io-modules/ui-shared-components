@@ -688,7 +688,7 @@ const getTitleAndLabel = <T extends object>(
 					<Link
 						sx={{
 							mr: 2,
-							color: 'info',
+							color: 'b-text-accent',
 						}}
 						target="_blank"
 						// Prevent header click from triggering sort or other parent events

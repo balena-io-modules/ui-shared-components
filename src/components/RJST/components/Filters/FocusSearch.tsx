@@ -12,7 +12,7 @@ import { DEFAULT_ITEMS_PER_PAGE } from '../../utils';
 const Focus = styled(Box)(({ theme }) => ({
 	flexBasis: '100%',
 	backgroundColor: 'white',
-	border: `solid 1px ${theme.vars.palette['border-subtle']}`,
+	border: `solid 1px ${theme.vars.palette['b-border-subtle']}`,
 	maxHeight: '200px',
 	position: 'absolute',
 	width: '100%',
@@ -32,7 +32,7 @@ const FocusItem = styled(Box)<{ hasGetBaseUrl: boolean }>(
 	({ hasGetBaseUrl, theme }) => ({
 		cursor: hasGetBaseUrl ? 'pointer' : 'default',
 		'&:hover': {
-			backgroundColor: theme.vars.palette['bg'], // This is the background color MUI Select uses for entities on hover.
+			backgroundColor: theme.vars.palette['b-bg'], // This is the background color MUI Select uses for entities on hover.
 		},
 	}),
 );

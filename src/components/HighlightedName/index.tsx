@@ -38,8 +38,8 @@ export const HighlightedName = ({
 				p: 2,
 				color:
 					color || isLight(bgColor)
-						? theme.vars.palette['text']
-						: theme.vars.palette['text-inverse'],
+						? theme.vars.palette['b-text']
+						: theme.vars.palette['b-text-inverse'],
 				background: bgColor,
 			})}
 			{...props}

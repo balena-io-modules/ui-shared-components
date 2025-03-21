@@ -257,7 +257,7 @@ export const Table = <T extends object>({
 				rowsPerPageOptions={[25, DEFAULT_ITEMS_PER_PAGE, 100]}
 				component="div"
 				sx={(theme) => ({
-					borderTop: `1px solid ${theme.vars.palette['border-subtle']}`,
+					borderTop: `1px solid ${theme.vars.palette['b-border-subtle']}`,
 				})}
 				slotProps={{
 					actions: {

@@ -40,7 +40,7 @@ const darkStyles: SxProps = {
 	// Using !important to override disabled styles on the primary variant
 	backgroundColor: 'white !important',
 	border: 'none !important',
-	color: `var(--mui-palette-text) !important`,
+	color: `var(--mui-b-palette-text) !important`,
 };
 
 export const Views = ({ views, setFilters, deleteView, dark }: ViewsProps) => {
@@ -65,7 +65,7 @@ export const Views = ({ views, setFilters, deleteView, dark }: ViewsProps) => {
 						>
 							<Box display="flex" flexDirection="column">
 								<Typography>{view.name}</Typography>
-								<Typography color="grey">
+								<Typography color="b-text-subtle">
 									{view.filters.length}{' '}
 									{view.filters.length === 1
 										? t('labels.filter_one').toLowerCase()

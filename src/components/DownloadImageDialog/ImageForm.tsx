@@ -341,7 +341,7 @@ export const ImageForm = memo(function ImageForm({
 													<Tooltip title={version.knownIssueList}>
 														<FontAwesomeIcon
 															icon={faTriangleExclamation}
-															color={theme.vars.palette['icon-warning']}
+															color={theme.vars.palette['b-icon-warning']}
 														/>
 													</Tooltip>
 												)}

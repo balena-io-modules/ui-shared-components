@@ -82,7 +82,7 @@ const ListboxComponent = ({
 						{...(i < itemData.length - 1
 							? {
 									sx: (theme) => ({
-										borderBottom: `1px solid ${theme.vars.palette['border-subtle']}`,
+										borderBottom: `1px solid ${theme.vars.palette['b-border-subtle']}`,
 									}),
 								}
 							: {})}

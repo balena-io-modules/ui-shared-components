@@ -35,7 +35,7 @@ export const CollectionSummary = ({
 	return (
 		<Box>
 			{items.length === 1 ? (
-				<Typography color="text.secondary">{stringifyItems}</Typography>
+				<Typography color="b-text-subtle">{stringifyItems}</Typography>
 			) : (
 				<Stack alignItems="start">
 					<Button
@@ -43,7 +43,7 @@ export const CollectionSummary = ({
 							setIsExpanded(!isExpanded);
 						}}
 						variant="text"
-						sx={{ color: 'text-subtle', minWidth: 'unset' }}
+						sx={{ color: 'b-text-subtle', minWidth: 'unset' }}
 						endIcon={
 							isExpanded ? (
 								<FontAwesomeIcon icon={faCaretUp} />
@@ -57,7 +57,7 @@ export const CollectionSummary = ({
 					</Button>
 
 					<Fade in={isExpanded} appear={!isExpanded} unmountOnExit>
-						<Typography variant="bodySm" color="text.secondary">
+						<Typography variant="bodySm" color="b-text-subtle">
 							{stringifyItems}
 						</Typography>
 					</Fade>

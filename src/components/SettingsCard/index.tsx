@@ -34,7 +34,7 @@ export const SettingsCard = ({
 				{...(danger && {
 					sx: {
 						'.MuiCardHeader-title': {
-							color: 'text-danger',
+							color: 'b-text-danger',
 						},
 					},
 				})}
@@ -49,7 +49,7 @@ export const SettingsCard = ({
 				flexDirection: 'column',
 				...(danger && {
 					[`.${settingsCardItemTitleClass}`]: {
-						color: 'text-danger',
+						color: 'b-text-danger',
 					},
 				}),
 			}}
@@ -71,7 +71,7 @@ export const SettingsCardItem = ({
 		alignItems={['start', 'start', 'center']}
 		sx={(theme) => ({
 			'&:not(&:last-child)': {
-				borderBottom: `dashed ${theme.vars.palette['border-subtle']} 1px`,
+				borderBottom: `dashed ${theme.vars.palette['b-border-subtle']} 1px`,
 				pb: 3,
 			},
 		})}
@@ -80,7 +80,7 @@ export const SettingsCardItem = ({
 			<Typography className={settingsCardItemTitleClass} variant="bodyLg">
 				{title}
 			</Typography>
-			<Typography color="text.secondary">{description}</Typography>
+			<Typography color="b-text-subtle">{description}</Typography>
 		</Stack>
 		<Box>{action}</Box>
 	</Stack>

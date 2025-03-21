@@ -32,29 +32,29 @@ import { useRandomUUID } from '../../../hooks/useRandomUUID';
 import uniq from 'lodash/uniq';
 
 const restingStyle: SxProps = {
-	borderColor: 'border',
+	borderColor: 'b-border',
 	borderWidth: '1px',
-	backgroundColor: 'bg',
+	backgroundColor: 'b-bg',
 };
 
 const hoverStyle: SxProps = {
-	borderColor: 'border-strong',
+	borderColor: 'b-border-strong',
 	borderWidth: '1px',
-	backgroundColor: 'bg',
+	backgroundColor: 'b-bg',
 	'.browse-files-text': { textDecoration: 'none' },
 };
 
 const disabledStyle: SxProps = {
-	borderColor: 'border-strong',
+	borderColor: 'b-border-strong',
 	borderWidth: '1px',
-	backgroundColor: 'bg',
+	backgroundColor: 'b-bg',
 	opacity: '40%',
 };
 
 const dragStyle: SxProps = {
-	borderColor: 'border-accent-strong',
+	borderColor: 'b-border-accent-strong',
 	borderWidth: '2px',
-	backgroundColor: 'bg-accent',
+	backgroundColor: 'b-bg-accent',
 };
 
 // These are just the ones we use in the dashboard at the moment
@@ -295,14 +295,14 @@ export const FileWidget = ({
 						</Typography>
 					</Stack>
 					{!!descriptiveText && (
-						<Typography color="text-subtle" component="p">
+						<Typography color="b-text-subtle" component="p">
 							{descriptiveText}
 						</Typography>
 					)}
 				</Stack>
 				<Stack gap={2}>
 					<Stack direction="row" justifyContent="space-between" gap={3}>
-						<Typography color="text-subtle">
+						<Typography color="b-text-subtle">
 							{accept == null
 								? ''
 								: `Supported formats: ${uniq(
@@ -314,14 +314,14 @@ export const FileWidget = ({
 									).join(', ')}`}
 						</Typography>
 						{maxSize != null && (
-							<Typography color="text-subtle" align="right">
+							<Typography color="b-text-subtle" align="right">
 								Maximum size: {fileSizeToReadable(maxSize)}
 							</Typography>
 						)}
 					</Stack>
 
 					{hideUploadedFiles && !!errorFiles.length && (
-						<Stack color="error.main" gap={1}>
+						<Stack color="b-text-danger" gap={1}>
 							{errorFiles
 								.flatMap((errorFile) => errorFile.errors)
 								.map((error) =>
@@ -341,7 +341,7 @@ export const FileWidget = ({
 									justifyContent="space-between"
 									alignItems="center"
 									gap={2}
-									bgcolor="bg"
+									bgcolor="b-bg"
 									p={3}
 									borderRadius="sm"
 									{...(mobile && { flexWrap: 'wrap' })}
@@ -390,8 +390,8 @@ export const FileWidget = ({
 										alignItems="center"
 									>
 										<Stack direction="row" gap={2}>
-											<Typography color="text-subtle">{file.type}</Typography>
-											<Typography color="text-subtle">
+											<Typography color="b-text-subtle">{file.type}</Typography>
+											<Typography color="b-text-subtle">
 												{fileSizeToReadable(file.size)}
 											</Typography>
 										</Stack>
@@ -412,11 +412,11 @@ export const FileWidget = ({
 							{errorFiles.map(({ file, errors }) => (
 								<Stack
 									gap={1}
-									bgcolor="bg"
+									bgcolor="b-bg"
 									p={3}
 									borderRadius="sm"
 									border="1px solid"
-									borderColor="border-danger"
+									borderColor="b-border-danger"
 									key={file.name}
 								>
 									<Stack
@@ -435,8 +435,8 @@ export const FileWidget = ({
 											<Typography>{file.name}</Typography>
 										</Stack>
 										<Stack direction="row" gap={2} alignItems="center">
-											<Typography color="text-subtle">{file.type}</Typography>
-											<Typography color="text-subtle">
+											<Typography color="b-text-subtle">{file.type}</Typography>
+											<Typography color="b-text-subtle">
 												{fileSizeToReadable(file.size)}
 											</Typography>
 										</Stack>
@@ -445,7 +445,7 @@ export const FileWidget = ({
 										{errors.map((error) => (
 											<Stack
 												gap={2}
-												color="text-danger"
+												color="b-text-danger"
 												direction="row"
 												alignItems="center"
 												key={error.message}

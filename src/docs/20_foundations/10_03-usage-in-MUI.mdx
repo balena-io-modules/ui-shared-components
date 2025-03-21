@@ -58,7 +58,7 @@ smooth theme switching. Always try to use `theme.vars` when possible.
 Under the hood `theme.vars` variables are actually CSS variables. It's also possible to use the CSS variables directly,
 prefixed with `mui`. Examples:
 
-* `color.bg.accent` -> `var(--mui-palette-bg-accent)`
+* `color.bg.accent` -> `var(--mui-palette-b-bg-accent)`
 * `shape.border_radius.sm`: `var(--mui-shape-sm)`
 * `typography.fontfamily.code`: `var(--mui-fontFamily-code)`
 
@@ -67,15 +67,18 @@ variables available on `:root`.
 
 ### Colors
 
-Contrary to the other variables, color tokens are separated by dashes instead of dots. The reason is that MUI infers 
-the variable names based on the object passed in the theme (hence the dots), but we use implicit defaults for our
-token nomenclature resulting in potential clashes like `color.bg` and `color.bg.accent`. 
+Contrary to the other variables, color tokens are separated by dashes instead of dots and are prefixed. 
+The reason is that MUI infers the variable name based on the object passed in the theme (hence the dots), 
+but we use implicit defaults for our token nomenclature resulting in potential clashes 
+in names like `palette.bg` and `palette.bg.accent`. 
+
+All the variables are prefixed with `b-` (for `balena`). 
 
 Examples:
 
-* `color.bg.accent` -> `theme.vars.palette['bg-accent']` 
-* `color.text.subtle` -> `theme.vars.palette['text-subtle']` 
-* `color.bg.warning.strong ` -> `theme.vars.palette['bg-warning-strong']` 
+* `color.bg.accent` -> `theme.vars.palette['b-bg-accent']` 
+* `color.text.subtle` -> `theme.vars.palette['b-text-subtle']` 
+* `color.bg.warning.strong ` -> `theme.vars.palette['b-bg-warning-strong']` 
 
 ### `sx` props
 
@@ -87,7 +90,7 @@ It is available on the component prop directly or as properties of the `sx` prop
 Example:
 
 ```tsx
-<Box sx={{ backgroundColor: 'bg-accent-strong', color: 'text-inverse', borderRadius: 'lg', p: 2 }}>
+<Box sx={{ backgroundColor: 'b-bg-accent-strong', color: 'b-text-inverse', borderRadius: 'lg', p: 2 }}>
 	<Typography sx={{ fontFamily: 'code', fontWeight: 'strong' }}>
 		danger!
 	</Typography>
@@ -98,7 +101,7 @@ Which results in:
 
 <Unstyled>
 	<ThemeProvider theme={theme}>
-<Box sx={{ backgroundColor: 'bg-accent-strong', color: 'text-inverse', borderRadius: 'lg', p: 2 }}>
+<Box sx={{ backgroundColor: 'b-bg-accent-strong', color: 'b-text-inverse', borderRadius: 'lg', p: 2 }}>
 	<Typography sx={{ fontFamily: 'code', fontWeight: 'strong' }}>
 		danger!
 	</Typography>

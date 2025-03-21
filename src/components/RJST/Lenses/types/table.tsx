@@ -17,10 +17,10 @@ import type { RJSTEntityPropertyDefinition } from '../..';
 import { useAnalyticsContext } from '../../../../contexts/AnalyticsContext';
 
 const TagContainer = styled(Box)(({ theme }) => ({
-	border: `0.5px solid ${theme.vars.palette['border-accent']}`,
+	border: `0.5px solid ${theme.vars.palette['b-border-accent']}`,
 	borderRadius: 'sm',
-	color: 'text',
-	backgroundColor: 'bg-accent',
+	color: 'b-text',
+	backgroundColor: 'b-bg-accent',
 	position: 'relative',
 	width: 'fit-content',
 }));

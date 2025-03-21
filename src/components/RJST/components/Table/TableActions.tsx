@@ -55,7 +55,7 @@ export const TableActions = <T extends object>({
 			<IconButton
 				aria-label="handle column settings"
 				onClick={handleClick}
-				sx={{ ml: 'auto', color: 'text' }}
+				sx={{ ml: 'auto', color: 'b-text' }}
 			>
 				<FontAwesomeIcon icon={faCog} />
 			</IconButton>

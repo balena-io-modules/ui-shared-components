@@ -143,7 +143,7 @@ export const SelectWidget = ({
 							<Typography
 								{...props}
 								fontStyle="italic"
-								color="text.secondary"
+								color="b-text-subtle"
 								component="li"
 							>
 								{option.label}

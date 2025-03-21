@@ -34,7 +34,7 @@ export const Spinner = ({
 				{...(progress != null && { variant: 'determinate', value: progress })}
 			/>
 			{label != null && (
-				<Typography color={bgVariant === 'dark' ? 'text-inverse' : 'default'}>
+				<Typography color={bgVariant === 'dark' ? 'b-text-inverse' : 'default'}>
 					{label}
 				</Typography>
 			)}

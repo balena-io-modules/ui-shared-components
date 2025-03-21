@@ -17,7 +17,7 @@ export const OrderedListItem = ({
 				<Box
 					sx={{
 						borderRadius: '50%',
-						backgroundColor: 'info.main',
+						backgroundColor: 'b-bg-accent-strong',
 						width: '1.5em',
 						height: '1.5em',
 						display: 'flex',
@@ -25,7 +25,7 @@ export const OrderedListItem = ({
 						justifyContent: 'center',
 					}}
 				>
-					<Typography variant="body2" color="white">
+					<Typography variant="bodySm" color="b-text-inverse">
 						{index}
 					</Typography>
 				</Box>

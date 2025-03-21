@@ -69,11 +69,11 @@ const TagProperty = styled('div')<{ state?: ResourceTagInfoState }>`
 
 	color: ${(props) =>
 		props.state === 'added'
-			? props.theme.vars.palette['text-warning']
+			? props.theme.vars.palette['b-text-warning']
 			: props.state === 'updated'
-				? props.theme.vars.palette['text-warning']
+				? props.theme.vars.palette['b-text-warning']
 				: props.state === 'deleted'
-					? props.theme.vars.palette['text-subtle']
+					? props.theme.vars.palette['b-text-subtle']
 					: 'inherit'};
 
 	& > div {
@@ -109,14 +109,14 @@ const PreviousTagProperty = styled(TagProperty)`
 		left: 0;
 		right: 0;
 		display: block;
-		background: ${(props) => props.theme.vars.palette['bg-warning']};
+		background: ${(props) => props.theme.vars.palette['b-bg-warning']};
 		height: 2px;
 		top: 50%;
 	}
 
 	td > &,
 	td > & {
-		color: ${(props) => props.theme.vars.palette['text-subtle']};
+		color: ${(props) => props.theme.vars.palette['b-text-subtle']};
 	}
 
 	td > &:after {

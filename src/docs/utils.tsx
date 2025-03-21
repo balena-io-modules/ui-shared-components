@@ -159,7 +159,7 @@ export const TypeScaleItem = ({
 		: 'Lorem ipsum dolor sit amet consectetur. Pretium consectetur et risus ac nisl egestas aliquam odio ac. Aenean urna consectetur at suspendisse. Magnis tincidunt non blandit velit accumsan orci amet mus.';
 	return (
 		<Box sx={{ display: 'flex', flexDirection: 'column' }}>
-			<Typography variant="overline" sx={{ color: 'text-accent' }}>
+			<Typography variant="overline" sx={{ color: 'b-text-accent' }}>
 				{variant}
 			</Typography>
 			<Typography variant={variant}>{text} </Typography>

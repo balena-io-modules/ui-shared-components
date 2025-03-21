@@ -30,7 +30,7 @@ export const TableToolbar = <T extends object>({
 						px: theme.spacing(2),
 						py: theme.spacing(1),
 						borderRadius: `${theme.vars.shape.sm} ${theme.vars.shape.sm} 0 0`,
-						background: 'bg-subtle',
+						background: 'b-bg-subtle',
 						boxShadow: 'inset 0px -1px 1px rgba(0,0,0,0.05)',
 					})}
 				>

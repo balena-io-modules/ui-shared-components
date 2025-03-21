@@ -68,7 +68,7 @@ const defaultMarkdownComponentOverrides: ReactMarkdownOptions['components'] = {
 			sx={{
 				maxWidth: '100%',
 				width: '100%',
-				backgroundColor: 'bg',
+				backgroundColor: 'b-bg',
 				borderRadius: 'sm',
 				p: 2,
 				...defaultSxProps,
@@ -80,7 +80,7 @@ const defaultMarkdownComponentOverrides: ReactMarkdownOptions['components'] = {
 		<Typography
 			component="blockquote"
 			sx={(theme) => ({
-				borderLeft: `solid 2px ${theme.vars.palette['border']}`,
+				borderLeft: `solid 2px ${theme.vars.palette['b-border']}`,
 				fontStyle: 'italic',
 				pl: 2,
 				...defaultSxProps,
@@ -127,7 +127,7 @@ const defaultMarkdownComponentOverrides: ReactMarkdownOptions['components'] = {
 		<Typography
 			sx={{
 				fontFamily: 'code',
-				backgroundColor: 'bg',
+				backgroundColor: 'b-bg',
 				borderRadius: 'xs',
 				px: 1,
 				py: '2px',
