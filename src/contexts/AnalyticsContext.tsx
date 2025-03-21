@@ -8,6 +8,7 @@ export enum AnalyticsStoreActions {
 type AnalyticsActionPayload = {
 	trackerName: string;
 	createAnalyticsClient: (urlParamsHandler: AnalyticsUrlParams) => Client;
+	featureFlags?: Dictionary<boolean> | null;
 } | null;
 
 type Action = {
@@ -20,6 +21,7 @@ type Dispatch = (action: Action) => void;
 type AnalyticsContext = {
 	analyticsClient: Client | null;
 	webTracker: WebTracker | null;
+	featureFlags: Dictionary<boolean> | null;
 	urlParamsHandler?: AnalyticsUrlParams | null;
 	trackBalenaNavigation?: (url: string) => string;
 };
@@ -36,14 +38,19 @@ const initialContext: AnalyticsContext = {
 	analyticsClient: null,
 	webTracker: null,
 	urlParamsHandler: null,
+	featureFlags: null,
 	trackBalenaNavigation: (url) => url,
 };
 
 const contextReducer = (state: AnalyticsContext, { type, payload }: Action) => {
+	const featureFlags = payload?.featureFlags ?? state.featureFlags ?? null;
 	switch (type) {
 		case AnalyticsStoreActions.setAnalyticsData: {
 			if (!payload || state.analyticsClient) {
-				return state;
+				return {
+					...state,
+					featureFlags,
+				};
 			}
 			const urlParamsHandler = new AnalyticsUrlParams();
 			const trackBalenaNavigation = (url: string) => {
@@ -86,6 +93,7 @@ const contextReducer = (state: AnalyticsContext, { type, payload }: Action) => {
 				analyticsClient,
 				webTracker,
 				urlParamsHandler,
+				featureFlags,
 				trackBalenaNavigation,
 			};
 		}
