@@ -8,10 +8,13 @@ import {
 	Divider,
 	FormControlLabel,
 	FormGroup,
-	IconButton,
 	ListItemIcon,
 	Menu,
 	MenuItem,
+	useTheme,
+	useMediaQuery,
+	Typography,
+	Button,
 } from '@mui/material';
 import { color } from '@balena/design-tokens';
 import {
@@ -20,7 +23,7 @@ import {
 	Draggable,
 	type DropResult,
 } from 'react-beautiful-dnd';
-import { faEllipsisV } from '@fortawesome/free-solid-svg-icons';
+import { faGripVertical } from '@fortawesome/free-solid-svg-icons';
 
 interface TableActionsProps<T> {
 	columns: Array<RJSTEntityPropertyDefinition<T>>;
@@ -36,6 +39,8 @@ export const TableActions = <T extends object>({
 	onColumnPreferencesChange,
 }: TableActionsProps<T>) => {
 	const [anchorEl, setAnchorEl] = React.useState<HTMLElement>();
+	const theme = useTheme();
+	const matches = useMediaQuery(theme.breakpoints.up('sm'));
 	const open = Boolean(anchorEl);
 	const handleClick = (event: React.MouseEvent<HTMLElement>) => {
 		setAnchorEl(event.currentTarget);
@@ -78,13 +83,15 @@ export const TableActions = <T extends object>({
 
 	return (
 		<>
-			<IconButton
+			<Button
 				aria-label="handle column settings"
 				onClick={handleClick}
-				sx={{ ml: 'auto', color: color.text.value }}
+				sx={{ ml: 'auto', p: 1, color: color.text.value }}
+				variant="text"
 			>
 				<FontAwesomeIcon icon={faCog} />
-			</IconButton>
+				{matches ? <Typography ml={1}>Manage columns</Typography> : null}
+			</Button>
 			<Menu
 				id="long-menu"
 				MenuListProps={{
@@ -120,7 +127,7 @@ export const TableActions = <T extends object>({
 														minWidth: 'fit-content',
 													}}
 												>
-													<FontAwesomeIcon icon={faEllipsisV} />
+													<FontAwesomeIcon icon={faGripVertical} />
 												</ListItemIcon>
 												<FormControlLabel
 													sx={{ flex: 1, width: '100%', py: 1, pr: 2, m: 0 }}
