@@ -24,16 +24,19 @@ export function useColumns<T>(
 				c.key.startsWith(TAG_COLUMN_PREFIX),
 			);
 
-			const cols = [...defaultColumns, ...tagColumns].map((d) => {
-				const storedColumn = storedColumnsMap.get(d.key);
-				return {
-					...d,
-					render: d.key.startsWith(TAG_COLUMN_PREFIX)
-						? tagKeyRender(d.title)
-						: d.render,
-					selected: storedColumn?.selected ?? d.selected,
-				};
-			});
+			const cols = [...defaultColumns, ...tagColumns]
+				.map((d) => {
+					const storedColumn = storedColumnsMap.get(d.key);
+					return {
+						...d,
+						render: d.key.startsWith(TAG_COLUMN_PREFIX)
+							? tagKeyRender(d.title)
+							: d.render,
+						selected: storedColumn?.selected ?? d.selected,
+						index: storedColumn?.index ?? d.index,
+					};
+				})
+				.sort((a, b) => a.index - b.index);
 			// Remove incorrectly saved column configurations and handle any structural changes.
 			const safeFilteredCols = cols.filter(
 				(c) => typeof c.render === 'function',

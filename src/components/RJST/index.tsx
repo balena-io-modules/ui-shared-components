@@ -435,7 +435,6 @@ export const RJST = <T extends RJSTBaseResource<T>>({
 			formats,
 		],
 	);
-
 	const hasUpdateActions = React.useMemo(
 		() =>
 			!!actions?.filter((action) => action.type !== 'create')?.length ||
@@ -659,12 +658,12 @@ export type RJSTEntityPropertyDefinition<T> = {
 	field: Extract<keyof T, string>;
 	key: string;
 	selected: boolean;
+	index: number;
 	sortable: boolean | ((a: T, b: T) => number);
 	render: (
 		value: any,
 		row: T,
 	) => string | number | JSX.Element | null | undefined;
-
 	type: string;
 	priority: string;
 	refScheme?: string;
@@ -798,7 +797,6 @@ const getColumnsFromSchema = <T extends RJSTBaseResource<T>>({
 					  )
 					? 'secondary'
 					: 'tertiary';
-
 			const widgetSchema = { ...val, title: undefined };
 			// TODO: Refactor this logic to create an object structure and retrieve the correct property using the refScheme.
 			// The customSort should look like: { user: { owns_items: [{ uuid: 'xx09x0' }] } }
@@ -832,6 +830,7 @@ const getColumnsFromSchema = <T extends RJSTBaseResource<T>>({
 				priority,
 				type: 'predefined',
 				refScheme: refScheme?.[0],
+				index,
 				sortable:
 					xNoSort || val.format === 'tag'
 						? false
