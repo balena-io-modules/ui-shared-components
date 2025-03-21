@@ -65,9 +65,9 @@ export const Tag = ({
 		<Tooltip title={overflow ? tagItemsToString(multiple ?? []) : undefined}>
 			<Box
 				sx={(theme) => ({
-					backgroundColor: theme.palette.blue.light,
-					border: `1px solid ${theme.palette.info.main}`,
-					borderRadius: '2px',
+					backgroundColor: theme.vars.palette['b-bg-accent'],
+					border: `1px solid ${theme.vars.palette['b-bg-accent-strong']}`,
+					borderRadius: 'xs',
 					lineHeight: 1.5,
 					width: 'fit-content',
 					py: 1,
@@ -86,16 +86,16 @@ export const Tag = ({
 									sx={{
 										whitespace: 'pre',
 										fontStyle: 'italic',
-										color: 'palette.primary',
 									}}
-								>{`  ${tagEntry.prefix ?? ','}  `}</Typography>
+								>
+									{`  ${tagEntry.prefix ?? ','}  `}
+								</Typography>
 							)}
 
 							{!tagEntry.value && !tagEntry.name && (
 								<Typography
 									sx={{
 										fontStyle: 'italic',
-										color: 'palette.primary',
 									}}
 								>
 									no value
@@ -106,7 +106,6 @@ export const Tag = ({
 								<Typography
 									sx={{
 										whitespace: 'pre',
-										color: 'palette.primary',
 									}}
 								>
 									{`${tagEntry.name}${tagEntry.value ? nameValueSeparator : ''}`}
@@ -117,7 +116,6 @@ export const Tag = ({
 								<Typography
 									sx={{
 										fontWeight: 'bold',
-										color: 'palette.primary',
 									}}
 								>
 									{tagEntry.value}

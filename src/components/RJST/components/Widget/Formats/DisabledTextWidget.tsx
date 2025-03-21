@@ -12,7 +12,7 @@ export const DisabledTextWidget = widgetFactory('DisabledText', {}, [
 		value != null && typeof value !== 'string' ? value.toString() : value;
 	return (
 		<Tooltip title={val}>
-			<Typography display="block" color="text.secondary" maxWidth={300} noWrap>
+			<Typography display="block" color="b-text-subtle" maxWidth={300} noWrap>
 				{val ?? t('info.not_defined')}
 			</Typography>
 		</Tooltip>

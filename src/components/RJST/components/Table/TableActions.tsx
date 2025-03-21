@@ -12,7 +12,6 @@ import {
 	Menu,
 	MenuItem,
 } from '@mui/material';
-import { color } from '@balena/design-tokens';
 
 interface TableActionsProps<T> {
 	columns: Array<RJSTEntityPropertyDefinition<T>>;
@@ -56,7 +55,7 @@ export const TableActions = <T extends object>({
 			<IconButton
 				aria-label="handle column settings"
 				onClick={handleClick}
-				sx={{ ml: 'auto', color: color.text.value }}
+				sx={{ ml: 'auto', color: 'b-text' }}
 			>
 				<FontAwesomeIcon icon={faCog} />
 			</IconButton>

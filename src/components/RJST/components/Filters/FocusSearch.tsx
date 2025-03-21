@@ -4,7 +4,7 @@ import { useNavigate } from '../../../../hooks/useNavigate';
 import { ajvFilter, createFullTextSearchFilter } from './SchemaSieve';
 import { Box, styled, Typography } from '@mui/material';
 import { convertToPineClientFilter } from '../../oData/jsonToOData';
-import { designTokens, Spinner } from '../../../..';
+import { Spinner } from '../../../..';
 import type { RJSTContext, RJSTModel } from '../../schemaOps';
 import { getPropertyScheme } from '../../schemaOps';
 import { DEFAULT_ITEMS_PER_PAGE } from '../../utils';
@@ -12,12 +12,12 @@ import { DEFAULT_ITEMS_PER_PAGE } from '../../utils';
 const Focus = styled(Box)(({ theme }) => ({
 	flexBasis: '100%',
 	backgroundColor: 'white',
-	border: `solid 1px ${designTokens.color.border.subtle.value}`,
+	border: `solid 1px ${theme.vars.palette['b-border-subtle']}`,
 	maxHeight: '200px',
 	position: 'absolute',
 	width: '100%',
 	zIndex: 1,
-	borderRadius: '0 0 4px 4px',
+	borderRadius: `0 0 ${theme.vars.shape.sm} ${theme.vars.shape.sm}`,
 	overflow: 'hidden',
 	boxShadow: theme.shadows[8],
 }));
@@ -29,10 +29,10 @@ const FocusContent = styled(Box)(() => ({
 }));
 
 const FocusItem = styled(Box)<{ hasGetBaseUrl: boolean }>(
-	({ hasGetBaseUrl }) => ({
+	({ hasGetBaseUrl, theme }) => ({
 		cursor: hasGetBaseUrl ? 'pointer' : 'default',
 		'&:hover': {
-			background: designTokens.color.bg.value, // This is the background color MUI Select uses for entities on hover.
+			backgroundColor: theme.vars.palette['b-bg'], // This is the background color MUI Select uses for entities on hover.
 		},
 	}),
 );

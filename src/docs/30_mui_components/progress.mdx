@@ -1,0 +1,21 @@
+import { Meta, Unstyled } from '@storybook/blocks';
+import { theme } from '../../theme';
+import { CircularProgress, LinearProgress, ThemeProvider } from '@mui/material';
+
+<Meta title="Mui Components/Feedback/Progress" />
+
+## Cicular
+
+<Unstyled>
+	<ThemeProvider theme={theme}>
+		<CircularProgress />
+	</ThemeProvider>
+</Unstyled>
+
+## Linear
+
+<Unstyled>
+	<ThemeProvider theme={theme}>
+		<LinearProgress />
+	</ThemeProvider>
+</Unstyled>

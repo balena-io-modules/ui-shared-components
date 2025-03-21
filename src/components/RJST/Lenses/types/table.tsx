@@ -12,16 +12,15 @@ import {
 import { useTagActions } from '../../components/Table/useTagActions';
 import { AddTagHandler } from '../../components/Table/AddTagHandler';
 import { Box, styled, Tooltip, Typography } from '@mui/material';
-import { color } from '@balena/design-tokens';
 import { Copy } from '../../../Copy';
 import type { RJSTEntityPropertyDefinition } from '../..';
 import { useAnalyticsContext } from '../../../../contexts/AnalyticsContext';
 
-const TagContainer = styled(Box)(() => ({
-	border: `0.5px solid ${color.border.accent.value}`,
-	borderRadius: '3px',
-	color: color.text.value,
-	backgroundColor: color.bg.accent.value,
+const TagContainer = styled(Box)(({ theme }) => ({
+	border: `0.5px solid ${theme.vars.palette['b-border-accent']}`,
+	borderRadius: 'sm',
+	color: 'b-text',
+	backgroundColor: 'b-bg-accent',
 	position: 'relative',
 	width: 'fit-content',
 }));
