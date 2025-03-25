@@ -1,4 +1,15 @@
 - commits:
+    - subject: Add support for feature flags
+      hash: faa08bcb7121df16cdfed1c96e31c02a817791db
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Andrea Rosci
+  version: 11.2.24
+  title: ""
+  date: 2025-03-25T11:08:17.998Z
+- commits:
     - subject: "Widgets: Fix `extraFormats` and `extraContexts` console errors"
       hash: 268ec1150db0b9c04db7cd301613740e18880f7c
       body: ""
