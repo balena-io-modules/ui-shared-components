@@ -6,6 +6,7 @@ export interface TableSortOptions {
 	direction: Order;
 	field: string;
 	key: string;
+	value?: string;
 	refScheme?: string;
 }
 

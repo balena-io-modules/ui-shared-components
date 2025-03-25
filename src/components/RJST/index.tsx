@@ -71,11 +71,19 @@ import { FocusSearch } from './components/Filters/FocusSearch';
 import { Widget } from './components/Widget';
 import { defaultFormats } from './components/Widget/Formats';
 import { Tooltip } from '../Tooltip';
+import { TAG_COLUMN_PREFIX } from './components/Table/useColumns';
 
 const HeaderGrid = styled(Box)(({ theme }) => ({
 	display: 'flex',
 	gap: theme.spacing(2),
 }));
+
+const orderByTag = (sortInfo: TableSortOptions | null) => {
+	if (!sortInfo) {
+		return null;
+	}
+	return `${sortInfo.field}(tag_key='${sortInfo.value}')/value ${sortInfo.direction}`;
+};
 
 export interface NoDataInfo {
 	title?: string | React.ReactElement;
@@ -211,14 +219,18 @@ export const RJST = <T extends RJSTBaseResource<T>>({
 			if (!onChange) {
 				return;
 			}
+
 			const pineFilter = pagination?.serverSide
 				? convertToPineClientFilter([], updatedFilters)
 				: null;
+			const isTag = sortInfo?.key.startsWith(TAG_COLUMN_PREFIX);
 			const oData = pagination?.serverSide
 				? pickBy(
 						{
 							$filter: pineFilter,
-							$orderby: orderbyBuilder(sortInfo, customSort),
+							$orderby: isTag
+								? orderByTag(sortInfo)
+								: orderbyBuilder(sortInfo, customSort),
 							$top: itemsPerPage,
 							$skip: page * itemsPerPage,
 						},
