@@ -1,4 +1,3 @@
-import has from 'lodash/has';
 import { interpolateMustache } from './utils';
 import { Box, List, Tab, Tabs, Typography } from '@mui/material';
 import { memo, useEffect, useMemo, useState } from 'react';
@@ -30,6 +29,9 @@ export const getUserOs = () => {
 
 	return 'Unknown';
 };
+
+const SECURE_BOOT_INSTRUCTION_START =
+	'Ensure there are no other USB keys are inserted. Power on the Generic x86_64 (GPT) with a keyboard connected.';
 
 const dtJsonTocontractOsKeyMap = {
 	windows: 'Windows',
@@ -107,13 +109,7 @@ export const ApplicationInstructions = memo(function ApplicationInstructions({
 
 	const finalInstructions = [
 		'Use the form on the left to configure and download balenaOS for your new device.',
-		...(secureboot
-			? [
-					...interpolatedInstructions.slice(0, 6),
-					`${interpolatedInstructions[6].split('.').slice(0, 2)}.`,
-					...interpolatedInstructions.slice(7),
-				]
-			: interpolatedInstructions),
+		...interpolatedInstructions,
 		'Your device should appear in your application dashboard within a few minutes. Have fun!',
 	];
 
@@ -160,32 +156,21 @@ export const ApplicationInstructions = memo(function ApplicationInstructions({
 });
 
 interface InstructionsItemProps {
-	node: any;
+	instruction: string;
 	index: number;
 	secureboot: boolean;
 }
 
 interface InstructionsListProps {
-	instructions: any[];
+	instructions: string[];
 	secureboot: boolean;
 }
 
 const InstructionsItem = ({
-	node,
+	instruction,
 	index,
 	secureboot,
 }: InstructionsItemProps) => {
-	const hasChildren = has(node, 'children');
-	let text = null;
-
-	if (typeof node === 'string') {
-		text = node;
-	}
-
-	if (node?.text) {
-		text = node.text;
-	}
-
 	return (
 		<OrderedListItem index={index + 1} sx={{ maxWidth: '100%' }}>
 			<Markdown
@@ -209,49 +194,40 @@ const InstructionsItem = ({
 					},
 					p: ({ children }) => (
 						<p style={{ marginTop: 0, marginBottom: 0 }}>
-							{children}
-							{secureboot && index === 7 && (
-								<Box mt={2} borderLeft={1} borderColor="divider" pl={2}>
-									<Chip
-										sx={{ marginRight: 1 }}
-										label="Secure Boot"
-										color="purple"
-									/>
-									The device needs to be configured in secure boot setup mode.
-									This depends on the UEFI/BIOS implementation, but in general,
-									this involves resetting the UEFI settings to default
-									configuration, configuring the device to boot in UEFI mode,
-									setting the first boot option to the USB key and disabling the
-									restoration of factory keys. Save and Exit the UEFI/BIOS menu
-									and the device should automatically reboot and begin the
-									provisioning process.{' '}
-									<MUILinkWithTracking href="https://docs.balena.io/reference/OS/secure-boot-and-full-disk-encryption/generic-x86-64-gpt/#provision-the-device">
-										Read more on UEFI settings for secure boot and full disk
-										encryption.
-									</MUILinkWithTracking>
-								</Box>
+							{/* TODO: Find a way to do this via contracts */}
+							{secureboot &&
+							instruction.startsWith(SECURE_BOOT_INSTRUCTION_START) ? (
+								<>
+									{SECURE_BOOT_INSTRUCTION_START}
+									<Box mt={2} borderLeft={1} borderColor="divider" pl={2}>
+										<Chip
+											sx={{ marginRight: 1 }}
+											label="Secure Boot"
+											color="purple"
+										/>
+										The device needs to be configured in secure boot setup mode.
+										This depends on the UEFI/BIOS implementation, but in
+										general, this involves resetting the UEFI settings to
+										default configuration, configuring the device to boot in
+										UEFI mode, setting the first boot option to the USB key and
+										disabling the restoration of factory keys. Save and Exit the
+										UEFI/BIOS menu and the device should automatically reboot
+										and begin the provisioning process.{' '}
+										<MUILinkWithTracking href="https://docs.balena.io/reference/OS/secure-boot-and-full-disk-encryption/generic-x86-64-gpt/#provision-the-device">
+											Read more on UEFI settings for secure boot and full disk
+											encryption.
+										</MUILinkWithTracking>
+									</Box>
+								</>
+							) : (
+								children
 							)}
 						</p>
 					),
 				}}
 			>
-				{text}
+				{instruction}
 			</Markdown>
-
-			{hasChildren && (
-				<List>
-					{(node.children as any[]).map((item, i) => {
-						return (
-							<InstructionsItem
-								key={i}
-								node={item}
-								index={i}
-								secureboot={secureboot}
-							/>
-						);
-					})}
-				</List>
-			)}
 		</OrderedListItem>
 	);
 };
@@ -262,11 +238,11 @@ const InstructionsList = ({
 }: InstructionsListProps) => {
 	return (
 		<List>
-			{instructions.map((item, i) => {
+			{instructions.map((instruction, i) => {
 				return (
 					<InstructionsItem
-						key={`${item}_${i}`}
-						node={item}
+						key={`${instruction}_${i}`}
+						instruction={instruction}
 						index={i}
 						secureboot={secureboot}
 					/>
