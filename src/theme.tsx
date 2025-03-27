@@ -1364,6 +1364,12 @@ export const theme = createTheme({
 						color: color.bg.accent.strong.value,
 					},
 				},
+				sizeSmall: {
+					svg: {
+						width: 16,
+						height: 16,
+					},
+				},
 			},
 		},
 		MuiRadio: {

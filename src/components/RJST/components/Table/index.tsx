@@ -32,6 +32,11 @@ const StyledMaterialTable = styled(MaterialTable)(() => ({
 	},
 }));
 
+export type ColumnPreferencesChangeProp<T> = (
+	columns: Array<RJSTEntityPropertyDefinition<T>>,
+	changeType: 'display' | 'reorder',
+) => void;
+
 interface TableProps<T> {
 	rowKey: keyof T;
 	data: T[];
@@ -46,9 +51,7 @@ interface TableProps<T> {
 	getRowHref: ((entry: any) => string) | undefined;
 	onRowClick?: (entity: T, event: React.MouseEvent<HTMLAnchorElement>) => void;
 	onPageChange?: (page: number, itemsPerPage: number) => void;
-	onColumnPreferencesChange?: (
-		columns: Array<RJSTEntityPropertyDefinition<T>>,
-	) => void;
+	onColumnPreferencesChange?: ColumnPreferencesChangeProp<T>;
 }
 
 export const Table = <T extends object>({

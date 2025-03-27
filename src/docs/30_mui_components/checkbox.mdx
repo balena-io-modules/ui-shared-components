@@ -55,3 +55,34 @@ import { theme } from '../../theme';
 	</FormControl>
 </ThemeProvider>
 
+
+
+## Small
+
+<ThemeProvider theme={theme}>
+	<FormControl component="fieldset" variant="standard">
+		<FormLabel component="legend">Assign responsibility</FormLabel>
+		<FormGroup>
+			<FormControlLabel
+				control={
+					<Checkbox size="small" />
+				}
+				label="Gilad Gray"
+			/>
+			<FormControlLabel
+				control={
+					<Checkbox size="small" />
+				}
+				label="Jason Killian"
+			/>
+			<FormControlLabel
+				control={
+					<Checkbox size="small" />
+				}
+				label="Antoine Llorca"
+			/>
+		</FormGroup>
+		<FormHelperText>Be careful</FormHelperText>
+	</FormControl>
+</ThemeProvider>
+
