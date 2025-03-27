@@ -159,19 +159,14 @@ export const ImageForm = memo(function ImageForm({
 		);
 	}, [model.deviceType.slug, model.version]);
 
-	const secureBootDontShowAgainKey = useMemo(
-		() => `${model.deviceType.slug}_secureboot_warning_do_not_show_again`,
-		[model.deviceType.slug],
-	);
+	const secureBootDontShowAgainKey = `${model.deviceType.slug}_secureboot_warning_do_not_show_again`;
 
 	const dismissSecureBootWarning = useCallback(
 		(accepted: boolean, dontShowAgain: boolean) => {
-			if (state.webTracker) {
-				state.webTracker.track(
-					'Application Add Device Modal Hide Secure Boot Warning',
-					{ accepted, dontShowAgain },
-				);
-			}
+			state.webTracker?.track(
+				'Application Add Device Modal Hide Secure Boot Warning',
+				{ accepted, dontShowAgain },
+			);
 		},
 		[state.webTracker],
 	);
