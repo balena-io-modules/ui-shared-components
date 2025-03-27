@@ -1,4 +1,15 @@
 - commits:
+    - subject: Allow users to reorder columns in settings menu
+      hash: 64d84d2a0bb48354956ca692f2709099222afb87
+      body: ""
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: Andrea Rosci
+  version: 11.3.0
+  title: ""
+  date: 2025-03-27T13:45:56.766Z
+- commits:
     - subject: Add support for feature flags
       hash: faa08bcb7121df16cdfed1c96e31c02a817791db
       body: ""
