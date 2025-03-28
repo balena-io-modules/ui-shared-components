@@ -1,9 +1,10 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCog } from '@fortawesome/free-solid-svg-icons/faCog';
+import { faCog, faGripVertical } from '@fortawesome/free-solid-svg-icons';
 import type { RJSTEntityPropertyDefinition } from '../..';
 import type { MenuItemProps } from '@mui/material';
 import {
+	Button,
 	Checkbox,
 	Divider,
 	FormControlLabel,
@@ -14,18 +15,62 @@ import {
 	useTheme,
 	useMediaQuery,
 	Typography,
-	Button,
 } from '@mui/material';
 import { color } from '@balena/design-tokens';
-import {
-	DragDropContext,
-	Droppable,
-	Draggable,
-	type DropResult,
-} from 'react-beautiful-dnd';
-import { faGripVertical } from '@fortawesome/free-solid-svg-icons';
+import { DndContext, type DragEndEvent } from '@dnd-kit/core';
+import { CSS } from '@dnd-kit/utilities';
+import { arrayMove, SortableContext, useSortable } from '@dnd-kit/sortable';
 import type { ColumnPreferencesChangeProp } from './index';
 import { useAnalyticsContext } from '../../../../contexts/AnalyticsContext';
+
+interface SortableItemProps<T> {
+	column: RJSTEntityPropertyDefinition<T>;
+	handleColumnSelection: (column: RJSTEntityPropertyDefinition<T>) => void;
+}
+
+const SortableItem = <T extends object>({
+	column,
+	handleColumnSelection,
+}: SortableItemProps<T>) => {
+	const { state: analyticsState } = useAnalyticsContext();
+	const { attributes, listeners, setNodeRef, transform, transition } =
+		useSortable({ id: column.key });
+
+	return (
+		<MenuItem
+			ref={setNodeRef}
+			{...attributes}
+			sx={{ transform: CSS.Transform.toString(transform), transition }}
+		>
+			{analyticsState.featureFlags?.columnOrdering && (
+				<ListItemIcon
+					{...listeners}
+					sx={{
+						cursor: 'grab',
+						pr: 2,
+						mx: 0,
+						minWidth: 'auto !important',
+					}}
+				>
+					<FontAwesomeIcon icon={faGripVertical} />
+				</ListItemIcon>
+			)}
+			<FormControlLabel
+				sx={{ flex: 1, width: '100%', m: 0 }}
+				control={
+					<Checkbox
+						sx={{ m: 0 }}
+						onClick={() => {
+							handleColumnSelection(column);
+						}}
+						checked={column.selected}
+					/>
+				}
+				label={typeof column.label === 'string' ? column.label : column.title}
+			/>
+		</MenuItem>
+	);
+};
 
 interface TableActionsProps<T> {
 	columns: Array<RJSTEntityPropertyDefinition<T>>;
@@ -43,17 +88,20 @@ export const TableActions = <T extends object>({
 	const { state: analyticsState } = useAnalyticsContext();
 	const matches = useMediaQuery(theme.breakpoints.up('sm'));
 	const open = Boolean(anchorEl);
+
 	const handleClick = (event: React.MouseEvent<HTMLElement>) => {
 		setAnchorEl(event.currentTarget);
 	};
 	const handleClose = () => {
 		setAnchorEl(undefined);
 	};
+
 	const handleColumnSelection = React.useCallback(
 		(column: RJSTEntityPropertyDefinition<T>) => {
 			if (!onColumnPreferencesChange) {
 				return;
 			}
+
 			if (typeof column.label === 'string' && column.label.startsWith('Tag:')) {
 				onColumnPreferencesChange(
 					columns.filter((c) => c.key !== column.key),
@@ -61,28 +109,39 @@ export const TableActions = <T extends object>({
 				);
 				return;
 			}
+
 			const newColumns = columns.map((c) =>
 				c.key === column.key ? { ...c, selected: !c.selected } : c,
 			);
 			onColumnPreferencesChange(newColumns, 'display');
 		},
-		[onColumnPreferencesChange, columns],
+		[columns, onColumnPreferencesChange],
 	);
 
-	const handleDragEnd = (result: DropResult) => {
-		if (!result.destination || !analyticsState.featureFlags?.columnOrdering) {
+	const handleDragEnd = (event: DragEndEvent) => {
+		const { active, over } = event;
+		if (
+			!active ||
+			!over ||
+			!onColumnPreferencesChange ||
+			!analyticsState.featureFlags?.columnOrdering
+		) {
 			return;
 		}
 
-		const newColumns = Array.from(columns);
-		const [movedColumn] = newColumns.splice(result.source.index, 1);
-		newColumns.splice(result.destination.index, 0, movedColumn);
-		const updatedColumns = newColumns.map((column, newIndex) => ({
-			...column,
-			index: newIndex,
+		const oldIndex = columns.findIndex((c) => c.key === active.id);
+		const newIndex = columns.findIndex((c) => c.key === over.id);
+
+		if (oldIndex === -1 || newIndex === -1) {
+			return;
+		}
+
+		const reordered = arrayMove(columns, oldIndex, newIndex).map((c, i) => ({
+			...c,
+			index: i,
 		}));
 
-		onColumnPreferencesChange?.(updatedColumns, 'reorder');
+		onColumnPreferencesChange?.(reordered, 'reorder');
 	};
 
 	return (
@@ -94,86 +153,37 @@ export const TableActions = <T extends object>({
 				variant="text"
 			>
 				<FontAwesomeIcon icon={faCog} />
-				{matches ? (
+				{matches && (
 					<Typography variant="bodySm" ml={1}>
 						Manage columns
 					</Typography>
-				) : null}
+				)}
 			</Button>
 			<Menu
 				id="long-menu"
-				MenuListProps={{
-					'aria-labelledby': 'long-button',
-				}}
 				anchorEl={anchorEl}
 				open={open}
 				onClose={handleClose}
 				slotProps={{
 					paper: {
-						sx: {
-							minWidth: 250,
-						},
+						sx: { minWidth: 250 },
 					},
 				}}
 			>
-				<DragDropContext onDragEnd={handleDragEnd}>
-					<Droppable droppableId="columns" direction="vertical">
-						{(provided) => (
-							<FormGroup ref={provided.innerRef} {...provided.droppableProps}>
-								{columns.map((column, index) => (
-									<Draggable
-										key={column.key}
-										draggableId={column.key}
-										index={index}
-									>
-										{(item) => (
-											<MenuItem
-												ref={item.innerRef}
-												{...item.draggableProps}
-												sx={{ display: 'flex', alignItems: 'center', p: 0 }}
-											>
-												{analyticsState.featureFlags?.columnOrdering && (
-													<ListItemIcon
-														{...item.dragHandleProps}
-														sx={{
-															cursor: 'grab',
-															pl: 3,
-															pr: 2,
-															mx: 0,
-															minWidth: 'auto !important',
-														}}
-													>
-														<FontAwesomeIcon icon={faGripVertical} />
-													</ListItemIcon>
-												)}
-												<FormControlLabel
-													sx={{ flex: 1, width: '100%', py: 1, pr: 2, m: 0 }}
-													control={
-														<Checkbox
-															sx={{ m: 0 }}
-															edge="start"
-															size="small"
-															onClick={() => {
-																handleColumnSelection(column);
-															}}
-															checked={column.selected}
-														/>
-													}
-													label={
-														typeof column.label === 'string'
-															? column.label
-															: column.title
-													}
-												/>
-											</MenuItem>
-										)}
-									</Draggable>
-								))}
-								{provided.placeholder}
-							</FormGroup>
-						)}
-					</Droppable>
-				</DragDropContext>
+				<FormGroup>
+					<DndContext onDragEnd={handleDragEnd}>
+						<SortableContext items={columns.map((c) => c.key)}>
+							{columns.map((column) => (
+								<SortableItem
+									key={column.key}
+									column={column}
+									handleColumnSelection={handleColumnSelection}
+								/>
+							))}
+						</SortableContext>
+					</DndContext>
+				</FormGroup>
+
 				{actions?.map(({ onClick, ...menuItemProps }, index) => [
 					<Divider key={`divider-${index}`} />,
 					<MenuItem
