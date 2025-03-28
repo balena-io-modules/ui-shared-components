@@ -12,6 +12,7 @@ import { MUILinkWithTracking } from '../MUILinkWithTracking';
 import { getOsVariantDisplayText } from './utils';
 import type { VersionSelectionOptions } from './version';
 import { Lightbulb } from '@mui/icons-material';
+import { token } from '../../utils/token';
 
 const variantInfo: {
 	[Key in BuildVariant]: {
@@ -25,7 +26,7 @@ const variantInfo: {
 				<Typography>{getOsVariantDisplayText('dev')}</Typography>
 				<Typography
 					variant="bodySm"
-					color="customBlue.main"
+					color={token('color.text')}
 					alignItems="center"
 					display="flex"
 				>

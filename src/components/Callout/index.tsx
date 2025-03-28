@@ -4,7 +4,7 @@ import { Box, styled, useThemeProps } from '@mui/material';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import type { Severity } from '../../theme';
 import { severityIcons } from '../../theme';
-import { color } from '@balena/design-tokens';
+import { token } from '../../utils/token';
 
 export interface CalloutProps {
 	children: React.ReactNode;
@@ -24,24 +24,24 @@ const CalloutRoot = styled(Box, {
 	borderLeft: 'solid 3px',
 	borderLeftColor: 'var(--callout-border-color)',
 	...(ownerState.variant === 'default' && {
-		backgroundColor: color.bg.value,
+		backgroundColor: token('color.bg'),
 	}),
 	...(ownerState.variant === 'subtle' && {
-		backgroundColor: color.bg.subtlest.value,
+		backgroundColor: token('color.bg.subtlest'),
 	}),
-	'--callout-border-color': color.border.info.value,
-	'--callout-icon-color': color.icon.info.value,
+	'--callout-border-color': token('color.border.info'),
+	'--callout-icon-color': token('color.icon.info'),
 	...(ownerState.severity === 'success' && {
-		'--callout-border-color': color.border.success.value,
-		'--callout-icon-color': color.icon.success.value,
+		'--callout-border-color': token('color.border.success'),
+		'--callout-icon-color': token('color.icon.success'),
 	}),
 	...(ownerState.severity === 'warning' && {
-		'--callout-border-color': color.border.warning.value,
-		'--callout-icon-color': color.icon.warning.value,
+		'--callout-border-color': token('color.border.warning'),
+		'--callout-icon-color': token('color.icon.warning'),
 	}),
 	...(ownerState.severity === 'danger' && {
-		'--callout-border-color': color.border.danger.value,
-		'--callout-icon-color': color.icon.danger.value,
+		'--callout-border-color': token('color.border.danger'),
+		'--callout-icon-color': token('color.icon.danger'),
 	}),
 }));
 

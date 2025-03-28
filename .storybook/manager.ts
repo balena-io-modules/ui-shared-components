@@ -1,5 +1,5 @@
 import { addons } from '@storybook/manager-api';
-import { create } from '@storybook/theming/create';
+import { create } from '@storybook/theming';
 import { color, typography } from '@balena/design-tokens';
 
 import '@balena/design-tokens/build/css/tokens.css';
@@ -12,7 +12,7 @@ export const balenaTheme = create({
 	brandImage: '/images/logo.svg',
 	brandTarget: '_blank',
 
-	fontBase: typography.fontfamily.body.value,
+	fontBase: typography.fontFamily.body.value,
 
 	textColor: color.text.value,
 

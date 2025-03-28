@@ -13,7 +13,7 @@ import {
 } from '@mui/material';
 import { faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { theme } from '../../theme';
-import { color } from '@balena/design-tokens';
+import { token } from '../../utils/token';
 
 <Meta title="Mui Components/Input/Textfield" />
 
@@ -21,7 +21,7 @@ import { color } from '@balena/design-tokens';
 
 <Unstyled>
 	<ThemeProvider theme={theme}>
-		<Stack gap={3} padding={3} sx={{ backgroundColor: color.bg.value }}>
+		<Stack gap={3} padding={3} sx={{ backgroundColor: token('color.bg') }}>
 			<TextField label="default" />
 			<TextField label="standard" variant="standard" />
 		</Stack>
@@ -60,7 +60,7 @@ import { color } from '@balena/design-tokens';
 <Unstyled>
 	<ThemeProvider theme={theme}>
 		<Stack gap={4}>
-			<Stack direction="row" gap={2} padding={3} sx={{ backgroundColor: color.bg.value }}>
+			<Stack direction="row" gap={2} padding={3} sx={{ backgroundColor: token('color.bg') }}>
 				<TextField />
 				<Select
 					value={10}
@@ -76,7 +76,7 @@ import { color } from '@balena/design-tokens';
 				/>
 				<Button>Submit</Button>
 			</Stack>
-			<Stack gap={2} padding={3} sx={{ backgroundColor: color.bg.value, width: 300 }}>
+			<Stack gap={2} padding={3} sx={{ backgroundColor: token('color.bg'), width: 300 }}>
 				<TextField label="Full name" />
 	
 				<FormControl>

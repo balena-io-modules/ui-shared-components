@@ -11,11 +11,11 @@ import {
 } from '@mui/material';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClose } from '@fortawesome/free-solid-svg-icons/faClose';
-import { shape } from '@balena/design-tokens';
 import { IconButtonWithTracking } from '../IconButtonWithTracking';
 import { useEffect } from 'react';
 import { useAnalyticsContext } from '../../contexts/AnalyticsContext';
 import type { SnackbarCloseReason } from '@mui/material/Snackbar/Snackbar';
+import { token } from '../../utils/token';
 
 export type AnnouncementCloseReason =
 	| SnackbarCloseReason
@@ -41,7 +41,7 @@ const AnnouncementRoot = styled(Box, {
 })(({ theme }) => ({
 	alignItems: 'center',
 	backgroundColor: 'white',
-	borderRadius: shape.border_radius.md.value + 'px',
+	borderRadius: token('shape.borderRadius.md'),
 	boxShadow: '0px 0px 8px 0px rgba(35, 68, 94, 0.3)', // TODO add a design token for box shadows
 	display: 'flex',
 	gap: theme.spacing(3),
@@ -156,7 +156,7 @@ export const Announcement = React.forwardRef<HTMLDivElement, AnnouncementProps>(
 								onClick={(e) => {
 									onClose?.(e, 'closeButtonClick');
 								}}
-								sx={(theme) => ({ ml: 'auto', my: `-${theme.spacing(1)}` })}
+								sx={{ ml: 'auto', my: -1 }}
 							>
 								<FontAwesomeIcon icon={faClose} />
 							</IconButtonWithTracking>

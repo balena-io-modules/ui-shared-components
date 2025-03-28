@@ -1,5 +1,6 @@
 import { Typography } from '@mui/material';
 import { JsonTypes, widgetFactory } from '../utils';
+import { token } from '../../../../../utils/token';
 
 export const PlaceholderTextWidget = widgetFactory('PlaceholderText', {}, [
 	JsonTypes.string,
@@ -16,7 +17,7 @@ export const PlaceholderTextWidget = widgetFactory('PlaceholderText', {}, [
 		<Typography
 			noWrap
 			sx={{ maxWidth: '300px' }}
-			{...(!value && { color: 'gray.main' })}
+			{...(!value && { color: token('color.text.subtle') })}
 		>
 			{val}
 		</Typography>

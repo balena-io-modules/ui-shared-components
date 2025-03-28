@@ -18,7 +18,6 @@ import {
 	Typography,
 	IconButton,
 	Autocomplete,
-	useTheme,
 	Stack,
 } from '@mui/material';
 import HelpIcon from '@mui/icons-material/Help';
@@ -40,6 +39,7 @@ import type { ChipProps } from '../Chip';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
 import { Callout } from '../Callout';
+import { token } from '../../utils/token';
 
 const POLL_INTERVAL_DOCS =
 	'https://www.balena.io/docs/reference/supervisor/bandwidth-reduction/#side-effects--warnings';
@@ -105,8 +105,6 @@ export const ImageForm = memo(function ImageForm({
 	onSelectedOsTypeChange,
 	onChange,
 }: ImageFormProps) {
-	const theme = useTheme();
-
 	const [showAdvancedSettings, setShowAdvancedSettings] = useState(false);
 	const [showPassword, setShowPassword] = useState(false);
 	const [version, setVersion] = useState<VersionSelectionOptions | undefined>();
@@ -341,7 +339,7 @@ export const ImageForm = memo(function ImageForm({
 													<Tooltip title={version.knownIssueList}>
 														<FontAwesomeIcon
 															icon={faTriangleExclamation}
-															color={theme.palette.warning.main}
+															color={token('color.icon.warning')}
 														/>
 													</Tooltip>
 												)}
