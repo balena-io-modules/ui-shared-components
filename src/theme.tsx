@@ -1206,6 +1206,10 @@ export const theme = createTheme({
 						paddingTop: '14px',
 						paddingBottom: '12px',
 					},
+					'&:-webkit-autofill': {
+						'-webkit-box-shadow': `0 0 0 100px ${color.bg.value} inset`,
+						'-webkit-text-fill-color': color.text.value,
+					},
 				},
 			},
 		},
