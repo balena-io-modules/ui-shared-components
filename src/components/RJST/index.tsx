@@ -8,6 +8,7 @@ import type {
 	RJSTModel,
 	RJSTBaseResource,
 	RJSTRawModel,
+	RJSTEntityPropertyDefinition,
 } from './schemaOps';
 import {
 	getFieldForFormat,
@@ -177,7 +178,7 @@ export const RJST = <T extends RJSTBaseResource<T>>({
 	// TODO: this logic should be moved in the lens/table.tsx.
 	// With the layer refactor we should have a lens.data.renderer should
 	// only handle a onChange event that has all the info. the lens should handle all cases
-	const [sort, setSort] = React.useState<TableSortOptions | null>(null);
+	const [sort, setSort] = React.useState<TableSortOptions<T> | null>(null);
 	const [internalPagination, setInternalPagination] = React.useState<
 		Pick<Pagination, 'currentPage' | 'itemsPerPage'>
 	>({
@@ -204,13 +205,14 @@ export const RJST = <T extends RJSTBaseResource<T>>({
 	const internalOnChange = React.useCallback(
 		(
 			updatedFilters: JSONSchema[],
-			sortInfo: TableSortOptions | null,
+			sortInfo: TableSortOptions<T> | null,
 			page: number,
 			itemsPerPage: number,
 		) => {
 			if (!onChange) {
 				return;
 			}
+
 			const pineFilter = pagination?.serverSide
 				? convertToPineClientFilter([], updatedFilters)
 				: null;
@@ -650,23 +652,6 @@ export {
 	parseDescription,
 	parseDescriptionProperty,
 	generateSchemaFromRefScheme,
-};
-
-export type RJSTEntityPropertyDefinition<T> = {
-	title: string;
-	label: string | JSX.Element;
-	field: Extract<keyof T, string>;
-	key: string;
-	selected: boolean;
-	index: number;
-	sortable: boolean | ((a: T, b: T) => number);
-	render: (
-		value: any,
-		row: T,
-	) => string | number | JSX.Element | null | undefined;
-	type: string;
-	priority: string;
-	refScheme?: string;
 };
 
 const getTitleAndLabel = <T extends object>(

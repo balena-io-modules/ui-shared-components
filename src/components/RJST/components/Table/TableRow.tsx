@@ -1,7 +1,7 @@
 import type * as React from 'react';
 import type { CheckedState } from './utils';
 import { TableCell, type TableCellProps } from './TableCell';
-import type { RJSTEntityPropertyDefinition } from '../..';
+import type { RJSTEntityPropertyDefinition } from '../../schemaOps';
 import {
 	TableCell as MaterialTableCell,
 	TableRow as MaterialTableRow,
