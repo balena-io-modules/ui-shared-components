@@ -1,7 +1,7 @@
 import type * as React from 'react';
 import { visuallyHidden } from '@mui/utils';
 import type { CheckedState, Order } from './utils';
-import type { RJSTEntityPropertyDefinition } from '../..';
+import type { RJSTEntityPropertyDefinition } from '../../schemaOps';
 import {
 	Box,
 	Checkbox,

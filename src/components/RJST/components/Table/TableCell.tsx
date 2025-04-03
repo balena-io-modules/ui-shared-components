@@ -1,5 +1,5 @@
 import * as React from 'react';
-import type { RJSTEntityPropertyDefinition } from '../..';
+import type { RJSTEntityPropertyDefinition } from '../../schemaOps';
 import { Link } from '@mui/material';
 
 export interface TableCellProps<T> {

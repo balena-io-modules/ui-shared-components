@@ -250,7 +250,7 @@ export const convertToPineClientFilter = (
 };
 
 export const orderbyBuilder = <T>(
-	sortInfo: TableSortOptions | null,
+	sortInfo: TableSortOptions<T> | null,
 	customSort: RJSTContext<T>['customSort'],
 ) => {
 	if (!sortInfo) {

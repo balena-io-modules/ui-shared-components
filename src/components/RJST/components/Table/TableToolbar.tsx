@@ -1,6 +1,6 @@
 import type { MenuItemProps } from '@mui/material';
 import { Stack, Typography } from '@mui/material';
-import type { RJSTEntityPropertyDefinition } from '../..';
+import type { RJSTEntityPropertyDefinition } from '../../schemaOps';
 import { TableActions } from './TableActions';
 import { token } from '../../../../utils/token';
 import type { ColumnPreferencesChangeProp } from './index';
