@@ -211,14 +211,17 @@ const TableRenderer = <T extends { id: number }>({
 		}
 		const additionalColumns = selectedTagColumns.map(
 			(key: string, index: number) => {
+				const field = rjstContext.tagField;
 				return {
 					title: key,
 					label: `Tag: ${key}`,
 					key: `${TAG_COLUMN_PREFIX}${key}`,
 					selected: true,
 					type: 'predefined',
-					field: rjstContext.tagField,
-					sortable: pagination.serverSide ? false : true,
+					field,
+					sortable: pagination.serverSide
+						? `${field}(tag_key='${key}')/value`
+						: true,
 					index: index + 1 + columns.length,
 					priority: '',
 					render: tagKeyRender(key),
