@@ -14,7 +14,7 @@ import { AddTagHandler } from '../../components/Table/AddTagHandler';
 import { Box, styled, Tooltip, Typography } from '@mui/material';
 import { color } from '@balena/design-tokens';
 import { Copy } from '../../../Copy';
-import type { RJSTEntityPropertyDefinition } from '../..';
+import type { RJSTEntityPropertyDefinition } from '../../schemaOps';
 import { useAnalyticsContext } from '../../../../contexts/AnalyticsContext';
 
 const TagContainer = styled(Box)(() => ({
@@ -82,7 +82,7 @@ const findTagOfTaggedResource = <T extends object>(
 const sortData = <T extends object>(
 	data: T[],
 	columns: Array<RJSTEntityPropertyDefinition<T>>,
-	sort: TableSortOptions | null,
+	sort: TableSortOptions<T> | null,
 ): T[] => {
 	if (!sort?.field) {
 		return data;
@@ -188,7 +188,7 @@ const TableRenderer = <T extends { id: number }>({
 		if (sort) {
 			return sort;
 		}
-		const sortPreferences = getFromLocalStorage<TableSortOptions>(
+		const sortPreferences = getFromLocalStorage<TableSortOptions<T>>(
 			`${model.resource}__sort`,
 		);
 
@@ -197,7 +197,7 @@ const TableRenderer = <T extends { id: number }>({
 			({
 				direction: 'asc',
 				...columns[0],
-			} as TableSortOptions);
+			} as TableSortOptions<T>);
 
 		onSort?.(sortPref);
 
@@ -209,6 +209,7 @@ const TableRenderer = <T extends { id: number }>({
 			setShowAddTagDialog(false);
 			return;
 		}
+
 		const additionalColumns = selectedTagColumns.map(
 			(key: string, index: number) => {
 				const field = rjstContext.tagField;
