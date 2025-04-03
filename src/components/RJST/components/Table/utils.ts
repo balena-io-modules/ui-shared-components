@@ -6,6 +6,8 @@ export interface TableSortOptions {
 	direction: Order;
 	field: string;
 	key: string;
+	// TODO: improve typing
+	sortable: boolean | ((a: any, b: any) => number) | string;
 	refScheme?: string;
 }
 
