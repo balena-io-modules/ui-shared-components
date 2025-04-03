@@ -725,10 +725,20 @@ const getColumnsFromSchema = <T extends RJSTBaseResource<T>>({
 	customSort?: RJSTContext<T>['customSort'];
 	priorities?: Priorities<T>;
 	formats?: Format[];
-}) =>
-	Object.entries(schema.properties ?? {})
-		.filter(([_keyBy, val]) => isJSONSchema(val))
-		.flatMap(([key, val]) => {
+}): Array<RJSTEntityPropertyDefinition<T>> =>
+	(
+		Object.entries(schema.properties ?? {}) as Array<
+			[
+				Extract<keyof T, string>,
+				NonNullable<typeof schema.properties>[string] | undefined,
+			]
+		>
+	)
+		.filter((entry): entry is [Extract<keyof T, string>, JSONSchema] => {
+			const [_key, val] = entry;
+			return isJSONSchema(val);
+		})
+		.flatMap(([key, val]): Array<[Extract<keyof T, string>, JSONSchema]> => {
 			const refScheme = getPropertyScheme(val);
 			if (!refScheme || refScheme.length <= 1 || typeof val !== 'object') {
 				return [[key, val]];
@@ -761,24 +771,21 @@ const getColumnsFromSchema = <T extends RJSTBaseResource<T>>({
 			});
 		})
 		.filter(([key, val]) => {
-			const entryDescription = parseDescription(val as JSONSchema);
+			const entryDescription = parseDescription(val);
 			return (
 				key !== idField &&
 				(!entryDescription || !('x-filter-only' in entryDescription))
 			);
 		})
 		.map(([key, val], index) => {
-			if (typeof val !== 'object') {
-				return;
-			}
 			const xNoSort = parseDescriptionProperty(val, 'x-no-sort');
-			const definedPriorities = priorities ?? ({} as Priorities<T>);
+			const definedPriorities = priorities ?? ({} as Partial<Priorities<T>>);
 			const refScheme = getPropertyScheme(val);
-			const priority = definedPriorities.primary.find(
+			const priority = definedPriorities.primary?.find(
 				(prioritizedKey) => prioritizedKey === key,
 			)
 				? 'primary'
-				: definedPriorities.secondary.find(
+				: definedPriorities.secondary?.find(
 							(prioritizedKey) => prioritizedKey === key,
 					  )
 					? 'secondary'
@@ -788,7 +795,7 @@ const getColumnsFromSchema = <T extends RJSTBaseResource<T>>({
 			// The customSort should look like: { user: { owns_items: [{ uuid: 'xx09x0' }] } }
 			// The refScheme will reference the property path, e.g., owns_items[0].uuid.
 			const fieldCustomSort =
-				customSort?.[`${key}_${refScheme}`] ?? customSort?.[key as string];
+				customSort?.[`${key}_${refScheme}`] ?? customSort?.[key];
 			if (fieldCustomSort != null) {
 				if (
 					isServerSide &&
@@ -808,11 +815,11 @@ const getColumnsFromSchema = <T extends RJSTBaseResource<T>>({
 				}
 			}
 			return {
-				...getTitleAndLabel(t, val, key as string, refScheme?.[0]),
+				...getTitleAndLabel(t, val, key, refScheme?.[0]),
 				field: key,
 				// This is used for storing columns and views
 				key: refScheme ? `${key}_${refScheme[0]}_${index}` : `${key}_${index}`,
-				selected: getSelected(key as keyof T, priorities),
+				selected: getSelected(key, priorities),
 				priority,
 				type: 'predefined',
 				refScheme: refScheme?.[0],
@@ -822,7 +829,7 @@ const getColumnsFromSchema = <T extends RJSTBaseResource<T>>({
 						? false
 						: typeof fieldCustomSort === 'function'
 							? fieldCustomSort
-							: getSortingFunction(key as string, val),
+							: getSortingFunction(key, val),
 				render: (fieldVal: string, entry: T) => {
 					const calculatedField = rjstAdaptRefScheme(fieldVal, val);
 					return (
@@ -834,8 +841,6 @@ const getColumnsFromSchema = <T extends RJSTBaseResource<T>>({
 						/>
 					);
 				},
-			};
+			} satisfies RJSTEntityPropertyDefinition<T>;
 		})
-		.filter(
-			(columnDef): columnDef is NonNullable<typeof columnDef> => !!columnDef,
-		) as Array<RJSTEntityPropertyDefinition<T>>;
+		.filter((columnDef) => columnDef != null);

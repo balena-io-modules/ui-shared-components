@@ -103,8 +103,8 @@ const sortData = <T extends object>(
 	} else if (key.startsWith(TAG_COLUMN_PREFIX)) {
 		if (title) {
 			sortedData.sort((a, b) => {
-				const item1tag = findTagOfTaggedResource(a, field as keyof T, title);
-				const item2tag = findTagOfTaggedResource(b, field as keyof T, title);
+				const item1tag = findTagOfTaggedResource(a, field, title);
+				const item2tag = findTagOfTaggedResource(b, field, title);
 
 				if (!item1tag && !item2tag) {
 					return 0;
@@ -124,8 +124,8 @@ const sortData = <T extends object>(
 		}
 	} else {
 		sortedData.sort((a, b) => {
-			const aValue = a[sort.field as keyof T];
-			const bValue = b[sort.field as keyof T];
+			const aValue = a[sort.field];
+			const bValue = b[sort.field];
 
 			if (aValue < bValue) {
 				return -sortDirectionMultiplier;
@@ -204,34 +204,37 @@ const TableRenderer = <T extends { id: number }>({
 		return sortPref;
 	}, [sort, model, columns, onSort]);
 
-	const handleAddTagClose = (selectedTagColumns: string[] | undefined) => {
-		if (!selectedTagColumns?.length) {
-			setShowAddTagDialog(false);
-			return;
-		}
+	const { tagField } = rjstContext;
+	const handleAddTagClose =
+		tagField != null
+			? (selectedTagColumns: string[] | undefined) => {
+					if (!selectedTagColumns?.length) {
+						setShowAddTagDialog(false);
+						return;
+					}
 
-		const additionalColumns = selectedTagColumns.map(
-			(key: string, index: number) => {
-				const field = rjstContext.tagField;
-				return {
-					title: key,
-					label: `Tag: ${key}`,
-					key: `${TAG_COLUMN_PREFIX}${key}`,
-					selected: true,
-					type: 'predefined',
-					field,
-					sortable: pagination.serverSide
-						? `${field}(tag_key='${key}')/value`
-						: true,
-					index: index + 1 + columns.length,
-					priority: '',
-					render: tagKeyRender(key),
-				} as RJSTEntityPropertyDefinition<T>;
-			},
-		);
-		setColumns(columns.concat(additionalColumns));
-		setShowAddTagDialog(false);
-	};
+					const additionalColumns = selectedTagColumns.map(
+						(key: string, index: number) => {
+							return {
+								title: key,
+								label: `Tag: ${key}`,
+								key: `${TAG_COLUMN_PREFIX}${key}`,
+								selected: true,
+								type: 'predefined',
+								field: tagField,
+								sortable: pagination.serverSide
+									? `${tagField}(tag_key='${key}')/value`
+									: true,
+								index: index + 1 + columns.length,
+								priority: '',
+								render: tagKeyRender(key),
+							} satisfies RJSTEntityPropertyDefinition<T>;
+						},
+					);
+					setColumns(columns.concat(additionalColumns));
+					setShowAddTagDialog(false);
+				}
+			: undefined;
 
 	useEffect(() => {
 		analytics.webTracker?.track('View table - columns', {
@@ -284,7 +287,7 @@ const TableRenderer = <T extends { id: number }>({
 					});
 				}}
 			/>
-			{showAddTagDialog && tagKeys?.length && (
+			{showAddTagDialog && tagKeys?.length && handleAddTagClose != null && (
 				<AddTagHandler
 					columns={columns}
 					tagKeys={tagKeys}
