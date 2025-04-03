@@ -1,7 +1,7 @@
 import type React from 'react';
 import { useState, useEffect } from 'react';
 import type { TagField } from './utils';
-import type { RJSTEntityPropertyDefinition } from '../..';
+import type { RJSTEntityPropertyDefinition } from '../../schemaOps';
 import { getFromLocalStorage, setToLocalStorage } from '../../utils';
 
 export const TAG_COLUMN_PREFIX = 'tag_column_';

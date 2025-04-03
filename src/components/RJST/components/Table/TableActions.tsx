@@ -1,7 +1,7 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCog, faGripVertical } from '@fortawesome/free-solid-svg-icons';
-import type { RJSTEntityPropertyDefinition } from '../..';
+import type { RJSTEntityPropertyDefinition } from '../../schemaOps';
 import type { MenuItemProps } from '@mui/material';
 import {
 	Button,

@@ -47,6 +47,24 @@ export interface RJSTModel<T> {
 	priorities?: Priorities<T>;
 }
 
+export type RJSTEntityPropertyDefinition<T> = {
+	title: string;
+	label: string | JSX.Element;
+	field: Extract<keyof T, string>;
+	key: string;
+	selected: boolean;
+	sortable: boolean | ((a: T, b: T) => number) | string;
+	index: number;
+	render: (
+		value: any,
+		row: T,
+	) => string | number | JSX.Element | null | undefined;
+
+	type: string;
+	priority: string;
+	refScheme?: string;
+};
+
 export interface CustomSchemaDescription {
 	'x-ref-scheme'?: string[];
 	'x-foreign-key-scheme'?: string[];

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslation } from '../../../../hooks/useTranslations';
-import type { RJSTEntityPropertyDefinition } from '../..';
+import type { RJSTEntityPropertyDefinition } from '../../schemaOps';
 import { DialogWithCloseButton } from '../../../DialogWithCloseButton';
 import {
 	Button,
