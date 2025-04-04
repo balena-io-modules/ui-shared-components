@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import type { VirtualizedAutocompleteWithPaginationProps } from '.';
 import { VirtualizedAutocomplete } from '.';
-import type { ChipTypeMap } from '@mui/material';
+import type { AutocompleteRenderInputParams, ChipTypeMap } from '@mui/material';
 import { Box, TextField } from '@mui/material';
 import type { ElementType } from 'react';
 
@@ -17,7 +17,7 @@ type VirtualizedStory = StoryObj<typeof virtualizedMeta>;
 export const Default: VirtualizedStory = {
 	args: {
 		options: Array.from({ length: 1000 }, () => Math.random().toString()),
-		renderOption: (_props, option) => option as string,
+		renderOption: (_props, option: unknown) => option as string,
 		renderInput: (params) => <TextField {...params} />,
 		disableClearable: true,
 		fullWidth: true,
@@ -105,12 +105,17 @@ type VirtualizedPaginatedStory = StoryObj<
 
 export const WithPagination: VirtualizedPaginatedStory = {
 	args: {
-		renderOption: (props, option) => (
+		renderOption: (
+			props: React.HTMLAttributes<HTMLLIElement>,
+			option: unknown,
+		) => (
 			<Box component="li" {...props}>
 				{option as string}
 			</Box>
 		),
-		renderInput: (params) => <TextField {...params} />,
+		renderInput: (params: AutocompleteRenderInputParams) => (
+			<TextField {...params} />
+		),
 		disableClearable: true,
 		fullWidth: true,
 	},

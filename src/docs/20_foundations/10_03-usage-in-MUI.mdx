@@ -67,8 +67,11 @@ and different state colors.
 While we can't remove it in order to keep compatibility with most MUI components (components that haven't been 
 customized but are usable), we should refrain from using it and stick to using the `token()` method.
 
-## Don't import the design tokens package
+### Don't import the design tokens package
 
 Make sure to use the `token()` method instead of importing the tokens from the design tokens package. The
 reason for that is once we're ready for a dark theme, MUI will handle the theme switching. If we reference static
 variables from the design tokens packages directly, we will break the theme switching capability.
+
+Note: there are some cases where importing the package is unavoidable, for example when using tokens in canvas environments
+where CSS variables are not interpreted.

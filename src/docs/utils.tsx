@@ -9,18 +9,17 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import type { IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { token as getToken } from '../utils/token';
+import jsonTokens from '@balena/design-tokens/build/json/tokens.json';
 
 // TODO move this type to the Design Tokens package
 type JsonToken = {
 	type: string;
 	value: string;
-	blendMode: string;
 	filePath: string;
 	isSource: boolean;
 	original: {
 		type: string;
 		value: string;
-		blendMode: string;
 	};
 	name: string;
 	attributes: {
@@ -29,6 +28,7 @@ type JsonToken = {
 		[key: string]: string;
 	};
 	path: string[];
+	key: string;
 };
 
 export const ColorTable = ({ children }: { children: React.ReactNode }) => (
@@ -47,12 +47,20 @@ export const ColorTable = ({ children }: { children: React.ReactNode }) => (
 );
 
 export const ColorRow = ({
-	token,
+	designToken,
 	description,
 }: {
-	token: { value: string; name: string };
+	designToken: { value: string; name: string };
 	description: string;
 }) => {
+	const token: JsonToken | undefined = (jsonTokens as JsonToken[]).find(
+		(jsonToken) => jsonToken.key === `{${designToken}}`,
+	);
+
+	if (!token) {
+		return;
+	}
+
 	return (
 		<tr>
 			<td>
