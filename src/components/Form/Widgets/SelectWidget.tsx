@@ -9,6 +9,7 @@ import {
 import type { WidgetProps } from '@rjsf/utils';
 import omit from 'lodash/omit';
 import isEqual from 'lodash/isEqual';
+import { token } from '../../../utils/token';
 
 const noneOption = {
 	disabled: false,
@@ -143,7 +144,7 @@ export const SelectWidget = ({
 							<Typography
 								{...props}
 								fontStyle="italic"
-								color="text.secondary"
+								color={token('color.text.subtle')}
 								component="li"
 							>
 								{option.label}

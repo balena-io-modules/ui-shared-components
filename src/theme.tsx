@@ -7,7 +7,13 @@ import type {
 import { createTheme, tableCellClasses } from '@mui/material';
 import type {} from '@mui/x-data-grid/themeAugmentation';
 import type { TypographyStyleOptions } from '@mui/material/styles/createTypography';
-import { color, typography, shape } from '@balena/design-tokens';
+import { color, typography, shape, spacing } from '@balena/design-tokens';
+import type {
+	ColorTokens,
+	ShapeTokens,
+	SpacingTokens,
+	TypographyTokens,
+} from '@balena/design-tokens';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
 	faCheckCircle,
@@ -16,11 +22,7 @@ import {
 	faWarning,
 	type IconDefinition,
 } from '@fortawesome/free-solid-svg-icons';
-
-type CustomPaletteColor = PaletteColor & { xlight?: string };
-type CustomPaletteColorOptions = PaletteColorOptions & {
-	xlight?: string;
-};
+import type {} from '@mui/material/themeCssVarsAugmentation';
 
 export type Severity = 'info' | 'success' | 'warning' | 'danger';
 
@@ -35,11 +37,6 @@ export const severityIcons: {
 
 declare module '@mui/material/styles' {
 	interface Palette {
-		customBlue: CustomPaletteColor;
-		customYellow: CustomPaletteColor;
-		customGreen: CustomPaletteColor;
-		customPurple: CustomPaletteColor;
-		customGrey: CustomPaletteColor;
 		green: PaletteColor;
 		teal: PaletteColor;
 		blue: PaletteColor;
@@ -48,12 +45,8 @@ declare module '@mui/material/styles' {
 		orange: PaletteColor;
 		red: PaletteColor;
 	}
+
 	interface PaletteOptions {
-		customBlue: CustomPaletteColorOptions;
-		customYellow: CustomPaletteColorOptions;
-		customGreen: CustomPaletteColorOptions;
-		customPurple: CustomPaletteColorOptions;
-		customGrey: CustomPaletteColorOptions;
 		green: PaletteColorOptions;
 		teal: PaletteColorOptions;
 		blue: PaletteColorOptions;
@@ -62,6 +55,7 @@ declare module '@mui/material/styles' {
 		orange: PaletteColorOptions;
 		red: PaletteColorOptions;
 	}
+
 	interface PaletteColor {
 		xlight?: string;
 		light: string;
@@ -69,6 +63,7 @@ declare module '@mui/material/styles' {
 		dark: string;
 		contrastText: string;
 	}
+
 	interface TypographyVariants {
 		bodyLg: TypographyStyle;
 		body: TypographyStyle;
@@ -101,6 +96,24 @@ declare module '@mui/material/styles' {
 		tertiary: string;
 		disabled: string;
 	}
+
+	interface Theme {
+		tokens: {
+			color: ColorTokens;
+			shape: ShapeTokens;
+			spacing: SpacingTokens;
+			typography: TypographyTokens;
+		};
+	}
+
+	interface ThemeOptions {
+		tokens: {
+			color: ColorTokens;
+			shape: ShapeTokens;
+			spacing: SpacingTokens;
+			typography: TypographyTokens;
+		};
+	}
 }
 
 declare module '@mui/material/Typography' {
@@ -123,34 +136,8 @@ declare module '@mui/material/Avatar' {
 	}
 }
 declare module '@mui/material/Button' {
-	interface ButtonPropsColorOverrides {
-		customBlue: true;
-		customYellow: true;
-		customGreen: true;
-		customPurple: true;
-		customGrey: true;
-	}
-
 	interface ButtonPropsVariantOverrides {
 		light: true;
-	}
-}
-declare module '@mui/material/ButtonGroup' {
-	interface ButtonGroupPropsColorOverrides {
-		customBlue: true;
-		customYellow: true;
-		customGreen: true;
-		customPurple: true;
-		customGrey: true;
-	}
-}
-declare module '@mui/material/Badge' {
-	interface BadgePropsColorOverrides {
-		customBlue: true;
-		customYellow: true;
-		customGreen: true;
-		customPurple: true;
-		customGrey: true;
 	}
 }
 
@@ -169,55 +156,38 @@ declare module '@mui/material/Chip' {
 		strong: true;
 	}
 }
-declare module '@mui/material/Icon' {
-	interface IconPropsColorOverrides {
-		customBlue: true;
-		customYellow: true;
-		customGreen: true;
-		customPurple: true;
-		customGrey: true;
-	}
-}
-declare module '@mui/material/IconButton' {
-	interface IconButtonPropsColorOverrides {
-		customBlue: true;
-		customYellow: true;
-		customGreen: true;
-		customPurple: true;
-		customGrey: true;
-	}
-}
-declare module '@mui/material/Tab' {
-	interface TabPropsColorOverrides {
-		customBlue: true;
-		customYellow: true;
-		customGreen: true;
-		customPurple: true;
-		customGrey: true;
-	}
-}
-declare module '@mui/material/TextField' {
-	interface TextFieldPropsColorOverrides {
-		customBlue: true;
-		customYellow: true;
-		customGreen: true;
-		customPurple: true;
-		customGrey: true;
-	}
-}
-declare module '@mui/material/SvgIcon' {
-	interface SvgIconPropsColorOverrides {
-		customBlue: true;
-		customYellow: true;
-		customGreen: true;
-		customPurple: true;
-		customGrey: true;
+
+declare module '@mui/system' {
+	interface Shape {
+		xs: number;
+		sm: number;
+		md: number;
+		lg: number;
+		full: number;
 	}
 }
 
 export const theme = createTheme({
+	cssVariables: true,
+	unstable_sxConfig: {
+		borderRadius: {
+			themeKey: 'shape',
+		},
+		fontFamily: {
+			themeKey: 'fontFamily',
+		},
+		fontWeight: {
+			themeKey: 'fontWeight',
+		},
+	},
+	tokens: {
+		color,
+		shape,
+		typography,
+		spacing,
+	},
 	typography: {
-		fontFamily: typography.fontfamily.body.value,
+		fontFamily: typography.fontFamily.body.value,
 		h1: {
 			fontSize: '2.75rem',
 			'@media (min-width:600px)': {
@@ -297,7 +267,7 @@ export const theme = createTheme({
 		overline: {
 			color: color.text.subtle.value,
 			// Can't use the shorthand token as `overline` is already defined by Mui
-			fontFamily: typography.fontfamily.body.value,
+			fontFamily: typography.fontFamily.body.value,
 			fontWeight: typography.overline.fontWeight.value,
 			lineHeight: typography.overline.lineHeight.value,
 			fontSize: typography.overline.fontSize.value,
@@ -312,31 +282,6 @@ export const theme = createTheme({
 			main: color.palette.neutral['800'].value,
 			dark: color.palette.neutral['1000'].value,
 			contrastText: color.palette.neutral['50'].value,
-		},
-		customBlue: {
-			xlight: color.palette.blue['50'].value,
-			light: color.palette.blue['75'].value,
-			main: color.palette.blue['500'].value,
-			dark: color.palette.blue['1000'].value,
-			contrastText: '#FFFFFF',
-		},
-		customYellow: {
-			xlight: color.palette.yellow['700'].value,
-			main: color.palette.yellow['200'].value,
-			contrastText: '#FFFFFF',
-		},
-		customGreen: {
-			xlight: color.palette.teal['50'].value,
-		},
-		customPurple: {
-			main: color.palette.purple['900'].value,
-			xlight: color.palette.purple['50'].value,
-		},
-		customGrey: {
-			xlight: color.palette.neutral['50'].value,
-			light: color.palette.neutral['500'].value,
-			main: color.palette.neutral['900'].value,
-			dark: color.palette.neutral['1000'].value,
 		},
 		error: {
 			main: color.palette.red['500'].value,
@@ -422,7 +367,23 @@ export const theme = createTheme({
 			contrastText: '#ffffff',
 		},
 	},
-	spacing: [0, 4, 8, 16, 32, 64, 128],
+	// FIXME There is a bug in MUI when defining `spacing` as an array and using
+	// css variables, so for now we need to specify it manually.
+	// See https://github.com/mui/material-ui/issues/45500
+	spacing: (factor: number) => {
+		// Equivalent of [0, 4, 8, 16, 32, 64, 128], but with negative spacings included
+		if (factor >= -6 && factor <= 6) {
+			return Math.sign(factor) * 2 ** (Math.abs(factor) + 1);
+		}
+		return 0;
+	},
+	shape: {
+		xs: shape.borderRadius.xs.value,
+		sm: shape.borderRadius.sm.value,
+		md: shape.borderRadius.md.value,
+		lg: shape.borderRadius.lg.value,
+		full: shape.borderRadius.full.value,
+	},
 	components: {
 		MuiAlert: {
 			defaultProps: {
@@ -521,8 +482,8 @@ export const theme = createTheme({
 					padding: 0,
 				},
 				action: ({ theme }) => ({
-					marginTop: `-${theme.spacing(2)}`,
-					marginBottom: `-${theme.spacing(2)}`,
+					marginTop: theme.spacing(-2),
+					marginBottom: theme.spacing(-2),
 					paddingTop: 0,
 				}),
 				icon: ({ theme }) => ({
@@ -617,7 +578,7 @@ export const theme = createTheme({
 			styleOverrides: {
 				root: ({ theme }) => ({
 					'&:hover': {
-						boxShadow: `0 0 0 3px ${theme.palette.primary.light}`,
+						boxShadow: `0 0 0 3px ${theme.vars.palette.primary.light}`, // TODO replace with token
 					},
 					borderRadius: '10px',
 					fontFamily: 'inherit',
@@ -829,8 +790,8 @@ export const theme = createTheme({
 						opacity: 0.5,
 						color: 'white',
 						backgroundColor: (
-							theme.palette[
-								ownerState.color as keyof typeof theme.palette
+							theme.vars.palette[
+								ownerState.color as keyof typeof theme.vars.palette
 							] as PaletteColor
 						).main,
 					},
@@ -990,7 +951,7 @@ export const theme = createTheme({
 				root: ({ theme }) => ({
 					textTransform: 'none',
 					border: `none !important`,
-					borderRadius: `${shape.border_radius.full.value}px !important`,
+					borderRadius: `${shape.borderRadius.full.value}px !important`,
 					font: typography.body.md.shorthand.value,
 					gap: theme.spacing(2),
 					height: '31px', // Fix height to prevent variations due to different icon sizes
@@ -1193,6 +1154,10 @@ export const theme = createTheme({
 						paddingTop: '14px',
 						paddingBottom: '12px',
 					},
+					'&:-webkit-autofill': {
+						'-webkit-box-shadow': `0 0 0 100px ${color.bg.value} inset`,
+						'-webkit-text-fill-color': color.text.value,
+					},
 				},
 			},
 		},
@@ -1299,7 +1264,10 @@ export const theme = createTheme({
 		},
 		MuiLinearProgress: {
 			styleOverrides: {
-				root: { borderRadius: 3, backgroundColor: color.bg.subtle.value },
+				root: {
+					borderRadius: shape.borderRadius.sm.value,
+					backgroundColor: color.bg.subtle.value,
+				},
 			},
 		},
 		MuiCheckbox: {

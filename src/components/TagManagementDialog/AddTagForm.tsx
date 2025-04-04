@@ -6,7 +6,6 @@ import startsWith from 'lodash/startsWith';
 import isEmpty from 'lodash/isEmpty';
 import { Button, Stack, TextField, Typography } from '@mui/material';
 import { Callout } from '../Callout';
-import { designTokens } from '../..';
 import type { TFunction } from '../../hooks/useTranslations';
 import { useTranslation } from '../../hooks/useTranslations';
 import {
@@ -203,8 +202,6 @@ export const AddTagForm = <T extends object>({
 					<Button
 						sx={{
 							width: 120,
-							// TODO: check what tertiary replacement is
-							color: designTokens.color.palette.neutral[100],
 						}}
 						onClick={internalAddTag}
 						disabled={!canSubmit}

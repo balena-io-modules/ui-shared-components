@@ -1,0 +1,74 @@
+import { Meta, Unstyled } from '@storybook/blocks';
+import { Box, ThemeProvider, Typography } from '@mui/material';
+import { theme } from '../../theme';
+
+<Meta title="Foundations / Design Tokens / Usage in MUI" />
+
+# How to use design tokens in MUI
+
+MUI's theming system is based on Material Design 2 and is a bit outdated. As such, it works differently
+than more modern systems.
+
+Our design tokens system, and especially the color system, was designed with modern standards in mind and with a
+platform-agnostic approach. So our tokens have to be retrofitted in MUI system.
+
+## Token integration in MUI's theme
+
+Most of the customization should happen in the theme file. There we are importing the design tokens package 
+and using the tokens directly.
+
+```ts
+// Simplified example of the customization of MuiButton
+
+import { color } from '@balena/design-tokens';
+
+export const theme = createTheme({
+	MuiButton: {
+		// ...
+		variants: [
+			{
+				props: { variant: 'light', color: 'primary' },
+				style: {
+					color: color.text.value,
+					backgroundColor: color.bg.accent.value,
+					outline: `1px solid ${color.border.accent.value}`,
+				},
+			},
+			// ...
+		],
+	},
+});
+```
+
+## Token integration in components
+
+The tokens are available using the `token()` method:
+
+* Font family: `token('typography.fontFamily.body')`
+* Font weight: `token('typography.fontWeight.strong')`
+* Color: `token('color.bg.accent')` (see below)
+* Border radius: `token('shape.borderRadius.sm')`
+
+Note that the variables are also available under the `theme.tokens` object. For example, to access `color.bg.accent` you 
+can write `theme.tokens.color.bg.accent.value`. The `token` method is shorter though, and there is no need for the 
+`theme` object.
+
+ℹ️ The `token()` method translates directly to CSS variables under the `--mui` prefix. It bypasses the theme object and
+takes advantage of the runtime capabilities of CSS variables to make it easy to use.
+
+
+## Recommendations
+
+### Don't use MUI default palette
+
+MUI is based on an old color system from 2014 and Material Design v2, that uses a baseline of `primary`, `secondary`,
+and different state colors.
+
+While we can't remove it in order to keep compatibility with most MUI components (components that haven't been 
+customized but are usable), we should refrain from using it and stick to using the `token()` method.
+
+## Don't import the design tokens package
+
+Make sure to use the `token()` method instead of importing the tokens from the design tokens package. The
+reason for that is once we're ready for a dark theme, MUI will handle the theme switching. If we reference static
+variables from the design tokens packages directly, we will break the theme switching capability.

@@ -1,4 +1,3 @@
-import { color } from '@balena/design-tokens';
 import type { AutocompleteProps, ChipTypeMap } from '@mui/material';
 import { Autocomplete, Box, ListItemButton, Stack } from '@mui/material';
 import throttle from 'lodash/throttle';
@@ -6,6 +5,7 @@ import * as React from 'react';
 import { forwardRef } from 'react';
 import type { VListHandle } from 'virtua';
 import { VList } from 'virtua';
+import { token } from '../../utils/token';
 
 interface ItemDataElement {
 	props: React.HTMLAttributes<HTMLElement>;
@@ -83,7 +83,7 @@ const ListboxComponent = ({
 						{...(i < itemData.length - 1
 							? {
 									sx: {
-										borderBottom: `1px solid ${color.border.subtle.value}`,
+										borderBottom: `1px solid ${token('color.border.subtle')}`,
 									},
 								}
 							: {})}

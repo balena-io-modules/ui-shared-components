@@ -23,8 +23,7 @@ import type {
 	TableRowProps,
 	TypographyProps,
 } from '@mui/material';
-
-import designTokens from '@balena/design-tokens';
+import { token } from '../../utils/token';
 
 const defaultSxProps: SxProps = { mb: 2 };
 
@@ -70,8 +69,8 @@ const defaultMarkdownComponentOverrides: ReactMarkdownOptions['components'] = {
 			sx={{
 				maxWidth: '100%',
 				width: '100%',
-				backgroundColor: designTokens.color.bg.value,
-				borderRadius: `${designTokens.shape.border_radius.sm.value}px`,
+				backgroundColor: token('color.bg'),
+				borderRadius: token('shape.borderRadius.sm'),
 				p: 2,
 				...defaultSxProps,
 			}}
@@ -82,7 +81,7 @@ const defaultMarkdownComponentOverrides: ReactMarkdownOptions['components'] = {
 		<Typography
 			component="blockquote"
 			sx={{
-				borderLeft: `solid 2px ${designTokens.color.border.value}`,
+				borderLeft: `solid 2px ${token('color.border')}`,
 				fontStyle: 'italic',
 				pl: 2,
 				...defaultSxProps,
@@ -119,7 +118,7 @@ const defaultMarkdownComponentOverrides: ReactMarkdownOptions['components'] = {
 			component="p"
 			sx={{
 				fontSize: 14,
-				fontWeight: designTokens.typography.weight.strong.value,
+				fontWeight: token('typography.weight.strong'),
 				...defaultSxProps,
 			}}
 			{...(props as TypographyProps)}
@@ -128,9 +127,9 @@ const defaultMarkdownComponentOverrides: ReactMarkdownOptions['components'] = {
 	code: (props) => (
 		<Typography
 			sx={{
-				fontFamily: designTokens.typography.fontfamily.code.value,
-				backgroundColor: designTokens.color.bg.value,
-				borderRadius: `${designTokens.shape.border_radius.sm.value}px`,
+				fontFamily: token('typography.fontFamily.code'),
+				backgroundColor: token('color.bg'),
+				borderRadius: token('shape.borderRadius.xs'),
 				px: 1,
 				py: '2px',
 			}}

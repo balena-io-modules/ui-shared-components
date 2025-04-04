@@ -3,7 +3,8 @@ import Color from 'color';
 import ColorHash from 'color-hash';
 import memoize from 'lodash/memoize';
 import type { TypographyProps } from '@mui/material';
-import { Typography, useTheme } from '@mui/material';
+import { Typography } from '@mui/material';
+import { token } from '../../utils/token';
 
 const colorHash = new ColorHash();
 
@@ -25,7 +26,6 @@ export const HighlightedName = ({
 	color,
 	...props
 }: HighlightedNameProps) => {
-	const theme = useTheme();
 	const bgColor = useMemo(
 		() => generateHexColorFromString(children),
 		[children],
@@ -34,10 +34,13 @@ export const HighlightedName = ({
 	return (
 		<Typography
 			sx={{
-				borderRadius: '2px',
+				borderRadius: token('shape.borderRadius.xs'),
 				display: 'inline-block',
 				p: 2,
-				color: color || isLight(bgColor) ? theme.palette.text.primary : '#fff',
+				color:
+					token(color || isLight(bgColor)
+						? 'color.text'
+						: 'color.text.inverse'),
 				background: bgColor,
 			}}
 			{...props}

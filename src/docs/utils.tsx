@@ -6,9 +6,9 @@ import {
 	ToggleButtonGroup,
 	Typography,
 } from '@mui/material';
-import { color } from '@balena/design-tokens';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import type { IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { token as getToken } from '../utils/token';
 
 // TODO move this type to the Design Tokens package
 type JsonToken = {
@@ -160,7 +160,10 @@ export const TypeScaleItem = ({
 		: 'Lorem ipsum dolor sit amet consectetur. Pretium consectetur et risus ac nisl egestas aliquam odio ac. Aenean urna consectetur at suspendisse. Magnis tincidunt non blandit velit accumsan orci amet mus.';
 	return (
 		<Box sx={{ display: 'flex', flexDirection: 'column' }}>
-			<Typography variant="overline" sx={{ color: color.text.accent.value }}>
+			<Typography
+				variant="overline"
+				sx={{ color: getToken('color.text.accent') }}
+			>
 				{variant}
 			</Typography>
 			<Typography variant={variant}>{text} </Typography>

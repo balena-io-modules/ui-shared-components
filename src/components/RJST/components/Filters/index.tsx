@@ -17,11 +17,11 @@ import { useClickOutsideOrEsc } from '../../../../hooks/useClickOutsideOrEsc';
 import type { JSONSchema7 as JSONSchema } from 'json-schema';
 import { getPropertySchemaAndModel } from '../../DataTypes';
 import { getFromLocalStorage, setToLocalStorage } from '../../utils';
-import { color } from '@balena/design-tokens';
 import { useAnalyticsContext } from '../../../../contexts/AnalyticsContext';
 import type { SxProps } from '@mui/material';
 import { Box, Button, useMediaQuery, useTheme } from '@mui/material';
 import { isJSONSchema } from '../../schemaOps';
+import { token } from '../../../../utils/token';
 
 const getViews = (views?: FiltersView[], viewsRestorationKey?: string) => {
 	if (views?.length) {
@@ -62,7 +62,7 @@ export interface FiltersProps {
 
 // TODO remove when we have implemented a dark theme
 const darkStyles: SxProps = {
-	color: color.text.value,
+	color: token('color.text'),
 	backgroundColor: 'white',
 	border: 'none',
 	'&:hover': {

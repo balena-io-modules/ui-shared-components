@@ -47,7 +47,7 @@ export const AnimatedText = ({
 	if (animationType === 'grow') {
 		return (
 			<Grow in={showSlide} timeout={{ enter: 800, exit: 1200 }}>
-				<Typography variant="inherit" component="div" color="hubYellow.main">
+				<Typography variant="inherit" component="div">
 					{words[wordIndex]}
 				</Typography>
 			</Grow>
@@ -56,7 +56,7 @@ export const AnimatedText = ({
 	if (animationType === 'zoom') {
 		return (
 			<Zoom in={showSlide} timeout={{ enter: 800, exit: 1200 }}>
-				<Typography variant="inherit" component="div" color="hubYellow.main">
+				<Typography variant="inherit" component="div">
 					{words[wordIndex]}
 				</Typography>
 			</Zoom>
@@ -69,7 +69,7 @@ export const AnimatedText = ({
 				in={showSlide}
 				timeout={{ enter: 800, exit: 1200 }}
 			>
-				<Typography variant="inherit" component="div" color="hubYellow.main">
+				<Typography variant="inherit" component="div">
 					{words[wordIndex]}
 				</Typography>
 			</Slide>
@@ -78,7 +78,7 @@ export const AnimatedText = ({
 	if (animationType === 'fade') {
 		return (
 			<Fade in={showSlide} timeout={{ enter: 800, exit: 1200 }}>
-				<Typography variant="inherit" component="div" color="hubYellow.main">
+				<Typography variant="inherit" component="div">
 					{words[wordIndex]}
 				</Typography>
 			</Fade>
@@ -93,7 +93,6 @@ export const AnimatedText = ({
 			<Typography
 				variant="inherit"
 				component="div"
-				color="hubYellow.main"
 				sx={{ overflow: 'hidden', whiteSpace: 'nowrap' }}
 			>
 				{words[wordIndex]}
