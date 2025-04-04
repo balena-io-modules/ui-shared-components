@@ -1,4 +1,31 @@
 - commits:
+    - subject: Replace the use of the static token object and sx/component prop color
+        inference with a new `token()` method
+      hash: 8aaaf86e1b0df6ac4b846339de1c8ddf2d1b50aa
+      body: ""
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: Jonathan Berger
+    - subject: Remove old custom tokens
+      hash: b203233f6b6bdd52238d31c7069a7c76e7bfd46a
+      body: ""
+      footer:
+        Change-type: major
+        change-type: major
+      author: Jonathan Berger
+    - subject: Use css variables in MUI
+      hash: b29ef576db326224861fe04e77fef1ef8e7d6f18
+      body: |
+        See: https://balena.fibery.io/Work/Project/Better-theme-integration-in-the-dashboard-1076
+      footer:
+        Change-type: major
+        change-type: major
+      author: Jonathan Berger
+  version: 12.0.0
+  title: ""
+  date: 2025-04-04T12:06:55.663Z
+- commits:
     - subject: Replace deprecated `react-beautiful-dnd` with `dnd-kit`
       hash: 95535d44799312783f5cd78d4f783c47c5a88cc9
       body: ""
