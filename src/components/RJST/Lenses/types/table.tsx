@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { faTable } from '@fortawesome/free-solid-svg-icons/faTable';
 import type { LensTemplate } from '..';
 import type { CollectionLensRendererProps } from '.';
@@ -158,7 +158,7 @@ const TableRenderer = <T extends { id: number }>({
 	rowKey = 'id',
 }: CollectionLensRendererProps<T>) => {
 	const { state: analytics } = useAnalyticsContext();
-	const [columns, setColumns] = useColumns<T>(
+	const [cols, setColumns] = useColumns<T>(
 		rjstContext.resource,
 		properties,
 		tagKeyRender,
@@ -166,6 +166,14 @@ const TableRenderer = <T extends { id: number }>({
 
 	const { actions, showAddTagDialog, setShowAddTagDialog, tagKeys } =
 		useTagActions<T>(rjstContext, data);
+
+	const columns = useMemo(() => {
+		return cols.filter(
+			(item) =>
+				!item.key.startsWith('tag_column_') ||
+				(tagKeys ?? []).includes(item.title),
+		);
+	}, [tagKeys, cols]);
 
 	const memoizedPagination = React.useMemo(
 		() => ({
