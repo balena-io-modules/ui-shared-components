@@ -1,4 +1,15 @@
 - commits:
+    - subject: Upgrade Storybook to 8.6.12
+      hash: c6cf4798a42e7bb0185797ee6d9059014d1ceeb2
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Jonathan Berger
+  version: 12.0.1
+  title: ""
+  date: 2025-04-07T14:35:48.503Z
+- commits:
     - subject: Replace the use of the static token object and sx/component prop color
         inference with a new `token()` method
       hash: 8aaaf86e1b0df6ac4b846339de1c8ddf2d1b50aa
