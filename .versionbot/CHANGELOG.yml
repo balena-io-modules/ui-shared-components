@@ -1,4 +1,15 @@
 - commits:
+    - subject: Update @balena/lint to 9.2.1
+      hash: b53015d137f53c7612011b3441ff2e57aae3b791
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: myarmolinsky
+  version: 12.0.2
+  title: ""
+  date: 2025-04-08T18:34:31.493Z
+- commits:
     - subject: Upgrade Storybook to 8.6.12
       hash: c6cf4798a42e7bb0185797ee6d9059014d1ceeb2
       body: ""
