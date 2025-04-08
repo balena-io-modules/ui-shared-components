@@ -37,10 +37,9 @@ export const HighlightedName = ({
 				borderRadius: token('shape.borderRadius.xs'),
 				display: 'inline-block',
 				p: 2,
-				color:
-					token(color || isLight(bgColor)
-						? 'color.text'
-						: 'color.text.inverse'),
+				color: token(
+					color || isLight(bgColor) ? 'color.text' : 'color.text.inverse',
+				),
 				background: bgColor,
 			}}
 			{...props}
