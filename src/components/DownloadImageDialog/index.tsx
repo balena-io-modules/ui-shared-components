@@ -328,7 +328,6 @@ export const DownloadImageDialog = ({
 		return dropDownButtonActions satisfies DropDownButtonProps['items'];
 	}, [
 		authToken,
-		isValidatingUrl,
 		downloadConfig,
 		downloadSize,
 		downloadUrl,

@@ -14,12 +14,12 @@ import mapValues from 'lodash/mapValues';
 
 const getKeyLabel = (schema: JSONSchema) => {
 	const s = find(schema.properties, { description: 'key' }) as JSONSchema;
-	return s?.title ? s.title : 'key';
+	return s?.title ?? 'key';
 };
 
 const getValueLabel = (schema: JSONSchema) => {
 	const s = find(schema.properties, { description: 'value' }) as JSONSchema;
-	return s?.title ? s.title : 'value';
+	return s?.title ?? 'value';
 };
 
 export const isKeyValueObj = (schema: JSONSchema) =>
