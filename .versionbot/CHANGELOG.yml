@@ -1,4 +1,22 @@
 - commits:
+    - subject: Improve typing and remove nested recursive import
+      hash: 6ec631a6bf4ec553dd3e12bc2017188d7b95130d
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Andrea Rosci
+    - subject: Add server-side ordering for tags
+      hash: fa0fe079eb538f878293bfe0301be40425013ad5
+      body: ""
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: Andrea Rosci
+  version: 12.1.0
+  title: ""
+  date: 2025-04-09T13:21:56.608Z
+- commits:
     - subject: Update @balena/lint to 9.2.1
       hash: b53015d137f53c7612011b3441ff2e57aae3b791
       body: ""
