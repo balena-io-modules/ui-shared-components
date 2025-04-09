@@ -13,7 +13,7 @@ import { useTagActions } from '../../components/Table/useTagActions';
 import { AddTagHandler } from '../../components/Table/AddTagHandler';
 import { Box, styled, Tooltip, Typography } from '@mui/material';
 import { Copy } from '../../../Copy';
-import type { RJSTEntityPropertyDefinition } from '../..';
+import type { RJSTEntityPropertyDefinition } from '../../schemaOps';
 import { useAnalyticsContext } from '../../../../contexts/AnalyticsContext';
 import { token } from '../../../../utils/token';
 
@@ -82,7 +82,7 @@ const findTagOfTaggedResource = <T extends object>(
 const sortData = <T extends object>(
 	data: T[],
 	columns: Array<RJSTEntityPropertyDefinition<T>>,
-	sort: TableSortOptions | null,
+	sort: TableSortOptions<T> | null,
 ): T[] => {
 	if (!sort?.field) {
 		return data;
@@ -188,7 +188,7 @@ const TableRenderer = <T extends { id: number }>({
 		if (sort) {
 			return sort;
 		}
-		const sortPreferences = getFromLocalStorage<TableSortOptions>(
+		const sortPreferences = getFromLocalStorage<TableSortOptions<T>>(
 			`${model.resource}__sort`,
 		);
 
@@ -197,7 +197,7 @@ const TableRenderer = <T extends { id: number }>({
 			({
 				direction: 'asc',
 				...columns[0],
-			} as TableSortOptions);
+			} as TableSortOptions<T>);
 
 		onSort?.(sortPref);
 
@@ -209,16 +209,20 @@ const TableRenderer = <T extends { id: number }>({
 			setShowAddTagDialog(false);
 			return;
 		}
+
 		const additionalColumns = selectedTagColumns.map(
 			(key: string, index: number) => {
+				const field = rjstContext.tagField;
 				return {
 					title: key,
 					label: `Tag: ${key}`,
 					key: `${TAG_COLUMN_PREFIX}${key}`,
 					selected: true,
 					type: 'predefined',
-					field: rjstContext.tagField,
-					sortable: pagination.serverSide ? false : true,
+					field,
+					sortable: pagination.serverSide
+						? `${field}(tag_key='${key}')/value`
+						: true,
 					index: index + 1 + columns.length,
 					priority: '',
 					render: tagKeyRender(key),

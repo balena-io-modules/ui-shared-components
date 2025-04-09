@@ -13,10 +13,11 @@ import {
 	TableBody,
 	TablePagination,
 } from '@mui/material';
-import type { RJSTEntityPropertyDefinition } from '../..';
+
 import { useAnalyticsContext } from '../../../../contexts/AnalyticsContext';
 import { DEFAULT_ITEMS_PER_PAGE } from '../../utils';
 import { token } from '../../../../utils/token';
+import type { RJSTEntityPropertyDefinition } from '../../schemaOps';
 
 const StyledMaterialTable = styled(MaterialTable)(() => ({
 	'& [data-table="table_cell__sticky"]': {
@@ -44,10 +45,10 @@ interface TableProps<T> {
 	checkedState?: CheckedState;
 	columns: Array<RJSTEntityPropertyDefinition<T>>;
 	pagination: Pagination;
-	sort: TableSortOptions;
+	sort: TableSortOptions<T>;
 	actions?: MenuItemProps[];
 	onCheck?: (selected: T[] | undefined, allChecked?: CheckedState) => void;
-	onSort?: (sort: TableSortOptions) => void;
+	onSort?: (sort: TableSortOptions<T>) => void;
 	getRowHref: ((entry: any) => string) | undefined;
 	onRowClick?: (entity: T, event: React.MouseEvent<HTMLAnchorElement>) => void;
 	onPageChange?: (page: number, itemsPerPage: number) => void;
@@ -123,7 +124,7 @@ export const Table = <T extends object>({
 	const handleOnSort = React.useCallback(
 		(
 			_event: React.MouseEvent<HTMLSpanElement>,
-			{ key, field, refScheme }: RJSTEntityPropertyDefinition<T>,
+			{ key, field, refScheme, sortable }: RJSTEntityPropertyDefinition<T>,
 		) => {
 			if (!sort) {
 				return;
@@ -132,9 +133,10 @@ export const Table = <T extends object>({
 			const newOrder = isAsc ? 'desc' : 'asc';
 			// Passing the entire column is not possible because the label might be an HTML element.
 			// This can cause errors when attempting to save it to localStorage.
-			const sortObj: TableSortOptions = {
+			const sortObj: TableSortOptions<T> = {
 				direction: newOrder,
 				field: field,
+				sortable,
 				key: key,
 				refScheme: refScheme,
 			};

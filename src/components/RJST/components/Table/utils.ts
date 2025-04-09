@@ -1,11 +1,14 @@
+import type { RJSTEntityPropertyDefinition } from '../../schemaOps';
+
 export type Order = 'asc' | 'desc';
 
 export type CheckedState = 'none' | 'some' | 'all';
 
-export interface TableSortOptions {
+export interface TableSortOptions<T> {
 	direction: Order;
 	field: string;
 	key: string;
+	sortable: RJSTEntityPropertyDefinition<T>['sortable'];
 	refScheme?: string;
 }
 

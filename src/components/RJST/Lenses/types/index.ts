@@ -1,5 +1,8 @@
-import type { RJSTEntityPropertyDefinition } from '../../';
-import type { RJSTContext, RJSTModel } from '../../schemaOps';
+import type {
+	RJSTContext,
+	RJSTEntityPropertyDefinition,
+	RJSTModel,
+} from '../../schemaOps';
 import type {
 	CheckedState,
 	Pagination,
@@ -25,14 +28,14 @@ export interface CollectionLensRendererProps<T extends { id: number }>
 	filtered: T[];
 	selected?: Array<Subset<T>>;
 	checkedState?: CheckedState;
-	sort: TableSortOptions | null;
+	sort: TableSortOptions<T> | null;
 	changeSelected: (
 		selected: T[] | undefined,
 		allChecked?: CheckedState,
 	) => void;
 	data: T[] | undefined;
 	onPageChange?: (page: number, itemsPerPage: number) => void;
-	onSort?: (sort: TableSortOptions) => void;
+	onSort?: (sort: TableSortOptions<T>) => void;
 	pagination: Pagination;
 	rowKey?: keyof T;
 }
