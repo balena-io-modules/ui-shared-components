@@ -28,6 +28,7 @@ export { FileWidget } from './components/Form/Widgets/FileWidget';
 export type { OnFileReadParams } from './components/Form/Widgets/FileWidget';
 export { PasswordWidget } from './components/Form/Widgets/PasswordWidget';
 export { SelectWidget } from './components/Form/Widgets/SelectWidget';
+export { HorizontalBarChart } from './components/HorizontalBarChart';
 export { Code } from './components/Code';
 export { CookiesBanner } from './components/CookiesBanner';
 export type { CollapsedListProps } from './components/CollapsedList';
