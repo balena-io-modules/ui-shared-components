@@ -241,6 +241,10 @@ const VirtualizedAutocompleteBase = <
 		[loadNextPage, response.totalItems, response.data, page, query],
 	);
 
+	React.useEffect(() => {
+		void loadNextPage(0, [], '');
+	}, []);
+
 	return (
 		<Autocomplete<Value, Multiple, DisableClearable, FreeSolo, ChipComponent>
 			{...props}
@@ -270,10 +274,6 @@ const VirtualizedAutocompleteBase = <
 				>['ListboxComponent']
 			}
 			onInputChange={async (event, input) => {
-				// dropdown is opened, we should move this in a useEffect
-				if (!event && !response.totalItems) {
-					await loadNextPage(0, [], '');
-				}
 				// input change
 				if (event?.type === 'change') {
 					await debouncedInputChange(input, []);
