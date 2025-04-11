@@ -1,4 +1,15 @@
 - commits:
+    - subject: Pin @mui/lab to 6.0.0-beta.24 to avoid installing beta-dev versions
+      hash: 7b8fe149aac54291773a61e9af274a0083203ce4
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Thodoris Greasidis
+  version: 12.1.2
+  title: ""
+  date: 2025-04-11T11:04:00.877Z
+- commits:
     - subject: Momentary virtualized autocomplete loadNext fix
       hash: 03768d3c9b81b50e00ebf2c4728366eddd1a02ff
       body: ""
