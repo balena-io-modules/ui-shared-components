@@ -87,6 +87,8 @@ const translationMap = {
 	'labels.views': 'Views',
 	'labels.filter_one': 'Filter',
 	'labels.filter_other': 'Filters',
+	'labels.total_devices_one': '{{count}} device',
+	'labels.total_devices_other': '{{count}} devices',
 
 	'labels.save_current_view': 'Save current view',
 
