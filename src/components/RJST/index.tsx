@@ -40,7 +40,6 @@ import {
 	getFromLocalStorage,
 	getTagsDisabledReason,
 	setToLocalStorage,
-	getSelected,
 	getSortingFunction,
 	DEFAULT_ITEMS_PER_PAGE,
 } from './utils';
@@ -725,8 +724,12 @@ const getColumnsFromSchema = <T extends RJSTBaseResource<T>>({
 	customSort?: RJSTContext<T>['customSort'];
 	priorities?: Priorities<T>;
 	formats?: Format[];
-}): Array<RJSTEntityPropertyDefinition<T>> =>
-	(
+}): Array<RJSTEntityPropertyDefinition<T>> => {
+	const prioritySets = {
+		primary: new Set(priorities?.primary ?? []),
+		secondary: new Set(priorities?.secondary ?? []),
+	};
+	return (
 		Object.entries(schema.properties ?? {}) as Array<
 			[
 				Extract<keyof T, string>,
@@ -740,7 +743,7 @@ const getColumnsFromSchema = <T extends RJSTBaseResource<T>>({
 		})
 		.flatMap(([key, val]): Array<[Extract<keyof T, string>, JSONSchema]> => {
 			const refScheme = getPropertyScheme(val);
-			if (!refScheme || refScheme.length <= 1 || typeof val !== 'object') {
+			if (!refScheme || refScheme.length <= 1) {
 				return [[key, val]];
 			}
 			const entityFilterOnly = parseDescriptionProperty(val, 'x-filter-only');
@@ -779,15 +782,10 @@ const getColumnsFromSchema = <T extends RJSTBaseResource<T>>({
 		})
 		.map(([key, val], index) => {
 			const xNoSort = parseDescriptionProperty(val, 'x-no-sort');
-			const definedPriorities = priorities ?? ({} as Partial<Priorities<T>>);
 			const refScheme = getPropertyScheme(val);
-			const priority = definedPriorities.primary?.find(
-				(prioritizedKey) => prioritizedKey === key,
-			)
+			const priority = prioritySets.primary.has(key)
 				? 'primary'
-				: definedPriorities.secondary?.find(
-							(prioritizedKey) => prioritizedKey === key,
-					  )
+				: prioritySets.secondary.has(key)
 					? 'secondary'
 					: 'tertiary';
 			const widgetSchema = { ...val, title: undefined };
@@ -819,7 +817,8 @@ const getColumnsFromSchema = <T extends RJSTBaseResource<T>>({
 				field: key,
 				// This is used for storing columns and views
 				key: refScheme ? `${key}_${refScheme[0]}_${index}` : `${key}_${index}`,
-				selected: getSelected(key, priorities),
+				selected:
+					!priorities || priority === 'primary' || priority === 'secondary',
 				priority,
 				type: 'predefined',
 				refScheme: refScheme?.[0],
@@ -842,5 +841,5 @@ const getColumnsFromSchema = <T extends RJSTBaseResource<T>>({
 					);
 				},
 			} satisfies RJSTEntityPropertyDefinition<T>;
-		})
-		.filter((columnDef) => columnDef != null);
+		});
+};
