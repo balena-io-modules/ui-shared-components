@@ -1,4 +1,30 @@
 - commits:
+    - subject: "RJST: Remove some duplicate checks"
+      hash: 556eb04390faa8be7ac5c845763edd6bf0926b8e
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Thodoris Greasidis
+    - subject: "RJST: Improve typings"
+      hash: 0a4833972741b52467044e5621dee3300b777446
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Thodoris Greasidis
+    - subject: Update @balena/lint from 9.2.1 to 9.3.0
+      hash: 1866e3d3a21adaf737e3640818a40626d75d38b1
+      body: |
+        Update @balena/lint from 9.2.1 to 9.3.0
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Thodoris Greasidis
+  version: 12.2.1
+  title: ""
+  date: 2025-04-15T15:23:15.475Z
+- commits:
     - subject: "RJST Table: Add `onManageColumnsOpen` prop and track clicks"
       hash: 57187862023acb4b29b7aad932ba7521b790a439
       body: ""
