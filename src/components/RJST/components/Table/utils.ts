@@ -6,7 +6,7 @@ export type CheckedState = 'none' | 'some' | 'all';
 
 export interface TableSortOptions<T> {
 	direction: Order;
-	field: string;
+	field: Extract<keyof T, string>;
 	key: string;
 	sortable: RJSTEntityPropertyDefinition<T>['sortable'];
 	refScheme?: string;

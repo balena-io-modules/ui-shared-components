@@ -1,9 +1,4 @@
-import type {
-	RJSTBaseResource,
-	Permissions,
-	Priorities,
-	RJSTTagsSdk,
-} from './schemaOps';
+import type { RJSTBaseResource, Permissions, RJSTTagsSdk } from './schemaOps';
 import { getPropertyScheme } from './schemaOps';
 import castArray from 'lodash/castArray';
 import get from 'lodash/get';
@@ -183,14 +178,4 @@ export const getSortingFunction = <T>(
 			sortFn(a, b, [schemaKey as string, '0', ...splitRefScheme]);
 	}
 	return (a: T, b: T) => diff(a[schemaKey], b[schemaKey]);
-};
-
-export const getSelected = <T, K extends keyof T>(
-	key: K,
-	priorities?: Priorities<T>,
-) => {
-	if (!priorities) {
-		return true;
-	}
-	return priorities.primary.includes(key) || priorities.secondary.includes(key);
 };
