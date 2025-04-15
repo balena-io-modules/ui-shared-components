@@ -1,4 +1,17 @@
 - commits:
+    - subject: "RJST Table: Add `onManageColumnsOpen` prop and track clicks"
+      hash: 57187862023acb4b29b7aad932ba7521b790a439
+      body: ""
+      footer:
+        Fibery: https://balena.fibery.io/Work/Improvement/Track-clicks-on-the-Manage-columns-action-2746
+        fibery: https://balena.fibery.io/Work/Improvement/Track-clicks-on-the-Manage-columns-action-2746
+        Change-type: minor
+        change-type: minor
+      author: myarmolinsky
+  version: 12.2.0
+  title: ""
+  date: 2025-04-15T14:17:31.839Z
+- commits:
     - subject: Pin @mui/lab to 6.0.0-beta.24 to avoid installing beta-dev versions
       hash: 7b8fe149aac54291773a61e9af274a0083203ce4
       body: ""
