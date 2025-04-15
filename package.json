@@ -89,7 +89,7 @@
     "test": "jest",
     "prepack": "npm run build",
     "lint": "balena-lint src",
-    "lint:fix": "balena-lint --fix src",
+    "lint-fix": "balena-lint --fix src",
     "prepare": "husky",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build --docs",
