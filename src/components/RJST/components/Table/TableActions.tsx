@@ -76,12 +76,14 @@ interface TableActionsProps<T> {
 	columns: Array<RJSTEntityPropertyDefinition<T>>;
 	actions?: MenuItemProps[];
 	onColumnPreferencesChange?: ColumnPreferencesChangeProp<T>;
+	onManageColumnsOpen?: () => void;
 }
 
 export const TableActions = <T extends object>({
 	columns,
 	actions,
 	onColumnPreferencesChange,
+	onManageColumnsOpen,
 }: TableActionsProps<T>) => {
 	const [anchorEl, setAnchorEl] = React.useState<HTMLElement>();
 	const theme = useTheme();
@@ -91,6 +93,7 @@ export const TableActions = <T extends object>({
 
 	const handleClick = (event: React.MouseEvent<HTMLElement>) => {
 		setAnchorEl(event.currentTarget);
+		onManageColumnsOpen?.();
 	};
 	const handleClose = () => {
 		setAnchorEl(undefined);

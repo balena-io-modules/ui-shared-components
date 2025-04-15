@@ -53,6 +53,7 @@ interface TableProps<T> {
 	onRowClick?: (entity: T, event: React.MouseEvent<HTMLAnchorElement>) => void;
 	onPageChange?: (page: number, itemsPerPage: number) => void;
 	onColumnPreferencesChange?: ColumnPreferencesChangeProp<T>;
+	onManageColumnsOpen?: () => void;
 }
 
 export const Table = <T extends object>({
@@ -62,6 +63,7 @@ export const Table = <T extends object>({
 	checkedState,
 	columns,
 	pagination,
+	onManageColumnsOpen,
 	sort,
 	actions,
 	onCheck,
@@ -211,6 +213,7 @@ export const Table = <T extends object>({
 				columns={columns}
 				actions={actions}
 				onColumnPreferencesChange={onColumnPreferencesChange}
+				onManageColumnsOpen={onManageColumnsOpen}
 			/>
 			<TableContainer sx={{ maxHeight: '70vh' }}>
 				<StyledMaterialTable stickyHeader>

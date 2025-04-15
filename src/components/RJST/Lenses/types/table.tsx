@@ -278,6 +278,11 @@ const TableRenderer = <T extends { id: number }>({
 					});
 				}}
 				actions={actions ?? []}
+				onManageColumnsOpen={() => {
+					analytics.webTracker?.track('Open manage columns', {
+						resource: model.resource,
+					});
+				}}
 			/>
 			{showAddTagDialog && tagKeys?.length && (
 				<AddTagHandler
