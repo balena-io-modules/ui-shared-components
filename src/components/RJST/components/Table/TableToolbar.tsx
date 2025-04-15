@@ -9,6 +9,7 @@ interface TableToolbarProps<T> {
 	numSelected?: number;
 	columns: Array<RJSTEntityPropertyDefinition<T>>;
 	actions?: MenuItemProps[];
+	onManageColumnsOpen?: () => void;
 	onColumnPreferencesChange?: ColumnPreferencesChangeProp<T>;
 }
 
@@ -16,6 +17,7 @@ export const TableToolbar = <T extends object>({
 	numSelected = 0,
 	columns,
 	actions,
+	onManageColumnsOpen,
 	onColumnPreferencesChange,
 }: TableToolbarProps<T>) => {
 	return (
@@ -41,6 +43,7 @@ export const TableToolbar = <T extends object>({
 				columns={columns}
 				actions={actions}
 				onColumnPreferencesChange={onColumnPreferencesChange}
+				onManageColumnsOpen={onManageColumnsOpen}
 			/>
 		</Stack>
 	);
