@@ -1,4 +1,15 @@
 - commits:
+    - subject: Add Horizontal Bar Chart component
+      hash: f873a3dbd445de56d90fb9fc3bf1da374cac3ef8
+      body: ""
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: Jonathan Berger
+  version: 12.3.0
+  title: ""
+  date: 2025-04-16T11:52:31.451Z
+- commits:
     - subject: "RJST: Remove some duplicate checks"
       hash: 556eb04390faa8be7ac5c845763edd6bf0926b8e
       body: ""
