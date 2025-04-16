@@ -87,6 +87,7 @@ const translationMap = {
 	'labels.views': 'Views',
 	'labels.filter_one': 'Filter',
 	'labels.filter_other': 'Filters',
+	'labels.total_resources': '{{count}} {{resource}}',
 
 	'labels.save_current_view': 'Save current view',
 
