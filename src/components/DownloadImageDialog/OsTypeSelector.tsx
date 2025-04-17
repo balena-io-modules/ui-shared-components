@@ -6,6 +6,7 @@ import {
 	Select,
 	Tooltip,
 	Typography,
+	Stack,
 } from '@mui/material';
 import { getOsTypeName } from './utils';
 import ArticleIcon from '@mui/icons-material/Article';
@@ -96,19 +97,21 @@ export const OsTypeSelector = ({
 	);
 
 	return (
-		<Box display="flex" flexDirection="column" flex={1}>
-			<InputLabel
-				htmlFor="newAppApplicationType"
-				sx={{ display: 'flex', alignItems: 'center', mb: 2 }}
-			>
-				OS type{' '}
-				<MUILinkWithTracking
-					sx={{ height: 14 }}
-					href="https://www.balena.io/docs/reference/OS/extended-support-release"
+		<Stack flex={1}>
+			<Stack direction="row" alignItems="center" gap={1}>
+				<InputLabel
+					id="newAppApplicationType-label"
+					sx={{ display: 'flex', alignItems: 'center', gap: 1 }}
 				>
-					<ArticleIcon sx={{ width: 14, height: 14, marginLeft: 1 }} />
-				</MUILinkWithTracking>
-			</InputLabel>
+					OS type
+					<MUILinkWithTracking
+						sx={{ height: 12 }}
+						href="https://www.balena.io/docs/reference/OS/extended-support-release"
+					>
+						<ArticleIcon sx={{ fontSize: '1rem' }} />
+					</MUILinkWithTracking>
+				</InputLabel>
+			</Stack>
 			<Select<(typeof selectOsTypes)[number]['slug']>
 				id="newAppApplicationType"
 				fullWidth
@@ -129,6 +132,7 @@ export const OsTypeSelector = ({
 						onSelectedOsTypeChange(osType.slug);
 					}
 				}}
+				sx={{ flex: 1 }}
 			>
 				{selectOsTypes.map((option) => (
 					// TODO: Consider adding a tooltip for the disabled options
@@ -141,6 +145,6 @@ export const OsTypeSelector = ({
 					</MenuItem>
 				))}
 			</Select>
-		</Box>
+		</Stack>
 	);
 };

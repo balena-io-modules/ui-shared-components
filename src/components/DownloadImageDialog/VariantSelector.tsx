@@ -1,10 +1,10 @@
 import {
-	Box,
 	FormControl,
 	FormControlLabel,
 	FormLabel,
 	Radio,
 	RadioGroup,
+	Stack,
 	Tooltip,
 	Typography,
 } from '@mui/material';
@@ -23,37 +23,40 @@ const variantInfo: (selected: BuildVariant) => {
 } = (selected) => ({
 	dev: {
 		title: (
-			<Box display="flex" gap={1} flexDirection="row" alignItems="center">
+			<Stack gap={1} direction="row" alignItems="center">
 				<Typography>{getOsVariantDisplayText('dev')}</Typography>
 				<Typography
 					variant="bodySm"
-					color={token('color.text')}
+					color={token('color.text.accent')}
 					alignItems="center"
 					display="flex"
 				>
 					<Lightbulb sx={{ width: 14, height: 14 }} />
 					Recommended for first time users
 				</Typography>
-			</Box>
+			</Stack>
 		),
 		description: (
-			<>
-				Development images should be used when you are developing an application
-				and want to use the fast{' '}
-				<MUILinkWithTracking href="https://balena.io/docs/development/local-mode/">
-					local mode
-				</MUILinkWithTracking>{' '}
-				workflow.
+			<Stack gap={1}>
+				<Typography>
+					Development images should be used when you are developing an
+					application and want to use the fast{' '}
+					<MUILinkWithTracking href="https://balena.io/docs/development/local-mode/">
+						local mode
+					</MUILinkWithTracking>{' '}
+					workflow.
+				</Typography>
 				{selected === 'dev' && (
-					<Callout severity="warning">
+					<Callout severity="warning" size="sm">
 						This variant should never be used in production for security
 						reasons.{' '}
 						<MUILinkWithTracking href="https://docs.balena.io/reference/OS/overview/#development-vs-production-mode">
-							Learn more.
+							Learn more
 						</MUILinkWithTracking>
+						.
 					</Callout>
 				)}
-			</>
+			</Stack>
 		),
 	},
 
@@ -84,16 +87,17 @@ export const VariantSelector = ({
 	return (
 		<FormControl>
 			<FormLabel>
-				<Typography variant="titleSm">Select edition</Typography>
+				<Typography variant="titleSm">Edition</Typography>
 			</FormLabel>
 			<RadioGroup
 				aria-labelledby="variant-radio-buttons-group"
 				name="developmentMode"
-				key="varian"
+				key="variant"
 				value={variant === 'dev'}
 				onChange={(event) => {
 					onVariantChange(event.target.value === 'true');
 				}}
+				sx={{ gap: 2 }}
 			>
 				{BuildVariants.map((buildVariant, index) => {
 					const isDev = buildVariant === 'dev';
@@ -110,7 +114,7 @@ export const VariantSelector = ({
 							}
 							key={index}
 						>
-							<Box display="flex" flexDirection="column">
+							<Stack>
 								<FormControlLabel
 									sx={{ opacity: isDisabled ? 0.4 : 1 }}
 									disabled={isDisabled}
@@ -124,7 +128,7 @@ export const VariantSelector = ({
 								>
 									{variantInfo(variant)[buildVariant].description}
 								</Typography>
-							</Box>
+							</Stack>
 						</Tooltip>
 					);
 				})}

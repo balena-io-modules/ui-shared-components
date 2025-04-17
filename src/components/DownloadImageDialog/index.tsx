@@ -1,10 +1,10 @@
 import {
 	Avatar,
-	Box,
 	DialogActions,
 	DialogContent,
 	Divider,
 	Grid2 as Grid,
+	Stack,
 	Typography,
 } from '@mui/material';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
@@ -440,25 +440,23 @@ export const DownloadImageDialog = ({
 	return (
 		<DialogWithCloseButton
 			title={
-				<Box display="flex" alignItems="center">
+				<Stack direction="row" alignItems="center" gap={2}>
 					<Avatar
 						variant="square"
 						alt={defaultDisplayName}
 						src={formModel.deviceType?.logo ?? FALLBACK_LOGO_UNKNOWN_DEVICE}
-						sx={{ mr: 2 }}
 					/>
 					<Typography variant="h5">Add new device</Typography>
-				</Box>
+				</Stack>
 			}
 			open={open}
 			onClose={onClose}
 			maxWidth="lg"
 			fullWidth
-			sx={{ p: 4 }}
 		>
-			<DialogContent sx={{ m: 0 }}>
+			<DialogContent>
 				<Spinner show={isValidatingUrl}>
-					<Grid container pb={5} spacing={[0, 0, 4]}>
+					<Grid container spacing={[0, 0, 4]}>
 						<Grid
 							size={{
 								xs: 12,
@@ -547,15 +545,7 @@ export const DownloadImageDialog = ({
 					</Grid>
 				</Spinner>
 			</DialogContent>
-			<DialogActions
-				sx={{
-					display: 'flex',
-					position: 'absolute',
-					bottom: 0,
-					right: 0,
-					justifyContent: 'end',
-				}}
-			>
+			<DialogActions>
 				<DropDownButton
 					className="e2e-download-image-submit"
 					items={actions}
