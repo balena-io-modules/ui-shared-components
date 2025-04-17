@@ -1,4 +1,15 @@
 - commits:
+    - subject: Update `analytics-client` to 2.1.0
+      hash: 510f50444fd9bb84644c63fecd721dbe7d61f092
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: myarmolinsky
+  version: 12.3.1
+  title: ""
+  date: 2025-04-17T18:53:43.663Z
+- commits:
     - subject: Add Horizontal Bar Chart component
       hash: f873a3dbd445de56d90fb9fc3bf1da374cac3ef8
       body: ""
