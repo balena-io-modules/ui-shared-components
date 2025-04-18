@@ -385,6 +385,16 @@ export const theme = createTheme({
 		full: shape.borderRadius.full.value,
 	},
 	components: {
+		MuiAccordionSummary: {
+			styleOverrides: {
+				root: { paddingLeft: 0, paddingRight: 0 },
+			},
+		},
+		MuiAccordionDetails: {
+			styleOverrides: {
+				root: { paddingLeft: 0, paddingRight: 0 },
+			},
+		},
 		MuiAlert: {
 			defaultProps: {
 				iconMapping: {
