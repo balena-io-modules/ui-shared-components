@@ -134,6 +134,7 @@ export interface RJSTProps<T> extends Omit<BoxProps, 'onChange'> {
 	rowKey?: keyof T;
 	noDataInfo?: NoDataInfo;
 	persistFilters?: boolean;
+	useExperimentalReducedColumnLocalStorageKeyPrefix?: boolean;
 }
 
 // TODO: Refactor into multiple layers: one for handling
@@ -158,6 +159,7 @@ export const RJST = <T extends RJSTBaseResource<T>>({
 	rowKey,
 	noDataInfo,
 	persistFilters = true,
+	useExperimentalReducedColumnLocalStorageKeyPrefix,
 	...boxProps
 }: RJSTProps<T>) => {
 	const { t } = useTranslation();
@@ -619,6 +621,9 @@ export const RJST = <T extends RJSTBaseResource<T>>({
 								{ ...(pagination ?? {}), ...internalPagination } as Pagination
 							}
 							rowKey={rowKey}
+							useExperimentalReducedColumnLocalStorageKeyPrefix={
+								useExperimentalReducedColumnLocalStorageKeyPrefix
+							}
 						/>
 					)}
 

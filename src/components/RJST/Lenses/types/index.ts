@@ -38,4 +38,5 @@ export interface CollectionLensRendererProps<T extends { id: number }>
 	onSort?: (sort: TableSortOptions<T>) => void;
 	pagination: Pagination;
 	rowKey?: keyof T;
+	useExperimentalReducedColumnLocalStorageKeyPrefix?: boolean;
 }

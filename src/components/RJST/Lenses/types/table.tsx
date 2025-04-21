@@ -156,12 +156,14 @@ const TableRenderer = <T extends { id: number }>({
 	model,
 	sort,
 	rowKey = 'id',
+	useExperimentalReducedColumnLocalStorageKeyPrefix,
 }: CollectionLensRendererProps<T>) => {
 	const { state: analytics } = useAnalyticsContext();
 	const [columns, setColumns] = useColumns<T>(
 		rjstContext.resource,
 		properties,
 		tagKeyRender,
+		useExperimentalReducedColumnLocalStorageKeyPrefix,
 	);
 
 	const { actions, showAddTagDialog, setShowAddTagDialog, tagKeys } =
