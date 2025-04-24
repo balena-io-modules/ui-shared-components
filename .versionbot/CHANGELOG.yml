@@ -1,4 +1,15 @@
 - commits:
+    - subject: "RJST: Make primary columns bold by default"
+      hash: af8b5c7c8d49b0bb8367062650a4b12e8cec1d2c
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: myarmolinsky
+  version: 12.3.3
+  title: ""
+  date: 2025-04-24T13:48:20.092Z
+- commits:
     - subject: accordion padding
       hash: 460d9435e9fc3dcba5aa22ce4299f073e927e781
       body: ""
