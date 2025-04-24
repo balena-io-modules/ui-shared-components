@@ -37,6 +37,7 @@ function TableCellComponent<T extends object>({
 					color: 'inherit',
 				},
 				height: '50px',
+				...(column.priority === 'primary' ? { fontWeight: 'bold' } : {}),
 			})}
 			href={href}
 			data-key={row[rowKey]}
