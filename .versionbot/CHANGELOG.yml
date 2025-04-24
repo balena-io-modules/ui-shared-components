@@ -1,4 +1,36 @@
 - commits:
+    - subject: accordion padding
+      hash: 460d9435e9fc3dcba5aa22ce4299f073e927e781
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: myarmolinsky
+    - subject: polish
+      hash: 957686ca6705c6b7817419b2836a77fd695cec65
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: myarmolinsky
+    - subject: "DownloadImageDialog: Improve readability"
+      hash: 493da3d1a8ef35fe41750071f88e7949a4943a3f
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: myarmolinsky
+    - subject: "DownloadImageDialog: Move development variant warning to a callout"
+      hash: 07e9280e277b8532f465cedb34d99e20dcb05289
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: myarmolinsky
+  version: 12.3.2
+  title: ""
+  date: 2025-04-24T13:41:59.745Z
+- commits:
     - subject: Update `analytics-client` to 2.1.0
       hash: 510f50444fd9bb84644c63fecd721dbe7d61f092
       body: ""
