@@ -1,16 +1,13 @@
 import {
 	Avatar,
 	Box,
-	Button,
 	Checkbox,
 	Chip,
-	Collapse,
 	Divider,
 	FormControl,
 	FormControlLabel,
 	FormLabel,
 	InputAdornment,
-	InputLabel,
 	Radio,
 	RadioGroup,
 	TextField,
@@ -19,6 +16,10 @@ import {
 	IconButton,
 	Autocomplete,
 	Stack,
+	Accordion,
+	AccordionSummary,
+	AccordionDetails,
+	accordionSummaryClasses,
 } from '@mui/material';
 import HelpIcon from '@mui/icons-material/Help';
 import { memo, useCallback, useEffect, useMemo, useState } from 'react';
@@ -28,8 +29,6 @@ import { OsTypeSelector } from './OsTypeSelector';
 import type { BuildVariant } from './VariantSelector';
 import { VariantSelector } from './VariantSelector';
 import type { DownloadImageFormModel } from '.';
-import AddIcon from '@mui/icons-material/Add';
-import RemoveIcon from '@mui/icons-material/Remove';
 import ArticleIcon from '@mui/icons-material/Article';
 import { MUILinkWithTracking } from '../MUILinkWithTracking';
 import type { DeviceType, Dictionary, OsVersionsByDeviceType } from './models';
@@ -37,7 +36,10 @@ import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { FALLBACK_LOGO_UNKNOWN_DEVICE } from './utils';
 import type { ChipProps } from '../Chip';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
+import {
+	faChevronRight,
+	faTriangleExclamation,
+} from '@fortawesome/free-solid-svg-icons';
 import { Callout } from '../Callout';
 import { token } from '../../utils/token';
 
@@ -204,55 +206,50 @@ export const ImageForm = memo(function ImageForm({
 	);
 
 	return (
-		<Box
+		<Stack
 			action={downloadUrl}
 			method="post"
 			component="form"
 			noValidate
 			autoComplete="off"
-			p={2}
 			ref={formElement}
+			gap={3}
 		>
 			<input type="hidden" name="deviceType" value={model.deviceType.slug} />
 			<input type="hidden" name="_token" value={authToken} />
 			<input type="hidden" name="appId" value={applicationId} />
 			<input type="hidden" name="fileType" value=".zip" />
 			<input type="hidden" name="version" value={model.version} />
-			<Box py={3} display="flex" flexWrap="wrap" gap={2}>
+			<Stack direction="row" flexWrap="wrap" gap={2}>
 				{compatibleDeviceTypes && compatibleDeviceTypes.length > 1 && (
-					<Box display="flex" flexDirection="column" flex="1" maxWidth="100%">
-						<InputLabel
-							htmlFor="device-type-select"
-							sx={{ display: 'flex', alignItems: 'center', mb: 2 }}
-						>
-							Select device type{' '}
-							<Tooltip title="Applications can support any devices that share the same architecture as their default device type.">
-								<HelpIcon
-									color="info"
-									sx={{ fontSize: '1rem', marginLeft: 1 }}
+					<Autocomplete
+						fullWidth
+						value={model.deviceType}
+						options={compatibleDeviceTypes}
+						getOptionLabel={(option) => option.name}
+						renderOption={(props, option) => (
+							<Box component="li" {...props}>
+								<Avatar
+									variant="square"
+									src={option.logo ?? FALLBACK_LOGO_UNKNOWN_DEVICE}
+									sx={{ mr: 3, width: '20px', height: '20px' }}
 								/>
-							</Tooltip>
-						</InputLabel>
-						<Autocomplete
-							fullWidth
-							id="device-type-select"
-							value={model.deviceType}
-							options={compatibleDeviceTypes}
-							getOptionLabel={(option) => option.name}
-							renderOption={(props, option) => (
-								<Box component="li" {...props}>
-									<Avatar
-										variant="square"
-										src={option.logo ?? FALLBACK_LOGO_UNKNOWN_DEVICE}
-										sx={{ mr: 3, width: '20px', height: '20px' }}
-									/>
-									<Typography noWrap>{option.name}</Typography>
-								</Box>
-							)}
-							renderInput={({ InputProps, ...params }) => (
-								<TextField
-									{...params}
-									InputProps={{
+								<Typography noWrap>{option.name}</Typography>
+							</Box>
+						)}
+						renderInput={({ InputProps, ...params }) => (
+							<TextField
+								{...params}
+								label={
+									<Stack direction="row" alignItems="center" gap={1}>
+										Device type
+										<Tooltip title="Applications can support any devices that share the same architecture as their default device type.">
+											<HelpIcon color="info" sx={{ fontSize: '1rem' }} />
+										</Tooltip>
+									</Stack>
+								}
+								slotProps={{
+									input: {
 										...InputProps,
 										startAdornment: (
 											<Avatar
@@ -263,22 +260,23 @@ export const ImageForm = memo(function ImageForm({
 												sx={{ mr: 3, width: '20px', height: '20px' }}
 											/>
 										),
-									}}
-								/>
-							)}
-							onChange={(_event, value) => {
-								if (!value) {
-									return;
-								}
-								handleSelectedDeviceTypeChange(value);
-							}}
-							disableClearable
-							// TODO: consider whether there is a better solution than letting the width vary as you search
-							componentsProps={{
-								popper: { sx: { width: 'fit-content' } },
-							}}
-						/>
-					</Box>
+									},
+								}}
+							/>
+						)}
+						onChange={(_event, value) => {
+							if (!value) {
+								return;
+							}
+							handleSelectedDeviceTypeChange(value);
+						}}
+						disableClearable
+						// TODO: consider whether there is a better solution than letting the width vary as you search
+						slotProps={{
+							popper: { sx: { width: 'fit-content' } },
+						}}
+						sx={{ flex: 1 }}
+					/>
 				)}
 				{(!isInitialDefault || osType) &&
 					hasEsrVersions &&
@@ -290,41 +288,41 @@ export const ImageForm = memo(function ImageForm({
 							onSelectedOsTypeChange={onSelectedOsTypeChange}
 						/>
 					)}
-			</Box>
+			</Stack>
 			{!isInitialDefault && version && (
-				<Box display="flex" flexWrap="wrap" maxWidth="100%">
-					<Box display="flex" flexDirection="column" maxWidth="100%" flex={1}>
-						<InputLabel
-							sx={{ mb: 2 }}
-							htmlFor="e2e-download-image-versions-list"
-						>
-							Select version
-						</InputLabel>
-						<Autocomplete
-							fullWidth
-							id="e2e-download-image-versions-list"
-							value={version}
-							getOptionLabel={(option) => option.value}
-							isOptionEqualToValue={(option, value) =>
-								option.value === value.value
-							}
-							options={versionSelectionOpts}
-							onChange={(_event, ver) => {
-								handleVersionChange(ver);
-							}}
-							placeholder="Choose a version..."
-							renderOption={(props, option) => (
-								<Box component="li" {...props}>
-									<VersionSelectItem
-										option={option}
-										isRecommended={option.value === recommendedVersion}
-									/>
-								</Box>
-							)}
-							renderInput={({ InputProps, ...params }) => (
-								<TextField
-									{...params}
-									InputProps={{
+				<Stack
+					direction="row"
+					flexWrap="wrap"
+					maxWidth="100%"
+					gap={2}
+					alignItems="center"
+				>
+					<Autocomplete
+						fullWidth
+						id="e2e-download-image-versions-list"
+						value={version}
+						getOptionLabel={(option) => option.value}
+						isOptionEqualToValue={(option, value) =>
+							option.value === value.value
+						}
+						options={versionSelectionOpts}
+						onChange={(_event, ver) => {
+							handleVersionChange(ver);
+						}}
+						placeholder="Choose a version..."
+						renderOption={(props, option) => (
+							<Box component="li" {...props}>
+								<VersionSelectItem
+									option={option}
+									isRecommended={option.value === recommendedVersion}
+								/>
+							</Box>
+						)}
+						renderInput={({ InputProps, ...params }) => (
+							<TextField
+								{...params}
+								slotProps={{
+									input: {
 										...InputProps,
 										endAdornment: (
 											<>
@@ -346,50 +344,46 @@ export const ImageForm = memo(function ImageForm({
 												{InputProps.endAdornment}
 											</>
 										),
-									}}
-								/>
-							)}
-							disableClearable
-						/>
-					</Box>
-					{showAllVersionsToggle && (
-						<Box
-							mx={2}
-							display="flex"
-							alignItems="center"
-							alignSelf="flex-end"
-							// TODO: find a better way to center the checkbox with the input only (without label)
-							height={54}
-						>
-							<FormControlLabel
-								control={
-									<Checkbox
-										id="e2e-show-all-versions-check"
-										checked={showAllVersions}
-										onChange={handleShowAllVersions}
-									/>
-								}
-								label="Show outdated versions"
+									},
+								}}
+								label="OS version"
 							/>
-						</Box>
-					)}
-				</Box>
-			)}
-			{(!isInitialDefault || !variant) && (
-				<Box sx={{ mt: 3 }}>
-					<VariantSelector
-						version={version}
-						variant={variant}
-						onVariantChange={(v) => {
-							handleVariantChange(v ? 'dev' : 'prod');
-						}}
+						)}
+						disableClearable
+						sx={{ flex: 1 }}
 					/>
-				</Box>
+					{showAllVersionsToggle && (
+						<FormControlLabel
+							control={
+								<Checkbox
+									id="e2e-show-all-versions-check"
+									checked={showAllVersions}
+									onChange={handleShowAllVersions}
+								/>
+							}
+							label="Show outdated versions"
+							// TODO: Find a better way to center the checkbox with the input only (without the label)
+							sx={{ mt: 3 }}
+						/>
+					)}
+				</Stack>
 			)}
-			<Divider variant="fullWidth" sx={{ my: 3, borderStyle: 'dashed' }} />
-			<Box display="flex" flexDirection="column">
+			<Divider variant="fullWidth" flexItem sx={{ borderStyle: 'dashed' }} />
+			{(!isInitialDefault || !variant) && (
+				<VariantSelector
+					version={version}
+					variant={variant}
+					onVariantChange={(v) => {
+						handleVariantChange(v ? 'dev' : 'prod');
+					}}
+				/>
+			)}
+			<Divider variant="fullWidth" flexItem sx={{ borderStyle: 'dashed' }} />
+			<Stack>
 				<FormControl>
-					<FormLabel id="network-radio-buttons-group-label">Network</FormLabel>
+					<FormLabel id="network-radio-buttons-group-label">
+						<Typography variant="titleSm">Network</Typography>
+					</FormLabel>
 					<RadioGroup
 						aria-labelledby="network-radio-buttons-group-label"
 						value={model.network}
@@ -411,10 +405,7 @@ export const ImageForm = memo(function ImageForm({
 					</RadioGroup>
 				</FormControl>
 				{model.network === 'wifi' && (
-					<>
-						<InputLabel htmlFor="device-wifi-ssid" sx={{ mb: 2 }}>
-							WiFi SSID
-						</InputLabel>
+					<Stack gap={3}>
 						<TextField
 							value={model.wifiSsid}
 							id="device-wifi-ssid"
@@ -427,10 +418,8 @@ export const ImageForm = memo(function ImageForm({
 							onChange={(event) => {
 								onChange('wifiSsid', event.target.value);
 							}}
+							label="WiFi SSID"
 						/>
-						<InputLabel htmlFor="device-wifi-password" sx={{ my: 2 }}>
-							Wifi Passphrase
-						</InputLabel>
 						<TextField
 							type={showPassword ? 'text' : 'password'}
 							id="device-wifi-password"
@@ -463,57 +452,68 @@ export const ImageForm = memo(function ImageForm({
 							onChange={(event) => {
 								onChange('wifiKey', event.target.value);
 							}}
+							label="Wifi Passphrase"
 						/>
-					</>
+					</Stack>
 				)}
-			</Box>
-			<Divider variant="fullWidth" sx={{ my: 3, borderStyle: 'dashed' }} />
-			<Button
-				onClick={() => {
+			</Stack>
+			<Divider variant="fullWidth" sx={{ borderStyle: 'dashed' }} />
+			<Accordion
+				disableGutters
+				elevation={0}
+				expanded={showAdvancedSettings}
+				onChange={() => {
 					setShowAdvancedSettings(!showAdvancedSettings);
 				}}
-				variant="outlined"
-				sx={{ mb: 2 }}
+				sx={{
+					border: 'none',
+					'&::before': {
+						display: 'none',
+					},
+					[`& .${accordionSummaryClasses.expandIconWrapper}.${accordionSummaryClasses.expanded}`]:
+						{
+							transform: 'rotate(90deg)',
+						},
+				}}
 			>
-				{showAdvancedSettings ? <RemoveIcon /> : <AddIcon />} Advanced settings
-			</Button>
-			<Collapse in={showAdvancedSettings} collapsedSize={0}>
-				<Box display="flex" flexDirection="column">
-					<FormControl>
-						<FormLabel htmlFor="poll-interval-label" sx={{ display: 'flex' }}>
-							Check for updates every X minutes{' '}
-							<MUILinkWithTracking
-								href={POLL_INTERVAL_DOCS}
-								sx={{
-									display: 'flex',
-									alignItems: 'center',
-									height: '1.5rem',
-								}}
-							>
-								<ArticleIcon sx={{ ml: 1, fontSize: '1.15rem' }} />
-							</MUILinkWithTracking>
-						</FormLabel>
-						<TextField
-							id="poll-interval-label"
-							aria-labelledby="poll-interval-label"
-							value={model.appUpdatePollInterval}
-							slotProps={{
-								htmlInput: {
-									name: 'appUpdatePollInterval',
-									autoComplete: 'appUpdatePollInterval-auto-complete',
-								},
-							}}
-							onChange={(event) => {
-								onChange('appUpdatePollInterval', event.target.value);
-							}}
-						/>
-					</FormControl>
-					<InputLabel htmlFor="provision-key-name" sx={{ my: 2 }}>
-						Provisioning Key name
-					</InputLabel>
+				<AccordionSummary
+					expandIcon={<FontAwesomeIcon icon={faChevronRight} />}
+					sx={{ flexDirection: 'row-reverse', gap: 2 }}
+				>
+					<Typography variant="titleSm">Advanced settings</Typography>
+				</AccordionSummary>
+				<AccordionDetails
+					sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}
+				>
+					<TextField
+						value={model.appUpdatePollInterval}
+						slotProps={{
+							htmlInput: {
+								name: 'appUpdatePollInterval',
+								autoComplete: 'appUpdatePollInterval-auto-complete',
+							},
+						}}
+						onChange={(event) => {
+							onChange('appUpdatePollInterval', event.target.value);
+						}}
+						label={
+							<Stack direction="row" alignItems="center" gap={1}>
+								Check for updates every X minutes{' '}
+								<MUILinkWithTracking
+									href={POLL_INTERVAL_DOCS}
+									sx={{
+										display: 'flex',
+										alignItems: 'center',
+										height: '1.5rem',
+									}}
+								>
+									<ArticleIcon sx={{ ml: 1, fontSize: '1.15rem' }} />
+								</MUILinkWithTracking>
+							</Stack>
+						}
+					/>
 					<TextField
 						name="provisioningKeyName"
-						id="provision-key-name"
 						value={model.provisioningKeyName ?? ''}
 						slotProps={{
 							htmlInput: {
@@ -524,13 +524,10 @@ export const ImageForm = memo(function ImageForm({
 						onChange={(event) => {
 							onChange('provisioningKeyName', event.target.value);
 						}}
+						label="Provisioning Key name"
 					/>
-					<InputLabel htmlFor="provision-key-expiring" sx={{ my: 2 }}>
-						Provisioning Key expiring on
-					</InputLabel>
 					<TextField
 						type="date"
-						id="provision-key-expiring"
 						value={model.provisioningKeyExpiryDate ?? ''}
 						slotProps={{
 							htmlInput: {
@@ -541,10 +538,11 @@ export const ImageForm = memo(function ImageForm({
 						onChange={(event) => {
 							onChange('provisioningKeyExpiryDate', event.target.value);
 						}}
+						label="Provisioning Key expiring on"
 					/>
-				</Box>
-			</Collapse>
-		</Box>
+				</AccordionDetails>
+			</Accordion>
+		</Stack>
 	);
 });
 
