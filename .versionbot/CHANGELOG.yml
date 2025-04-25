@@ -1,4 +1,16 @@
 - commits:
+    - subject: "DownloadImageDialog: Fix the variant selection for non-unified OS
+        releases"
+      hash: 27d9e11156ba31dbdeb0e30f51debaf0e6789b13
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Thodoris Greasidis
+  version: 12.3.4
+  title: ""
+  date: 2025-04-25T09:05:52.869Z
+- commits:
     - subject: "RJST: Make primary columns bold by default"
       hash: af8b5c7c8d49b0bb8367062650a4b12e8cec1d2c
       body: ""
