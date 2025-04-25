@@ -86,10 +86,11 @@ interface ImageFormProps {
 	model: DownloadImageFormModel;
 	hasEsrVersions?: boolean;
 	onSelectedOsTypeChange: (osType: string) => void;
-	onChange: (
-		key: keyof DownloadImageFormModel,
-		value: DownloadImageFormModel[keyof DownloadImageFormModel],
-	) => void;
+	// onChange needs to be passing a complete object of changes
+	// since when having multipele onChange call, the subsequent ones
+	// can have issues b/c of still using the original state, before the
+	// previous onChange calls.
+	onChange: (obj: Partial<DownloadImageFormModel>) => void;
 }
 
 export const ImageForm = memo(function ImageForm({
@@ -126,11 +127,23 @@ export const ImageForm = memo(function ImageForm({
 	);
 
 	const handleVariantChange = useCallback(
-		(v: typeof variant) => {
-			setVariant(v);
-			onChange('developmentMode', v === 'dev');
+		(newVariant: typeof variant) => {
+			setVariant(newVariant);
+			const newState: Partial<DownloadImageFormModel> = {
+				developmentMode: newVariant === 'dev',
+			};
+			// For non-unified OS releases (ones w/ separate prod & dev releases)
+			// we also need to update raw version string, since it's different
+			// depending on the variant selected.
+			if (version?.hasPrebuiltVariants) {
+				const rawVersionForVariant = version.rawVersions[newVariant];
+				if (rawVersionForVariant != null) {
+					newState.version = rawVersionForVariant;
+				}
+			}
+			onChange(newState);
 		},
-		[onChange],
+		[onChange, version],
 	);
 
 	const handleVersionChange = useCallback(
@@ -138,17 +151,22 @@ export const ImageForm = memo(function ImageForm({
 			ver ??=
 				versionSelectionOpts.find((v) => v.isRecommended) ??
 				versionSelectionOpts[0];
+			const newState: Partial<DownloadImageFormModel> = {
+				developmentMode: variant === 'dev',
+			};
 			if (ver?.hasPrebuiltVariants) {
+				// For non-unified OS releases (ones w/ separate prod & dev releases)
+				// we need to set the correct raw version string based on the selected variant.
 				const rawVersionForVariant = ver.rawVersions[variant];
-				if (rawVersionForVariant) {
-					onChange('version', rawVersionForVariant);
-					setVersion(ver);
-				} else {
+				if (!rawVersionForVariant) {
 					handleVariantChange(variant === 'dev' ? 'prod' : 'dev');
+					return;
 				}
-				return;
+				newState.version = rawVersionForVariant;
+			} else {
+				newState.version = ver?.rawVersion;
 			}
-			onChange('version', ver?.rawVersion);
+			onChange(newState);
 			setVersion(ver);
 		},
 		[versionSelectionOpts, variant, onChange, handleVariantChange],
@@ -195,7 +213,7 @@ export const ImageForm = memo(function ImageForm({
 			if (!newDeviceType) {
 				return;
 			}
-			onChange('deviceType', newDeviceType);
+			onChange({ deviceType: newDeviceType });
 		},
 		[compatibleDeviceTypes, model.deviceType.slug, onChange],
 	);
@@ -389,7 +407,10 @@ export const ImageForm = memo(function ImageForm({
 						value={model.network}
 						name="network"
 						onChange={(event) => {
-							onChange('network', event.target.value);
+							onChange({
+								network: event.target
+									.value as DownloadImageFormModel['network'],
+							});
 						}}
 					>
 						<FormControlLabel
@@ -416,7 +437,7 @@ export const ImageForm = memo(function ImageForm({
 								},
 							}}
 							onChange={(event) => {
-								onChange('wifiSsid', event.target.value);
+								onChange({ wifiSsid: event.target.value });
 							}}
 							label="WiFi SSID"
 						/>
@@ -450,7 +471,7 @@ export const ImageForm = memo(function ImageForm({
 								},
 							}}
 							onChange={(event) => {
-								onChange('wifiKey', event.target.value);
+								onChange({ wifiKey: event.target.value });
 							}}
 							label="Wifi Passphrase"
 						/>
@@ -494,7 +515,9 @@ export const ImageForm = memo(function ImageForm({
 							},
 						}}
 						onChange={(event) => {
-							onChange('appUpdatePollInterval', event.target.value);
+							onChange({
+								appUpdatePollInterval: parseInt(event.target.value, 10),
+							});
 						}}
 						label={
 							<Stack direction="row" alignItems="center" gap={1}>
@@ -522,7 +545,7 @@ export const ImageForm = memo(function ImageForm({
 							},
 						}}
 						onChange={(event) => {
-							onChange('provisioningKeyName', event.target.value);
+							onChange({ provisioningKeyName: event.target.value });
 						}}
 						label="Provisioning Key name"
 					/>
@@ -536,7 +559,7 @@ export const ImageForm = memo(function ImageForm({
 							},
 						}}
 						onChange={(event) => {
-							onChange('provisioningKeyExpiryDate', event.target.value);
+							onChange({ provisioningKeyExpiryDate: event.target.value });
 						}}
 						label="Provisioning Key expiring on"
 					/>

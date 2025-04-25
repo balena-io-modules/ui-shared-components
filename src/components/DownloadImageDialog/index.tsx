@@ -417,19 +417,16 @@ export const DownloadImageDialog = ({
 	}, []);
 
 	const handleChange = useCallback(
-		(
-			key: keyof DownloadImageFormModel,
-			value: DownloadImageFormModel[keyof DownloadImageFormModel],
-		) => {
+		(updatedProps: Partial<DownloadImageFormModel>) => {
 			let newFormModelState: DownloadImageFormModel;
-			if (key === 'deviceType') {
+			if (updatedProps.deviceType != null) {
 				newFormModelState = getInitialState(
-					value as DeviceType,
+					updatedProps.deviceType,
 					applicationId,
 					releaseId,
 				);
 			} else {
-				newFormModelState = { ...formModel, [key]: value };
+				newFormModelState = { ...formModel, ...updatedProps };
 				onFieldChange?.(newFormModelState);
 			}
 			setFormModel(newFormModelState);
