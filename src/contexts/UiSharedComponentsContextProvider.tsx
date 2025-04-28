@@ -1,6 +1,6 @@
 import { createContext } from 'react';
 import type { TFunction } from '../hooks/useTranslations';
-import type { NavigateFunction } from 'react-router-dom';
+import type { NavigateFunction } from 'react-router';
 export interface UiSharedComponentsContextProviderInterface {
 	navigate?: NavigateFunction;
 	t?: TFunction;

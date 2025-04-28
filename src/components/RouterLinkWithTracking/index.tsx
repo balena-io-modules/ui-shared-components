@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom';
-import type { LinkProps } from 'react-router-dom';
+import { Link } from 'react-router';
+import type { LinkProps } from 'react-router';
 import { useAnalyticsContext } from '../../contexts/AnalyticsContext';
 export interface RouterLinkWithTrackingProps extends LinkProps {
 	eventName?: string;
