@@ -1,4 +1,15 @@
 - commits:
+    - subject: Update `analytics-client`
+      hash: 5546a9c54cdc8c12937aee6fbda4b65ab4f9232e
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: myarmolinsky
+  version: 12.3.5
+  title: ""
+  date: 2025-04-29T21:17:56.844Z
+- commits:
     - subject: "DownloadImageDialog: Fix the variant selection for non-unified OS
         releases"
       hash: 27d9e11156ba31dbdeb0e30f51debaf0e6789b13
