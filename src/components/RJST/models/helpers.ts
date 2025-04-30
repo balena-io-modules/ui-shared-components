@@ -58,7 +58,7 @@ export const rjstRunTransformers = <
 // This transformation would happen elsewhere, and it wouldn't be part of RJST
 export const rjstGetModelForCollection = <T>(
 	model: RJSTRawModel<T>,
-	context?: { accessRole?: string | null },
+	context?: { accessRole?: string[] | null },
 ): RJSTModel<T> => {
 	const accessRole = context?.accessRole;
 	const schema = model.priorities
@@ -70,9 +70,10 @@ export const rjstGetModelForCollection = <T>(
 		: model.schema;
 	return {
 		...model,
-		permissions:
-			(accessRole != null && model.permissions[accessRole]) ||
+		permissions: (!!accessRole?.length &&
+			accessRole.map((a) => model.permissions[a])) || [
 			model.permissions['default'],
+		],
 		schema,
 	};
 };

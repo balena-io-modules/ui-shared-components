@@ -43,7 +43,7 @@ export interface RJSTRawModel<T> {
 export interface RJSTModel<T> {
 	resource: string;
 	schema: JSONSchema;
-	permissions: Permissions<T>;
+	permissions: Array<Permissions<T>>;
 	priorities?: Priorities<T>;
 }
 
