@@ -11,7 +11,7 @@ import type { PineFilterObject } from './oData/jsonToOData';
 
 export interface RJSTBaseResource<T> {
 	id: number;
-	__permissions: Permissions<T>;
+	__permissions: Array<Permissions<T>>;
 }
 
 type XHeaderLink = {

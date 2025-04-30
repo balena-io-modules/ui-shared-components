@@ -57,7 +57,7 @@ export const model: RJSTRawModel<AugmentedSshKey> = {
 };
 
 export const transformers = {
-	__permissions: () => model.permissions.administrator,
+	__permissions: () => [model.permissions.administrator],
 };
 
 export const dataExample = [

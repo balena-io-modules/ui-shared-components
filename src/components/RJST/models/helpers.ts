@@ -71,9 +71,9 @@ export const rjstGetModelForCollection = <T>(
 	return {
 		...model,
 		permissions: (!!accessRole?.length &&
-			accessRole.map((a) => model.permissions[a])) || [
-			model.permissions['default'],
-		],
+			accessRole.map(
+				(a) => model.permissions[a] ?? model.permissions['default'],
+			)) || [model.permissions['default']],
 		schema,
 	};
 };
