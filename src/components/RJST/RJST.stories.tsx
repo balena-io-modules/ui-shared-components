@@ -76,7 +76,7 @@ const demoData = [
 
 const transformers = {
 	__permissions: () => {
-		return demoModel.permissions['default'];
+		return [demoModel.permissions['default']];
 	},
 };
 
