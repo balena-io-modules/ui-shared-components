@@ -90,7 +90,7 @@ export const getTagsDisabledReason = async <T extends RJSTBaseResource<T>>(
 };
 
 export const getCreateDisabledReason = <T extends RJSTBaseResource<T>>(
-	permissions: Permissions<T>,
+	permissions: Array<Permissions<T>>,
 	hasOngoingAction: boolean,
 	t: TFunction,
 ) => {
@@ -98,7 +98,10 @@ export const getCreateDisabledReason = <T extends RJSTBaseResource<T>>(
 		return t('info.ongoing_action_wait');
 	}
 
-	if (!permissions.create?.length) {
+	if (
+		!permissions.length ||
+		!permissions.filter((p) => p.create?.length).length
+	) {
 		return t('info.create_item_no_permissions', { resource: 'item' });
 	}
 };
