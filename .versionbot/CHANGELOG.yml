@@ -1,4 +1,16 @@
 - commits:
+    - subject: "Experiment: Allow column reordering with
+        `reducedDefaultDeviceColumnsAndReordering` feature flag"
+      hash: 7cd55b8b9398cc6695de49afbaafc0962f269cb9
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: myarmolinsky
+  version: 12.3.6
+  title: ""
+  date: 2025-05-01T19:02:40.048Z
+- commits:
     - subject: Update `analytics-client`
       hash: 5546a9c54cdc8c12937aee6fbda4b65ab4f9232e
       body: ""
