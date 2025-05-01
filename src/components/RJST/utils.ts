@@ -76,10 +76,11 @@ export const getTagsDisabledReason = async <T extends RJSTBaseResource<T>>(
 		tagsSdk && 'canAccess' in tagsSdk
 			? !(await tagsSdk.canAccess({ checkedState, selected }))
 			: selected?.some((entry) => {
-					return (
-						!entry.__permissions.delete &&
-						!entry.__permissions.create.includes(tagField) &&
-						!entry.__permissions.update.includes(tagField)
+					return !entry.__permissions.some(
+						(p) =>
+							p.delete ||
+							p.create.includes(tagField) ||
+							p.update.includes(tagField),
 					);
 				});
 
@@ -90,7 +91,7 @@ export const getTagsDisabledReason = async <T extends RJSTBaseResource<T>>(
 };
 
 export const getCreateDisabledReason = <T extends RJSTBaseResource<T>>(
-	permissions: Permissions<T>,
+	permissions: Array<Permissions<T>>,
 	hasOngoingAction: boolean,
 	t: TFunction,
 ) => {
@@ -98,7 +99,10 @@ export const getCreateDisabledReason = <T extends RJSTBaseResource<T>>(
 		return t('info.ongoing_action_wait');
 	}
 
-	if (!permissions.create?.length) {
+	if (
+		!permissions.length ||
+		!permissions.filter((p) => p.create?.length).length
+	) {
 		return t('info.create_item_no_permissions', { resource: 'item' });
 	}
 };
@@ -123,10 +127,11 @@ export const rjstGetDisabledReason = <T extends RJSTBaseResource<T>>(
 	}
 
 	const lacksPermissionsOnSelected = selected.some((entry) => {
-		return (
-			!entry.__permissions[actionType] ||
-			(Array.isArray(entry.__permissions[actionType]) &&
-				(entry.__permissions[actionType] as Array<keyof T>).length <= 0)
+		return entry.__permissions.every(
+			(p) =>
+				!p[actionType] ||
+				(Array.isArray(p[actionType]) &&
+					(p[actionType] as Array<keyof T>).length <= 0),
 		);
 	});
 

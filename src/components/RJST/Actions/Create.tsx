@@ -72,7 +72,7 @@ export const Create = <T extends RJSTBaseResource<T>>({
 							action,
 							schema: rjstJsonSchemaPick(
 								model.schema,
-								model.permissions.create,
+								model.permissions.flatMap((p) => p.create),
 							),
 						});
 					}}

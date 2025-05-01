@@ -123,7 +123,10 @@ export const Update = <T extends RJSTBaseResource<T>>({
 								? {}
 								: rjstJsonSchemaPick(
 										model.schema,
-										model.permissions[action.type],
+										model.permissions.flatMap(
+											// TODO: Why is this cast necessary?
+											(p) => p[action.type] as Array<keyof T>,
+										),
 									),
 						affectedEntries: selected,
 					});
@@ -189,7 +192,10 @@ export const Update = <T extends RJSTBaseResource<T>>({
 										? {}
 										: rjstJsonSchemaPick(
 												model.schema,
-												model.permissions[action.type],
+												model.permissions.flatMap(
+													// TODO: Why is this cast necessary?
+													(p) => p[action.type] as Array<keyof T>,
+												),
 											),
 								affectedEntries: selected,
 							});
