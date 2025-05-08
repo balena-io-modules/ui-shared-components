@@ -33,7 +33,7 @@ export interface WidgetProps<T extends object = object> {
 	schema: JSONSchema | undefined;
 	extraFormats?: Format[];
 	uiSchema?: UiSchema;
-	resource?: T;
+	resource: T;
 }
 
 export interface Widget<T extends object = object, ExtraProps = object> {
