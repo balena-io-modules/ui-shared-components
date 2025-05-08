@@ -836,7 +836,7 @@ const getColumnsFromSchema = <T extends RJSTBaseResource<T>>({
 							extraFormats={[...(formats ?? []), ...defaultFormats]}
 							schema={widgetSchema}
 							value={calculatedField}
-							extraContext={entry}
+							resource={entry}
 						/>
 					);
 				},
