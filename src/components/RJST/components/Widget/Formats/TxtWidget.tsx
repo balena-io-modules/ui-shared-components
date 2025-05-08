@@ -2,7 +2,7 @@ import get from 'lodash/get';
 import invokeMap from 'lodash/invokeMap';
 import isArray from 'lodash/isArray';
 import type { UiSchema, Value } from '../utils';
-import { UiOption, JsonTypes, widgetFactory, formatTimestamp } from '../utils';
+import { JsonTypes, widgetFactory, formatTimestamp } from '../utils';
 import { Truncate } from '../../../../Truncate';
 import { Typography } from '@mui/material';
 
@@ -22,29 +22,14 @@ const getArrayValue = (value: Value[], uiSchema?: UiSchema): string | null => {
 
 const DATE_TIME_FORMATS = ['date-time', 'date', 'time'];
 
-const TxtWidget = widgetFactory(
-	'Txt',
-	{
-		dtFormat: UiOption.string,
-		align: {
-			...UiOption.string,
-			enum: ['inherit', 'left', 'center', 'right', 'justify'],
-		},
-		gutterBottom: UiOption.bolean,
-		noWrap: UiOption.boolean,
-		paragraph: UiOption.boolean,
-		sx: UiOption.object,
-		variant: UiOption.string,
-	},
-	[
-		JsonTypes.string,
-		JsonTypes.null,
-		JsonTypes.integer,
-		JsonTypes.number,
-		JsonTypes.boolean,
-		JsonTypes.array,
-	],
-)(({ value, schema, uiSchema }) => {
+const TxtWidget = widgetFactory('Txt', [
+	JsonTypes.string,
+	JsonTypes.null,
+	JsonTypes.integer,
+	JsonTypes.number,
+	JsonTypes.boolean,
+	JsonTypes.array,
+])(({ value, schema, uiSchema }) => {
 	let displayValue = isArray(value)
 		? getArrayValue(value as Array<Exclude<typeof value, any[]>>, uiSchema)
 		: value?.toString();

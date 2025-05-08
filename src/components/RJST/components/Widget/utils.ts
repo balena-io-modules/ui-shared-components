@@ -33,14 +33,14 @@ export interface WidgetProps<T extends object = object> {
 	schema: JSONSchema | undefined;
 	extraFormats?: Format[];
 	uiSchema?: UiSchema;
-	extraContext?: T;
+	resource: T;
 }
 
-export interface Widget<T extends object = object, ExtraProps = object> {
-	uiOptions?: UiOptions;
+export interface Widget<T extends object = object> {
+	uiOptions?: Record<string, JSONSchema>;
 	supportedTypes?: string[];
 	displayName: string;
-	(props: WidgetProps<T> & ExtraProps): JSX.Element | null;
+	(props: WidgetProps<T>): JSX.Element | null;
 }
 
 /* eslint-disable id-denylist	*/
@@ -65,50 +65,24 @@ export interface JsonTypesTypeMap {
 	null: null;
 }
 
-export type UiOptions = {
-	[key: string]: JSONSchema;
-};
-
-// Convenience object for common UI option schemas
-export const UiOption: UiOptions = {
-	string: {
-		type: 'string',
-	},
-	boolean: {
-		type: 'boolean',
-	},
-	number: {
-		type: 'number',
-	},
-	integer: {
-		type: 'integer',
-	},
-	object: {
-		type: 'object',
-	},
-};
-
 // TODO: Replace the HOF with a plain function once TS supports optional generic types
 // See: https://github.com/microsoft/TypeScript/issues/14400
 // TODO: convert the fn args to an object once we bump TS
 export const widgetFactory = <ST extends Array<keyof JsonTypesTypeMap>>(
 	displayName: string,
-	uiOptions: Widget['uiOptions'],
 	supportedTypes: ST,
 ) => {
 	return <
 		T extends object,
-		ExtraProps extends object = object,
 		V extends WidgetProps['value'] | null = JsonTypesTypeMap[ST[number]],
 	>(
 		widgetFn: (
-			props: Overwrite<WidgetProps<T>, { value: V }> & ExtraProps,
+			props: Overwrite<WidgetProps<T>, { value: V }>,
 		) => JSX.Element | null,
-	): Widget<T, ExtraProps> => {
-		const widget = widgetFn as Widget<T, ExtraProps>;
+	): Widget<T> => {
+		const widget = widgetFn as Widget<T>;
 		Object.assign(widget, {
 			displayName,
-			uiOptions,
 			supportedTypes,
 		});
 		return widget;

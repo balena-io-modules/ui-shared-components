@@ -44,7 +44,7 @@ const getWidget = (
 
 export const Widget = ({
 	value,
-	extraContext,
+	resource,
 	schema = {},
 	extraFormats,
 	uiSchema,
@@ -71,7 +71,7 @@ export const Widget = ({
 
 	return (
 		<WidgetComponent
-			extraContext={extraContext}
+			resource={resource}
 			value={processedValue ?? null}
 			schema={schema}
 		/>

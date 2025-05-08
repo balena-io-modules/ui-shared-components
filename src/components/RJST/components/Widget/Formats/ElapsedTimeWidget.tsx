@@ -1,20 +1,11 @@
-import {
-	UiOption,
-	JsonTypes,
-	widgetFactory,
-	formatTimestamp,
-	timeSince,
-} from '../utils';
+import { JsonTypes, widgetFactory, formatTimestamp, timeSince } from '../utils';
 import { Material, Tooltip } from '../../../../..';
 const { Typography } = Material;
 
-export const ElapsedTimeWidget = widgetFactory(
-	'ElapsedTime',
-	{
-		dtFormat: UiOption.string,
-	},
-	[JsonTypes.string, JsonTypes.number],
-)(({ value }) => {
+export const ElapsedTimeWidget = widgetFactory('ElapsedTime', [
+	JsonTypes.string,
+	JsonTypes.number,
+])(({ value }) => {
 	if (!value) {
 		return null;
 	}
