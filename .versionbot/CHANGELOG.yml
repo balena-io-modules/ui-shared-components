@@ -1,4 +1,15 @@
 - commits:
+    - subject: Update analytics-client
+      hash: 6b8cf9432503cac0bfcb6b98a0ec068fdda82c36
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Jonathan Berger
+  version: 12.3.7
+  title: ""
+  date: 2025-05-13T14:15:38.761Z
+- commits:
     - subject: "Experiment: Allow column reordering with
         `reducedDefaultDeviceColumnsAndReordering` feature flag"
       hash: 7cd55b8b9398cc6695de49afbaafc0962f269cb9
