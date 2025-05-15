@@ -55,6 +55,8 @@ export const rjstRunTransformers = <
 	return mutatedData;
 };
 
+// TODO: Drop me in the next major
+/** @deprecated This function will be removed in the next major. Use rjstGetModelForCollection2 instead */
 // This transformation would happen elsewhere, and it wouldn't be part of RJST
 export const rjstGetModelForCollection = <T>(
 	model: RJSTRawModel<T>,
