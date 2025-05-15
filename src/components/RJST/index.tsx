@@ -33,6 +33,7 @@ import { Create } from './Actions/Create';
 import {
 	rjstDefaultPermissions,
 	rjstGetModelForCollection,
+	rjstGetModelForCollection2,
 	rjstRunTransformers,
 } from './models/helpers';
 import {
@@ -640,6 +641,7 @@ export {
 	rjstRunTransformers,
 	rjstDefaultPermissions,
 	rjstGetModelForCollection,
+	rjstGetModelForCollection2,
 	rjstAddToSchema,
 	type RJSTAction,
 	type RJSTBaseResource,

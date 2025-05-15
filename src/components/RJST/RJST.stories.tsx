@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import type { RJSTRawModel } from '.';
 import {
 	RJST,
-	rjstGetModelForCollection,
+	rjstGetModelForCollection2 as rjstGetModelForCollection,
 	rjstRunTransformers,
 	type RJSTProps,
 } from '.';
@@ -87,7 +87,10 @@ const SimpleRjstTemplate = ({
 }: Omit<RJSTProps<any>, 'model'>) => {
 	const queryClient = new QueryClient();
 	const memoizedModel = React.useMemo(() => {
-		return rjstGetModelForCollection(demoModel);
+		return rjstGetModelForCollection(
+			demoModel,
+			demoModel.permissions['default'],
+		);
 	}, []);
 
 	const memoizedData = React.useMemo(() => {
