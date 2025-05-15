@@ -1,5 +1,5 @@
 import isEmpty from 'lodash/isEmpty';
-import type { RJSTModel, RJSTRawModel } from '../schemaOps';
+import type { Permissions, RJSTModel, RJSTRawModel } from '../schemaOps';
 import { rjstJsonSchemaPick } from '../schemaOps';
 
 type Transformers<
@@ -73,6 +73,25 @@ export const rjstGetModelForCollection = <T>(
 		permissions:
 			(accessRole != null && model.permissions[accessRole]) ||
 			model.permissions['default'],
+		schema,
+	};
+};
+
+// This transformation would happen elsewhere, and it wouldn't be part of RJST
+export const rjstGetModelForCollection2 = <T>(
+	model: RJSTRawModel<T>,
+	permissions: Permissions<T>,
+): RJSTModel<T> => {
+	const schema = model.priorities
+		? rjstJsonSchemaPick(model.schema, [
+				...model.priorities.primary,
+				...model.priorities.secondary,
+				...model.priorities.tertiary,
+			])
+		: model.schema;
+	return {
+		...model,
+		permissions,
 		schema,
 	};
 };
