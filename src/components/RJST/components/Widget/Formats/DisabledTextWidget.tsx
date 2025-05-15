@@ -3,7 +3,7 @@ import { useTranslation } from '../../../../../hooks/useTranslations';
 import { JsonTypes, widgetFactory } from '../utils';
 import { token } from '../../../../../utils/token';
 
-export const DisabledTextWidget = widgetFactory('DisabledText', {}, [
+export const DisabledTextWidget = widgetFactory('DisabledText', [
 	JsonTypes.string,
 	JsonTypes.number,
 	JsonTypes.null,
