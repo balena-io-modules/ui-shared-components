@@ -24,6 +24,14 @@ const DATE_TIME_FORMATS = ['date-time', 'date', 'time'];
 
 const TxtWidget = widgetFactory(
 	'Txt',
+	[
+		JsonTypes.string,
+		JsonTypes.null,
+		JsonTypes.integer,
+		JsonTypes.number,
+		JsonTypes.boolean,
+		JsonTypes.array,
+	],
 	{
 		dtFormat: UiOption.string,
 		align: {
@@ -36,14 +44,6 @@ const TxtWidget = widgetFactory(
 		sx: UiOption.object,
 		variant: UiOption.string,
 	},
-	[
-		JsonTypes.string,
-		JsonTypes.null,
-		JsonTypes.integer,
-		JsonTypes.number,
-		JsonTypes.boolean,
-		JsonTypes.array,
-	],
 )(({ value, schema, uiSchema }) => {
 	let displayValue = isArray(value)
 		? getArrayValue(value as Array<Exclude<typeof value, any[]>>, uiSchema)
