@@ -10,10 +10,10 @@ const { Typography } = Material;
 
 export const ElapsedTimeWidget = widgetFactory(
 	'ElapsedTime',
+	[JsonTypes.string, JsonTypes.number],
 	{
 		dtFormat: UiOption.string,
 	},
-	[JsonTypes.string, JsonTypes.number],
 )(({ value }) => {
 	if (!value) {
 		return null;
