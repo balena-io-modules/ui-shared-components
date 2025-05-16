@@ -45,14 +45,6 @@ export interface OsVersionsByDeviceType {
 	[deviceTypeSlug: string]: OsVersion[];
 }
 
-/** @deprecated the legacy device-type.json format */
-// TODO: Drop me in the next major
-export interface OsSpecificDeviceTypeJsonInstructions {
-	linux: string[];
-	osx: string[];
-	windows: string[];
-}
-
 export type OsSpecificContractInstructions = Record<
 	'Linux' | 'MacOS' | 'Windows',
 	string[]
@@ -95,11 +87,7 @@ export interface DeviceType {
 
 	/** @deprecated */
 	imageDownloadAlerts?: DeviceTypeDownloadAlert[];
-	instructions?:
-		| string[]
-		// TODO: Drop me in the next major
-		| OsSpecificDeviceTypeJsonInstructions
-		| OsSpecificContractInstructions;
+	instructions?: string[] | OsSpecificContractInstructions;
 	// TODO: Drop me in the next major
 	/** @deprecated */
 	options?: DeviceTypeOptions[];
