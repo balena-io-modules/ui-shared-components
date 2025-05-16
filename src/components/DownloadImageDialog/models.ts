@@ -54,31 +54,7 @@ export interface DeviceTypeDownloadAlert {
 	type: string;
 	message: string;
 }
-// TODO: Drop me in the next major
-/** @deprecated */
-export interface DeviceTypeOptions {
-	options: DeviceTypeOptionsGroup[];
-	collapsed: boolean;
-	isCollapsible: boolean;
-	isGroup: boolean;
-	message: string;
-	name: string;
-}
-// TODO: Drop me in the next major
-/** @deprecated */
-export interface DeviceTypeOptionsGroup {
-	default: number | string;
-	message: string;
-	name: string;
-	type: string;
-	min?: number;
-	max?: number;
-	docs?: string;
-	hidden?: boolean;
-	when?: Dictionary<number | string | boolean>;
-	choices?: string[] | number[];
-	choicesLabels?: Dictionary<string>;
-}
+
 export interface DeviceType {
 	slug: string;
 	name: string;
@@ -88,7 +64,4 @@ export interface DeviceType {
 	/** @deprecated */
 	imageDownloadAlerts?: DeviceTypeDownloadAlert[];
 	instructions?: string[] | OsSpecificContractInstructions;
-	// TODO: Drop me in the next major
-	/** @deprecated */
-	options?: DeviceTypeOptions[];
 }
