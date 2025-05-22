@@ -1,4 +1,24 @@
 - commits:
+    - subject: "RJST helpers: Deprecate `rjstGetModelForCollection` in favor of
+        `rjstGetModelForCollection2`"
+      hash: 6ae79750406e23004fd9f41753f8c972ca0546a4
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: myarmolinsky
+    - subject: "RJST helpers: Add `rjstGetModelForCollection2` which accepts
+        permissions instead of accessRole"
+      hash: 3e0500e85401ab7a4189d71b829379bd4e8a593b
+      body: ""
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: myarmolinsky
+  version: 12.4.0
+  title: ""
+  date: 2025-05-22T15:32:26.626Z
+- commits:
     - subject: Update analytics-client
       hash: 6b8cf9432503cac0bfcb6b98a0ec068fdda82c36
       body: ""
