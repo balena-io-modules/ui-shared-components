@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { JsonTypes, widgetFactory } from '../utils';
 import { Box, Typography } from '@mui/material';
 
-export const BooleanAsIconWidget = widgetFactory('BooleanAsIcon', {}, [
+export const BooleanAsIconWidget = widgetFactory('BooleanAsIcon', [
 	JsonTypes.boolean,
 	JsonTypes.number,
 	JsonTypes.null,
