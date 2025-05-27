@@ -56,7 +56,7 @@ export const rjstRunTransformers = <
 };
 
 // This transformation would happen elsewhere, and it wouldn't be part of RJST
-export const rjstGetModelForCollection2 = <T>(
+export const rjstGetModelForCollection = <T>(
 	model: RJSTRawModel<T>,
 	permissions: Permissions<T>,
 ): RJSTModel<T> => {

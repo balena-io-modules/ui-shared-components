@@ -32,7 +32,7 @@ import { Update } from './Actions/Update';
 import { Create } from './Actions/Create';
 import {
 	rjstDefaultPermissions,
-	rjstGetModelForCollection2,
+	rjstGetModelForCollection,
 	rjstRunTransformers,
 } from './models/helpers';
 import {
@@ -639,7 +639,7 @@ export const RJST = <T extends RJSTBaseResource<T>>({
 export {
 	rjstRunTransformers,
 	rjstDefaultPermissions,
-	rjstGetModelForCollection2,
+	rjstGetModelForCollection,
 	rjstAddToSchema,
 	type RJSTAction,
 	type RJSTBaseResource,
