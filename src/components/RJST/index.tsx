@@ -32,7 +32,6 @@ import { Update } from './Actions/Update';
 import { Create } from './Actions/Create';
 import {
 	rjstDefaultPermissions,
-	rjstGetModelForCollection,
 	rjstGetModelForCollection2,
 	rjstRunTransformers,
 } from './models/helpers';
@@ -640,7 +639,6 @@ export const RJST = <T extends RJSTBaseResource<T>>({
 export {
 	rjstRunTransformers,
 	rjstDefaultPermissions,
-	rjstGetModelForCollection,
 	rjstGetModelForCollection2,
 	rjstAddToSchema,
 	type RJSTAction,
