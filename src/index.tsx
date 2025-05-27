@@ -116,7 +116,6 @@ export {
 	type RJSTProps,
 	rjstRunTransformers,
 	rjstDefaultPermissions,
-	rjstGetModelForCollection,
 	rjstGetModelForCollection2,
 	rjstAddToSchema,
 	type RJSTAction,
