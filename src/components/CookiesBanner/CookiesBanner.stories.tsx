@@ -3,7 +3,7 @@ import { Button } from '@mui/material';
 import { removeFromLocalStorage } from '../../utils/storage';
 import type { CookiesBannerProps } from '.';
 import { CookiesBanner } from '.';
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-webpack5';
 
 const CookiesTemplateBanner = ({
 	show,

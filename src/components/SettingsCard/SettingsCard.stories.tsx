@@ -1,5 +1,5 @@
 import { Button, Chip, Link, Stack, Switch, Typography } from '@mui/material';
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-webpack5';
 import { SettingsCard, SettingsCardItem } from '.';
 import { Code } from '../Code';
 

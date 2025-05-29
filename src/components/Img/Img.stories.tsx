@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-webpack5';
 import { Img } from '.';
 // @ts-expect-error Cannot find module '../../../public/images/logo.svg'.
 import logo from '../../../public/images/logo.svg';

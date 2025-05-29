@@ -1,5 +1,5 @@
-import { addons } from '@storybook/manager-api';
-import { create } from '@storybook/theming';
+import { addons } from 'storybook/manager-api';
+import { create } from 'storybook/theming';
 import { color, typography } from '@balena/design-tokens';
 
 import '@balena/design-tokens/build/css/tokens.css';

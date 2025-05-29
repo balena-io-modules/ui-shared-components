@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-webpack5';
 import { RJSForm } from '.';
 import type { RJSFSchema } from '@rjsf/utils';
 
