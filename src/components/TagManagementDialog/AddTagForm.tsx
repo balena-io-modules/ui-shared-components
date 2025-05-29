@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as uuid from 'uuid';
 import type { ResourceTagInfo } from './models';
 import find from 'lodash/find';
 import startsWith from 'lodash/startsWith';
@@ -16,6 +15,7 @@ import {
 	type SimpleConfirmationDialogProps,
 	SimpleConfirmationDialog,
 } from '../SimpleConfirmationDialog';
+import { useRandomUUID } from '../../hooks/useRandomUUID';
 
 const RESERVED_NAMESPACES = ['io.resin.', 'io.balena.'];
 
@@ -75,7 +75,8 @@ export const AddTagForm = <T extends object>({
 
 	const tagKeyInput = React.useRef<HTMLInputElement>(null);
 	const valueInput = React.useRef<HTMLInputElement>(null);
-	const formUuid = `add-tag-form-${uuid.v1()}`;
+	const formId = useRandomUUID();
+	const formUuid = `add-tag-form-${formId}`;
 
 	const checkNewTagValidity = (key: string) => {
 		const failedRule = newTagValidationRules<T>(t, key, existingTags).find(
