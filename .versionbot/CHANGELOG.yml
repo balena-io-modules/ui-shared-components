@@ -1,4 +1,16 @@
 - commits:
+    - subject: Update dependency lint-staged to v16
+      hash: cc5e3c7829bfca985f6beaf9a932081d9bd3eb86
+      body: |
+        Update lint-staged from 15.2.10 to 16.0.0
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: balena-renovate[bot]
+  version: 12.4.2
+  title: ""
+  date: 2025-05-29T18:26:26.177Z
+- commits:
     - subject: Add `qs` as a direct dependency
       hash: e3144c3663dd553c1ab03e825591993c6ffb3a41
       body: ""
