@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-webpack5';
 import { IconButtonWithTracking } from '.';
-import { PersonAddOutlined } from '@mui/icons-material';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUserPlus } from '@fortawesome/free-solid-svg-icons';
 
 const meta = {
 	title: 'Other/IconButton With Tracking',
@@ -15,6 +16,6 @@ export const Default: Story = {
 	args: {
 		eventName: 'Member added',
 		eventProperties: { info: 'more action info' },
-		children: <PersonAddOutlined />,
+		children: <FontAwesomeIcon icon={faUserPlus} />,
 	},
 };
