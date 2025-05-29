@@ -1,4 +1,29 @@
 - commits:
+    - subject: Add `qs` as a direct dependency
+      hash: e3144c3663dd553c1ab03e825591993c6ffb3a41
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: myarmolinsky
+    - subject: "AddTagForm: Use `useRandomUUID` instead of `uuid`"
+      hash: c49b942dae3e332e46bbccd907d73200483b15c1
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: myarmolinsky
+    - subject: Upgrade `storybook` dependencies to v9.0.0
+      hash: 3f40dd1f61c973178d4a4556e37443821e215ac0
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: myarmolinsky
+  version: 12.4.1
+  title: ""
+  date: 2025-05-29T15:00:07.934Z
+- commits:
     - subject: "RJST helpers: Deprecate `rjstGetModelForCollection` in favor of
         `rjstGetModelForCollection2`"
       hash: 6ae79750406e23004fd9f41753f8c972ca0546a4
