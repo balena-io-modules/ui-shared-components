@@ -9,10 +9,11 @@ import {
 	Stack,
 } from '@mui/material';
 import { getOsTypeName } from './utils';
-import ArticleIcon from '@mui/icons-material/Article';
 import { MUILinkWithTracking } from '../MUILinkWithTracking';
 import { OsTypesEnum } from './models';
 import { Chip } from '../Chip';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFileLines } from '@fortawesome/free-solid-svg-icons';
 
 interface OsTypeSelectorProps<T>
 	extends Omit<
@@ -108,7 +109,7 @@ export const OsTypeSelector = ({
 						sx={{ height: 12 }}
 						href="https://www.balena.io/docs/reference/OS/extended-support-release"
 					>
-						<ArticleIcon sx={{ fontSize: '1rem' }} />
+						<FontAwesomeIcon icon={faFileLines} fontSize="1rem" />
 					</MUILinkWithTracking>
 				</InputLabel>
 			</Stack>

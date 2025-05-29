@@ -21,7 +21,6 @@ import {
 	AccordionDetails,
 	accordionSummaryClasses,
 } from '@mui/material';
-import HelpIcon from '@mui/icons-material/Help';
 import { memo, useCallback, useEffect, useMemo, useState } from 'react';
 import type { VersionSelectionOptions } from './version';
 import { getPreferredVersionOpts, transformVersions } from './version';
@@ -29,15 +28,17 @@ import { OsTypeSelector } from './OsTypeSelector';
 import type { BuildVariant } from './VariantSelector';
 import { VariantSelector } from './VariantSelector';
 import type { DownloadImageFormModel } from '.';
-import ArticleIcon from '@mui/icons-material/Article';
+import { faFileLines } from '@fortawesome/free-solid-svg-icons/faFileLines';
 import { MUILinkWithTracking } from '../MUILinkWithTracking';
 import type { DeviceType, Dictionary, OsVersionsByDeviceType } from './models';
-import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { FALLBACK_LOGO_UNKNOWN_DEVICE } from './utils';
 import type { ChipProps } from '../Chip';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
 	faChevronRight,
+	faEye,
+	faEyeSlash,
+	faQuestionCircle,
 	faTriangleExclamation,
 } from '@fortawesome/free-solid-svg-icons';
 import { Callout } from '../Callout';
@@ -262,7 +263,11 @@ export const ImageForm = memo(function ImageForm({
 									<Stack direction="row" alignItems="center" gap={1}>
 										Device type
 										<Tooltip title="Applications can support any devices that share the same architecture as their default device type.">
-											<HelpIcon color="info" sx={{ fontSize: '1rem' }} />
+											<FontAwesomeIcon
+												icon={faQuestionCircle}
+												color="info"
+												fontSize="1rem"
+											/>
 										</Tooltip>
 									</Stack>
 								}
@@ -464,7 +469,11 @@ export const ImageForm = memo(function ImageForm({
 												}}
 												edge="end"
 											>
-												{showPassword ? <VisibilityOff /> : <Visibility />}
+												{showPassword ? (
+													<FontAwesomeIcon icon={faEyeSlash} />
+												) : (
+													<FontAwesomeIcon icon={faEye} />
+												)}
 											</IconButton>
 										</InputAdornment>
 									),
@@ -528,9 +537,10 @@ export const ImageForm = memo(function ImageForm({
 										display: 'flex',
 										alignItems: 'center',
 										height: '1.5rem',
+										gap: 1,
 									}}
 								>
-									<ArticleIcon sx={{ ml: 1, fontSize: '1.15rem' }} />
+									<FontAwesomeIcon icon={faFileLines} fontSize="1.15rem" />
 								</MUILinkWithTracking>
 							</Stack>
 						}
