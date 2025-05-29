@@ -5,8 +5,9 @@ import {
 	TextField,
 } from '@mui/material';
 import { Suspense, lazy, useState } from 'react';
-import { Visibility, VisibilityOff } from '@mui/icons-material';
 import type { WidgetProps } from '@rjsf/utils';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 export interface PasswordStrengthProps {
 	password?: string;
 }
@@ -75,7 +76,11 @@ export const PasswordWidget = ({
 								}}
 								edge="end"
 							>
-								{showPassword ? <VisibilityOff /> : <Visibility />}
+								{showPassword ? (
+									<FontAwesomeIcon icon={faEyeSlash} />
+								) : (
+									<FontAwesomeIcon icon={faEye} />
+								)}
 							</IconButton>
 						</InputAdornment>
 					),

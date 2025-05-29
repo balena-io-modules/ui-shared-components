@@ -10,13 +10,14 @@ import { ButtonWithTracking } from '../ButtonWithTracking';
 import { useAnalyticsContext } from '../../contexts/AnalyticsContext';
 import groupBy from 'lodash/groupBy';
 import flatMap from 'lodash/flatMap';
-import {
-	KeyboardArrowDown,
-	KeyboardArrowUp,
-	ArrowDropDown,
-	ArrowDropUp,
-} from '@mui/icons-material';
 import { Tooltip } from '../Tooltip';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+	faCaretDown,
+	faCaretUp,
+	faChevronDown,
+	faChevronUp,
+} from '@fortawesome/free-solid-svg-icons';
 
 type MenuItemType<T> = MenuItemWithTrackingProps &
 	T & {
@@ -106,7 +107,13 @@ export const DropDownButton = <T extends unknown>({
 					onClick={(event) => {
 						setAnchorEl(event.currentTarget);
 					}}
-					endIcon={anchorEl ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
+					endIcon={
+						anchorEl ? (
+							<FontAwesomeIcon icon={faChevronUp} />
+						) : (
+							<FontAwesomeIcon icon={faChevronDown} />
+						)
+					}
 					{...(buttonProps as ButtonProps)}
 				>
 					{children}
@@ -130,7 +137,11 @@ export const DropDownButton = <T extends unknown>({
 						// It doesn't look good without it, hence the addition.
 						sx={(theme) => ({ pl: 2, pr: `calc(${theme.spacing(2)} + 2px)` })}
 					>
-						{anchorEl ? <ArrowDropUp /> : <ArrowDropDown />}
+						{anchorEl ? (
+							<FontAwesomeIcon icon={faCaretUp} />
+						) : (
+							<FontAwesomeIcon icon={faCaretDown} />
+						)}
 					</Button>
 				</ButtonGroup>
 			)}

@@ -1,7 +1,8 @@
 import { Avatar, Box, Button, Collapse, Typography } from '@mui/material';
 import { useMemo, useState } from 'react';
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCaretDown } from '@fortawesome/free-solid-svg-icons/faCaretDown';
+import { faCaretUp } from '@fortawesome/free-solid-svg-icons/faCaretUp';
 
 export interface CollapsedListProps {
 	list:
@@ -67,7 +68,11 @@ export const CollapsedList = ({
 					}}
 				>
 					{showMore ? 'Less' : 'More'}
-					{showMore ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
+					{showMore ? (
+						<FontAwesomeIcon icon={faCaretUp} />
+					) : (
+						<FontAwesomeIcon icon={faCaretDown} />
+					)}
 				</Button>
 			)}
 		</Box>

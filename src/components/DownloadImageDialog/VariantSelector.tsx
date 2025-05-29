@@ -11,9 +11,10 @@ import {
 import { MUILinkWithTracking } from '../MUILinkWithTracking';
 import { getOsVariantDisplayText } from './utils';
 import type { VersionSelectionOptions } from './version';
-import { Lightbulb } from '@mui/icons-material';
 import { token } from '../../utils/token';
 import { Callout } from '../Callout';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faLightbulb } from '@fortawesome/free-solid-svg-icons';
 
 const variantInfo: (selected: BuildVariant) => {
 	[Key in BuildVariant]: {
@@ -31,7 +32,7 @@ const variantInfo: (selected: BuildVariant) => {
 					alignItems="center"
 					display="flex"
 				>
-					<Lightbulb sx={{ width: 14, height: 14 }} />
+					<FontAwesomeIcon icon={faLightbulb} width={14} height={14} />
 					Recommended for first time users
 				</Typography>
 			</Stack>
