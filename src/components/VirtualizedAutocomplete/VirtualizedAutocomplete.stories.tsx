@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-webpack5';
 import type { VirtualizedAutocompleteWithPaginationProps } from '.';
 import { VirtualizedAutocomplete } from '.';
 import type { AutocompleteRenderInputParams, ChipTypeMap } from '@mui/material';

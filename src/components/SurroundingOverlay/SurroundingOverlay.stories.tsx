@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-webpack5';
 import { SurroundingOverlay, type SurroundingOverlayProps } from '.';
 import { useEffect, useState } from 'react';
 import { Box, Button } from '@mui/material';

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Preview } from '@storybook/react';
+import { Preview } from '@storybook/react-webpack5';
 import { AnalyticsContextProvider } from '../src/contexts/AnalyticsContext';
 import { ScopedCssBaseline, ThemeProvider } from '@mui/material';
 import { theme } from '../src/theme';
