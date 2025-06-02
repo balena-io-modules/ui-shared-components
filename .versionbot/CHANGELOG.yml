@@ -1,4 +1,29 @@
 - commits:
+    - subject: Uninstall unused package @mui/icons-material
+      hash: a0c9aa24b376106a9bb492a3c9d86b417d2ce97e
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Andrea Rosci
+    - subject: Replace Material Icons with FontAwsomeIcons
+      hash: 6b3d0e884b0034ea147540439dc0bf0edd8bce6d
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Andrea Rosci
+    - subject: Remove unused icon
+      hash: df74d24293ca3d8d228bcbc30fa5e0a01bea2914
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Andrea Rosci
+  version: 12.4.3
+  title: ""
+  date: 2025-06-02T14:52:09.125Z
+- commits:
     - subject: Update dependency lint-staged to v16
       hash: cc5e3c7829bfca985f6beaf9a932081d9bd3eb86
       body: |
