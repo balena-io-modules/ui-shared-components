@@ -117,7 +117,6 @@ export {
 	rjstRunTransformers,
 	rjstDefaultPermissions,
 	rjstGetModelForCollection,
-	rjstGetModelForCollection2,
 	rjstAddToSchema,
 	type RJSTAction,
 	type RJSTBaseResource,

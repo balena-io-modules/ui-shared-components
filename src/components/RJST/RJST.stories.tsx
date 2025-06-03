@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react-webpack5';
 import type { RJSTRawModel } from '.';
 import {
 	RJST,
-	rjstGetModelForCollection2 as rjstGetModelForCollection,
+	rjstGetModelForCollection,
 	rjstRunTransformers,
 	type RJSTProps,
 } from '.';

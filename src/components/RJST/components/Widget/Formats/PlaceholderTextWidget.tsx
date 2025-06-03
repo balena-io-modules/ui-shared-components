@@ -2,7 +2,7 @@ import { Typography } from '@mui/material';
 import { JsonTypes, widgetFactory } from '../utils';
 import { token } from '../../../../../utils/token';
 
-export const PlaceholderTextWidget = widgetFactory('PlaceholderText', {}, [
+export const PlaceholderTextWidget = widgetFactory('PlaceholderText', [
 	JsonTypes.string,
 	JsonTypes.number,
 	JsonTypes.null,
