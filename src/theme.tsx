@@ -1024,6 +1024,7 @@ export const theme = createTheme({
 		MuiTooltip: {
 			defaultProps: {
 				arrow: true,
+				disableInteractive: true,
 			},
 			styleOverrides: {
 				tooltip: {
