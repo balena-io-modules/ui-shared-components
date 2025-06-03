@@ -1,4 +1,16 @@
 - commits:
+    - subject: Disable interactivity on all tooltips
+      hash: 4c6afa8fe34475dbe866845c215ceed559700e26
+      body: |
+        Tooltips will now close when the user hovers over it
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Jonathan Berger
+  version: 12.4.4
+  title: ""
+  date: 2025-06-03T12:44:45.838Z
+- commits:
     - subject: Uninstall unused package @mui/icons-material
       hash: a0c9aa24b376106a9bb492a3c9d86b417d2ce97e
       body: ""
