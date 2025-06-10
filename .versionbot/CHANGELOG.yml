@@ -1,4 +1,17 @@
 - commits:
+    - subject: "Form/SelectWidget: Support the placeholder property"
+      hash: 3996098a01cd1b1c137e3ac146a14284e43b9672
+      body: ""
+      footer:
+        Change-type: minor
+        change-type: minor
+        See: https://balena.fibery.io/Work/Project/re-pitching-API-Limit-size-of-large-fields-975
+        see: https://balena.fibery.io/Work/Project/re-pitching-API-Limit-size-of-large-fields-975
+      author: Thodoris Greasidis
+  version: 12.5.0
+  title: ""
+  date: 2025-06-10T13:26:54.555Z
+- commits:
     - subject: Disable interactivity on all tooltips
       hash: 4c6afa8fe34475dbe866845c215ceed559700e26
       body: |
