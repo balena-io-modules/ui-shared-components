@@ -128,6 +128,7 @@ export const SelectWidget = ({
 								...(inputProps ?? {}),
 							},
 						}}
+						placeholder={placeholder}
 						{...(multiple && {
 							onKeyDown: (e) => {
 								// Prevent deleting the last chip with backspace or delete https://github.com/mui/material-ui/issues/21129#issuecomment-636919142
