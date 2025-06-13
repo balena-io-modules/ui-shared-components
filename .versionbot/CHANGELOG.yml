@@ -1,4 +1,15 @@
 - commits:
+    - subject: Run `npm audit fix`
+      hash: d5a3a57f70615195bf88795378832495a6e79667
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Matthew Yarmolinsky
+  version: 12.5.1
+  title: ""
+  date: 2025-06-13T12:47:00.835Z
+- commits:
     - subject: "Form/SelectWidget: Support the placeholder property"
       hash: 3996098a01cd1b1c137e3ac146a14284e43b9672
       body: ""
