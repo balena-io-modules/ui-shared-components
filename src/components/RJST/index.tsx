@@ -88,7 +88,8 @@ export interface NoDataInfo {
 	docsLabel?: string;
 }
 
-export interface RJSTProps<T> extends Omit<BoxProps, 'onChange'> {
+export interface RJSTProps<T, K = Subset<T>>
+	extends Omit<BoxProps, 'onChange'> {
 	/** Model is the property that describe the data to display with a JSON structure */
 	model: RJSTModel<T>;
 	/** Array of data or data entity to display */
@@ -98,7 +99,7 @@ export interface RJSTProps<T> extends Omit<BoxProps, 'onChange'> {
 	/** Actions is an array of actions applicable on the selected items */
 	actions?: Array<RJSTAction<T>>;
 	/** The sdk is used to pass the method to handle tags when added removed or updated */
-	sdk?: RJSTSdk<T>;
+	sdk?: RJSTSdk<T, K>;
 	/** Dictionary of {[column_property]: customFunction} where the customFunction is the function to sort data on column header click */
 	customSort?:
 		| Dictionary<(a: T, b: T) => number>

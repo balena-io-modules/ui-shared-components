@@ -73,9 +73,11 @@ export interface CustomSchemaDescription {
 	'x-no-sort'?: boolean | string[];
 }
 
-export type RJSTTagsSdk<T> =
+export type RJSTTagsSdk<T, K = Subset<T>> =
 	| (ResourceTagModelService & {
-			getAll: (itemsOrFilters: any) => T[] | Promise<T[]>;
+			getAll: (
+				itemsOrFilters: T[] | PineFilterObject,
+			) => T[] | Promise<T[] | K[]>;
 			canAccess: (param: {
 				checkedState?: CheckedState;
 				selected?: T[];
@@ -117,8 +119,8 @@ export interface RJSTAction<T> {
 	isDangerous?: boolean;
 }
 
-export interface RJSTSdk<T> {
-	tags?: RJSTTagsSdk<T>;
+export interface RJSTSdk<T, K = Subset<T>> {
+	tags?: RJSTTagsSdk<T, K>;
 	inputSearch?: (
 		filter?: PineFilterObject,
 	) => Promise<Array<Subset<T>> | null | undefined>;

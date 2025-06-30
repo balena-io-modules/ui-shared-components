@@ -70,7 +70,8 @@ export const Tags = <T extends RJSTBaseResource<T>>({
 				// we are in server side pagination
 				selected == null &&
 				checkedState === 'all' &&
-				getAllTags
+				getAllTags &&
+				internalPineFilter
 			) {
 				return (await getAllTags(internalPineFilter)) ?? null;
 			}
