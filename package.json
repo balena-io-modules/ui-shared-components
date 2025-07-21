@@ -45,6 +45,7 @@
     "react-dom": "^18.2.0",
     "react-dropzone": "^14.2.3",
     "react-helmet": "^6.1.0",
+    "react-is": "^18.2.0",
     "react-markdown": "^10.0.0",
     "react-router-dom": "^6.28.0",
     "remark-breaks": "^4.0.0",
@@ -137,6 +138,7 @@
     "publishedAt": "2025-11-05T12:11:09.761Z"
   },
   "overrides": {
-    "storybook": "$storybook"
+    "storybook": "$storybook",
+    "react-is": "^18.2.0"
   }
 }
