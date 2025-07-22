@@ -1,5 +1,16 @@
 - commits:
     - subject: Run `npm audit fix`
+      hash: 0d1187fb5d608cfa31a31e565c817a12e7b27893
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Matthew Yarmolinsky
+  version: 12.5.2
+  title: ""
+  date: 2025-07-22T06:32:03.466Z
+- commits:
+    - subject: Run `npm audit fix`
       hash: d5a3a57f70615195bf88795378832495a6e79667
       body: ""
       footer:
