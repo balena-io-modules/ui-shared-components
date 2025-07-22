@@ -79,6 +79,7 @@ const ArrayFieldTemplate: React.FC<ArrayFieldTemplateProps> = ({
 								{index !== 0 && (
 									<IconButton
 										aria-label={t('actions.remove_filter')}
+										// @ts-expect-error The typing of the current version of @rjsf/utils does not show that `onDropIndexClick` exists, even though it does
 										onClick={element.onDropIndexClick(element.index)}
 										sx={{ mt: 2 }}
 									>
