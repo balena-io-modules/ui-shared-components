@@ -1323,7 +1323,7 @@ export const theme = createTheme({
 				},
 			},
 		},
-		MuiGrid2: {
+		MuiGrid: {
 			// We should only apply this spacing to Grid components with `container`
 			// But MUI does not currently support that for defaultProps
 			// See: https://github.com/mui/material-ui/issues/34812

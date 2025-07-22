@@ -83,7 +83,7 @@ export const ObjectFieldTemplate = <
 					) : (
 						<Grid
 							item
-							xs={12}
+							size={12}
 							key={index}
 							sx={{ marginBottom: '10px' }}
 							{...(uiSchema?.[element.name]?.['ui:grid']?.item ??
@@ -97,7 +97,7 @@ export const ObjectFieldTemplate = <
 				)}
 				{canExpand<T, S, F>(schema, uiSchema, formData) && (
 					<Grid container justifyContent="flex-end">
-						<Grid item={true}>
+						<Grid>
 							<AddButton
 								className="object-property-expand"
 								onClick={onAddClick(schema)}
