@@ -2,6 +2,7 @@ import React from 'react';
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons/faTrashAlt';
 import { faUndo } from '@fortawesome/free-solid-svg-icons/faUndo';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import type { JSONSchema7 as JSONSchema } from 'json-schema';
 import { AddTagForm } from './AddTagForm';
 import type {
 	ResourceTagInfo,
@@ -139,6 +140,8 @@ export interface TagManagementDialogProps<T> {
 	titleField: keyof T | ((item: T) => string);
 	/** Tags property in the selected item */
 	tagField: keyof T;
+	/** The schema of the tag resource */
+	tagSchema?: JSONSchema;
 	/** On cancel press event */
 	cancel: () => void;
 	/** On done press event */
@@ -152,6 +155,7 @@ export const TagManagementDialog = <T extends TaggedResource>({
 	itemType,
 	titleField,
 	tagField,
+	tagSchema,
 	cancel,
 	done,
 }: TagManagementDialogProps<T>) => {
@@ -160,6 +164,12 @@ export const TagManagementDialog = <T extends TaggedResource>({
 	const [tags, setTags] = React.useState<Array<ResourceTagInfo<T>>>();
 	const [partialTags, setPartialTags] =
 		React.useState<Array<ResourceTagInfo<T>>>();
+
+	const tagValueSchema = tagSchema?.properties?.value;
+	const tagValueMaxLength =
+		tagValueSchema != null && typeof tagValueSchema === 'object'
+			? tagValueSchema.maxLength
+			: null;
 
 	const tagDiffs = React.useMemo(
 		() => getResourceTagSubmitInfo(tags ?? []),
@@ -293,10 +303,10 @@ export const TagManagementDialog = <T extends TaggedResource>({
 			<DialogContent>
 				<AddTagForm<T>
 					itemType={itemType}
+					schema={tagSchema}
 					existingTags={tags}
 					overridableTags={partialTags}
 					addTag={addTag}
-					t={t}
 				/>
 				<Table>
 					<TableHead>
@@ -392,6 +402,11 @@ export const TagManagementDialog = <T extends TaggedResource>({
 													}}
 													value={editingTag.value}
 													placeholder={t('labels.tag_value')}
+													inputProps={
+														tagValueMaxLength != null
+															? { maxLength: tagValueMaxLength }
+															: undefined
+													}
 												/>
 											)}
 										</TableCell>
