@@ -33,7 +33,6 @@ import { Create } from './Actions/Create';
 import {
 	rjstDefaultPermissions,
 	rjstGetModelForCollection,
-	rjstGetModelForCollection2,
 	rjstRunTransformers,
 } from './models/helpers';
 import {
@@ -641,7 +640,6 @@ export {
 	rjstRunTransformers,
 	rjstDefaultPermissions,
 	rjstGetModelForCollection,
-	rjstGetModelForCollection2,
 	rjstAddToSchema,
 	type RJSTAction,
 	type RJSTBaseResource,
@@ -838,7 +836,7 @@ const getColumnsFromSchema = <T extends RJSTBaseResource<T>>({
 							extraFormats={[...(formats ?? []), ...defaultFormats]}
 							schema={widgetSchema}
 							value={calculatedField}
-							extraContext={entry}
+							resource={entry}
 						/>
 					);
 				},

@@ -33,7 +33,7 @@ export interface WidgetProps<T extends object = object> {
 	schema: JSONSchema | undefined;
 	extraFormats?: Format[];
 	uiSchema?: UiSchema;
-	extraContext?: T;
+	resource: T;
 }
 
 export interface Widget<T extends object = object, ExtraProps = object> {
@@ -93,11 +93,13 @@ export const UiOption: UiOptions = {
 // TODO: convert the fn args to an object once we bump TS
 export const widgetFactory = <ST extends Array<keyof JsonTypesTypeMap>>(
 	displayName: string,
-	uiOptions: Widget['uiOptions'],
 	supportedTypes: ST,
+	// TODO: Implement a way to pass these from RJST to widgets. Likely by adding a uiSchema property or something
+	uiOptions: Widget['uiOptions'] = {},
 ) => {
 	return <
 		T extends object,
+		// TODO: Implement a way to pass these from RJST to widgets. Likely by adding a uiSchema property or something
 		ExtraProps extends object = object,
 		V extends WidgetProps['value'] | null = JsonTypesTypeMap[ST[number]],
 	>(
