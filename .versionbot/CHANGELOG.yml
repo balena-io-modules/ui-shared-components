@@ -1,4 +1,16 @@
 - commits:
+    - subject: Remove Announcement component
+      hash: c55a3354b337b349f4cd13392d0a10da32df8ce4
+      body: |
+        Replacing our homemade component with a third-party provider
+      footer:
+        Change-type: major
+        change-type: major
+      author: Jonathan Berger
+  version: 14.0.0
+  title: ""
+  date: 2025-07-28T13:03:36.975Z
+- commits:
     - subject: Rename `rjstGetModelForCollection2` to `rjstGetModelForCollection`
       hash: 2bb56b8a880523b4dd7360527677e99efcd1991e
       body: ""
