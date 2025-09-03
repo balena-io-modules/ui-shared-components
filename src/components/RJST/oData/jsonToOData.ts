@@ -249,6 +249,54 @@ export const convertToPineClientFilter = (
 	return handlePrimitiveFilter(parentKeys, filter);
 };
 
+const keyToOrderByStructure = (path: string, direction: 'asc' | 'desc') => {
+	console.log('*** path', path);
+	// Step 1: Normalize the path.
+	// Replace bracket notation like [0] with dot notation like .0
+	// This makes splitting the path into consistent parts easier.
+	const parts = path.replace(/\[(\d+)\]/g, '/$1').split('/');
+	const result = {};
+
+	// Step 2: Define the recursive helper function.
+	// This function will traverse the parts and build the object.
+	const build = (
+		currentObject: Record<string, any>,
+		currentParts: string[],
+	) => {
+		const key = currentParts.shift();
+
+		// If key is undefined (e.g. empty string), we stop.
+		if (!key) {
+			return;
+		}
+
+		// Base Case: If there are no more parts left, we've reached
+		// the end of the path. Assign the value to the current key.
+		if (currentParts.length === 0) {
+			currentObject[key] = direction;
+			return;
+		}
+
+		// Recursive Step: If there are more parts, we need to go deeper.
+		// We peek at the *next* part to decide if we need to create
+		// an Array or an Object for the current key.
+		const nextKey = currentParts[0];
+		const needsArray = /^\d+$/.test(nextKey);
+
+		// If the path doesn't exist yet, create it.
+		// Create an array if the next part is a number, otherwise an object.
+		currentObject[key] ??= needsArray ? [] : {};
+
+		// Make the recursive call on the next level down.
+		build(currentObject[key], currentParts);
+	};
+
+	// Step 3: Kick off the recursion.
+	build(result, parts);
+
+	return result;
+};
+
 export const orderbyBuilder = <T>(
 	sortInfo: TableSortOptions<T> | null,
 	customSort: RJSTContext<T>['customSort'],
@@ -270,7 +318,10 @@ export const orderbyBuilder = <T>(
 		(typeof sortInfo.sortable === 'string' ? sortInfo.sortable : undefined);
 
 	if (typeof customOrderByKey === 'string') {
-		return [`${customOrderByKey} ${direction}`, `id ${direction}`];
+		return [
+			keyToOrderByStructure(customOrderByKey, direction),
+			{ id: direction },
+		];
 	}
 	if (Array.isArray(customOrderByKey)) {
 		if (
@@ -282,8 +333,8 @@ export const orderbyBuilder = <T>(
 			);
 		}
 		return [
-			...customOrderByKey.map((k) => `${k} ${direction}`),
-			`id ${direction}`,
+			...customOrderByKey.map((k) => keyToOrderByStructure(k, direction)),
+			{ id: direction },
 		];
 	}
 	if (customOrderByKey != null && typeof customOrderByKey !== 'string') {
@@ -295,5 +346,5 @@ export const orderbyBuilder = <T>(
 	if (refScheme) {
 		fieldPath += `/${refScheme.replace(/\[(.*?)\]/g, '').replace(/\./g, '/')}`;
 	}
-	return [`${fieldPath} ${direction}`, `id ${direction}`];
+	return [keyToOrderByStructure(fieldPath, direction), { id: direction }];
 };
