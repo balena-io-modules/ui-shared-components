@@ -270,7 +270,7 @@ export const orderbyBuilder = <T>(
 		(typeof sortInfo.sortable === 'string' ? sortInfo.sortable : undefined);
 
 	if (typeof customOrderByKey === 'string') {
-		return [`${customOrderByKey} ${direction}`, `id ${direction}`];
+		return [{ [customOrderByKey]: direction }, { id: direction }];
 	}
 	if (Array.isArray(customOrderByKey)) {
 		if (
@@ -282,8 +282,8 @@ export const orderbyBuilder = <T>(
 			);
 		}
 		return [
-			...customOrderByKey.map((k) => `${k} ${direction}`),
-			`id ${direction}`,
+			...customOrderByKey.map((k) => ({ [k]: direction })),
+			{ id: direction },
 		];
 	}
 	if (customOrderByKey != null && typeof customOrderByKey !== 'string') {
@@ -295,5 +295,5 @@ export const orderbyBuilder = <T>(
 	if (refScheme) {
 		fieldPath += `/${refScheme.replace(/\[(.*?)\]/g, '').replace(/\./g, '/')}`;
 	}
-	return [`${fieldPath} ${direction}`, `id ${direction}`];
+	return [{ [fieldPath]: direction }, { id: direction }];
 };
