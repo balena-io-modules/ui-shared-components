@@ -1,4 +1,15 @@
 - commits:
+    - subject: Align `orderbyBuilder` with Pine orderby format
+      hash: 94f02dfd4444b885a5a12e35a2bc0baf058a6702
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Andrea Rosci
+  version: 14.0.1
+  title: ""
+  date: 2025-09-05T09:59:45.128Z
+- commits:
     - subject: Remove Announcement component
       hash: c55a3354b337b349f4cd13392d0a10da32df8ce4
       body: |
