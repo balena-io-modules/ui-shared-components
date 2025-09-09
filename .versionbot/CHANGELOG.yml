@@ -1,4 +1,15 @@
 - commits:
+    - subject: Update analytics-client
+      hash: 3f0370602d8fcd6e561327dab6034fc457766c74
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Jonathan Berger
+  version: 14.0.2
+  title: ""
+  date: 2025-09-09T12:05:09.874Z
+- commits:
     - subject: Align `orderbyBuilder` with Pine orderby format
       hash: 94f02dfd4444b885a5a12e35a2bc0baf058a6702
       body: ""
