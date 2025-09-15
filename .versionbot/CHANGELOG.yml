@@ -1,4 +1,15 @@
 - commits:
+    - subject: Update TypeScript to 5.9.2
+      hash: b2a389a396d5ef27e587dbe00e9a4a704abfdfd5
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Thodoris Greasidis
+  version: 14.0.3
+  title: ""
+  date: 2025-09-15T12:05:44.021Z
+- commits:
     - subject: Update analytics-client
       hash: 3f0370602d8fcd6e561327dab6034fc457766c74
       body: ""
