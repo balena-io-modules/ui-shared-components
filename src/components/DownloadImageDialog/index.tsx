@@ -24,10 +24,9 @@ import { DropDownButton } from '../DropDownButton';
 
 import pickBy from 'lodash/pickBy';
 import debounce from 'lodash/debounce';
-import isEmpty from 'lodash/isEmpty';
 import type { DeviceType, Dictionary, OsVersionsByDeviceType } from './models';
 import { OsTypesEnum } from './models';
-import uniq from 'lodash/uniq';
+import { uniq } from '../../utils/arrays';
 import { enqueueSnackbar } from 'notistack';
 import { DialogWithCloseButton } from '../DialogWithCloseButton';
 import type { CalloutProps } from '../Callout';
@@ -68,9 +67,9 @@ const getUniqueOsTypes = (
 	deviceTypeSlug: string | undefined,
 ) => {
 	if (
-		isEmpty(osVersions) ||
+		Object.keys(osVersions).length === 0 ||
 		!deviceTypeSlug ||
-		isEmpty(osVersions[deviceTypeSlug])
+		osVersions[deviceTypeSlug]?.length === 0
 	) {
 		return [];
 	}
@@ -237,7 +236,9 @@ export const DownloadImageDialog = ({
 				}
 			: {},
 	);
-	const [isFetching, setIsFetching] = useState(isEmpty(osVersions));
+	const [isFetching, setIsFetching] = useState(
+		Object.keys(osVersions).length === 0,
+	);
 	const [downloadSize, setDownloadSize] = useState<string | null>(null);
 	const [isValidatingUrl, setIsValidatingUrl] = useState(false);
 
@@ -488,7 +489,7 @@ export const DownloadImageDialog = ({
 								<Spinner />
 							) : (
 								<>
-									{isEmpty(osVersions) && (
+									{Object.keys(osVersions).length === 0 && (
 										<Callout severity="warning">
 											No OS versions available for download
 										</Callout>

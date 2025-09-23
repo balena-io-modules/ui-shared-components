@@ -29,7 +29,7 @@ import {
 	faUpload,
 } from '@fortawesome/free-solid-svg-icons';
 import { useRandomUUID } from '../../../hooks/useRandomUUID';
-import uniq from 'lodash/uniq';
+import { uniq } from '../../../utils/arrays';
 import { token } from '../../../utils/token';
 
 const restingStyle: SxProps = {
