@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons/faPlus';
-import uniq from 'lodash/uniq';
+import { uniq } from '../../../../utils/arrays';
 import type { RJSTContext } from '../../schemaOps';
 import { useQuery } from '@tanstack/react-query';
 import { Stack } from '@mui/material';
