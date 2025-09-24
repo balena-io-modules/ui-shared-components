@@ -1,5 +1,4 @@
 import type { JSONSchema7 as JSONSchema } from 'json-schema';
-import find from 'lodash/find';
 import type { CreateFilter, KeysOfUnion } from './utils';
 import { getDataTypeSchema, regexEscape } from './utils';
 import type { FormData } from '../components/Filters/SchemaSieve';
@@ -8,23 +7,43 @@ import {
 	createModelFilter,
 } from '../components/Filters/SchemaSieve';
 import { isJSONSchema, getRefSchema } from '../schemaOps';
-import findKey from 'lodash/findKey';
 import pick from 'lodash/pick';
 import mapValues from 'lodash/mapValues';
 
+const findValueByDescription = (
+	obj: object | undefined,
+	description: string,
+) => {
+	return Object.values(obj ?? {}).find(
+		(property) =>
+			typeof property === 'object' &&
+			'description' in property &&
+			property.description === description,
+	) as JSONSchema | undefined;
+};
+
+const findKeyByDescription = (obj: object | undefined, description: string) => {
+	return Object.entries(obj ?? {}).find(
+		([, value]) =>
+			typeof value === 'object' &&
+			'description' in value &&
+			value.description === description,
+	)?.[0];
+};
+
 const getKeyLabel = (schema: JSONSchema) => {
-	const s = find(schema.properties, { description: 'key' }) as JSONSchema;
+	const s = findValueByDescription(schema.properties, 'key');
 	return s?.title ?? 'key';
 };
 
 const getValueLabel = (schema: JSONSchema) => {
-	const s = find(schema.properties, { description: 'value' }) as JSONSchema;
+	const s = findValueByDescription(schema.properties, 'value');
 	return s?.title ?? 'value';
 };
 
 export const isKeyValueObj = (schema: JSONSchema) =>
-	!!find(schema.properties, { description: 'key' }) ||
-	!!find(schema.properties, { description: 'value' });
+	!!findValueByDescription(schema.properties, 'key') ||
+	!!findValueByDescription(schema.properties, 'value');
 
 export const operators = (s: JSONSchema) => {
 	return {
@@ -94,7 +113,7 @@ const getValueForOperation = (
 			? 'value'
 			: null;
 	const schemaProperty = schemaField
-		? findKey(schema.properties, { description: schemaField })
+		? findKeyByDescription(schema.properties, schemaField)
 		: null;
 
 	// Return the appropriate value format based on the operation type
@@ -191,8 +210,8 @@ export const createFilter: CreateFilter<OperatorSlug> = (
 
 	// TODO: this case does not cover complex objects for FULL_TEXT_SLUG
 	if (operator === FULL_TEXT_SLUG && schema.properties) {
-		const schemaKey = findKey(schema.properties, { description: 'key' });
-		const schemaValue = findKey(schema.properties, { description: 'value' });
+		const schemaKey = findKeyByDescription(schema.properties, 'key');
+		const schemaValue = findKeyByDescription(schema.properties, 'value');
 		const properties = [schemaKey, schemaValue]
 			.map((key) =>
 				key

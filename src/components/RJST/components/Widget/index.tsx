@@ -1,4 +1,4 @@
-import castArray from 'lodash/castArray';
+import { toArray } from '../../../../utils/arrays';
 import type { Format, UiSchema, Value, WidgetProps } from './utils';
 import { JsonTypes } from './utils';
 import { typeWidgets } from './Formats';
@@ -56,7 +56,7 @@ export const Widget = ({
 
 	const processedValue = getValue(value, schema, uiSchema);
 	const subSchema = getSubSchemaFromRefScheme(schema);
-	const types = subSchema?.type != null ? castArray(subSchema.type) : [];
+	const types = subSchema?.type != null ? toArray(subSchema.type) : [];
 
 	if (processedValue == null && !types.includes(JsonTypes.null)) {
 		return null;
