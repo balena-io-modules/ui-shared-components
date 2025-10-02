@@ -17,7 +17,7 @@ import {
 	useTheme,
 } from '@mui/material';
 import type { WidgetProps } from '@rjsf/utils';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { IconButtonWithTracking, Tooltip } from '../../..';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import type { IconDefinition } from '@fortawesome/free-solid-svg-icons';
@@ -134,6 +134,9 @@ export const FileWidget = ({
 	uiSchema,
 }: FileWidgetProps) => {
 	const [files, setFiles] = useState<AcceptedFile[]>([]);
+	const [filesWithDataUrl, setFilesWithDataUrl] = useState<OnFileReadParams[]>(
+		[],
+	);
 	const [errorFiles, setErrorFiles] = useState<FileRejection[]>([]);
 	const theme = useTheme();
 	const mobile = useMediaQuery(theme.breakpoints.down('md'));
@@ -178,20 +181,13 @@ export const FileWidget = ({
 					const base64Data = reader.result.split(',')[1];
 					file.base64Data = base64Data;
 					const dataUrl = `data:${file.type};name=${file.name};base64,${base64Data}`;
-					if (multiple) {
-						// NOTE: JSONSchema array data-url does not expect objects but only strings[]
-						// see: https://github.com/rjsf-team/react-jsonschema-form/blob/297dac059fdf64fd1453bebb8366f0602c722f90/packages/utils/src/schema/isFilesArray.ts#L24
-						onChange(
-							[...files, ...acceptedFiles].map(
-								(f) => `data:${f.type};name=${f.name};base64,${base64Data}`,
-							),
-						);
-						return;
-					}
-					onChange({
-						dataUrl,
-						uploadedFile: file,
-					});
+					setFilesWithDataUrl((prev) => [
+						...prev,
+						{
+							dataUrl,
+							uploadedFile: file,
+						},
+					]);
 				};
 				reader.readAsDataURL(file);
 			});
@@ -202,8 +198,25 @@ export const FileWidget = ({
 			}
 			setErrorFiles(rejectedFiles);
 		},
-		[onChange, setFiles, files, multiple],
+		[setFiles, files, multiple],
 	);
+
+	useEffect(() => {
+		if (filesWithDataUrl.length && filesWithDataUrl.length === files.length) {
+			// NOTE: JSONSchema array data-url does not expect objects but only strings[]
+			// see: https://github.com/rjsf-team/react-jsonschema-form/blob/297dac059fdf64fd1453bebb8366f0602c722f90/packages/utils/src/schema/isFilesArray.ts#L24
+			// Check if possibile to always pass only strings (dataUrls) and not objects when not multiple.
+			if (multiple) {
+				onChange(
+					filesWithDataUrl.map((fileWithDataUrl) => fileWithDataUrl.dataUrl),
+				);
+				return;
+			}
+			// If not multiple, the schema accept an object and we can pass it directly
+			// if not necessary, in a major release we can change it to pass only the dataUrl string and unify the behaviour
+			onChange(filesWithDataUrl[0]);
+		}
+	}, [files, filesWithDataUrl, multiple, onChange]);
 
 	const removeFile = useCallback(
 		(index: number) => {
