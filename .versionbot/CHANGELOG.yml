@@ -1,4 +1,15 @@
 - commits:
+    - subject: Fix FileWidget upload when `multiple`
+      hash: 18a6175ce02ea73a9b818aca69b4aaea9e232837
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Andrea Rosci
+  version: 14.0.4
+  title: ""
+  date: 2025-10-02T13:22:38.258Z
+- commits:
     - subject: Update TypeScript to 5.9.2
       hash: b2a389a396d5ef27e587dbe00e9a4a704abfdfd5
       body: ""
