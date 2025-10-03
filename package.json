@@ -32,6 +32,7 @@
     "ajv-formats": "^3.0.1",
     "ajv-keywords": "^5.1.0",
     "analytics-client": "^3.1.2",
+    "balena-semver": "^3.0.10",
     "color": "^5.0.0",
     "color-hash": "^2.0.2",
     "date-fns": "^4.1.0",
@@ -54,7 +55,7 @@
     "zxcvbn": "^4.4.2"
   },
   "devDependencies": {
-    "@balena/lint": "^9.3.0",
+    "@balena/lint": "^9.3.8",
     "@storybook/addon-docs": "^9.0.0",
     "@storybook/addon-links": "^9.0.0",
     "@storybook/addon-onboarding": "^9.0.0",
