@@ -1,6 +1,7 @@
 import type { Client, WebTracker } from 'analytics-client';
 import { AnalyticsUrlParams, createWebTracker } from 'analytics-client';
 import { createContext, useContext, useEffect, useReducer } from 'react';
+import type { Variants } from '@amplitude/experiment-js-client';
 
 export enum AnalyticsStoreActions {
 	setAnalyticsData = 'set_analytics_data',
@@ -8,7 +9,7 @@ export enum AnalyticsStoreActions {
 type AnalyticsActionPayload = {
 	trackerName: string;
 	createAnalyticsClient: (urlParamsHandler: AnalyticsUrlParams) => Client;
-	featureFlags?: Dictionary<boolean> | null;
+	featureFlags?: Variants | null;
 } | null;
 
 type Action = {
@@ -21,7 +22,7 @@ type Dispatch = (action: Action) => void;
 type AnalyticsContext = {
 	analyticsClient: Client | null;
 	webTracker: WebTracker | null;
-	featureFlags: Dictionary<boolean> | null;
+	featureFlags: Variants | null;
 	urlParamsHandler?: AnalyticsUrlParams | null;
 	trackBalenaNavigation?: (url: string) => string;
 };
