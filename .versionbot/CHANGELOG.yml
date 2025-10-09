@@ -1,4 +1,22 @@
 - commits:
+    - subject: Update typing of `featureFlags` to `Variants` from Amplitude
+      hash: 82099830be7322959c7939c7f703a31f100bb3f4
+      body: ""
+      footer:
+        Change-type: major
+        change-type: major
+      author: Matthew Yarmolinsky
+    - subject: Add dependency `@amplitude/experiment-js-client`
+      hash: 3d141d10f30ca021532f1e7ecf1e4f4c0f0567c4
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Matthew Yarmolinsky
+  version: 15.0.0
+  title: ""
+  date: 2025-10-09T19:23:33.148Z
+- commits:
     - subject: Fix FileWidget upload when `multiple`
       hash: 18a6175ce02ea73a9b818aca69b4aaea9e232837
       body: ""
