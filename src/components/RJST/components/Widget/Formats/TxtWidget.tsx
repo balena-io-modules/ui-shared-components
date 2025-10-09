@@ -1,6 +1,5 @@
 import get from 'lodash/get';
 import invokeMap from 'lodash/invokeMap';
-import isArray from 'lodash/isArray';
 import type { UiSchema, Value } from '../utils';
 import { UiOption, JsonTypes, widgetFactory, formatTimestamp } from '../utils';
 import { Truncate } from '../../../../Truncate';
@@ -45,7 +44,7 @@ const TxtWidget = widgetFactory(
 		variant: UiOption.string,
 	},
 )(({ value, schema, uiSchema }) => {
-	let displayValue = isArray(value)
+	let displayValue = Array.isArray(value)
 		? getArrayValue(value as Array<Exclude<typeof value, any[]>>, uiSchema)
 		: value?.toString();
 	if (DATE_TIME_FORMATS.includes(schema?.format ?? '')) {

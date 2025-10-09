@@ -1,4 +1,3 @@
-import has from 'lodash/has';
 import { interpolateMustache } from './utils';
 import { Box, List, Tab, Tabs, Typography } from '@mui/material';
 import { memo, useEffect, useState } from 'react';
@@ -133,7 +132,8 @@ interface InstructionsListProps {
 }
 
 const InstructionsItem = ({ node, index }: InstructionsItemProps) => {
-	const hasChildren = has(node, 'children');
+	const hasChildren =
+		node != null && Object.hasOwnProperty.call(node, 'children');
 	let text = null;
 
 	if (typeof node === 'string') {

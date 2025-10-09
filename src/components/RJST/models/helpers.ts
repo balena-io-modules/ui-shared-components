@@ -1,4 +1,3 @@
-import isEmpty from 'lodash/isEmpty';
 import type { Permissions, RJSTModel, RJSTRawModel } from '../schemaOps';
 import { rjstJsonSchemaPick } from '../schemaOps';
 
@@ -33,7 +32,7 @@ export const rjstRunTransformers = <
 		return data;
 	}
 
-	if (!transformers || isEmpty(transformers)) {
+	if (!transformers || Object.keys(transformers).length === 0) {
 		return data as TResult;
 	}
 
