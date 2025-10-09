@@ -1,4 +1,15 @@
 - commits:
+    - subject: Fix missed spot per `featureFlags` typing change
+      hash: 2b59ded9fccc6fc84f221b3dcd18c741dc5bc2e0
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Matthew Yarmolinsky
+  version: 15.0.1
+  title: ""
+  date: 2025-10-09T19:40:04.392Z
+- commits:
     - subject: Update typing of `featureFlags` to `Variants` from Amplitude
       hash: 82099830be7322959c7939c7f703a31f100bb3f4
       body: ""
