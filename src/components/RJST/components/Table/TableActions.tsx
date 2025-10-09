@@ -42,10 +42,11 @@ const SortableItem = <T extends object>({
 			{...attributes}
 			sx={{ transform: CSS.Transform.toString(transform), transition }}
 		>
-			{(analyticsState.featureFlags
-				? analyticsState.featureFlags.columnOrdering ||
-					analyticsState.featureFlags.reducedDefaultDeviceColumnsAndReordering
-				: false) && (
+			{(analyticsState.featureFlags?.['reducedDefaultDeviceColumns']?.value ===
+				'on' ||
+				analyticsState.featureFlags?.[
+					'reducedDefaultDeviceColumnsAndReordering'
+				]?.value === 'on') && (
 				<ListItemIcon
 					{...listeners}
 					sx={{
@@ -130,8 +131,15 @@ export const TableActions = <T extends object>({
 			!active ||
 			!over ||
 			!onColumnPreferencesChange ||
-			(!analyticsState.featureFlags?.columnOrdering &&
-				!analyticsState.featureFlags?.reducedDefaultDeviceColumnsAndReordering)
+			(!(
+				analyticsState.featureFlags?.['reducedDefaultDeviceColumns']?.value ===
+				'on'
+			) &&
+				!(
+					analyticsState.featureFlags?.[
+						'reducedDefaultDeviceColumnsAndReordering'
+					]?.value === 'on'
+				))
 		) {
 			return;
 		}
