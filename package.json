@@ -55,7 +55,7 @@
     "zxcvbn": "^4.4.2"
   },
   "devDependencies": {
-    "@balena/lint": "^9.3.0",
+    "@balena/lint": "^9.3.8",
     "@storybook/addon-docs": "^9.0.0",
     "@storybook/addon-links": "^9.0.0",
     "@storybook/addon-onboarding": "^9.0.0",
