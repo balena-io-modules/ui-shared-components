@@ -1,4 +1,15 @@
 - commits:
+    - subject: "Table Actions: Fix feature flag keys checked"
+      hash: 3c6d5b51223811b0d36f2afa7ea2243c6d1bdb1e
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Matthew Yarmolinsky
+  version: 15.0.3
+  title: ""
+  date: 2025-10-10T14:08:58.007Z
+- commits:
     - subject: Update `@balena/lint`
       hash: 75a40dcdb656bea504dd0ed765063b26bbf0cd40
       body: ""
