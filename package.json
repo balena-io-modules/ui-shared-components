@@ -33,6 +33,7 @@
     "ajv-formats": "^3.0.1",
     "ajv-keywords": "^5.1.0",
     "analytics-client": "^3.1.2",
+    "balena-semver": "^3.0.10",
     "color": "^5.0.0",
     "color-hash": "^2.0.2",
     "date-fns": "^4.1.0",
