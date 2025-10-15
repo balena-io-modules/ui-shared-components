@@ -1,4 +1,23 @@
 - commits:
+    - subject: "DownloadImageDialog: Add support for Secure Boot for Generic x86
+        devices"
+      hash: e4e56b3f97f4f7363453042633e562b8b2b978ef
+      body: ""
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: myarmolinsky
+    - subject: Add dependency `balena-semver`
+      hash: 7a64cd5b247b055e13527874b32f1f490f2cc9aa
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Matthew Yarmolinsky
+  version: 15.1.0
+  title: ""
+  date: 2025-10-15T12:29:15.014Z
+- commits:
     - subject: "Table Actions: Fix feature flag keys checked"
       hash: 3c6d5b51223811b0d36f2afa7ea2243c6d1bdb1e
       body: ""
