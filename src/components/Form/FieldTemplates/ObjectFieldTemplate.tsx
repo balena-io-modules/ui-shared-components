@@ -1,4 +1,4 @@
-import Grid from '@mui/material/Grid';
+import { Grid } from '@mui/material';
 import type {
 	FormContextType,
 	ObjectFieldTemplateProps,
@@ -97,7 +97,7 @@ export const ObjectFieldTemplate = <
 				)}
 				{canExpand<T, S, F>(schema, uiSchema, formData) && (
 					<Grid container justifyContent="flex-end">
-						<Grid item={true}>
+						<Grid>
 							<AddButton
 								className="object-property-expand"
 								onClick={onAddClick(schema)}
