@@ -52,7 +52,7 @@
     "rimraf": "^6.0.0",
     "ts-jest": "^29.2.5",
     "typescript": "^5.9.2",
-    "virtua": "^0.37.3",
+    "virtua": "^0.45.0",
     "zxcvbn": "^4.4.2"
   },
   "devDependencies": {
