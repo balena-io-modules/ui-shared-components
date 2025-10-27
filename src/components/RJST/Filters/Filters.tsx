@@ -74,7 +74,7 @@ export const Filters = ({
 			) : (
 				<FiltersComponent
 					viewsRestorationKey={viewsRestorationKey}
-					schema={filteredSchema}
+					schema={reworkedSchema}
 					filters={filters}
 					views={views}
 					onFiltersChange={changeFilters}
