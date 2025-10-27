@@ -1,4 +1,15 @@
 - commits:
+    - subject: Fix schema passed to filters when not persistent
+      hash: e66b39f1612834c663191d375bb5bd2e904440e1
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Andrea Rosci
+  version: 15.1.1
+  title: ""
+  date: 2025-10-27T12:32:40.593Z
+- commits:
     - subject: "DownloadImageDialog: Add support for Secure Boot for Generic x86
         devices"
       hash: e4e56b3f97f4f7363453042633e562b8b2b978ef
