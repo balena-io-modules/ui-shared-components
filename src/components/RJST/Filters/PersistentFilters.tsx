@@ -12,7 +12,7 @@ import {
 } from '../components/Filters/SchemaSieve';
 import { isJSONSchema } from '../schemaOps';
 import { useAnalyticsContext } from '../../../contexts/AnalyticsContext';
-import type { NavigateFunction } from 'react-router-dom';
+import type { NavigateFunction } from 'react-router';
 
 export interface ListQueryStringFilterObject {
 	n: string;
@@ -159,7 +159,7 @@ export const loadRulesFromUrl = (
 
 				// In case of invalid signatures, remove search params to avoid Errors.
 				if (isSignaturesInvalid) {
-					navigate?.({ search: '' }, { replace: true });
+					void navigate?.({ search: '' }, { replace: true });
 				}
 
 				if (signatures[0].operator === FULL_TEXT_SLUG) {
@@ -208,7 +208,7 @@ export const PersistentFilters = ({
 				strictNullHandling: true,
 			});
 
-			navigate?.(
+			void navigate?.(
 				{
 					pathname,
 					search: filterQuery,
