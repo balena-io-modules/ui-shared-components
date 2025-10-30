@@ -1,4 +1,15 @@
 - commits:
+    - subject: Update fontawesome packages
+      hash: d8c756d8196b5e3714ef4e5eb8f5b846c78b5d78
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Matthew Yarmolinsky
+  version: 15.1.2
+  title: ""
+  date: 2025-10-30T11:29:17.020Z
+- commits:
     - subject: Fix schema passed to filters when not persistent
       hash: e66b39f1612834c663191d375bb5bd2e904440e1
       body: ""
