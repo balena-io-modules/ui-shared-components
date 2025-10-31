@@ -140,6 +140,11 @@ declare module '@mui/material/Button' {
 		light: true;
 	}
 }
+declare module '@mui/material/IconButton' {
+	interface IconButtonOwnProps {
+		variant?: 'text' | 'contained';
+	}
+}
 
 declare module '@mui/material/Chip' {
 	interface ChipPropsColorOverrides {
@@ -869,6 +874,66 @@ export const theme = createTheme({
 			},
 		},
 		MuiIconButton: {
+			defaultProps: {
+				variant: 'text',
+			},
+			variants: [
+				{
+					props: { variant: 'contained' },
+					style: {
+						color: color.icon.inverse.value,
+						backgroundColor: color.bg.strong.value,
+						'&:hover': {
+							backgroundColor: color.bg.strong.value,
+						},
+					},
+				},
+				{
+					props: { variant: 'contained', color: 'primary' },
+					style: {
+						backgroundColor: color.bg.accent.strong.value,
+						'&:hover': {
+							backgroundColor: color.bg.accent.strong.value,
+						},
+					},
+				},
+				{
+					props: { variant: 'contained', color: 'info' },
+					style: {
+						backgroundColor: color.bg.info.strong.value,
+						'&:hover': {
+							backgroundColor: color.bg.info.strong.value,
+						},
+					},
+				},
+				{
+					props: { variant: 'contained', color: 'success' },
+					style: {
+						backgroundColor: color.bg.success.strong.value,
+						'&:hover': {
+							backgroundColor: color.bg.success.strong.value,
+						},
+					},
+				},
+				{
+					props: { variant: 'contained', color: 'warning' },
+					style: {
+						backgroundColor: color.bg.warning.strong.value,
+						'&:hover': {
+							backgroundColor: color.bg.warning.strong.value,
+						},
+					},
+				},
+				{
+					props: { variant: 'contained', color: 'error' },
+					style: {
+						backgroundColor: color.bg.danger.strong.value,
+						'&:hover': {
+							backgroundColor: color.bg.danger.strong.value,
+						},
+					},
+				},
+			],
 			styleOverrides: {
 				root: {
 					color: color.icon.value,
@@ -879,6 +944,21 @@ export const theme = createTheme({
 						color: color.icon.value,
 						opacity: 0.4,
 					},
+				},
+				colorPrimary: {
+					color: color.icon.accent.value,
+				},
+				colorSuccess: {
+					color: color.icon.success.value,
+				},
+				colorInfo: {
+					color: color.icon.info.value,
+				},
+				colorWarning: {
+					color: color.icon.warning.value,
+				},
+				colorError: {
+					color: color.icon.danger.value,
 				},
 				sizeSmall: {
 					padding: '10px',
