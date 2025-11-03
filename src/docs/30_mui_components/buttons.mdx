@@ -11,10 +11,15 @@ import {
 	faMagic,
 	faTrashCan,
 	faPlus,
+	faCheck,
 	faDownload,
+	faExclamationCircle,
 	faUpRightAndDownLeftFromCenter,
 	faClose,
-	faGrip, faTable,
+	faGrip,
+	faTable,
+	faWarning,
+	faInfoCircle,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -125,11 +130,51 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 			<FontAwesomeIcon icon={faClose} />
 		</IconButton>
 	</Stack>
+	<Stack direction="row" gap={3} sx={{ flexWrap: 'wrap' }}>
+		<IconButton color="primary">
+			<FontAwesomeIcon icon={faPlus} />
+		</IconButton>
+		<IconButton color="secondary">
+			<FontAwesomeIcon icon={faPlus} />
+		</IconButton>
+		<IconButton color="info">
+			<FontAwesomeIcon icon={faInfoCircle} />
+		</IconButton>
+		<IconButton color="success">
+			<FontAwesomeIcon icon={faCheck} />
+		</IconButton>
+		<IconButton color="warning">
+			<FontAwesomeIcon icon={faWarning} />
+		</IconButton>
+		<IconButton color="error">
+			<FontAwesomeIcon icon={faExclamationCircle} />
+		</IconButton>
+	</Stack>
+	<Stack direction="row" gap={3} sx={{ flexWrap: 'wrap' }}>
+		<IconButton variant="contained" color="primary">
+			<FontAwesomeIcon icon={faPlus} />
+		</IconButton>
+		<IconButton variant="contained" color="secondary">
+			<FontAwesomeIcon icon={faPlus} />
+		</IconButton>
+		<IconButton variant="contained" color="info">
+			<FontAwesomeIcon icon={faInfoCircle} />
+		</IconButton>
+		<IconButton variant="contained" color="success">
+			<FontAwesomeIcon icon={faCheck} />
+		</IconButton>
+		<IconButton variant="contained" color="warning">
+			<FontAwesomeIcon icon={faWarning} />
+		</IconButton>
+		<IconButton variant="contained" color="error">
+			<FontAwesomeIcon icon={faExclamationCircle} />
+		</IconButton>
+	</Stack>
 </ThemeProvider>
 
 ## Toggle Button
 
-While MUI provides color variants, stick to the default one as the colored variant don't make much semantic sense (expect 
+While MUI provides color variants, stick to the default one as the colored variant don't make much semantic sense (expect
 maybe for the _danger_ one).
 
 ### Text
@@ -137,8 +182,8 @@ maybe for the _danger_ one).
 <Unstyled>
 	<ThemeProvider theme={theme}>
 		<Stack gap={3} direction="row">
-			<LensToggle segments={[{label: 'Geo location' }, {label: 'Manual location' }]} />
-			<LensToggle segments={[{label: 'Geo location' }, {label: 'Manual location' }]} color="primary" />
+			<LensToggle segments={[{ label: 'Geo location' }, { label: 'Manual location' }]} />
+			<LensToggle segments={[{ label: 'Geo location' }, { label: 'Manual location' }]} color="primary" />
 		</Stack>
 	</ThemeProvider>
 </Unstyled>
@@ -148,8 +193,8 @@ maybe for the _danger_ one).
 <Unstyled>
 	<ThemeProvider theme={theme}>
 		<Stack gap={3} direction="row">
-			<LensToggle segments={[{icon: faGrip }, {icon: faTable }]} />
-			<LensToggle segments={[{icon: faGrip }, {icon: faTable }]} color="primary" />
+			<LensToggle segments={[{ icon: faGrip }, { icon: faTable }]} />
+			<LensToggle segments={[{ icon: faGrip }, { icon: faTable }]} color="primary" />
 		</Stack>
 	</ThemeProvider>
 </Unstyled>
@@ -159,8 +204,9 @@ maybe for the _danger_ one).
 <Unstyled>
 	<ThemeProvider theme={theme}>
 		<Stack gap={3} direction="row">
-			<LensToggle segments={[{icon: faGrip, label: 'Geo location' }, {icon: faTable, label: 'Manual location' }]} />
-			<LensToggle segments={[{icon: faGrip, label: 'Geo location' }, {icon: faTable, label: 'Manual location' }]} color="primary" />
+			<LensToggle segments={[{ icon: faGrip, label: 'Geo location' }, { icon: faTable, label: 'Manual location' }]} />
+			<LensToggle segments={[{ icon: faGrip, label: 'Geo location' }, { icon: faTable, label: 'Manual location' }]}
+									color="primary" />
 		</Stack>
 	</ThemeProvider>
 </Unstyled>
@@ -169,15 +215,18 @@ maybe for the _danger_ one).
 on icon only toggles, we have to decrease the padding so that the total size is less or equal to 31px.
 
 The root issue is that we use `:only-child` selector on icon only toggle buttons, but text nodes are not considered children
-elements in CSS, so icon + text is mistakenly selected by the rule. 
+elements in CSS, so icon + text is mistakenly selected by the rule.
 
 If you want to prevent that, you can wrap the text in a `span` element, like so:
 
 <Unstyled>
 	<ThemeProvider theme={theme}>
 		<Stack gap={3} direction="row">
-			<LensToggle withWrapAroundLabel segments={[{icon: faGrip, label: 'Geo location' }, {icon: faTable, label: 'Manual location' }]} />
-			<LensToggle withWrapAroundLabel segments={[{icon: faGrip, label: 'Geo location' }, {icon: faTable, label: 'Manual location' }]} color="primary" />
+			<LensToggle withWrapAroundLabel
+									segments={[{ icon: faGrip, label: 'Geo location' }, { icon: faTable, label: 'Manual location' }]} />
+			<LensToggle withWrapAroundLabel
+									segments={[{ icon: faGrip, label: 'Geo location' }, { icon: faTable, label: 'Manual location' }]}
+									color="primary" />
 		</Stack>
 	</ThemeProvider>
 </Unstyled>
