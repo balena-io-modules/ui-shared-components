@@ -1,4 +1,29 @@
 - commits:
+    - subject: Use `moduleResolution` `bundler`
+      hash: 993fbafb15ed5e29efd93660a788434f2c840cf3
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Matthew Yarmolinsky
+    - subject: Update `@types/node` to ^22.18.13
+      hash: 0cd78f437df68705174462bd4a174315d4c7e880
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Matthew Yarmolinsky
+    - subject: Update storybook to v10
+      hash: c8fc8f19bb845dc39db0466ec2893c796e9e324f
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Matthew Yarmolinsky
+  version: 15.2.1
+  title: ""
+  date: 2025-11-04T16:01:08.876Z
+- commits:
     - subject: Add colors and a 'contained' variant to icon buttons
       hash: ac4e550df37e68910b82376fbe2b9dfa265e19aa
       body: ""
