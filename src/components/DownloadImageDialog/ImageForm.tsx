@@ -551,6 +551,7 @@ export const ImageForm = memo(function ImageForm({
 							<FormControlLabel
 								control={
 									<Switch
+										name="secureboot"
 										onClick={(event) => {
 											if (
 												!model.secureboot &&
