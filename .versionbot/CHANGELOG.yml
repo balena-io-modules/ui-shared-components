@@ -1,4 +1,18 @@
 - commits:
+    - subject: "DownloadImageDialog: Fix the Secure Boot switch not being used in the
+        image download"
+      hash: 0571c2128780bb35607aee163b7e08a4d244f90b
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+        See: https://balena.zulipchat.com/#narrow/channel/345889-balena-io.2Fos/topic/Secure.20boot.20pentest/near/553402251
+        see: https://balena.zulipchat.com/#narrow/channel/345889-balena-io.2Fos/topic/Secure.20boot.20pentest/near/553402251
+      author: Thodoris Greasidis
+  version: 15.2.2
+  title: ""
+  date: 2025-11-05T12:11:09.626Z
+- commits:
     - subject: Use `moduleResolution` `bundler`
       hash: 993fbafb15ed5e29efd93660a788434f2c840cf3
       body: ""
