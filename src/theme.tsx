@@ -6,7 +6,6 @@ import type {
 } from '@mui/material';
 import { createTheme, tableCellClasses } from '@mui/material';
 import type {} from '@mui/x-data-grid/themeAugmentation';
-import type { TypographyStyleOptions } from '@mui/material/styles/createTypography';
 import { color, typography, shape, spacing } from '@balena/design-tokens';
 import type {
 	ColorTokens,
@@ -78,16 +77,16 @@ declare module '@mui/material/styles' {
 	}
 
 	interface TypographyVariantsOptions {
-		bodyLg: TypographyStyleOptions | undefined;
-		body: TypographyStyleOptions | undefined;
-		bodySm: TypographyStyleOptions | undefined;
-		titleLg: TypographyStyleOptions | undefined;
-		title: TypographyStyleOptions | undefined;
-		titleSm: TypographyStyleOptions | undefined;
-		display: TypographyStyleOptions | undefined;
-		codeLg: TypographyStyleOptions | undefined;
-		code: TypographyStyleOptions | undefined;
-		codeSm: TypographyStyleOptions | undefined;
+		bodyLg: TypographyStyle | undefined;
+		body: TypographyStyle | undefined;
+		bodySm: TypographyStyle | undefined;
+		titleLg: TypographyStyle | undefined;
+		title: TypographyStyle | undefined;
+		titleSm: TypographyStyle | undefined;
+		display: TypographyStyle | undefined;
+		codeLg: TypographyStyle | undefined;
+		code: TypographyStyle | undefined;
+		codeSm: TypographyStyle | undefined;
 	}
 
 	interface TypeText {

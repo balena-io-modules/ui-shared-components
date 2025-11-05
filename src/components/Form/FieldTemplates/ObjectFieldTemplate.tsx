@@ -28,10 +28,10 @@ export const ObjectFieldTemplate = <
 		disabled,
 		readonly,
 		uiSchema,
-		idSchema,
+		fieldPathId,
 		schema,
 		formData,
-		onAddClick,
+		onAddProperty,
 		registry,
 	} = props;
 	const uiOptions = getUiOptions<T, S, F>(uiSchema);
@@ -54,7 +54,7 @@ export const ObjectFieldTemplate = <
 		<>
 			{title && (
 				<TitleFieldTemplate
-					id={titleId<T>(idSchema)}
+					id={titleId(fieldPathId)}
 					title={title}
 					required={required}
 					schema={schema}
@@ -64,7 +64,7 @@ export const ObjectFieldTemplate = <
 			)}
 			{description && (
 				<DescriptionFieldTemplate
-					id={descriptionId<T>(idSchema)}
+					id={descriptionId(fieldPathId)}
 					description={description}
 					schema={schema}
 					uiSchema={uiSchema}
@@ -100,7 +100,7 @@ export const ObjectFieldTemplate = <
 						<Grid>
 							<AddButton
 								className="object-property-expand"
-								onClick={onAddClick(schema)}
+								onClick={onAddProperty}
 								// eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing -- If `disabled` is false, we still want to disable the button if `readonly` is true
 								disabled={disabled || readonly}
 								uiSchema={uiSchema}

@@ -29,7 +29,7 @@ const internalWidgets: {
 
 const FormWrapper = styled('div')({
 	// Target the Paper component within the array container
-	'& .field-array .MuiPaper-root.MuiPaper-elevation': {
+	'& .rjsf-field-array .MuiPaper-root.MuiPaper-elevation': {
 		boxShadow: 'none',
 	},
 });
