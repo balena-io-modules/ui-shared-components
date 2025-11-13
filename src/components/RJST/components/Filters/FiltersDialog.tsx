@@ -15,7 +15,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons/faTimes';
 import { faPlus } from '@fortawesome/free-solid-svg-icons/faPlus';
 import validator from '@rjsf/validator-ajv8';
-import type { ArrayFieldTemplateProps, UiSchema } from '@rjsf/utils';
+import type {
+	ArrayFieldTemplateProps,
+	ArrayFieldItemTemplateProps,
+	UiSchema,
+} from '@rjsf/utils';
 import {
 	Box,
 	Button,
@@ -30,80 +34,89 @@ import type { IChangeEvent } from '@rjsf/core';
 import { DialogWithCloseButton } from '../../../DialogWithCloseButton';
 import { RJSForm } from '../../../Form';
 
-const ArrayFieldTemplate: React.FC<ArrayFieldTemplateProps> = ({
+const ArrayFieldTemplate = ({
 	items,
 	canAdd,
 	onAddClick,
-}) => {
+}: ArrayFieldTemplateProps) => {
 	const { t } = useTranslation();
 	return (
-		<>
-			{items?.map((element, index) => {
-				return (
-					<Box key={element.key}>
-						{index > 0 && (
-							<Typography
-								sx={{
-									width: 'calc(100% - 50px)',
-									textAlign: 'center',
-									fontWeight: 'bold',
-								}}
-							>
-								{t('commons.or').toUpperCase()}
-							</Typography>
-						)}
-						<Box
-							sx={{
-								display: 'flex',
-								'& .form-group.field.field-object': {
-									display: 'flex',
-									flex: 1,
-								},
-								'& label': {
-									display: 'none',
-								},
-								// This is necessary to remove the gap of Tags label. RJSF render nested objects  with multi label levels.
-								'.MuiGrid-root > .form-group.field.field-object > .MuiFormControl-root > .MuiGrid-root.MuiGrid-container.MuiGrid-spacing-xs-2':
-									{
-										marginTop: '-8px!important',
-									},
-							}}
+		<Box className="array">
+			{items}
+			{canAdd && (
+				<Box className="rjsf-array-item-add">
+					<Button
+						aria-label={t('aria_labels.add_filter_in_or')}
+						variant="text"
+						color="primary"
+						onClick={onAddClick}
+						startIcon={<FontAwesomeIcon icon={faPlus} />}
+					>
+						{t('actions.add_alternative')}
+					</Button>
+				</Box>
+			)}
+		</Box>
+	);
+};
+
+const ArrayFieldItemTemplate = ({
+	children,
+	buttonsProps,
+	itemKey,
+	index,
+}: ArrayFieldItemTemplateProps) => {
+	const { t } = useTranslation();
+	return (
+		<Box key={itemKey} className="rjsf-array-item">
+			{index > 0 && (
+				<Typography
+					sx={{
+						width: 'calc(100% - 50px)',
+						textAlign: 'center',
+						fontWeight: 'bold',
+					}}
+				>
+					{t('commons.or').toUpperCase()}
+				</Typography>
+			)}
+			<Box
+				sx={{
+					display: 'flex',
+					'& .rjsf-field.rjsf-field-object': {
+						display: 'flex',
+						flex: 1,
+					},
+					'& label': {
+						display: 'none',
+					},
+					// This is necessary to remove the gap of Tags label. RJSF render nested objects  with multi label levels.
+					'.MuiGrid-root > .rjsf-field.rjsf-field-object > .MuiFormControl-root > .MuiGrid-root.MuiGrid-container.MuiGrid-spacing-xs-2':
+						{
+							marginTop: '-8px!important',
+						},
+				}}
+			>
+				{children}
+				<Box
+					display="flex"
+					width="50px"
+					alignItems="center"
+					justifyContent="center"
+				>
+					{index !== 0 && (
+						<IconButton
+							aria-label={t('actions.remove_filter')}
+							onClick={buttonsProps.onRemoveItem}
+							sx={{ mt: 2 }}
+							className="rjsf-array-item-remove"
 						>
-							{element.children}
-							<Box
-								display="flex"
-								width="50px"
-								alignItems="center"
-								justifyContent="center"
-							>
-								{index !== 0 && (
-									<IconButton
-										aria-label={t('actions.remove_filter')}
-										onClick={element.onDropIndexClick(element.index)}
-										sx={{ mt: 2 }}
-									>
-										<FontAwesomeIcon icon={faTimes} />
-									</IconButton>
-								)}
-							</Box>
-						</Box>
-						<Box display="flex" my={2}>
-							{canAdd && index === items.length - 1 && (
-								<Button
-									aria-label={t('aria_labels.add_filter_in_or')}
-									variant="text"
-									color="primary"
-									onClick={onAddClick}
-									startIcon={<FontAwesomeIcon icon={faPlus} />}
-								>
-									{t('actions.add_alternative')}
-								</Button>
-							)}
-						</Box>
-					</Box>
-				);
-			})}
-		</>
+							<FontAwesomeIcon icon={faTimes} />
+						</IconButton>
+					)}
+				</Box>
+			</Box>
+		</Box>
 	);
 };
 
@@ -259,9 +272,9 @@ export const FiltersDialog = ({
 				},
 				uiSchema: {
 					'ui:grid': {
-						field: { xs: 4, sm: 4 },
-						operator: { xs: 4, sm: 4 },
-						value: { xs: 4, sm: 4 },
+						field: { size: { xs: 4, sm: 4 } },
+						operator: { size: { xs: 4, sm: 4 } },
+						value: { size: { xs: 4, sm: 4 } },
 					},
 					field: {
 						'ui:readonly': true,
@@ -285,11 +298,12 @@ export const FiltersDialog = ({
 
 		const uiSchema = {
 			'ui:ArrayFieldTemplate': ArrayFieldTemplate,
+			'ui:ArrayFieldItemTemplate': ArrayFieldItemTemplate,
 			items: {
 				'ui:grid': {
-					field: { xs: 4, sm: 4 },
-					operator: { xs: 4, sm: 4 },
-					value: { xs: 4, sm: 4 },
+					field: { size: { xs: 4, sm: 4 } },
+					operator: { size: { xs: 4, sm: 4 } },
+					value: { size: { xs: 4, sm: 4 } },
 				},
 				value: {},
 			},
