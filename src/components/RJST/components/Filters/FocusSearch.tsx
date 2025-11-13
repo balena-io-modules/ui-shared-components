@@ -136,7 +136,7 @@ export const FocusSearch = <T extends { id: number; [key: string]: any }>({
 											const url = new URL(rjstContext.getBaseUrl(entity));
 											window.open(url.toString(), '_blank');
 										} catch {
-											navigate(rjstContext.getBaseUrl(entity));
+											void navigate(rjstContext.getBaseUrl(entity));
 										}
 									}
 								}}
