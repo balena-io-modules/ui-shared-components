@@ -1,4 +1,36 @@
 - commits:
+    - subject: Address RJSF breaking changes
+      hash: 5b444ad090f70e211345857a9993c33674539765
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Matthew Yarmolinsky
+    - subject: Update rjsf to 6
+      hash: 68d2152ed3dd2366e7215a0f6a08136756205dd2
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Matthew Yarmolinsky
+    - subject: Update Material UI and related dependencies to v7
+      hash: 7174179c266158004a75ed3ef4c2c334b58c87ac
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Matthew Yarmolinsky
+    - subject: Add `react-is` for Material UI v7
+      hash: bd8adf62a63f412f4788adac79b659477be6610b
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Matthew Yarmolinsky
+  version: 15.2.3
+  title: ""
+  date: 2025-11-13T16:34:09.550Z
+- commits:
     - subject: "DownloadImageDialog: Fix the Secure Boot switch not being used in the
         image download"
       hash: 0571c2128780bb35607aee163b7e08a4d244f90b
