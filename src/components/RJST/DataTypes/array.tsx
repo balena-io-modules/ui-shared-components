@@ -8,6 +8,7 @@ import type { CreateFilter } from './utils';
 import { getDataTypeSchema } from './utils';
 import { getDataModel } from '.';
 import { getRefSchema, isJSONSchema } from '../schemaOps';
+import { isObjectEmpty } from '../../../utils/objects';
 
 export const operators = () => ({
 	contains: 'contains',
@@ -42,7 +43,7 @@ const buildFilterForPropertySchema = (
 ): JSONSchema => {
 	const filter = getFilter(field, schema, value, operator);
 
-	if (!Object.keys(filter).length) {
+	if (isObjectEmpty(filter)) {
 		return {};
 	}
 	return {
@@ -93,7 +94,7 @@ const getFilter = (
 		operator: effectiveOperator,
 		value,
 	});
-	if (!filter || typeof filter !== 'object' || !Object.keys(filter).length) {
+	if (!filter || typeof filter !== 'object' || isObjectEmpty(filter)) {
 		return {};
 	}
 
@@ -103,7 +104,7 @@ const getFilter = (
 
 	return recursiveFilter &&
 		isJSONSchema(recursiveFilter) &&
-		Object.keys(recursiveFilter).length
+		!isObjectEmpty(recursiveFilter)
 		? wrapFilter(recursiveFilter)
 		: {};
 };
