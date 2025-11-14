@@ -1,6 +1,6 @@
 import type { RJSTBaseResource, Permissions, RJSTTagsSdk } from './schemaOps';
 import { getPropertyScheme } from './schemaOps';
-import castArray from 'lodash/castArray';
+import { toArray } from '../../utils/arrays';
 import get from 'lodash/get';
 import type { JSONSchema7 as JSONSchema } from 'json-schema';
 import type { CheckedState } from './components/Table/utils';
@@ -163,7 +163,7 @@ export const getSortingFunction = <T>(
 	schemaKey: keyof T,
 	schemaValue: JSONSchema,
 ) => {
-	const types = castArray(schemaValue.type);
+	const types = toArray(schemaValue.type);
 	const refScheme = getPropertyScheme(schemaValue);
 	const splitRefScheme = refScheme?.[0] ? splitPath(refScheme[0]) : null;
 	if (types.includes(JsonTypes.string)) {

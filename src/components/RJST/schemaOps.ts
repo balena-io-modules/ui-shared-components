@@ -8,6 +8,7 @@ import { findInObject } from './utils';
 import type { ResourceTagModelService } from '../TagManagementDialog/tag-management-service';
 import type { CheckedState } from './components/Table/utils';
 import type { PineFilterObject } from './oData/jsonToOData';
+import { isObjectEmpty } from '../../utils/objects';
 
 export interface RJSTBaseResource<T> {
 	id: number;
@@ -222,7 +223,7 @@ export const isJSONSchema = (
 		typeof value === 'object' &&
 		value !== null &&
 		typeof value !== 'boolean' &&
-		!!Object.keys(value).length
+		!isObjectEmpty(value)
 	);
 };
 

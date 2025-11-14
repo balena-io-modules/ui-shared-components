@@ -5,9 +5,6 @@ import type {
 	SubmitInfo,
 	TaggedResource,
 } from './models';
-import keys from 'lodash/keys';
-import flatMap from 'lodash/flatMap';
-import map from 'lodash/map';
 import groupBy from 'lodash/groupBy';
 
 export const TAGS_COLUMN_KEY = 'Tags';
@@ -27,7 +24,7 @@ export const groupResourcesByTags = <
 	items: T[],
 	tagField: P,
 ) => {
-	const resourceTagInfos = flatMap(items, (item) => {
+	const resourceTagInfos = items.flatMap((item) => {
 		const tags = getResourceTags(item, tagField);
 		return tags.map((tag) => ({
 			tag_key_value: getTagKeyValueComposite(tag.tag_key, tag.value),
@@ -38,15 +35,17 @@ export const groupResourcesByTags = <
 	});
 
 	const tagsByTagKeyValue = groupBy(resourceTagInfos, 'tag_key_value');
-	const tagsWithItems = map(keys(tagsByTagKeyValue).sort(), (tagKeyValue) => {
-		const tags = tagsByTagKeyValue[tagKeyValue];
-		const firstTag = tags[0];
-		return {
-			tag_key: firstTag.tag_key,
-			value: firstTag.value,
-			items: map(tags, 'item'),
-		} as ResourceTagInfo<T>;
-	});
+	const tagsWithItems = Object.keys(tagsByTagKeyValue)
+		.sort()
+		.map((tagKeyValue) => {
+			const tags = tagsByTagKeyValue[tagKeyValue];
+			const firstTag = tags[0];
+			return {
+				tag_key: firstTag.tag_key,
+				value: firstTag.value,
+				items: tags.map((tag) => tag.item),
+			} as ResourceTagInfo<T>;
+		});
 
 	return tagsWithItems;
 };
