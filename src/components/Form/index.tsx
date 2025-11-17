@@ -12,6 +12,8 @@ import { ObjectFieldTemplate } from './FieldTemplates/ObjectFieldTemplate';
 import type {
 	FieldTemplateProps,
 	WidgetProps,
+	FieldProps,
+	RJSFSchema,
 	RJSFValidationError,
 	UiSchema,
 	FormValidation,
@@ -125,5 +127,7 @@ export type {
 	RJSFValidationError,
 	UiSchema,
 	FormValidation,
+	FieldProps,
+	RJSFSchema,
 };
 export { Templates };

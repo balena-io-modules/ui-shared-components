@@ -20,6 +20,7 @@ export type {
 	IChangeEvent,
 	FieldTemplateProps,
 	WidgetProps,
+	FieldProps,
 	RJSFValidationError,
 	UiSchema,
 	FormValidation,
