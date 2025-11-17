@@ -1,4 +1,4 @@
-import Grid from '@mui/material/Grid';
+import { Grid } from '@mui/material';
 import type {
 	FormContextType,
 	ObjectFieldTemplateProps,
@@ -31,6 +31,7 @@ export const ObjectFieldTemplate = <
 		fieldPathId,
 		schema,
 		formData,
+		optionalDataControl,
 		onAddProperty,
 		registry,
 	} = props;
@@ -46,10 +47,10 @@ export const ObjectFieldTemplate = <
 		S,
 		F
 	>('DescriptionFieldTemplate', registry, uiOptions);
+	const showOptionalDataControlInTitle = !readonly && !disabled;
 	const {
 		ButtonTemplates: { AddButton },
 	} = registry.templates;
-
 	return (
 		<>
 			{title && (
@@ -60,6 +61,9 @@ export const ObjectFieldTemplate = <
 					schema={schema}
 					uiSchema={uiSchema}
 					registry={registry}
+					optionalDataControl={
+						showOptionalDataControlInTitle ? optionalDataControl : undefined
+					}
 				/>
 			)}
 			{description && (
@@ -77,15 +81,19 @@ export const ObjectFieldTemplate = <
 				style={{ marginTop: '10px' }}
 				{...(uiSchema?.['ui:grid']?.container ?? {})}
 			>
+				{!showOptionalDataControlInTitle ? optionalDataControl : undefined}
 				{properties.map((element, index) =>
+					// Remove the <Grid> if the inner element is hidden as the <Grid>
+					// itself would otherwise still take up space.
 					element.hidden ? (
 						element.content
 					) : (
 						<Grid
-							item
-							size={12}
+							size={{ xs: 12 }}
+							// TODO: remove as soon as MUI versions are same between RJSF and our internal.
+							width="100%"
 							key={index}
-							sx={{ marginBottom: '10px' }}
+							style={{ marginBottom: '10px' }}
 							{...(uiSchema?.[element.name]?.['ui:grid']?.item ??
 								uiSchema?.['ui:grid']?.[element.name] ??
 								uiSchema?.['ui:grid']?.item ??
@@ -95,21 +103,22 @@ export const ObjectFieldTemplate = <
 						</Grid>
 					),
 				)}
-				{canExpand<T, S, F>(schema, uiSchema, formData) && (
-					<Grid container justifyContent="flex-end">
-						<Grid>
-							<AddButton
-								className="object-property-expand"
-								onClick={onAddProperty}
-								// eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing -- If `disabled` is false, we still want to disable the button if `readonly` is true
-								disabled={disabled || readonly}
-								uiSchema={uiSchema}
-								registry={registry}
-							/>
-						</Grid>
-					</Grid>
-				)}
 			</Grid>
+			{canExpand<T, S, F>(schema, uiSchema, formData) && (
+				<Grid container justifyContent="flex-end">
+					<Grid>
+						<AddButton
+							id={fieldPathId.$id + 'add'}
+							className="rjsf-object-property-expand"
+							onClick={onAddProperty}
+							// eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing -- If `disabled` is false, we still want to disable the button if `readonly` is true
+							disabled={disabled || readonly}
+							uiSchema={uiSchema}
+							registry={registry}
+						/>
+					</Grid>
+				</Grid>
+			)}
 		</>
 	);
 };
