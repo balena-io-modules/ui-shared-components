@@ -1,4 +1,16 @@
 - commits:
+    - subject: Prevent Safari from defaulting to today’s date when a date input has a
+        null value
+      hash: cc361b88341e93cddd2fa722c3d9709b826b02ca
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Andrea Rosci
+  version: 15.2.6
+  title: ""
+  date: 2025-11-18T16:02:31.442Z
+- commits:
     - subject: Make experimental code for column management permanent
       hash: 7fcde6d42e2c56ec5437b9b7530d8ea24f8b4eea
       body: ""
