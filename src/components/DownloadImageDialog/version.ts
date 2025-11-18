@@ -1,4 +1,4 @@
-import uniq from 'lodash/uniq';
+import { uniq } from '../../utils/arrays';
 import partition from 'lodash/partition';
 import type { Dictionary, OsVersion } from './models';
 

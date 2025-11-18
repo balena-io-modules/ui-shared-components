@@ -1,6 +1,5 @@
 import * as types from './types';
 import type { IconProp } from '@fortawesome/fontawesome-svg-core';
-import uniq from 'lodash/uniq';
 
 export interface LensTemplate<T extends { id: number } = any> {
 	slug: string;
@@ -32,7 +31,7 @@ export const getLenses = <T extends { id: number }>(
 	);
 
 	const slugs = concatenatedLenses.map((lens) => lens.slug);
-	if (slugs.length > uniq(slugs).length) {
+	if (slugs.length > new Set(slugs).size) {
 		throw new Error('Lenses must have unique slugs');
 	}
 

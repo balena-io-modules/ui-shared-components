@@ -9,7 +9,6 @@ import { Button, ButtonGroup, MenuItem, Menu } from '@mui/material';
 import { ButtonWithTracking } from '../ButtonWithTracking';
 import { useAnalyticsContext } from '../../contexts/AnalyticsContext';
 import groupBy from 'lodash/groupBy';
-import flatMap from 'lodash/flatMap';
 import { Tooltip } from '../Tooltip';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -59,16 +58,18 @@ export const DropDownButton = <T extends unknown>({
 			return items;
 		}
 		const grouped = groupBy(items, (item) => item[groupByProp]);
-		const keys = Object.keys(grouped);
-		const lastKey = keys[keys.length - 1];
+		const entries = Object.entries(grouped);
+		const lastKey = entries.at(-1)?.[0];
 
-		return flatMap(grouped, (value, key) => [
-			...value.map((v, index) =>
-				key !== lastKey && index === value.length - 1
-					? { ...v, divider: true }
-					: v,
-			),
-		]).filter((item) => item);
+		return entries
+			.flatMap(([key, value]) =>
+				value.map((v, index) =>
+					key !== lastKey && index === value.length - 1
+						? { ...v, divider: true }
+						: v,
+				),
+			)
+			.filter(Boolean);
 	}, [items, groupByProp]);
 
 	const handleClick = (

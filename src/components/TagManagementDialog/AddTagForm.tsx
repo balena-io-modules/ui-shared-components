@@ -1,8 +1,5 @@
 import * as React from 'react';
 import type { ResourceTagInfo } from './models';
-import find from 'lodash/find';
-import startsWith from 'lodash/startsWith';
-import isEmpty from 'lodash/isEmpty';
 import { Button, Stack, TextField, Typography } from '@mui/material';
 import { Callout } from '../Callout';
 import type { TFunction } from '../../hooks/useTranslations';
@@ -26,7 +23,7 @@ const newTagValidationRules = <T extends object>(
 ) => {
 	return [
 		{
-			test: () => !key || isEmpty(key),
+			test: () => !key,
 			message: t('fields_errors.tag_name_cannot_be_empty'),
 		},
 		{
@@ -35,7 +32,7 @@ const newTagValidationRules = <T extends object>(
 		},
 		{
 			test: () =>
-				RESERVED_NAMESPACES.some((reserved) => startsWith(key, reserved)),
+				RESERVED_NAMESPACES.some((reserved) => key.startsWith(reserved)),
 			message: t(`fields_errors.some_tag_keys_are_reserved`, {
 				namespace: RESERVED_NAMESPACES.join(', '),
 			}),
@@ -92,9 +89,9 @@ export const AddTagForm = <T extends object>({
 	};
 
 	const checkTagOverwrites = async () => {
-		const overridableTag = find(overridableTags, {
-			tag_key: tagKey,
-		});
+		const overridableTag = overridableTags.find(
+			(tag) => tag.tag_key === tagKey,
+		);
 
 		if (!overridableTag) {
 			return true;

@@ -11,7 +11,6 @@ import type {
 	TaggedResource,
 } from './models';
 import sortBy from 'lodash/sortBy';
-import toString from 'lodash/toString';
 import { faPencilAlt } from '@fortawesome/free-solid-svg-icons/faPencilAlt';
 import {
 	getResourceTagSubmitInfo,
@@ -271,7 +270,7 @@ export const TagManagementDialog = <T extends TaggedResource>({
 		const title =
 			typeof titleField === 'function'
 				? titleField(item)
-				: toString(item[titleField]);
+				: `${item[titleField] ?? ''}`;
 		return title || `(${t('no_data.no_name_set')})`;
 	};
 

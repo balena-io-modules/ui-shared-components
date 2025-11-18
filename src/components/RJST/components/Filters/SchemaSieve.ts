@@ -12,6 +12,7 @@ import addFormats from 'ajv-formats';
 import pickBy from 'lodash/pickBy';
 import Ajv from 'ajv';
 import { enqueueSnackbar } from 'notistack';
+import { isObjectEmpty } from '../../../../utils/objects';
 
 const ajv = new Ajv();
 ajvKeywords(ajv, ['regexp']);
@@ -130,11 +131,7 @@ export const createFilter = (
 				operator,
 				value,
 			});
-			if (
-				!filter ||
-				typeof filter !== 'object' ||
-				!Object.keys(filter).length
-			) {
+			if (!filter || typeof filter !== 'object' || isObjectEmpty(filter)) {
 				return {};
 			}
 			return {

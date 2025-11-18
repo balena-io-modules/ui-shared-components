@@ -10,8 +10,8 @@ import {
 	parseDescription,
 	parseDescriptionProperty,
 } from '../schemaOps';
-import isEmpty from 'lodash/isEmpty';
 import get from 'lodash/get';
+import { isObjectEmpty } from '../../../utils/objects';
 
 const X_FOREIGN_KEY_SCHEMA_SEPARATOR = '___ref_scheme_separator_';
 
@@ -69,12 +69,12 @@ export const removeFieldsWithNoFilter = (schema: JSONSchema): JSONSchema => {
 			}
 
 			const hasEmptyProperties =
-				newValue.properties && isEmpty(newValue.properties);
+				newValue.properties && isObjectEmpty(newValue.properties);
 
 			const hasEmptyItemsProperties =
 				isJSONSchema(newValue.items) &&
 				'properties' in newValue.items &&
-				isEmpty(newValue.items.properties);
+				isObjectEmpty(newValue.items.properties ?? {});
 
 			if (hasEmptyProperties || hasEmptyItemsProperties) {
 				continue;
