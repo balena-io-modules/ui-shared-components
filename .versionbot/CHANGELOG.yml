@@ -1,4 +1,15 @@
 - commits:
+    - subject: Make experimental code for column management permanent
+      hash: 7fcde6d42e2c56ec5437b9b7530d8ea24f8b4eea
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Jonathan Berger
+  version: 15.2.5
+  title: ""
+  date: 2025-11-18T15:06:20.377Z
+- commits:
     - subject: Fix RJSF custom object field template
       hash: 63ae8e40c32b990bc092da9f17c7b56160563864
       body: ""
