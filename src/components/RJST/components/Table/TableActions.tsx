@@ -21,7 +21,6 @@ import { DndContext, type DragEndEvent } from '@dnd-kit/core';
 import { CSS } from '@dnd-kit/utilities';
 import { arrayMove, SortableContext, useSortable } from '@dnd-kit/sortable';
 import type { ColumnPreferencesChangeProp } from './index';
-import { useAnalyticsContext } from '../../../../contexts/AnalyticsContext';
 
 interface SortableItemProps<T> {
 	column: RJSTEntityPropertyDefinition<T>;
@@ -32,7 +31,6 @@ const SortableItem = <T extends object>({
 	column,
 	handleColumnSelection,
 }: SortableItemProps<T>) => {
-	const { state: analyticsState } = useAnalyticsContext();
 	const { attributes, listeners, setNodeRef, transform, transition } =
 		useSortable({ id: column.key });
 
@@ -42,22 +40,17 @@ const SortableItem = <T extends object>({
 			{...attributes}
 			sx={{ transform: CSS.Transform.toString(transform), transition }}
 		>
-			{(analyticsState.featureFlags?.['column-ordering']?.value === 'on' ||
-				analyticsState.featureFlags?.[
-					'reduced-default-device-columns-and-reordering'
-				]?.value === 'on') && (
-				<ListItemIcon
-					{...listeners}
-					sx={{
-						cursor: 'grab',
-						pr: 2,
-						mx: 0,
-						minWidth: 'auto !important',
-					}}
-				>
-					<FontAwesomeIcon icon={faGripVertical} />
-				</ListItemIcon>
-			)}
+			<ListItemIcon
+				{...listeners}
+				sx={{
+					cursor: 'grab',
+					pr: 2,
+					mx: 0,
+					minWidth: 'auto !important',
+				}}
+			>
+				<FontAwesomeIcon icon={faGripVertical} />
+			</ListItemIcon>
 			<FormControlLabel
 				sx={{ flex: 1, width: '100%', m: 0 }}
 				control={
@@ -90,7 +83,6 @@ export const TableActions = <T extends object>({
 }: TableActionsProps<T>) => {
 	const [anchorEl, setAnchorEl] = React.useState<HTMLElement>();
 	const theme = useTheme();
-	const { state: analyticsState } = useAnalyticsContext();
 	const matches = useMediaQuery(theme.breakpoints.up('sm'));
 	const open = Boolean(anchorEl);
 
@@ -126,17 +118,7 @@ export const TableActions = <T extends object>({
 
 	const handleDragEnd = (event: DragEndEvent) => {
 		const { active, over } = event;
-		if (
-			!active ||
-			!over ||
-			!onColumnPreferencesChange ||
-			(!(analyticsState.featureFlags?.['column-reordering']?.value === 'on') &&
-				!(
-					analyticsState.featureFlags?.[
-						'reduced-default-device-columns-and-reordering'
-					]?.value === 'on'
-				))
-		) {
+		if (!active || !over || !onColumnPreferencesChange) {
 			return;
 		}
 
