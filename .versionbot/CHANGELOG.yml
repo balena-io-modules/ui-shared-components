@@ -1,4 +1,22 @@
 - commits:
+    - subject: isObjectEmpty
+      hash: f5c2dd6b7054f6167a376db7c0d4d2da8291a9eb
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Matthew Yarmolinsky
+    - subject: Replace some usage of lodash with native JS alternatives
+      hash: f892feaaffed3cffac7bb24b272d8cefe088ef93
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Matthew Yarmolinsky
+  version: 15.2.7
+  title: ""
+  date: 2025-11-18T16:20:49.603Z
+- commits:
     - subject: Prevent Safari from defaulting to today’s date when a date input has a
         null value
       hash: cc361b88341e93cddd2fa722c3d9709b826b02ca
