@@ -98,10 +98,18 @@ export const loadRulesFromUrl = (
 			strictNullHandling: true,
 		}) || {};
 
+	let hasInvalidSignatures = false;
+
 	const rules = (Array.isArray(parsed) ? parsed : Object.values(parsed))
 		.filter(isQueryStringFilterRuleset)
 		.map(
 			(r: ListQueryStringFilterObject[]) => {
+				if (hasInvalidSignatures) {
+					// When we have already found an invalid signature,
+					// there is no point to continue parsing the rest
+					// so we return early.
+					return;
+				}
 				if (!Array.isArray(r)) {
 					r = [r];
 				}
@@ -160,6 +168,8 @@ export const loadRulesFromUrl = (
 				// In case of invalid signatures, remove search params to avoid Errors.
 				if (isSignaturesInvalid) {
 					navigate?.({ search: '' }, { replace: true });
+					hasInvalidSignatures = true;
+					return;
 				}
 
 				if (signatures[0].operator === FULL_TEXT_SLUG) {
@@ -176,6 +186,12 @@ export const loadRulesFromUrl = (
 			// TODO: createFilter should handle this case as well.
 		)
 		.filter((f): f is JSONSchema => !!f);
+
+	if (hasInvalidSignatures) {
+		// When we have found an invalid signature, we clear the url search params
+		// and return no filters, even if some of them were successfully parsed.
+		return [];
+	}
 	return rules;
 };
 
