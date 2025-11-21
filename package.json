@@ -1,6 +1,6 @@
 {
   "name": "@balena/ui-shared-components",
-  "version": "15.2.7",
+  "version": "15.2.8",
   "main": "./dist/index.js",
   "sideEffects": false,
   "files": [
@@ -135,7 +135,7 @@
   },
   "homepage": "https://github.com/balena-io/ui-shared-components#readme",
   "versionist": {
-    "publishedAt": "2025-11-18T16:20:49.766Z"
+    "publishedAt": "2025-11-21T15:12:54.459Z"
   },
   "overrides": {
     "storybook": "$storybook",

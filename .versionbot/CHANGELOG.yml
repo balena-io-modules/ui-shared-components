@@ -1,4 +1,15 @@
 - commits:
+    - subject: "RJST/PersistentFilters: Clear invalid url filter params w/o throwing"
+      hash: af9e281cfe85b50e34220e08c6c0c41e0d30f78a
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Thodoris Greasidis
+  version: 15.2.8
+  title: ""
+  date: 2025-11-21T15:12:54.317Z
+- commits:
     - subject: isObjectEmpty
       hash: f5c2dd6b7054f6167a376db7c0d4d2da8291a9eb
       body: ""
