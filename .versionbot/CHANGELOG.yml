@@ -1,4 +1,15 @@
 - commits:
+    - subject: correct Material import to avoid circular dependency
+      hash: 39764f528f6ed0f7e65db089973a75584533f52b
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Andrea Rosci
+  version: 15.2.9
+  title: ""
+  date: 2025-11-24T17:03:39.612Z
+- commits:
     - subject: "RJST/PersistentFilters: Clear invalid url filter params w/o throwing"
       hash: af9e281cfe85b50e34220e08c6c0c41e0d30f78a
       body: ""
