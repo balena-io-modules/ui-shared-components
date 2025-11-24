@@ -1,3 +1,5 @@
+import { Typography } from '@mui/material';
+import { Tooltip } from '../../../../Tooltip';
 import {
 	UiOption,
 	JsonTypes,
@@ -5,8 +7,6 @@ import {
 	formatTimestamp,
 	timeSince,
 } from '../utils';
-import { Material, Tooltip } from '../../../../..';
-const { Typography } = Material;
 
 export const ElapsedTimeWidget = widgetFactory(
 	'ElapsedTime',
