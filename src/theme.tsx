@@ -196,27 +196,31 @@ const calendarDataUrl = `url("data:image/svg+xml;utf8,${encodeURIComponent(
 // Fix placeholder text for date inputs in Safari: https://github.com/mui/material-ui/issues/37226
 const safariEmptyDateBugFix = {
 	'@supports (font: -apple-system-body) and (-webkit-appearance: none)': {
-		'&:has(input[type="date"]):not([value]), &:has(input[type="datetime-local"]):not([value])':
+		'&:has(input[type="date"][value=""]):not(:focus-within), &:has(input[type="datetime-local"][value=""]):not(:focus-within)':
 			{
 				color: 'rgba(0,0,0,0)',
 				position: 'relative',
 				minWidth: 120,
 			},
-		'&:has(input[type="date"]):not([value])::before': {
+
+		'&:has(input[type="date"][value=""]):not(:focus-within)::before': {
 			content: '"dd / mm / yyyy"',
 			left: 16,
 			color: '#333',
 			display: 'inline-block',
 			position: 'absolute',
 		},
-		'&:has(input[type="datetime-local"]):not([value])::before': {
-			content: '"dd / mm / yyyy, --:--"',
-			left: 16,
-			color: '#333',
-			display: 'inline-block',
-			position: 'absolute',
-		},
-		'&:has(input[type="date"]):not([value])::after, &:has(input[type="datetime-local"]):not([value])::after':
+
+		'&:has(input[type="datetime-local"][value=""]):not(:focus-within)::before':
+			{
+				content: '"dd / mm / yyyy, --:--"',
+				left: 16,
+				color: '#333',
+				display: 'inline-block',
+				position: 'absolute',
+			},
+
+		'&:has(input[type="date"])::after, &:has(input[type="datetime-local"])::after':
 			{
 				content: '""',
 				position: 'absolute',
