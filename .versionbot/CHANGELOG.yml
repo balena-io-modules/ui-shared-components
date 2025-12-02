@@ -1,4 +1,15 @@
 - commits:
+    - subject: Fix empty dateTime input behaviour
+      hash: 9c0388d3ba39c8449297f0fd7d9e1b62d7238692
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Andrea Rosci
+  version: 15.2.10
+  title: ""
+  date: 2025-12-02T16:54:02.881Z
+- commits:
     - subject: correct Material import to avoid circular dependency
       hash: 39764f528f6ed0f7e65db089973a75584533f52b
       body: ""
