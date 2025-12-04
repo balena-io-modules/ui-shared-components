@@ -124,7 +124,7 @@ export const ImageForm = memo(function ImageForm({
 	onSelectedOsTypeChange,
 	onChange,
 }: ImageFormProps) {
-	const { state } = useAnalyticsContext();
+	const { state: analyticsState } = useAnalyticsContext();
 
 	const [showAdvancedSettings, setShowAdvancedSettings] = useState(false);
 	const [
@@ -149,29 +149,29 @@ export const ImageForm = memo(function ImageForm({
 		() => preferredSelectionOpts.length < selectionOpts.length,
 		[preferredSelectionOpts.length, selectionOpts.length],
 	);
-
 	const supportsSecureBoot = useMemo(() => {
 		return (
+			analyticsState.featureFlags?.['toggle-secure-boot']?.value === 'on' &&
 			model.deviceType.slug === GENERIC_X86_SLUG &&
 			semver.gte(
 				model.version,
 				GENERIC_X86_MINIMUM_SUPPORTED_SECUREBOOT_VERSION,
 			)
 		);
-	}, [model.deviceType.slug, model.version]);
+	}, [analyticsState.featureFlags, model.deviceType.slug, model.version]);
 
 	const secureBootDontShowAgainKey = `${model.deviceType.slug}_secureboot_warning_do_not_show_again`;
 
 	const dismissSecureBootWarning = useCallback(
 		(accepted: boolean, dontShowAgain: boolean) => {
 			setShowSecureBootConfirmationDialog(false);
-			state.webTracker?.track(
+			analyticsState.webTracker?.track(
 				'Application Add Device Modal Hide Secure Boot Warning',
 				{ accepted, dontShowAgain },
 			);
 			setDontShowSecureBootWarningAgain(false);
 		},
-		[state.webTracker],
+		[analyticsState.webTracker],
 	);
 
 	const handleVariantChange = useCallback(
@@ -559,8 +559,8 @@ export const ImageForm = memo(function ImageForm({
 											) {
 												event.preventDefault();
 												setShowSecureBootConfirmationDialog(true);
-												if (state.webTracker) {
-													state.webTracker.track(
+												if (analyticsState.webTracker) {
+													analyticsState.webTracker.track(
 														'Application Add Device Modal Show Secure Boot Warning',
 													);
 												}
