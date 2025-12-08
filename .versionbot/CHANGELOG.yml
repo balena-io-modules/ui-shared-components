@@ -1,4 +1,15 @@
 - commits:
+    - subject: "Add Device Dialog: Only show Secureboot option for non-ESR"
+      hash: 5c7916306951e79b0a3900c92ab939d96c37587b
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Matthew Yarmolinsky
+  version: 15.2.11
+  title: ""
+  date: 2025-12-08T18:38:46.674Z
+- commits:
     - subject: Fix empty dateTime input behaviour
       hash: 9c0388d3ba39c8449297f0fd7d9e1b62d7238692
       body: ""
