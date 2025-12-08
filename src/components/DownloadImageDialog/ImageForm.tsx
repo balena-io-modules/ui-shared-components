@@ -152,13 +152,14 @@ export const ImageForm = memo(function ImageForm({
 
 	const supportsSecureBoot = useMemo(() => {
 		return (
+			osType === 'default' &&
 			model.deviceType.slug === GENERIC_X86_SLUG &&
 			semver.gte(
 				model.version,
 				GENERIC_X86_MINIMUM_SUPPORTED_SECUREBOOT_VERSION,
 			)
 		);
-	}, [model.deviceType.slug, model.version]);
+	}, [model.deviceType.slug, model.version, osType]);
 
 	const secureBootDontShowAgainKey = `${model.deviceType.slug}_secureboot_warning_do_not_show_again`;
 
