@@ -13,6 +13,7 @@ export type VersionSelectionOptions = {
 	| {
 			hasPrebuiltVariants: false;
 			rawVersion: string;
+			basedOnVersion?: string;
 	  }
 	| {
 			hasPrebuiltVariants: true;
@@ -20,6 +21,7 @@ export type VersionSelectionOptions = {
 				dev?: string;
 				prod?: string;
 			};
+			basedOnVersion?: string;
 	  }
 );
 
@@ -45,6 +47,7 @@ export const transformVersions = (versions: OsVersion[]) => {
 				? {
 						hasPrebuiltVariants: false,
 						rawVersion: version.raw_version,
+						basedOnVersion: version.basedOnVersion,
 					}
 				: {
 						hasPrebuiltVariants: true,
@@ -54,6 +57,7 @@ export const transformVersions = (versions: OsVersion[]) => {
 								existingSelectionOpt.rawVersions),
 							[version.variant]: version.raw_version,
 						},
+						basedOnVersion: version.basedOnVersion,
 					}),
 		};
 	});

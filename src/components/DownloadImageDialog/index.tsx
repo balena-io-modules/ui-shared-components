@@ -53,6 +53,7 @@ export interface DownloadImageFormModel {
 	releaseId: number | undefined;
 	deviceType: DeviceType;
 	version: string;
+	basedOnVersion?: string;
 	network: 'ethernet' | 'wifi';
 	secureboot: boolean;
 	developmentMode?: boolean;
