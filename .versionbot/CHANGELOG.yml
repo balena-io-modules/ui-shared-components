@@ -1,4 +1,15 @@
 - commits:
+    - subject: Add MUI X date pickers
+      hash: df10f4a72dd3f302854b276815445aafc6286ba9
+      body: ""
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: Andrea Rosci
+  version: 15.3.0
+  title: ""
+  date: 2025-12-19T08:53:34.939Z
+- commits:
     - subject: "Add Device Dialog: Only show Secureboot option for non-ESR"
       hash: 5c7916306951e79b0a3900c92ab939d96c37587b
       body: ""
