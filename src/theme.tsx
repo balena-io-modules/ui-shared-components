@@ -171,72 +171,6 @@ declare module '@mui/system' {
 	}
 }
 
-// SVG calendar icon used for date inputs
-const calendarSvg = `
-	<svg
-		xmlns="http://www.w3.org/2000/svg"
-		viewBox="0 0 24 24"
-		fill="none"
-		stroke="#000"
-		stroke-width="2"
-		stroke-linecap="round"
-		stroke-linejoin="round"
-	>
-		<path d="M5 4 H19 A2 2 0 0 1 21 6 V8 H3 V6 A2 2 0 0 1 5 4 Z" fill="#000" />
-		<line x1="16" y1="2" x2="16" y2="6" />
-		<line x1="8" y1="2" x2="8" y2="6" />
-		<path d="M3 8 H21 V18 A2 2 0 0 1 19 20 H5 A2 2 0 0 1 3 18 V8 Z" />
-	</svg>
-`;
-
-const calendarDataUrl = `url("data:image/svg+xml;utf8,${encodeURIComponent(
-	calendarSvg,
-)}")`;
-
-// Fix placeholder text for date inputs in Safari: https://github.com/mui/material-ui/issues/37226
-const safariEmptyDateBugFix = {
-	'@supports (font: -apple-system-body) and (-webkit-appearance: none)': {
-		'&:has(input[type="date"][value=""]):not(:focus-within), &:has(input[type="datetime-local"][value=""]):not(:focus-within)':
-			{
-				color: 'rgba(0,0,0,0)',
-				position: 'relative',
-				minWidth: 120,
-			},
-
-		'&:has(input[type="date"][value=""]):not(:focus-within)::before': {
-			content: '"dd / mm / yyyy"',
-			left: 16,
-			color: '#333',
-			display: 'inline-block',
-			position: 'absolute',
-		},
-
-		'&:has(input[type="datetime-local"][value=""]):not(:focus-within)::before':
-			{
-				content: '"dd / mm / yyyy, --:--"',
-				left: 16,
-				color: '#333',
-				display: 'inline-block',
-				position: 'absolute',
-			},
-
-		'&:has(input[type="date"])::after, &:has(input[type="datetime-local"])::after':
-			{
-				content: '""',
-				position: 'absolute',
-				right: 10,
-				top: '50%',
-				transform: 'translateY(-50%)',
-				width: 16,
-				height: 16,
-				pointerEvents: 'none',
-				backgroundImage: calendarDataUrl,
-				backgroundRepeat: 'no-repeat',
-				backgroundSize: '16px 16px',
-			},
-	},
-};
-
 export const theme = createTheme({
 	cssVariables: true,
 	unstable_sxConfig: {
@@ -641,6 +575,9 @@ export const theme = createTheme({
 			styleOverrides: {
 				root: {
 					padding: '0px 24px 24px',
+					'&.MuiPickersLayout-actionBar': {
+						padding: '8px',
+					},
 				},
 			},
 		},
@@ -1281,6 +1218,19 @@ export const theme = createTheme({
 			defaultProps: {
 				variant: 'outlined',
 			},
+			styleOverrides: {
+				root: {
+					'.MuiPickersSectionList-root': {
+						padding: '13.5px 0',
+					},
+					'.MuiPickersOutlinedInput-notchedOutline': {
+						borderColor: color.border.value,
+						'&:hover': {
+							borderColor: color.border.strong.value,
+						},
+					},
+				},
+			},
 		},
 		MuiOutlinedInput: {
 			defaultProps: {
@@ -1289,7 +1239,6 @@ export const theme = createTheme({
 			styleOverrides: {
 				root: ({ theme }) => ({
 					background: 'white',
-					...safariEmptyDateBugFix,
 					legend: {
 						// We should be able to remove this but there is a css override somewhere that
 						// set the fieldset > legend max-width to 100%, and this invalidate the notched: false rule for some inputs.
@@ -1321,7 +1270,6 @@ export const theme = createTheme({
 		MuiInput: {
 			styleOverrides: {
 				root: {
-					...safariEmptyDateBugFix,
 					'&::before': {
 						borderBottom: `1px solid ${color.border.value}`,
 					},
