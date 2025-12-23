@@ -11,7 +11,7 @@ import {
 	removeFieldsWithNoFilter,
 	removeRefSchemeSeparatorsFromFilters,
 } from './utils';
-import { useNavigate } from '../../../hooks/useNavigate';
+import { useUiSharedComponentsContext } from '../../../hooks/useUiSharedComponentsContext';
 
 export interface FiltersProps {
 	schema: JSONSchema;
@@ -38,7 +38,7 @@ export const Filters = ({
 	onSearch,
 	persistFilters,
 }: FiltersProps) => {
-	const navigate = useNavigate();
+	const { navigate } = useUiSharedComponentsContext();
 
 	const filteredSchema = React.useMemo(
 		() => removeFieldsWithNoFilter(schema),
