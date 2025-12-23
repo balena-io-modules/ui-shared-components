@@ -10,13 +10,12 @@ import type {
 	SubmitInfo,
 	TaggedResource,
 } from './models';
-import sortBy from 'lodash/sortBy';
+import { sortBy, partition } from 'es-toolkit';
 import { faPencilAlt } from '@fortawesome/free-solid-svg-icons/faPencilAlt';
 import {
 	getResourceTagSubmitInfo,
 	groupResourcesByTags,
 } from './tag-management-service';
-import partition from 'lodash/partition';
 import {
 	Button,
 	DialogActions,
@@ -204,7 +203,7 @@ export const TagManagementDialog = <T extends TaggedResource>({
 			};
 
 			slicedTags.push(newTag);
-			slicedTags = sortBy(slicedTags, 'tag_key');
+			slicedTags = sortBy(slicedTags, ['tag_key']);
 		}
 
 		setEditingTag(undefined);

@@ -2,13 +2,12 @@ import type {
 	JSONSchema7 as JSONSchema,
 	JSONSchema7Definition as JSONSchemaDefinition,
 } from 'json-schema';
-import get from 'lodash/get';
-import pick from 'lodash/pick';
+import { pick } from 'es-toolkit';
 import { findInObject } from './utils';
 import type { ResourceTagModelService } from '../TagManagementDialog/tag-management-service';
 import type { CheckedState } from './components/Table/utils';
 import type { PineFilterObject } from './oData/jsonToOData';
-import { isObjectEmpty } from '../../utils/objects';
+import { get, isObjectEmpty, pickDeep } from '../../utils/objects';
 
 export interface RJSTBaseResource<T> {
 	id: number;
@@ -322,9 +321,9 @@ export const generateSchemaFromRefScheme = (
 		...propertySchema,
 		description: JSON.stringify({ 'x-ref-scheme': [refScheme] }),
 		title:
-			(get(propertySchema, convertedRefScheme) as JSONSchema)?.title ??
+			get<JSONSchema>(propertySchema, convertedRefScheme)!.title ??
 			propertySchema.title,
-		...pick(propertySchema, typePaths),
+		...pickDeep(propertySchema, typePaths),
 	};
 };
 
@@ -334,7 +333,7 @@ export const getRefSchema = (
 ): JSONSchema => {
 	const refScheme = parseDescriptionProperty(schema, 'x-ref-scheme');
 	return refScheme
-		? ((get(schema, `${refSchemePrefix}${refScheme}`) as JSONSchema) ?? schema)
+		? (get(schema, `${refSchemePrefix}${refScheme}`) ?? schema)
 		: schema;
 };
 
@@ -355,7 +354,7 @@ export const getSubSchemaFromRefScheme = (
 		return schema as JSONSchema;
 	}
 	const properties = findInObject(schema, 'properties');
-	return get(properties, convertedRefScheme) as JSONSchema;
+	return get(properties, convertedRefScheme)!;
 };
 
 export const getSchemaFormat = (schema: JSONSchema) => {

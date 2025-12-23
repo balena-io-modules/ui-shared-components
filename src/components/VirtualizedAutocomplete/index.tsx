@@ -1,6 +1,6 @@
 import type { AutocompleteProps, ChipTypeMap } from '@mui/material';
 import { Autocomplete, Box, ListItemButton, Stack } from '@mui/material';
-import throttle from 'lodash/throttle';
+import { throttle } from 'es-toolkit';
 import * as React from 'react';
 import { forwardRef } from 'react';
 import type { VListHandle } from 'virtua';
@@ -273,10 +273,10 @@ const VirtualizedAutocompleteBase = <
 					ChipComponent
 				>['ListboxComponent']
 			}
-			onInputChange={async (event, input) => {
+			onInputChange={(event, input) => {
 				// input change
 				if (event?.type === 'change') {
-					await debouncedInputChange(input, []);
+					debouncedInputChange(input, []);
 				}
 			}}
 			getOptionLabel={getOptionLabel}

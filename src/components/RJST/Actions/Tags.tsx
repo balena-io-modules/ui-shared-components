@@ -2,7 +2,7 @@ import React from 'react';
 import type { JSONSchema7 as JSONSchema } from 'json-schema';
 import type { RJSTContext, RJSTBaseResource } from '../schemaOps';
 import { parseDescriptionProperty } from '../schemaOps';
-import get from 'lodash/get';
+import { get } from '../../../utils/objects';
 import { useTranslation } from '../../../hooks/useTranslations';
 import type {
 	ResourceTagSubmitInfo,

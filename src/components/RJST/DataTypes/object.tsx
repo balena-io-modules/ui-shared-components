@@ -7,8 +7,7 @@ import {
 	createModelFilter,
 } from '../components/Filters/SchemaSieve';
 import { isJSONSchema, getRefSchema } from '../schemaOps';
-import pick from 'lodash/pick';
-import mapValues from 'lodash/mapValues';
+import { pick, mapValues } from 'es-toolkit';
 
 const findValueByDescription = (
 	obj: object | undefined,
@@ -100,7 +99,7 @@ const valueSpecificOperators = [
 const getValueForOperation = (
 	operator: string,
 	schema: JSONSchema,
-	value: string | object,
+	value: string | Record<string, any>,
 ) => {
 	// Determine if the operation is key-specific or value-specific
 	const isKeyOperation = keySpecificOperators.includes(operator);
@@ -120,7 +119,7 @@ const getValueForOperation = (
 	return schemaProperty
 		? typeof value === 'string'
 			? { type: 'string', [schemaProperty]: value }
-			: pick(value, schemaProperty)
+			: pick(value, [schemaProperty])
 		: value;
 };
 

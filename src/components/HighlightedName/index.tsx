@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import Color from 'color';
 import ColorHash from 'color-hash';
-import memoize from 'lodash/memoize';
+import { memoize } from 'es-toolkit';
 import type { TypographyProps } from '@mui/material';
 import { Typography } from '@mui/material';
 import { token } from '../../utils/token';

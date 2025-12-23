@@ -1,4 +1,4 @@
-import isEqual from 'lodash/isEqual';
+import { isEqual } from 'es-toolkit';
 import { FULL_TEXT_SLUG } from '../components/Filters/SchemaSieve';
 import type { CreateFilter } from './utils';
 import { getDataTypeSchema, regexEscape } from './utils';

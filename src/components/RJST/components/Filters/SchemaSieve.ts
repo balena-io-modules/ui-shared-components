@@ -9,7 +9,7 @@ import {
 } from '../../DataTypes';
 import ajvKeywords from 'ajv-keywords';
 import addFormats from 'ajv-formats';
-import pickBy from 'lodash/pickBy';
+import { pickBy } from 'es-toolkit';
 import Ajv from 'ajv';
 import { enqueueSnackbar } from 'notistack';
 import { isObjectEmpty } from '../../../../utils/objects';

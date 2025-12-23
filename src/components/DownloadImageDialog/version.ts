@@ -1,5 +1,5 @@
 import { uniq } from '../../utils/arrays';
-import partition from 'lodash/partition';
+import { partition } from 'es-toolkit';
 import type { Dictionary, OsVersion } from './models';
 
 export type VersionSelectionOptions = {
@@ -71,7 +71,7 @@ export const getPreferredVersionOpts = (
 		// TODO: check if worth installing semver on ui-shared-components;
 		// const major = semver.major(v.strippedVersion);
 		const major = v.value.match(/\d+/)?.join();
-		return major && parseInt(major, 10) > LEGACY_OS_VERSION_MAJOR;
+		return !!major && parseInt(major, 10) > LEGACY_OS_VERSION_MAJOR;
 	});
 
 	const opts = supportedVersions.length ? supportedVersions : legacyVersions;
