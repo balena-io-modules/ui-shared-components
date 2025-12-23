@@ -1,4 +1,15 @@
 - commits:
+    - subject: remove formats prop and consolidate under context
+      hash: 27f23d315b7cc4e97f12eeeab5a13c350d8e952f
+      body: ""
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: Andrea Rosci
+  version: 15.4.0
+  title: ""
+  date: 2025-12-23T15:48:53.386Z
+- commits:
     - subject: Add MUI X date pickers
       hash: df10f4a72dd3f302854b276815445aafc6286ba9
       body: ""
