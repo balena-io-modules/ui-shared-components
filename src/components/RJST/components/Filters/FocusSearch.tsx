@@ -1,6 +1,6 @@
 import React from 'react';
 import debounce from 'lodash/debounce';
-import { useUiSharedComponentsContext } from '../../../../hooks/useUiSharedComponentsContext';
+import { useNavigate } from '../../../../hooks/useNavigate';
 import { ajvFilter, createFullTextSearchFilter } from './SchemaSieve';
 import { Box, styled, Typography } from '@mui/material';
 import { convertToPineClientFilter } from '../../oData/jsonToOData';
@@ -53,7 +53,7 @@ export const FocusSearch = <T extends { id: number; [key: string]: any }>({
 	model,
 	rowKey = 'id',
 }: FocusSearchProps<T>) => {
-	const { navigate } = useUiSharedComponentsContext();
+	const navigate = useNavigate();
 	const [searchResults, setSearchResults] = React.useState<
 		T[] | null | undefined
 	>(null);
