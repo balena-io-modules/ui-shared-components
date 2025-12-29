@@ -7,8 +7,7 @@ import {
 	Typography,
 } from '@mui/material';
 import type { WidgetProps } from '@rjsf/utils';
-import omit from 'lodash/omit';
-import isEqual from 'lodash/isEqual';
+import { omit, isEqual } from 'es-toolkit';
 import { token } from '../../../utils/token';
 
 const noneOption = {
@@ -102,7 +101,7 @@ export const SelectWidget = ({
 							<Chip
 								label={option.label}
 								{...(option.schema?.disabled
-									? omit(tagProps, 'onDelete')
+									? omit(tagProps, ['onDelete'])
 									: tagProps)}
 							/>
 						);

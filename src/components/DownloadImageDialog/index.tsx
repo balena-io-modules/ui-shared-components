@@ -22,8 +22,7 @@ import { ApplicationInstructions } from './ApplicationInstructions';
 import type { DropDownButtonProps } from '../DropDownButton';
 import { DropDownButton } from '../DropDownButton';
 
-import pickBy from 'lodash/pickBy';
-import debounce from 'lodash/debounce';
+import { pickBy, debounce } from 'es-toolkit';
 import type { DeviceType, Dictionary, OsVersionsByDeviceType } from './models';
 import { OsTypesEnum } from './models';
 import { uniq } from '../../utils/arrays';
@@ -160,10 +159,6 @@ const debounceDownloadSize = debounce(
 		}
 	},
 	200,
-	{
-		trailing: true,
-		leading: false,
-	},
 );
 
 export interface DownloadImageDialogProps {
@@ -355,7 +350,7 @@ export const DownloadImageDialog = ({
 		}
 
 		// Debounce as the version changes right after the devicetype does, resulting in multiple requests.
-		void debounceDownloadSize(
+		debounceDownloadSize(
 			getDownloadSize,
 			formModel.deviceType,
 			formModel.version,

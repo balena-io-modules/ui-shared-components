@@ -1,5 +1,4 @@
 import React from 'react';
-import template from 'lodash/template';
 import { UiSharedComponentsContextProvider } from '../contexts/UiSharedComponentsContextProvider';
 
 export type TFunction = (str: string, options?: any) => string;
@@ -120,8 +119,12 @@ const getTranslation = (str: string, opts?: any) => {
 			translationMap[pluralKey] ??
 			translationMap[str as keyof typeof translationMap];
 	}
-	const compiled = template(translation, { interpolate: /{{([\s\S]+?)}}/g });
-	return compiled(opts);
+	return translation?.replace(/{{([\s\S]+?)}}/g, (_match, key) => {
+		const trimmedKey = key.trim();
+		// Look up the value in opts. If null/undefined, return empty string.
+		const value = opts[trimmedKey];
+		return value != null ? String(value) : '';
+	});
 };
 
 export const useTranslation = () => {

@@ -5,7 +5,7 @@ import type {
 	SubmitInfo,
 	TaggedResource,
 } from './models';
-import groupBy from 'lodash/groupBy';
+import { groupBy } from 'es-toolkit';
 
 export const TAGS_COLUMN_KEY = 'Tags';
 
@@ -34,7 +34,10 @@ export const groupResourcesByTags = <
 		}));
 	});
 
-	const tagsByTagKeyValue = groupBy(resourceTagInfos, 'tag_key_value');
+	const tagsByTagKeyValue = groupBy(
+		resourceTagInfos,
+		(item) => item.tag_key_value,
+	);
 	const tagsWithItems = Object.keys(tagsByTagKeyValue)
 		.sort()
 		.map((tagKeyValue) => {

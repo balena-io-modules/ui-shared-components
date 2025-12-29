@@ -25,7 +25,7 @@ import {
 } from './schemaOps';
 import { LensSelection } from './Lenses/LensSelection';
 import type { JSONSchema7 as JSONSchema } from 'json-schema';
-import isEqual from 'lodash/isEqual';
+import { isEqual, pickBy } from 'es-toolkit';
 import { Filters } from './Filters/Filters';
 import { Tags } from './Actions/Tags';
 import { Update } from './Actions/Update';
@@ -47,7 +47,6 @@ import type { LensTemplate } from './Lenses';
 import { getLenses } from './Lenses';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import type { CollectionLensRendererProps } from './Lenses/types';
-import pickBy from 'lodash/pickBy';
 import { NoRecordsFoundView } from './NoRecordsFoundView';
 import type { BoxProps } from '@mui/material';
 import { Box, Link, styled } from '@mui/material';

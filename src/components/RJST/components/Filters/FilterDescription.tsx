@@ -6,7 +6,7 @@ import {
 	type FilterDescription as SieveFilterDescription,
 } from './SchemaSieve';
 import { isDateTimeFormat } from '../../DataTypes';
-import isEqual from 'lodash/isEqual';
+import { isEqual } from 'es-toolkit';
 import { findInObject } from '../../utils';
 import { isJSONSchema } from '../../schemaOps';
 import type { TagItem, TagProps } from '../../../Tag';

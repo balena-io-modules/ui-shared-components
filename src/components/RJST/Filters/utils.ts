@@ -10,8 +10,7 @@ import {
 	parseDescription,
 	parseDescriptionProperty,
 } from '../schemaOps';
-import get from 'lodash/get';
-import { isObjectEmpty } from '../../../utils/objects';
+import { get, isObjectEmpty } from '../../../utils/objects';
 
 const X_FOREIGN_KEY_SCHEMA_SEPARATOR = '___ref_scheme_separator_';
 

@@ -1,5 +1,4 @@
-import get from 'lodash/get';
-import invokeMap from 'lodash/invokeMap';
+import { get } from '../../../../../utils/objects';
 import type { UiSchema, Value } from '../utils';
 import { UiOption, JsonTypes, widgetFactory, formatTimestamp } from '../utils';
 import { Truncate } from '../../../../Truncate';
@@ -12,7 +11,10 @@ const getArrayValue = (value: Value[], uiSchema?: UiSchema): string | null => {
 	if (typeof maxItems !== 'number') {
 		return '';
 	}
-	let arrayString = invokeMap(value.slice(0, maxItems), 'toString').join(', ');
+	let arrayString = value
+		.slice(0, maxItems)
+		.map((item) => item?.toString())
+		.join(', ');
 	if (maxItems && maxItems < value.length) {
 		arrayString += ` and ${value.length - maxItems} more...`;
 	}

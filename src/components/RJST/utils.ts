@@ -1,7 +1,7 @@
 import type { RJSTBaseResource, Permissions, RJSTTagsSdk } from './schemaOps';
 import { getPropertyScheme } from './schemaOps';
 import { toArray } from '../../utils/arrays';
-import get from 'lodash/get';
+import { get } from '../../utils/objects';
 import type { JSONSchema7 as JSONSchema } from 'json-schema';
 import type { CheckedState } from './components/Table/utils';
 import type { TFunction } from '../../hooks/useTranslations';

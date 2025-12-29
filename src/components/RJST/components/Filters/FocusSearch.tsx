@@ -1,6 +1,6 @@
 import React from 'react';
-import debounce from 'lodash/debounce';
 import { useNavigate } from '../../../../hooks/useNavigate';
+import { debounce } from 'es-toolkit';
 import { ajvFilter, createFullTextSearchFilter } from './SchemaSieve';
 import { Box, styled, Typography } from '@mui/material';
 import { convertToPineClientFilter } from '../../oData/jsonToOData';
@@ -88,7 +88,7 @@ export const FocusSearch = <T extends { id: number; [key: string]: any }>({
 
 	React.useEffect(() => {
 		const filter = createFullTextSearchFilter(model.schema, searchTerm);
-		void debouncedSearch(filter);
+		debouncedSearch(filter);
 		return () => {
 			debouncedSearch.cancel();
 		};

@@ -8,7 +8,7 @@ import type {
 import { Button, ButtonGroup, MenuItem, Menu } from '@mui/material';
 import { ButtonWithTracking } from '../ButtonWithTracking';
 import { useAnalyticsContext } from '../../contexts/AnalyticsContext';
-import groupBy from 'lodash/groupBy';
+import { groupBy } from 'es-toolkit';
 import { Tooltip } from '../Tooltip';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -57,7 +57,7 @@ export const DropDownButton = <T extends unknown>({
 		if (!groupByProp) {
 			return items;
 		}
-		const grouped = groupBy(items, (item) => item[groupByProp]);
+		const grouped = groupBy(items, (item) => String(item[groupByProp]));
 		const entries = Object.entries(grouped);
 		const lastKey = entries.at(-1)?.[0];
 

@@ -1,6 +1,6 @@
 import type { Schema } from 'ajv';
 import type { JSONSchema7 as JSONSchema } from 'json-schema';
-import memoize from 'lodash/memoize';
+import { memoize } from 'es-toolkit';
 
 const matchOperatorsRe = /[|\\{}()[\]^$+*?]/g;
 const unescapeRegexRe = /\\([|\\{}()[\]^$+*?])/g;

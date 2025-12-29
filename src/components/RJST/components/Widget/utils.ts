@@ -1,6 +1,6 @@
 import type { JSONSchema7 as JSONSchema } from 'json-schema';
 import type { UiSchema as rjsfUiSchema } from '@rjsf/utils';
-import get from 'lodash/get';
+import { get } from '../../../../utils/objects';
 import { format, formatDistance } from 'date-fns';
 
 const DATE_FORMAT = 'MMM do yyyy';
