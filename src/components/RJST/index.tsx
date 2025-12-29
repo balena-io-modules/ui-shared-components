@@ -60,7 +60,7 @@ import type {
 import type { TFunction } from '../../hooks/useTranslations';
 import { useTranslation } from '../../hooks/useTranslations';
 import { useAnalyticsContext } from '../../contexts/AnalyticsContext';
-import { useUiSharedComponentsContext } from '../../hooks/useUiSharedComponentsContext';
+import { useNavigate } from '../../hooks/useNavigate';
 import type { FiltersView } from './components/Filters';
 import type { PineFilterObject } from './oData/jsonToOData';
 import { convertToPineClientFilter, orderbyBuilder } from './oData/jsonToOData';
@@ -92,6 +92,8 @@ export interface RJSTProps<T> extends Omit<BoxProps, 'onChange'> {
 	model: RJSTModel<T>;
 	/** Array of data or data entity to display */
 	data: T[] | undefined;
+	/** Formats are custom widgets to render in the table cell. The type of format to display is described in the model. */
+	formats?: Format[];
 	/** Actions is an array of actions applicable on the selected items */
 	actions?: Array<RJSTAction<T>>;
 	/** The sdk is used to pass the method to handle tags when added removed or updated */
@@ -142,6 +144,7 @@ export interface RJSTProps<T> extends Omit<BoxProps, 'onChange'> {
 export const RJST = <T extends RJSTBaseResource<T>>({
 	model: modelRaw,
 	data,
+	formats,
 	actions,
 	sdk,
 	customSort,
@@ -159,7 +162,7 @@ export const RJST = <T extends RJSTBaseResource<T>>({
 }: RJSTProps<T>) => {
 	const { t } = useTranslation();
 	const { state: analytics } = useAnalyticsContext();
-	const { navigate, RJSTFormats: formats } = useUiSharedComponentsContext();
+	const navigate = useNavigate();
 
 	const modelRef = React.useRef(modelRaw);
 	// This allows the component to work even if
