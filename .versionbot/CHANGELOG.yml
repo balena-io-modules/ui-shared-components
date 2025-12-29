@@ -1,4 +1,15 @@
 - commits:
+    - subject: Replace lodash with es-toolkit
+      hash: a1fbd89b7b437b8f681624b24eb47bd411df8798
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Matthew Yarmolinsky
+  version: 15.5.3
+  title: ""
+  date: 2025-12-29T17:12:25.128Z
+- commits:
     - subject: "Add device dialog: Only show secureboot option for ESR if it is based
         on a balenaOS version that supports it"
       hash: b6da765c977c62e09075a03d0a36e0ba3fc06086
