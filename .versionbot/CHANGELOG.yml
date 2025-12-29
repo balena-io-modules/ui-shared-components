@@ -1,4 +1,15 @@
 - commits:
+    - subject: Run `npm audit fix`
+      hash: d2061118e960f1cdf83dac4f54644b053dc6e468
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Matthew Yarmolinsky
+  version: 15.5.1
+  title: ""
+  date: 2025-12-29T14:10:01.950Z
+- commits:
     - subject: Revert "remove formats prop and consolidate under context"
       hash: 2ee7e5a82a73723817c8fdc34cef5f22f8b78626
       body: |
