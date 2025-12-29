@@ -48,6 +48,7 @@ export enum ActionType {
 	downloadConfigFile = 'download_config_file',
 }
 
+// This interface should only have properties that are intended to be part of the payload to Etcher
 export interface DownloadImageFormModel {
 	appId: number;
 	releaseId: number | undefined;
