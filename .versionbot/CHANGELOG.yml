@@ -1,4 +1,16 @@
 - commits:
+    - subject: "Add device dialog: Only show secureboot option for ESR if it is based
+        on a balenaOS version that supports it"
+      hash: b6da765c977c62e09075a03d0a36e0ba3fc06086
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Matthew Yarmolinsky
+  version: 15.5.2
+  title: ""
+  date: 2025-12-29T14:20:22.125Z
+- commits:
     - subject: Run `npm audit fix`
       hash: d2061118e960f1cdf83dac4f54644b053dc6e468
       body: ""
