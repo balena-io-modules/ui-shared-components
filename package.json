@@ -74,6 +74,7 @@
     "@types/react-dom": "^18.0.11",
     "@types/react-helmet": "^6.1.6",
     "@types/zxcvbn": "^4.4.4",
+    "@vitest/mocker": "^4.0.16",
     "eslint-plugin-storybook": "^10.0.1",
     "husky": "^9.0.0",
     "lint-staged": "^16.0.0",
@@ -92,7 +93,7 @@
     "prepare": "husky",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build --docs",
-    "deploy-docs": "npm ci && storybook build --docs && mv storybook-static build"
+    "deploy-docs": "npm install && storybook build --docs && mv storybook-static build"
   },
   "eslintConfig": {
     "extends": [

@@ -382,7 +382,6 @@ export const ImageForm = memo(function ImageForm({
 							onChange={(_event, ver) => {
 								handleVersionChange(ver);
 							}}
-							placeholder="Choose a version..."
 							renderOption={(props, option) => (
 								<Box component="li" {...props}>
 									<VersionSelectItem
@@ -394,6 +393,7 @@ export const ImageForm = memo(function ImageForm({
 							renderInput={({ InputProps, ...params }) => (
 								<TextField
 									{...params}
+									placeholder="Choose a version..."
 									slotProps={{
 										input: {
 											...InputProps,
