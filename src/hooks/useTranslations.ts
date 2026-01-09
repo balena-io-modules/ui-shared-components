@@ -48,6 +48,8 @@ const translationMap = {
 	'fields_errors.tag_name_cannot_be_empty': "The tag name can't be empty.",
 	'fields_errors.tag_names_cannot_contain_whitespace':
 		'Tag names cannot contain whitespace',
+	'fields_errors.tag_name_cannot_longer_than_maximum_characters': `The tag name can't be longer than {{maximum}} characters.`,
+	'fields_errors.tag_value_cannot_longer_than_maximum_characters': `The tag value can't be longer than {{maximum}} characters.`,
 	'fields_errors.some_tag_keys_are_reserved':
 		'Tag names beginning with {{namespace}} are reserved',
 	'fields_errors.tag_with_same_name_exists':
