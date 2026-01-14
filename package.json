@@ -57,6 +57,7 @@
   },
   "devDependencies": {
     "@balena/lint": "^9.3.8",
+    "@fortawesome/fontawesome-svg-core": "^7.1.0",
     "@storybook/addon-docs": "^10.0.1",
     "@storybook/addon-links": "^10.0.1",
     "@storybook/addon-onboarding": "^10.0.1",
