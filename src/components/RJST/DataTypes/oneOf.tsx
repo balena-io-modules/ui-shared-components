@@ -2,7 +2,7 @@ import { isJSONSchema } from '../schemaOps';
 import { FULL_TEXT_SLUG } from '../components/Filters/SchemaSieve';
 import type { CreateFilter } from './utils';
 import { getDataTypeSchema } from './utils';
-import type { JSONSchema7 as JSONSchema } from 'json-schema';
+import type { StrictRJSFSchema as JSONSchema } from '@rjsf/utils';
 export const operators = () => ({
 	is: 'is',
 	is_not: 'is not',

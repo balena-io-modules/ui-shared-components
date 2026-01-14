@@ -1,11 +1,9 @@
 import type { TableSortOptions } from '../components/Table/utils';
-import type {
-	JSONSchema7 as JSONSchema,
-	JSONSchema7Definition as JSONSchemaDefinition,
-} from 'json-schema';
+import type { StrictRJSFSchema as JSONSchema } from '@rjsf/utils';
 import type { RJSTContext } from '../schemaOps';
 import { isJSONSchema } from '../schemaOps';
 import { regexUnescape } from '../DataTypes/utils';
+import type { JSONSchemaDefinition } from '../../../typings/shared';
 
 export type PineFilterObject = Record<string, any>;
 

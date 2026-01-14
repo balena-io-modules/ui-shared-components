@@ -1,6 +1,6 @@
 import * as React from 'react';
 import qs from 'qs';
-import type { JSONSchema7 as JSONSchema } from 'json-schema';
+import type { StrictRJSFSchema as JSONSchema } from '@rjsf/utils';
 import type { FiltersProps } from '../components/Filters';
 import { Filters } from '../components/Filters';
 import type { FilterDescription } from '../components/Filters/SchemaSieve';

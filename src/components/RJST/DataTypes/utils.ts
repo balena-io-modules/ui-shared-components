@@ -1,5 +1,5 @@
 import type { Schema } from 'ajv';
-import type { JSONSchema7 as JSONSchema } from 'json-schema';
+import type { StrictRJSFSchema as JSONSchema } from '@rjsf/utils';
 import { memoize } from 'es-toolkit';
 
 const matchOperatorsRe = /[|\\{}()[\]^$+*?]/g;

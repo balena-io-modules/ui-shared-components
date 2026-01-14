@@ -1,7 +1,7 @@
 import type { CreateFilter } from './utils';
 import { getDataTypeSchema, regexEscape } from './utils';
 import { FULL_TEXT_SLUG } from '../components/Filters/SchemaSieve';
-import type { JSONSchema7 as JSONSchema } from 'json-schema';
+import type { StrictRJSFSchema as JSONSchema } from '@rjsf/utils';
 
 // TODO: we should make it an object as soon as we will be able to remove custom Tags logic in DataTypes/object.tsx.
 export const operators = () => ({

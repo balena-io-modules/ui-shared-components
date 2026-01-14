@@ -1,5 +1,5 @@
 import React from 'react';
-import type { JSONSchema7 as JSONSchema } from 'json-schema';
+import type { StrictRJSFSchema as JSONSchema } from '@rjsf/utils';
 import { useTranslation } from '../../../../hooks/useTranslations';
 import { FilterDescription } from './FilterDescription';
 import { DialogWithCloseButton } from '../../../DialogWithCloseButton';

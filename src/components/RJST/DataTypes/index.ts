@@ -7,17 +7,13 @@ import * as enumType from './enum';
 import * as oneOfType from './oneOf';
 import * as dateTimeType from './date-time';
 
-import {
-	type JSONSchema7 as JSONSchema,
-	type JSONSchema7Definition as JSONSchemaDefinition,
-	type JSONSchema7TypeName as JSONSchemaTypeName,
-} from 'json-schema';
+import type { StrictRJSFSchema as JSONSchema } from '@rjsf/utils';
 import { getPropertySchema } from '../components/Filters/SchemaSieve';
 import { getRefSchema } from '../schemaOps';
-
-type ExcludeLiteral<T, U> = T extends U ? never : T;
-
-type PartialJSONSchemaTypeName = ExcludeLiteral<JSONSchemaTypeName, 'null'>;
+import type {
+	JSONSchemaDefinition,
+	PartialJSONSchemaTypeName,
+} from '../../../typings/shared';
 
 type DataTypeModule =
 	| typeof arrayType
@@ -89,7 +85,7 @@ export const getDataModel = (
 			}
 			const typeSet = Array.isArray(type) ? type : [type];
 			const dataTypeKey = Object.keys(dataTypeMap).find((t) =>
-				typeSet.includes(t as JSONSchemaTypeName),
+				typeSet.includes(t as PartialJSONSchemaTypeName),
 			);
 			if (!dataTypeKey) {
 				return null;

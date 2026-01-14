@@ -1,7 +1,4 @@
-import type {
-	JSONSchema7 as JSONSchema,
-	JSONSchema7Definition as JSONSchemaDefinition,
-} from 'json-schema';
+import type { StrictRJSFSchema as JSONSchema } from '@rjsf/utils';
 import {
 	getAllOperators,
 	getDataModel,
@@ -13,6 +10,7 @@ import { pickBy } from 'es-toolkit';
 import Ajv from 'ajv';
 import { enqueueSnackbar } from 'notistack';
 import { isObjectEmpty } from '../../../../utils/objects';
+import type { JSONSchemaDefinition } from '../../../../typings/shared';
 
 const ajv = new Ajv();
 ajvKeywords(ajv, ['regexp']);
