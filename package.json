@@ -21,6 +21,7 @@
     "@fortawesome/react-fontawesome": "^3.1.0",
     "@mui/lab": "7.0.0-beta.14",
     "@mui/material": "^7.3.5",
+    "@mui/utils": "^7.3.7",
     "@mui/x-data-grid": "^7.29.8",
     "@mui/x-date-pickers": "^8.22.0",
     "@react-google-maps/api": "^2.18.1",
