@@ -119,6 +119,8 @@ export const Tags = <T extends RJSTBaseResource<T>>({
 		return null;
 	}
 
+	const tagSchema = schema.properties?.[rjstContext.tagField];
+
 	return (
 		<Spinner show={isPending} sx={{ width: '100%', height: '100%' }}>
 			<TagManagementDialog<T>
@@ -126,6 +128,11 @@ export const Tags = <T extends RJSTBaseResource<T>>({
 				itemType={rjstContext.resource}
 				titleField={getItemName ?? (rjstContext.nameField as keyof T)}
 				tagField={rjstContext.tagField as keyof T}
+				tagSchema={
+					tagSchema != null && typeof tagSchema === 'object'
+						? tagSchema
+						: undefined
+				}
 				done={async (tagSubmitInfo) => {
 					await changeTags(tagSubmitInfo);
 					onDone();
