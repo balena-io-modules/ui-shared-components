@@ -1,4 +1,64 @@
 - commits:
+    - subject: Use `@rjsf/utils` instead of `json-schema` for `JSONSchema` typing
+      hash: e38e542367b8c4398cc5027119ccc0259e295427
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Matthew Yarmolinsky
+    - subject: Run `npm audit fix`
+      hash: 6e170f6230a7efa4aada8166ec86be6545cc7972
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Matthew Yarmolinsky
+    - subject: Add missing dev dependency `@fortawesome/fontawesome-svg-core`
+      hash: 8bd7b244512258a92a2a80baafa79200cc40327f
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Matthew Yarmolinsky
+    - subject: Add missing dependency `@mui/utils`
+      hash: 2fc7b9188c1e54c124492b52df2f87c5d332eef2
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Matthew Yarmolinsky
+    - subject: Add missing dependency `@dnd-kit/utilities`
+      hash: c8c657b9e4b305ac7a4e989893050b0fe13058fa
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Matthew Yarmolinsky
+    - subject: Remove unused dev dependency `prop-types`
+      hash: 098c29d79312f1469a16bb9d3f75c63f674a1100
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Matthew Yarmolinsky
+    - subject: Remove unused dependency `@mui/styled-engine-sc`
+      hash: 37920b116e0512dffef56ef8f213d99a6a46b9c1
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Matthew Yarmolinsky
+    - subject: Move `rimraf` to dev dependencies
+      hash: c5385b5df63398ef43b665e3701b5f420c88036c
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Matthew Yarmolinsky
+  version: 15.6.1
+  title: ""
+  date: 2026-01-15T15:22:24.969Z
+- commits:
     - subject: "TagManagement: Add support for defining max field size constraints"
       hash: a3edb414639480ae69cbfcf2e90206a08786e087
       body: ""
