@@ -1,4 +1,17 @@
 - commits:
+    - subject: "TagManagement: Add support for defining max field size constraints"
+      hash: a3edb414639480ae69cbfcf2e90206a08786e087
+      body: ""
+      footer:
+        Change-type: minor
+        change-type: minor
+        See: https://balena.fibery.io/Work/Project/re-pitching-API-Limit-size-of-large-fields-audit-the-outliers-975
+        see: https://balena.fibery.io/Work/Project/re-pitching-API-Limit-size-of-large-fields-audit-the-outliers-975
+      author: Thodoris Greasidis
+  version: 15.6.0
+  title: ""
+  date: 2026-01-15T07:48:27.951Z
+- commits:
     - subject: Remove unnecessary `json-schema` lib
       hash: 89daae12a06d50936f7566c06baa3e6f971d6e4e
       body: ""
