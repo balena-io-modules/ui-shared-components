@@ -2,7 +2,7 @@ import React from 'react';
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons/faTrashAlt';
 import { faUndo } from '@fortawesome/free-solid-svg-icons/faUndo';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import type { JSONSchema7 as JSONSchema } from 'json-schema';
+import type { StrictRJSFSchema as JSONSchema } from '@rjsf/utils';
 import { AddTagForm } from './AddTagForm';
 import type {
 	ResourceTagInfo,
