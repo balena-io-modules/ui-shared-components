@@ -1,4 +1,15 @@
 - commits:
+    - subject: Remove unnecessary `json-schema` lib
+      hash: 89daae12a06d50936f7566c06baa3e6f971d6e4e
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Andrea Rosci
+  version: 15.5.5
+  title: ""
+  date: 2026-01-15T00:33:30.898Z
+- commits:
     - subject: Update jest to 30 and move it to dev dependencies
       hash: 984f0cb7586012aaf1ae169c6793ef73ce2ec52b
       body: ""
