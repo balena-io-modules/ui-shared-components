@@ -1,7 +1,7 @@
 import * as React from 'react';
 import type { ResourceTagInfo } from './models';
 import { Button, Stack, TextField, Typography } from '@mui/material';
-import type { JSONSchema7 as JSONSchema } from 'json-schema';
+import type { StrictRJSFSchema as JSONSchema } from '@rjsf/utils';
 import { Callout } from '../Callout';
 import { useTranslation } from '../../hooks/useTranslations';
 import {
