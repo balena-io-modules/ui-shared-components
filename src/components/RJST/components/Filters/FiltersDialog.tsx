@@ -1,9 +1,6 @@
 import React from 'react';
 import { useTranslation } from '../../../../hooks/useTranslations';
-import type {
-	JSONSchema7 as JSONSchema,
-	JSONSchema7Definition as JSONSchemaDefinition,
-} from 'json-schema';
+import type { StrictRJSFSchema as JSONSchema } from '@rjsf/utils';
 import { getDataModel, getPropertySchemaAndModel } from '../../DataTypes';
 import {
 	createFilter,
@@ -33,6 +30,7 @@ import { getRefSchema } from '../../schemaOps';
 import type { IChangeEvent } from '@rjsf/core';
 import { DialogWithCloseButton } from '../../../DialogWithCloseButton';
 import { RJSForm } from '../../../Form';
+import type { JSONSchemaDefinition } from '../../../../typings/shared';
 
 const ArrayFieldTemplate = ({
 	items,

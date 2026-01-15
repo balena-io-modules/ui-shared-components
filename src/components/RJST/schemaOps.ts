@@ -1,14 +1,11 @@
-import type {
-	JSONSchema7 as JSONSchema,
-	JSONSchema7Definition as JSONSchemaDefinition,
-} from 'json-schema';
 import { pick } from 'es-toolkit';
 import { findInObject } from './utils';
 import type { ResourceTagModelService } from '../TagManagementDialog/tag-management-service';
 import type { CheckedState } from './components/Table/utils';
 import type { PineFilterObject } from './oData/jsonToOData';
 import { get, isObjectEmpty, pickDeep } from '../../utils/objects';
-
+import type { StrictRJSFSchema as JSONSchema } from '@rjsf/utils';
+import type { JSONSchemaDefinition } from '../../typings/shared';
 export interface RJSTBaseResource<T> {
 	id: number;
 	__permissions: Permissions<T>;

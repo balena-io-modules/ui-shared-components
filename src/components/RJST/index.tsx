@@ -24,7 +24,6 @@ import {
 	isJSONSchema,
 } from './schemaOps';
 import { LensSelection } from './Lenses/LensSelection';
-import type { JSONSchema7 as JSONSchema } from 'json-schema';
 import { isEqual, pickBy } from 'es-toolkit';
 import { Filters } from './Filters/Filters';
 import { Tags } from './Actions/Tags';
@@ -71,6 +70,7 @@ import { Widget } from './components/Widget';
 import { defaultFormats } from './components/Widget/Formats';
 import { Tooltip } from '../Tooltip';
 import { token } from '../../utils/token';
+import type { StrictRJSFSchema } from '@rjsf/utils';
 
 const HeaderGrid = styled(Box)(({ theme }) => ({
 	display: 'flex',
@@ -114,7 +114,7 @@ export interface RJSTProps<T> extends Omit<BoxProps, 'onChange'> {
 	// TODO: onChange should also be called when data in the table is sorted and when columns change
 	/** Function that gets called when filters change */
 	onChange?: (changes: {
-		filters?: JSONSchema[];
+		filters?: StrictRJSFSchema[];
 		page: number;
 		itemsPerPage?: number;
 		oData?: {
@@ -173,7 +173,7 @@ export const RJST = <T extends RJSTBaseResource<T>>({
 		return modelRaw;
 	}, [modelRaw]);
 
-	const [filters, setFilters] = React.useState<JSONSchema[]>([]);
+	const [filters, setFilters] = React.useState<StrictRJSFSchema[]>([]);
 	// TODO: this logic should be moved in the lens/table.tsx.
 	// With the layer refactor we should have a lens.data.renderer should
 	// only handle a onChange event that has all the info. the lens should handle all cases
@@ -203,7 +203,7 @@ export const RJST = <T extends RJSTBaseResource<T>>({
 
 	const internalOnChange = React.useCallback(
 		(
-			updatedFilters: JSONSchema[],
+			updatedFilters: StrictRJSFSchema[],
 			sortInfo: TableSortOptions<T> | null,
 			page: number,
 			itemsPerPage: number,
@@ -238,7 +238,7 @@ export const RJST = <T extends RJSTBaseResource<T>>({
 	);
 
 	const $setFilters = React.useCallback(
-		(updatedFilters: JSONSchema[]) => {
+		(updatedFilters: StrictRJSFSchema[]) => {
 			setFilters(updatedFilters);
 			internalOnChange(
 				updatedFilters,
@@ -655,7 +655,7 @@ export {
 
 const getTitleAndLabel = <T extends object>(
 	t: TFunction,
-	jsonSchema: JSONSchema,
+	jsonSchema: StrictRJSFSchema,
 	propertyKey: string,
 	refScheme: string | undefined,
 ) => {
@@ -717,7 +717,7 @@ const getColumnsFromSchema = <T extends RJSTBaseResource<T>>({
 	formats,
 }: {
 	t: TFunction;
-	schema: JSONSchema;
+	schema: StrictRJSFSchema;
 	idField: RJSTContext<T>['idField'];
 	isServerSide: boolean;
 	customSort?: RJSTContext<T>['customSort'];
@@ -736,42 +736,48 @@ const getColumnsFromSchema = <T extends RJSTBaseResource<T>>({
 			]
 		>
 	)
-		.filter((entry): entry is [Extract<keyof T, string>, JSONSchema] => {
+		.filter((entry): entry is [Extract<keyof T, string>, StrictRJSFSchema] => {
 			const [_key, val] = entry;
 			return isJSONSchema(val);
 		})
-		.flatMap(([key, val]): Array<[Extract<keyof T, string>, JSONSchema]> => {
-			const refScheme = getPropertyScheme(val);
-			if (!refScheme || refScheme.length <= 1) {
-				return [[key, val]];
-			}
-			const entityFilterOnly = parseDescriptionProperty(val, 'x-filter-only');
-			return refScheme.map((propKey: string) => {
-				const referenceSchema = generateSchemaFromRefScheme(val, key, propKey);
-				const referenceSchemaFilterOnly = parseDescriptionProperty(
-					referenceSchema,
-					'x-filter-only',
-				);
-				const xFilterOnly =
-					hasPropertyEnabled(referenceSchemaFilterOnly, propKey) ||
-					hasPropertyEnabled(entityFilterOnly, propKey);
-				const xNoSort =
-					hasPropertyEnabled(
-						parseDescriptionProperty(val, 'x-no-sort'),
-						propKey,
-					) ||
-					hasPropertyEnabled(
-						parseDescriptionProperty(referenceSchema, 'x-no-sort'),
+		.flatMap(
+			([key, val]): Array<[Extract<keyof T, string>, StrictRJSFSchema]> => {
+				const refScheme = getPropertyScheme(val);
+				if (!refScheme || refScheme.length <= 1) {
+					return [[key, val]];
+				}
+				const entityFilterOnly = parseDescriptionProperty(val, 'x-filter-only');
+				return refScheme.map((propKey: string) => {
+					const referenceSchema = generateSchemaFromRefScheme(
+						val,
+						key,
 						propKey,
 					);
-				const description = JSON.stringify({
-					'x-ref-scheme': [propKey],
-					...(xFilterOnly && { 'x-filter-only': 'true' }),
-					...(xNoSort && { 'x-no-sort': 'true' }),
+					const referenceSchemaFilterOnly = parseDescriptionProperty(
+						referenceSchema,
+						'x-filter-only',
+					);
+					const xFilterOnly =
+						hasPropertyEnabled(referenceSchemaFilterOnly, propKey) ||
+						hasPropertyEnabled(entityFilterOnly, propKey);
+					const xNoSort =
+						hasPropertyEnabled(
+							parseDescriptionProperty(val, 'x-no-sort'),
+							propKey,
+						) ||
+						hasPropertyEnabled(
+							parseDescriptionProperty(referenceSchema, 'x-no-sort'),
+							propKey,
+						);
+					const description = JSON.stringify({
+						'x-ref-scheme': [propKey],
+						...(xFilterOnly && { 'x-filter-only': 'true' }),
+						...(xNoSort && { 'x-no-sort': 'true' }),
+					});
+					return [key, { ...val, description }];
 				});
-				return [key, { ...val, description }];
-			});
-		})
+			},
+		)
 		.filter(([key, val]) => {
 			const entryDescription = parseDescription(val);
 			return (

@@ -1,7 +1,7 @@
 import { FULL_TEXT_SLUG } from '../components/Filters/SchemaSieve';
 import type { CreateFilter } from './utils';
 import { getDataTypeSchema } from './utils';
-import type { JSONSchema7 as JSONSchema } from 'json-schema';
+import type { StrictRJSFSchema as JSONSchema } from '@rjsf/utils';
 
 // This is the max safe integer supported DB: 2**31-1
 const MAX_SAFE_DB_INT4 = 2147483647;

@@ -1,5 +1,5 @@
 import React from 'react';
-import type { JSONSchema7 as JSONSchema } from 'json-schema';
+import type { StrictRJSFSchema as JSONSchema } from '@rjsf/utils';
 import type { RJSTContext, RJSTBaseResource } from '../schemaOps';
 import { parseDescriptionProperty } from '../schemaOps';
 import { get } from '../../../utils/objects';

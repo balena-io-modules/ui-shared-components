@@ -1,7 +1,4 @@
-import type {
-	JSONSchema7 as JSONSchema,
-	JSONSchema7Definition as JSONSchemaDefinition,
-} from 'json-schema';
+import type { StrictRJSFSchema as JSONSchema } from '@rjsf/utils';
 import {
 	convertRefSchemeToSchemaPath,
 	getRefSchemeTitle,
@@ -11,6 +8,7 @@ import {
 	parseDescriptionProperty,
 } from '../schemaOps';
 import { get, isObjectEmpty } from '../../../utils/objects';
+import type { JSONSchemaDefinition } from '../../../typings/shared';
 
 const X_FOREIGN_KEY_SCHEMA_SEPARATOR = '___ref_scheme_separator_';
 

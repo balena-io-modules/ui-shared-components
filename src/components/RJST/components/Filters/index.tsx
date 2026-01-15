@@ -14,7 +14,7 @@ import { Summary } from './Summary';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFilter } from '@fortawesome/free-solid-svg-icons/faFilter';
 import { useClickOutsideOrEsc } from '../../../../hooks/useClickOutsideOrEsc';
-import type { JSONSchema7 as JSONSchema } from 'json-schema';
+import type { StrictRJSFSchema as JSONSchema } from '@rjsf/utils';
 import { getPropertySchemaAndModel } from '../../DataTypes';
 import { getFromLocalStorage, setToLocalStorage } from '../../utils';
 import { useAnalyticsContext } from '../../../../contexts/AnalyticsContext';

@@ -2,7 +2,7 @@ import { toArray } from '../../../../utils/arrays';
 import type { Format, UiSchema, Value, WidgetProps } from './utils';
 import { JsonTypes } from './utils';
 import { typeWidgets } from './Formats';
-import type { JSONSchema7 as JSONSchema } from 'json-schema';
+import type { StrictRJSFSchema as JSONSchema } from '@rjsf/utils';
 import { getSchemaFormat, getSubSchemaFromRefScheme } from '../../schemaOps';
 
 const getValue = (value?: Value, schema?: JSONSchema, uiSchema?: UiSchema) => {

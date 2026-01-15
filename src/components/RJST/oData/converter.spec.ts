@@ -1,4 +1,4 @@
-import type { JSONSchema7 as JSONSchema } from 'json-schema';
+import type { StrictRJSFSchema as JSONSchema } from '@rjsf/utils';
 import { convertToPineClientFilter } from './jsonToOData';
 
 type FilterTest = {

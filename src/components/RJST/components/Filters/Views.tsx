@@ -1,6 +1,6 @@
 import React from 'react';
 import { faChartPie } from '@fortawesome/free-solid-svg-icons/faChartPie';
-import type { JSONSchema7 as JSONSchema } from 'json-schema';
+import type { StrictRJSFSchema as JSONSchema } from '@rjsf/utils';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons/faTrash';
 import { useTranslation } from '../../../../hooks/useTranslations';

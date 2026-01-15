@@ -1,6 +1,6 @@
 import type { CreateFilter } from './utils';
 import { getDataTypeSchema, normalizeDateTime } from './utils';
-import type { JSONSchema7 as JSONSchema } from 'json-schema';
+import type { StrictRJSFSchema as JSONSchema } from '@rjsf/utils';
 
 export const operators = () => ({
 	is: 'is',

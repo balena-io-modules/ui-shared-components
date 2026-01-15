@@ -1,4 +1,4 @@
-import type { JSONSchema7 as JSONSchema } from 'json-schema';
+import type { StrictRJSFSchema as JSONSchema } from '@rjsf/utils';
 import {
 	FULL_TEXT_SLUG,
 	createModelFilter,

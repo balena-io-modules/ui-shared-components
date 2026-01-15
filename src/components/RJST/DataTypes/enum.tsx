@@ -2,7 +2,7 @@ import { isEqual } from 'es-toolkit';
 import { FULL_TEXT_SLUG } from '../components/Filters/SchemaSieve';
 import type { CreateFilter } from './utils';
 import { getDataTypeSchema, regexEscape } from './utils';
-import type { JSONSchema7 as JSONSchema } from 'json-schema';
+import type { StrictRJSFSchema as JSONSchema } from '@rjsf/utils';
 
 export const operators = () => ({
 	is: 'is',

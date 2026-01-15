@@ -1,4 +1,4 @@
-import type { JSONSchema7 as JSONSchema } from 'json-schema';
+import type { StrictRJSFSchema as JSONSchema } from '@rjsf/utils';
 import type { CreateFilter, KeysOfUnion } from './utils';
 import { getDataTypeSchema, regexEscape } from './utils';
 import type { FormData } from '../components/Filters/SchemaSieve';
