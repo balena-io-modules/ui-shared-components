@@ -52,7 +52,7 @@
     "remark-breaks": "^4.0.0",
     "remark-gfm": "^4.0.0",
     "typescript": "^5.9.2",
-    "virtua": "^0.37.3",
+    "virtua": "^0.48.0",
     "zxcvbn": "^4.4.2"
   },
   "devDependencies": {
