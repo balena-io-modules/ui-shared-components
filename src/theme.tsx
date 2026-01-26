@@ -204,21 +204,21 @@ export const theme = createTheme({
 			'@media (min-width:600px)': {
 				fontSize: '3.125rem',
 			},
-			fontWeight: '600',
+			fontWeight: typography.weight.strong.value,
 		},
 		h3: {
 			fontSize: '2rem',
 			'@media (min-width:600px)': {
 				fontSize: '2.375rem',
 			},
-			fontWeight: '600',
+			fontWeight: typography.weight.strong.value,
 		},
 		h4: {
 			fontSize: '1.5rem',
 			'@media (min-width:600px)': {
 				fontSize: '2.125rem',
 			},
-			fontWeight: '600',
+			fontWeight: typography.weight.strong.value,
 		},
 		h5: {
 			fontSize: '1.125rem',
@@ -999,6 +999,20 @@ export const theme = createTheme({
 						'&:not(:last-of-type)': {
 							borderBottom: `1px solid ${color.border.subtle.value}`,
 						},
+					},
+					'.MuiAutocomplete-groupLabel:not(:empty)': {
+						backgroundColor: color.bg.value,
+						font: typography.body.lg.shorthand.value,
+						fontWeight: typography.weight.strong.value,
+						color: color.text.value,
+						padding: theme.spacing(2, 0, 2, 3),
+						lineHeight: '150%',
+						top: 0,
+						borderTop: `1px solid ${color.border.subtle.value}`,
+						borderBottom: `1px solid ${color.border.subtle.value}`,
+					},
+					'.MuiAutocomplete-groupUl .MuiAutocomplete-option': {
+						paddingLeft: theme.spacing(3),
 					},
 				}),
 			},
