@@ -1,4 +1,22 @@
 - commits:
+    - subject: Add stories for Basic and Grouped Autocomplete examples
+      hash: e4d52d76ca4fdc0c7d650af32ec796c8936d84b8
+      body: ""
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: Matthew Yarmolinsky
+    - subject: Add styling for Autocomplete groups
+      hash: 9e3ecb6c2ecd842dc149646fa303175b6555c9ed
+      body: ""
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: Matthew Yarmolinsky
+  version: 15.7.0
+  title: ""
+  date: 2026-01-26T15:21:21.988Z
+- commits:
     - subject: Use `@rjsf/utils` instead of `json-schema` for `JSONSchema` typing
       hash: e38e542367b8c4398cc5027119ccc0259e295427
       body: ""
