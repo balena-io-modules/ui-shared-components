@@ -1,4 +1,17 @@
 - commits:
+    - subject: "Add id-token: write permission for NPM OIDC publishing"
+      hash: 5d2f5e5f157f07d4ce13013d60cf17ea6b9a12cf
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Kyle Harding <kyle@balena.io>
+        signed-off-by: Kyle Harding <kyle@balena.io>
+      author: Kyle Harding
+  version: 15.7.1
+  title: ""
+  date: 2026-02-19T14:07:37.067Z
+- commits:
     - subject: Add stories for Basic and Grouped Autocomplete examples
       hash: e4d52d76ca4fdc0c7d650af32ec796c8936d84b8
       body: ""
