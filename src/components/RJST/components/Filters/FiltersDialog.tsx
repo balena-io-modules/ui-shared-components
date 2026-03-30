@@ -329,6 +329,14 @@ export const FiltersDialog = ({
 						model.rendererSchema(schemaField, index, propertySchema, fd) ?? {};
 					// This if statement is needed to display objects in a nice way.
 					// Would be nice to find a better way and keep schema and uiSchema separated
+					const enumNames = (
+						propertySchema as JSONSchema & { enumNames?: string[] }
+					).enumNames;
+					if (enumNames) {
+						uiSchema.items.value = {
+							'ui:enumNames': enumNames,
+						};
+					}
 					if (propertySchema?.type === 'object') {
 						if (!propertySchema.properties) {
 							return rendererSchema;
