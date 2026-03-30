@@ -1,4 +1,15 @@
 - commits:
+    - subject: "package.json: Fix the repository url"
+      hash: 1517e0ab9b7b38c2332dce1d5c59e215d09c01e5
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Thodoris Greasidis
+  version: 15.7.2
+  title: ""
+  date: 2026-03-30T14:18:32.087Z
+- commits:
     - subject: "Add id-token: write permission for NPM OIDC publishing"
       hash: 5d2f5e5f157f07d4ce13013d60cf17ea6b9a12cf
       body: ""
