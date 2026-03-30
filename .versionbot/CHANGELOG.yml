@@ -1,4 +1,15 @@
 - commits:
+    - subject: Move enumNames to uiSchema since schema support is deprecated
+      hash: b78be73d577e6af811c02c47020d13a6ab61f1b7
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Andrea Rosci
+  version: 15.7.3
+  title: ""
+  date: 2026-03-30T15:05:21.405Z
+- commits:
     - subject: "package.json: Fix the repository url"
       hash: 1517e0ab9b7b38c2332dce1d5c59e215d09c01e5
       body: ""
