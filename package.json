@@ -128,14 +128,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/balena-io/ui-shared-components.git"
+    "url": "git+https://github.com/balena-io-modules/ui-shared-components.git"
   },
   "author": "Balena",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/balena-io/ui-shared-components/issues"
+    "url": "https://github.com/balena-io-modules/ui-shared-components/issues"
   },
-  "homepage": "https://github.com/balena-io/ui-shared-components#readme",
+  "homepage": "https://github.com/balena-io-modules/ui-shared-components#readme",
   "versionist": {
     "publishedAt": "2026-02-19T14:07:37.218Z"
   },
