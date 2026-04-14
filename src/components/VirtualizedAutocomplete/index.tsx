@@ -1,10 +1,8 @@
 import type { AutocompleteProps, ChipTypeMap } from '@mui/material';
-import { Autocomplete, Box, ListItemButton, Stack } from '@mui/material';
+import { Autocomplete, Box, List, ListItemButton } from '@mui/material';
 import { throttle } from 'es-toolkit';
 import * as React from 'react';
-import { forwardRef } from 'react';
-import type { VListHandle } from 'virtua';
-import { VList } from 'virtua';
+import { useVirtualizer } from '@tanstack/react-virtual';
 import { token } from '../../utils/token';
 
 interface ItemDataElement {
@@ -13,107 +11,94 @@ interface ItemDataElement {
 	index: number;
 }
 
-const ListboxComponent = ({
-	children,
-	isNextPageLoading,
-	style,
-	pagination,
-	...props
-}: React.HTMLAttributes<HTMLElement> & {
-	pagination: { loadNextPage?: () => Promise<void>; itemCount?: number };
-	isNextPageLoading: boolean;
-	style: React.CSSProperties;
-}) => {
-	const itemData = (children as ItemDataElement[]).slice();
-	const { itemCount, loadNextPage } = pagination;
-	const [optionHeightsTotal, setOptionHeightsTotal] = React.useState(0);
-	const ref = React.useRef<VListHandle>(null);
+const ListboxComponent = React.forwardRef<
+	HTMLDivElement,
+	React.HTMLAttributes<HTMLElement> & {
+		pagination?: { loadNextPage?: () => Promise<void>; itemCount?: number };
+		isNextPageLoading?: boolean;
+		estimatedOptionSize?: number;
+	}
+>(function ListboxComponent(
+	{
+		pagination,
+		isNextPageLoading,
+		estimatedOptionSize,
+		children,
+		...restProps
+	},
+	forwardedRef,
+) {
+	const localRef = React.useRef<HTMLDivElement>(null);
+	// Safely handle the external 'forwardedRef'
+	React.useImperativeHandle(forwardedRef, () => localRef.current!);
+
+	const items = (children as ItemDataElement[]).slice();
+	const { itemCount, loadNextPage } = pagination ?? {
+		itemCount: items.length,
+		loadNextPage: undefined,
+	};
+
+	const scrollRef = React.useRef<HTMLDivElement>(null);
+
+	const virtualizer = useVirtualizer({
+		count: items.length,
+		estimateSize: () => estimatedOptionSize ?? 40,
+		getScrollElement: () => scrollRef.current,
+		overscan: 5,
+	});
+	const virtualItems = virtualizer.getVirtualItems();
 
 	React.useEffect(() => {
-		if (!isNextPageLoading) {
-			setOptionHeightsTotal(0);
-		}
-	}, [isNextPageLoading]);
+		const lastItem = virtualItems[virtualItems.length - 1];
 
-	React.useEffect(() => {
-		if (optionHeightsTotal < document.documentElement.clientHeight * 0.4) {
-			const options = document.getElementsByClassName('MuiAutocomplete-option');
-			let total = 0;
-			for (const option of options) {
-				total += option.clientHeight;
-			}
-			setOptionHeightsTotal(total);
+		if (!lastItem || isNextPageLoading) {
+			return;
 		}
-	}, [optionHeightsTotal]);
+
+		const totalLoaded = items.length;
+
+		// If the last visible item is within 5 of the end of our current data AND we haven't reached the grand total yet
+		if (lastItem.index >= totalLoaded - 5 && totalLoaded < (itemCount ?? 0)) {
+			void loadNextPage?.();
+		}
+	}, [virtualItems, isNextPageLoading, items.length, itemCount, loadNextPage]);
+
+	console.log('*** virtualItems', virtualItems);
+	console.log('*** items', items);
+	console.log('*** itemCount', itemCount);
 
 	return (
-		<Stack
-			{...props}
-			style={{
-				...style,
-				padding: 0,
-				height:
-					document.documentElement.clientHeight * 0.4 < optionHeightsTotal
-						? '40vh'
-						: optionHeightsTotal,
-			}}
-		>
-			<VList
-				ref={ref}
-				style={{
-					flex: 1,
-				}}
-				onScroll={async () => {
-					if (!ref.current) {
-						return;
-					}
-					if (
-						itemCount != null &&
-						itemData.length < itemCount &&
-						ref.current.findEndIndex() + 50 > itemCount
-					) {
-						await loadNextPage?.();
-					}
+		<div ref={localRef}>
+			<List
+				{...restProps}
+				ref={scrollRef}
+				component="div"
+				sx={{
+					position: 'relative',
+					height: virtualizer.getTotalSize(),
+					maxHeight: '400px',
 				}}
 			>
-				{itemData.map((item, i) => (
+				{virtualItems.map((item) => (
 					<Box
 						component={ListItemButton}
-						{...item.props}
-						{...(i < itemData.length - 1
+						key={item.key.toString()}
+						{...items[item.index].props}
+						{...(item.index < items.length - 1
 							? {
 									sx: {
 										borderBottom: `1px solid ${token('color.border.subtle')}`,
 									},
 								}
 							: {})}
-						key={item.index}
 					>
-						{item.option}
+						{items[item.index].option}
 					</Box>
 				))}
-			</VList>
-			{isNextPageLoading && (
-				<Box
-					style={{
-						position: 'absolute',
-						top: 0,
-						right: 0,
-						left: 0,
-						bottom: 0,
-						display: 'flex',
-						justifyContent: 'center',
-						alignItems: 'center',
-						backgroundColor: 'rgb(0, 0, 0, 0.4)',
-						color: 'white',
-					}}
-				>
-					Loading...
-				</Box>
-			)}
-		</Stack>
+			</List>
+		</div>
 	);
-};
+});
 
 export type VirtualizedAutocompleteProps<
 	Value,
@@ -147,6 +132,8 @@ export interface VirtualizedAutocompleteWithPaginationProps<
 		page: number,
 		query: string | undefined,
 	) => MaybePromise<{ data: Value[]; totalItems: number }>;
+	/** estimated size of each option once it is rendered in the dropdown */
+	estimatedOptionSize?: number;
 }
 
 const VirtualizedAutocompleteBase = <
@@ -161,6 +148,7 @@ const VirtualizedAutocompleteBase = <
 		getOptionLabel,
 		value,
 		loadNext,
+		estimatedOptionSize,
 		...props
 	}:
 		| (VirtualizedAutocompleteProps<
@@ -169,8 +157,8 @@ const VirtualizedAutocompleteBase = <
 				DisableClearable,
 				FreeSolo,
 				ChipComponent
-				// This is to allow destructuring of loadNext from props
-		  > & { loadNext?: never })
+				// This is to allow destructuring of loadNext and estimatedOptionSize from props
+		  > & { loadNext?: never; estimatedOptionSize?: never })
 		| VirtualizedAutocompleteWithPaginationProps<
 				Value,
 				Multiple,
@@ -258,21 +246,14 @@ const VirtualizedAutocompleteBase = <
 					index: state.index,
 				}) as unknown as React.ReactNode
 			}
-			ListboxProps={
-				{
+			slots={{ listbox: ListboxComponent }}
+			slotProps={{
+				listbox: {
 					isNextPageLoading,
 					pagination,
-				} as any
-			}
-			ListboxComponent={
-				ListboxComponent as AutocompleteProps<
-					Value,
-					Multiple,
-					DisableClearable,
-					FreeSolo,
-					ChipComponent
-				>['ListboxComponent']
-			}
+					estimatedOptionSize,
+				} as React.ComponentProps<typeof ListboxComponent>,
+			}}
 			onInputChange={(event, input) => {
 				// input change
 				if (event?.type === 'change') {
@@ -287,5 +268,5 @@ const VirtualizedAutocompleteBase = <
 };
 
 export const VirtualizedAutocomplete = React.memo(
-	forwardRef(VirtualizedAutocompleteBase),
+	React.forwardRef(VirtualizedAutocompleteBase),
 ) as typeof VirtualizedAutocompleteBase;
