@@ -47,7 +47,7 @@ const ListboxComponent = React.forwardRef<
 		count: items.length < (itemCount ?? 0) ? items.length + 1 : items.length,
 		estimateSize: () => estimatedOptionSize ?? 48,
 		getScrollElement: () => viewportRef.current,
-		overscan: 5,
+		overscan: 10,
 	});
 	const virtualItems = virtualizer.getVirtualItems();
 
@@ -60,15 +60,11 @@ const ListboxComponent = React.forwardRef<
 
 		const totalLoaded = items.length;
 
-		// If the last visible item is within 5 of the end of our current data AND we haven't reached the grand total yet
-		if (lastItem.index >= totalLoaded - 5 && totalLoaded < (itemCount ?? 0)) {
+		// If the last visible item is within 10 of the end of our current data AND we haven't reached the grand total yet
+		if (lastItem.index >= totalLoaded - 10 && totalLoaded < (itemCount ?? 0)) {
 			void loadNextPage?.();
 		}
 	}, [virtualItems, isNextPageLoading, items.length, itemCount, loadNextPage]);
-
-	console.log('*** virtualItems', virtualItems);
-	console.log('*** items', items);
-	console.log('*** itemCount', itemCount);
 
 	return (
 		<div
