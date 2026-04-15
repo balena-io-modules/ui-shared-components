@@ -1,5 +1,5 @@
 import type { AutocompleteProps, ChipTypeMap } from '@mui/material';
-import { Autocomplete, Box, ListItemButton } from '@mui/material';
+import { Autocomplete, Box, ListItemButton, Typography } from '@mui/material';
 import { throttle } from 'es-toolkit';
 import * as React from 'react';
 import { useVirtualizer } from '@tanstack/react-virtual';
@@ -44,7 +44,7 @@ const ListboxComponent = React.forwardRef<
 	};
 
 	const virtualizer = useVirtualizer({
-		count: items.length,
+		count: items.length < (itemCount ?? 0) ? items.length + 1 : items.length,
 		estimateSize: () => estimatedOptionSize ?? 48,
 		getScrollElement: () => viewportRef.current,
 		overscan: 5,
@@ -92,7 +92,14 @@ const ListboxComponent = React.forwardRef<
 					style={{ height: `${virtualizer.getTotalSize()}px`, width: '100%' }}
 				>
 					{virtualItems.map((virtualItem) => {
-						const item = items[virtualItem.index];
+						const item =
+							virtualItem.index < items.length
+								? items[virtualItem.index]
+								: {
+										props: { style: {} },
+										option: <Typography>Loading...</Typography>,
+										index: virtualItem.index,
+									};
 
 						return (
 							<Box
@@ -102,6 +109,7 @@ const ListboxComponent = React.forwardRef<
 								// needed for measureElement
 								data-index={virtualItem.index}
 								ref={virtualizer.measureElement}
+								disabled={virtualItem.index === items.length}
 								sx={[
 									{
 										...item.props.style,
