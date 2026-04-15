@@ -30,9 +30,10 @@ const ListboxComponent = React.forwardRef<
 ) {
 	const muiContainerRef = React.useRef<HTMLDivElement>(null);
 	// Safely handle the external 'forwardedRef'
+	// Not sure why this was needed tbh
 	React.useImperativeHandle(forwardedRef, () => muiContainerRef.current!);
 
-	const viewportRef = React.useRef<HTMLDivElement>(null);
+	const scrollAreaRef = React.useRef<HTMLDivElement>(null);
 
 	const items = React.useMemo(
 		() => (children as ItemDataElement[]).slice(),
@@ -46,7 +47,7 @@ const ListboxComponent = React.forwardRef<
 	const virtualizer = useVirtualizer({
 		count: items.length < (itemCount ?? 0) ? items.length + 1 : items.length,
 		estimateSize: () => estimatedOptionSize ?? 48,
-		getScrollElement: () => viewportRef.current,
+		getScrollElement: () => scrollAreaRef.current,
 		overscan: 10,
 	});
 	const virtualItems = virtualizer.getVirtualItems();
@@ -68,22 +69,30 @@ const ListboxComponent = React.forwardRef<
 
 	return (
 		<div
+			// AI kept insisting that this ref and the scrollAreaRef need to be merged into one, but I couldn't get that working
 			ref={muiContainerRef}
 			{...restProps}
 			style={{
 				position: 'relative',
 				maxHeight: '400px',
+				// Not sure why this one gets the overflow when scrollAreaRef is supposedly the scroll element
+				// Couldn't get it to work the other way though
 				overflow: 'auto',
 			}}
 		>
 			<div
-				ref={viewportRef}
+				ref={scrollAreaRef}
 				style={{
+					// This is based on estimated size. Not sure what exact role it plays, maybe there's a cleaner way
+					// When you get to the end of the list where items ended up needing more size than estimated, it doesn't cut anything off
+					// What I know is it's necessary to get the scroll container to know how large to be
 					height: `${virtualizer.getTotalSize()}px`,
 					width: '100%',
 					position: 'relative',
 				}}
 			>
+				{/* I don't get the need for this either, the parent container has this height so why does this one need it?
+					The only difference is the ref */}
 				<div
 					style={{ height: `${virtualizer.getTotalSize()}px`, width: '100%' }}
 				>
@@ -91,7 +100,8 @@ const ListboxComponent = React.forwardRef<
 						const item =
 							virtualItem.index < items.length
 								? items[virtualItem.index]
-								: {
+								: // add the loading option if we have not reach the grand total yet
+									{
 										props: { style: {} },
 										option: <Typography>Loading...</Typography>,
 										index: virtualItem.index,
@@ -104,11 +114,15 @@ const ListboxComponent = React.forwardRef<
 								component={ListItemButton}
 								// needed for measureElement
 								data-index={virtualItem.index}
+								// makes the item the correct height, or else it uses the estimated size
 								ref={virtualizer.measureElement}
+								// disable the loading option
 								disabled={virtualItem.index === items.length}
 								sx={[
 									{
 										...item.props.style,
+										// This styling makes the options properly aligned
+										// Not sure why it's necessary though, maybe there's a cleaner way
 										position: 'absolute',
 										top: 0,
 										left: 0,
