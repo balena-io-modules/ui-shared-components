@@ -1,5 +1,5 @@
 import type { AutocompleteProps, ChipTypeMap } from '@mui/material';
-import { Autocomplete, Box, List, ListItemButton } from '@mui/material';
+import { Autocomplete, Box, ListItemButton } from '@mui/material';
 import { throttle } from 'es-toolkit';
 import * as React from 'react';
 import { useVirtualizer } from '@tanstack/react-virtual';
@@ -28,22 +28,25 @@ const ListboxComponent = React.forwardRef<
 	},
 	forwardedRef,
 ) {
-	const localRef = React.useRef<HTMLDivElement>(null);
+	const muiContainerRef = React.useRef<HTMLDivElement>(null);
 	// Safely handle the external 'forwardedRef'
-	React.useImperativeHandle(forwardedRef, () => localRef.current!);
+	React.useImperativeHandle(forwardedRef, () => muiContainerRef.current!);
 
-	const items = (children as ItemDataElement[]).slice();
+	const viewportRef = React.useRef<HTMLDivElement>(null);
+
+	const items = React.useMemo(
+		() => (children as ItemDataElement[]).slice(),
+		[children],
+	);
 	const { itemCount, loadNextPage } = pagination ?? {
 		itemCount: items.length,
 		loadNextPage: undefined,
 	};
 
-	const scrollRef = React.useRef<HTMLDivElement>(null);
-
 	const virtualizer = useVirtualizer({
 		count: items.length,
-		estimateSize: () => estimatedOptionSize ?? 40,
-		getScrollElement: () => scrollRef.current,
+		estimateSize: () => estimatedOptionSize ?? 48,
+		getScrollElement: () => viewportRef.current,
 		overscan: 5,
 	});
 	const virtualItems = virtualizer.getVirtualItems();
@@ -68,34 +71,59 @@ const ListboxComponent = React.forwardRef<
 	console.log('*** itemCount', itemCount);
 
 	return (
-		<div ref={localRef}>
-			<List
-				{...restProps}
-				ref={scrollRef}
-				component="div"
-				sx={{
+		<div
+			ref={muiContainerRef}
+			{...restProps}
+			style={{
+				position: 'relative',
+				maxHeight: '400px',
+				overflow: 'auto',
+			}}
+		>
+			<div
+				ref={viewportRef}
+				style={{
+					height: `${virtualizer.getTotalSize()}px`,
+					width: '100%',
 					position: 'relative',
-					height: virtualizer.getTotalSize(),
-					maxHeight: '400px',
 				}}
 			>
-				{virtualItems.map((item) => (
-					<Box
-						component={ListItemButton}
-						key={item.key.toString()}
-						{...items[item.index].props}
-						{...(item.index < items.length - 1
-							? {
-									sx: {
-										borderBottom: `1px solid ${token('color.border.subtle')}`,
+				<div
+					style={{ height: `${virtualizer.getTotalSize()}px`, width: '100%' }}
+				>
+					{virtualItems.map((virtualItem) => {
+						const item = items[virtualItem.index];
+
+						return (
+							<Box
+								key={virtualItem.key.toString()}
+								{...item.props}
+								component={ListItemButton}
+								// needed for measureElement
+								data-index={virtualItem.index}
+								ref={virtualizer.measureElement}
+								sx={[
+									{
+										...item.props.style,
+										position: 'absolute',
+										top: 0,
+										left: 0,
+										width: '100%',
+										transform: `translateY(${virtualItem.start}px)`,
+										...(virtualItem.index < items.length - 1
+											? {
+													borderBottom: `1px solid ${token('color.border.subtle')}`,
+												}
+											: {}),
 									},
-								}
-							: {})}
-					>
-						{items[item.index].option}
-					</Box>
-				))}
-			</List>
+								]}
+							>
+								{item.option}
+							</Box>
+						);
+					})}
+				</div>
+			</div>
 		</div>
 	);
 });
