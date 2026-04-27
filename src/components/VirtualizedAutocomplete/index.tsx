@@ -1,5 +1,11 @@
 import type { AutocompleteProps, ChipTypeMap } from '@mui/material';
-import { Autocomplete, Box, ListItemButton, Typography } from '@mui/material';
+import {
+	Autocomplete,
+	Box,
+	List,
+	ListItemButton,
+	Typography,
+} from '@mui/material';
 import { throttle } from 'es-toolkit';
 import * as React from 'react';
 import { useVirtualizer } from '@tanstack/react-virtual';
@@ -26,14 +32,9 @@ const ListboxComponent = React.forwardRef<
 		children,
 		...restProps
 	},
-	forwardedRef,
+	parentRef,
 ) {
-	const muiContainerRef = React.useRef<HTMLDivElement>(null);
-	// Safely handle the external 'forwardedRef'
-	// Not sure why this was needed tbh
-	React.useImperativeHandle(forwardedRef, () => muiContainerRef.current!);
-
-	const scrollAreaRef = React.useRef<HTMLDivElement>(null);
+	const scrollRef = React.useRef<HTMLDivElement>(null);
 
 	const items = React.useMemo(
 		() => (children as ItemDataElement[]).slice(),
@@ -47,7 +48,7 @@ const ListboxComponent = React.forwardRef<
 	const virtualizer = useVirtualizer({
 		count: items.length < (itemCount ?? 0) ? items.length + 1 : items.length,
 		estimateSize: () => estimatedOptionSize ?? 48,
-		getScrollElement: () => scrollAreaRef.current,
+		getScrollElement: () => scrollRef.current,
 		overscan: 10,
 	});
 	const virtualItems = virtualizer.getVirtualItems();
@@ -69,19 +70,17 @@ const ListboxComponent = React.forwardRef<
 
 	return (
 		<div
-			// AI kept insisting that this ref and the scrollAreaRef need to be merged into one, but I couldn't get that working
-			ref={muiContainerRef}
+			ref={parentRef}
 			{...restProps}
 			style={{
 				position: 'relative',
 				maxHeight: '400px',
-				// Not sure why this one gets the overflow when scrollAreaRef is supposedly the scroll element
-				// Couldn't get it to work the other way though
 				overflow: 'auto',
 			}}
 		>
-			<div
-				ref={scrollAreaRef}
+			<List
+				component="div"
+				ref={scrollRef}
 				style={{
 					// This is based on estimated size. Not sure what exact role it plays, maybe there's a cleaner way
 					// When you get to the end of the list where items ended up needing more size than estimated, it doesn't cut anything off
@@ -91,57 +90,51 @@ const ListboxComponent = React.forwardRef<
 					position: 'relative',
 				}}
 			>
-				{/* I don't get the need for this either, the parent container has this height so why does this one need it?
-					The only difference is the ref */}
-				<div
-					style={{ height: `${virtualizer.getTotalSize()}px`, width: '100%' }}
-				>
-					{virtualItems.map((virtualItem) => {
-						const item =
-							virtualItem.index < items.length
-								? items[virtualItem.index]
-								: // add the loading option if we have not reach the grand total yet
-									{
-										props: { style: {} },
-										option: <Typography>Loading...</Typography>,
-										index: virtualItem.index,
-									};
+				{virtualItems.map((virtualItem) => {
+					const item =
+						virtualItem.index < items.length
+							? items[virtualItem.index]
+							: // add the loading option if we have not reach the grand total yet
+								{
+									props: { style: {} },
+									option: <Typography>Loading...</Typography>,
+									index: virtualItem.index,
+								};
 
-						return (
-							<Box
-								key={virtualItem.key.toString()}
-								{...item.props}
-								component={ListItemButton}
-								// needed for measureElement
-								data-index={virtualItem.index}
-								// makes the item the correct height, or else it uses the estimated size
-								ref={virtualizer.measureElement}
-								// disable the loading option
-								disabled={virtualItem.index === items.length}
-								sx={[
-									{
-										...item.props.style,
-										// This styling makes the options properly aligned
-										// Not sure why it's necessary though, maybe there's a cleaner way
-										position: 'absolute',
-										top: 0,
-										left: 0,
-										width: '100%',
-										transform: `translateY(${virtualItem.start}px)`,
-										...(virtualItem.index < items.length - 1
-											? {
-													borderBottom: `1px solid ${token('color.border.subtle')}`,
-												}
-											: {}),
-									},
-								]}
-							>
-								{item.option}
-							</Box>
-						);
-					})}
-				</div>
-			</div>
+					return (
+						<Box
+							key={virtualItem.key.toString()}
+							{...item.props}
+							component={ListItemButton}
+							// needed for measureElement
+							data-index={virtualItem.index}
+							// makes the item the correct height, or else it uses the estimated size
+							ref={virtualizer.measureElement}
+							// disable the loading option
+							disabled={virtualItem.index === items.length}
+							sx={[
+								{
+									...item.props.style,
+									// This styling makes the options properly aligned
+									// Not sure why it's necessary though, maybe there's a cleaner way
+									position: 'absolute',
+									top: 0,
+									left: 0,
+									width: '100%',
+									transform: `translateY(${virtualItem.start}px)`,
+									...(virtualItem.index < items.length - 1
+										? {
+												borderBottom: `1px solid ${token('color.border.subtle')}`,
+											}
+										: {}),
+								},
+							]}
+						>
+							{item.option}
+						</Box>
+					);
+				})}
+			</List>
 		</div>
 	);
 });
