@@ -1,11 +1,17 @@
 import type { AutocompleteProps, ChipTypeMap } from '@mui/material';
-import { Autocomplete, Box, ListItemButton, Stack } from '@mui/material';
-import { throttle } from 'es-toolkit';
+import {
+	Autocomplete,
+	Box,
+	ListItemButton,
+	Stack,
+	TextField,
+	Typography,
+} from '@mui/material';
+import { debounce } from 'es-toolkit';
 import * as React from 'react';
-import { forwardRef } from 'react';
-import type { VListHandle } from 'virtua';
-import { VList } from 'virtua';
+import { useVirtualizer } from '@tanstack/react-virtual';
 import { token } from '../../utils/token';
+import { Spinner } from '../Spinner';
 
 interface ItemDataElement {
 	props: React.HTMLAttributes<HTMLElement>;
@@ -13,107 +19,118 @@ interface ItemDataElement {
 	index: number;
 }
 
-const ListboxComponent = ({
-	children,
-	isNextPageLoading,
-	style,
-	pagination,
-	...props
-}: React.HTMLAttributes<HTMLElement> & {
-	pagination: { loadNextPage?: () => Promise<void>; itemCount?: number };
-	isNextPageLoading: boolean;
-	style: React.CSSProperties;
-}) => {
-	const itemData = (children as ItemDataElement[]).slice();
-	const { itemCount, loadNextPage } = pagination;
-	const [optionHeightsTotal, setOptionHeightsTotal] = React.useState(0);
-	const ref = React.useRef<VListHandle>(null);
+// Implementation based on TanStack example: https://tanstack.com/virtual/latest/docs/framework/react/examples/infinite-scroll
+const ListboxComponent = React.forwardRef<
+	HTMLDivElement,
+	React.HTMLAttributes<HTMLElement> & {
+		pagination?: { loadNextPage?: () => Promise<void>; itemCount?: number };
+		isNextPageLoading?: boolean;
+		estimatedOptionSize?: number;
+	}
+>(function ListboxComponent(
+	{
+		pagination,
+		isNextPageLoading,
+		estimatedOptionSize,
+		children,
+		...restProps
+	},
+	parentRef,
+) {
+	const scrollRef = React.useRef<HTMLDivElement>(null);
+
+	const items = children as ItemDataElement[];
+	const { itemCount, loadNextPage } = pagination ?? {
+		itemCount: items.length,
+		loadNextPage: undefined,
+	};
+
+	const virtualizer = useVirtualizer({
+		count: items.length < (itemCount ?? 0) ? items.length + 1 : items.length,
+		estimateSize: () => estimatedOptionSize ?? 48,
+		getScrollElement: () => scrollRef.current,
+		overscan: 10,
+	});
+	const virtualItems = virtualizer.getVirtualItems();
 
 	React.useEffect(() => {
-		if (!isNextPageLoading) {
-			setOptionHeightsTotal(0);
-		}
-	}, [isNextPageLoading]);
+		const lastItem = virtualItems.at(-1);
 
-	React.useEffect(() => {
-		if (optionHeightsTotal < document.documentElement.clientHeight * 0.4) {
-			const options = document.getElementsByClassName('MuiAutocomplete-option');
-			let total = 0;
-			for (const option of options) {
-				total += option.clientHeight;
-			}
-			setOptionHeightsTotal(total);
+		if (!lastItem || isNextPageLoading) {
+			return;
 		}
-	}, [optionHeightsTotal]);
+
+		const totalLoaded = items.length;
+
+		// If the last visible item is within 10 of the end of our current data AND we haven't reached the grand total yet
+		if (lastItem.index >= totalLoaded - 10 && totalLoaded < (itemCount ?? 0)) {
+			void loadNextPage?.();
+		}
+	}, [virtualItems, isNextPageLoading, items.length, itemCount, loadNextPage]);
 
 	return (
-		<Stack
-			{...props}
-			style={{
-				...style,
-				padding: 0,
-				height:
-					document.documentElement.clientHeight * 0.4 < optionHeightsTotal
-						? '40vh'
-						: optionHeightsTotal,
-			}}
-		>
-			<VList
-				ref={ref}
+		<div ref={parentRef} {...restProps}>
+			<div
+				ref={scrollRef}
 				style={{
-					flex: 1,
-				}}
-				onScroll={async () => {
-					if (!ref.current) {
-						return;
-					}
-					if (
-						itemCount != null &&
-						itemData.length < itemCount &&
-						ref.current.findEndIndex() + 50 > itemCount
-					) {
-						await loadNextPage?.();
-					}
+					maxHeight: '400px',
+					overflow: 'auto',
 				}}
 			>
-				{itemData.map((item, i) => (
-					<Box
-						component={ListItemButton}
-						{...item.props}
-						{...(i < itemData.length - 1
-							? {
-									sx: {
-										borderBottom: `1px solid ${token('color.border.subtle')}`,
-									},
-								}
-							: {})}
-						key={item.index}
-					>
-						{item.option}
-					</Box>
-				))}
-			</VList>
-			{isNextPageLoading && (
-				<Box
+				<div
 					style={{
-						position: 'absolute',
-						top: 0,
-						right: 0,
-						left: 0,
-						bottom: 0,
-						display: 'flex',
-						justifyContent: 'center',
-						alignItems: 'center',
-						backgroundColor: 'rgb(0, 0, 0, 0.4)',
-						color: 'white',
+						height: `${virtualizer.getTotalSize()}px`,
+						width: '100%',
+						position: 'relative',
 					}}
 				>
-					Loading...
-				</Box>
-			)}
-		</Stack>
+					{virtualItems.map((virtualItem) => {
+						const item =
+							virtualItem.index < items.length
+								? items[virtualItem.index]
+								: // add the loading option if we have not reach the grand total yet
+									{
+										props: { style: {} },
+										option: <Typography>Loading...</Typography>,
+										index: virtualItem.index,
+									};
+
+						return (
+							<Box
+								key={virtualItem.key.toString()}
+								{...item.props}
+								component={ListItemButton}
+								// needed for measureElement
+								data-index={virtualItem.index}
+								// makes the item the correct height, or else it uses the estimated size
+								ref={virtualizer.measureElement}
+								// disable the loading option
+								disabled={virtualItem.index === items.length}
+								sx={[
+									{
+										...item.props.style,
+										position: 'absolute',
+										top: 0,
+										left: 0,
+										width: '100%',
+										transform: `translateY(${virtualItem.start}px)`,
+										...(virtualItem.index < items.length - 1
+											? {
+													borderBottom: `1px solid ${token('color.border.subtle')}`,
+												}
+											: {}),
+									},
+								]}
+							>
+								{item.option}
+							</Box>
+						);
+					})}
+				</div>
+			</div>
+		</div>
 	);
-};
+});
 
 export type VirtualizedAutocompleteProps<
 	Value,
@@ -147,6 +164,8 @@ export interface VirtualizedAutocompleteWithPaginationProps<
 		page: number,
 		query: string | undefined,
 	) => MaybePromise<{ data: Value[]; totalItems: number }>;
+	/** used for estimating the size of options that have not been rendered yet so that the scrollbar can be close to accurate */
+	estimatedOptionSize?: number;
 }
 
 const VirtualizedAutocompleteBase = <
@@ -161,6 +180,7 @@ const VirtualizedAutocompleteBase = <
 		getOptionLabel,
 		value,
 		loadNext,
+		estimatedOptionSize,
 		...props
 	}:
 		| (VirtualizedAutocompleteProps<
@@ -169,8 +189,8 @@ const VirtualizedAutocompleteBase = <
 				DisableClearable,
 				FreeSolo,
 				ChipComponent
-				// This is to allow destructuring of loadNext from props
-		  > & { loadNext?: never })
+				// This is to allow destructuring of loadNext and estimatedOptionSize from props
+		  > & { loadNext?: never; estimatedOptionSize?: never })
 		| VirtualizedAutocompleteWithPaginationProps<
 				Value,
 				Multiple,
@@ -188,6 +208,7 @@ const VirtualizedAutocompleteBase = <
 		>
 	>,
 ) => {
+	// TODO: consider useInfiniteQuery for this: https://tanstack.com/query/v4/docs/framework/react/reference/useInfiniteQuery
 	const [page, setPage] = React.useState(0);
 	const [isNextPageLoading, setIsNextPageLoading] = React.useState(false);
 	const [response, setResponse] = React.useState<{
@@ -225,7 +246,7 @@ const VirtualizedAutocompleteBase = <
 
 	const debouncedInputChange = React.useMemo(
 		() =>
-			throttle(async (input: string, items: Value[]) => {
+			debounce(async (input: string, items: Value[]) => {
 				await loadNextPage(0, items, input);
 			}, 500),
 		[loadNextPage],
@@ -241,10 +262,6 @@ const VirtualizedAutocompleteBase = <
 		[loadNextPage, response.totalItems, response.data, page, query],
 	);
 
-	React.useEffect(() => {
-		void loadNextPage(0, [], '');
-	}, []);
-
 	return (
 		<Autocomplete<Value, Multiple, DisableClearable, FreeSolo, ChipComponent>
 			{...props}
@@ -258,34 +275,46 @@ const VirtualizedAutocompleteBase = <
 					index: state.index,
 				}) as unknown as React.ReactNode
 			}
-			ListboxProps={
-				{
+			slots={{ listbox: ListboxComponent }}
+			slotProps={{
+				listbox: {
 					isNextPageLoading,
 					pagination,
-				} as any
-			}
-			ListboxComponent={
-				ListboxComponent as AutocompleteProps<
-					Value,
-					Multiple,
-					DisableClearable,
-					FreeSolo,
-					ChipComponent
-				>['ListboxComponent']
-			}
+					estimatedOptionSize,
+				} as React.ComponentProps<typeof ListboxComponent>,
+			}}
 			onInputChange={(event, input) => {
 				// input change
 				if (event?.type === 'change') {
 					debouncedInputChange(input, []);
 				}
 			}}
+			onOpen={async () => {
+				await loadNextPage(0, [], '');
+			}}
 			getOptionLabel={getOptionLabel}
 			value={value}
 			{...(loadNext === undefined ? {} : { filterOptions: (o) => o })}
+			renderInput={({ InputProps, ...params }) => (
+				<TextField
+					{...params}
+					slotProps={{
+						input: {
+							...InputProps,
+							endAdornment: (
+								<Stack direction="row" gap={1} alignItems="center">
+									<Spinner show={isNextPageLoading} />
+									{InputProps.endAdornment}
+								</Stack>
+							),
+						},
+					}}
+				/>
+			)}
 		/>
 	);
 };
 
 export const VirtualizedAutocomplete = React.memo(
-	forwardRef(VirtualizedAutocompleteBase),
+	React.forwardRef(VirtualizedAutocompleteBase),
 ) as typeof VirtualizedAutocompleteBase;
