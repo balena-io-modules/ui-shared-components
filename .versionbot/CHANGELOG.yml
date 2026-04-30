@@ -1,4 +1,15 @@
 - commits:
+    - subject: Replace `virtua` with `@tanstack/react-virtual`
+      hash: ffbe84b2282719b1fca290e013f09673dac28363
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Matthew Yarmolinsky
+  version: 15.7.4
+  title: ""
+  date: 2026-04-30T14:24:00.597Z
+- commits:
     - subject: Move enumNames to uiSchema since schema support is deprecated
       hash: b78be73d577e6af811c02c47020d13a6ab61f1b7
       body: ""
