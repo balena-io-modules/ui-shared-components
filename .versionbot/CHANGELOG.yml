@@ -1,4 +1,15 @@
 - commits:
+    - subject: Add Amplitude Engagement Guides & Surveys helper and typing
+      hash: dddda7f66ecf53d3422e8f36911a60c3d63dd4ab
+      body: ""
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: Matthew Yarmolinsky
+  version: 15.8.0
+  title: ""
+  date: 2026-05-11T19:35:45.284Z
+- commits:
     - subject: Replace `virtua` with `@tanstack/react-virtual`
       hash: ffbe84b2282719b1fca290e013f09673dac28363
       body: ""
