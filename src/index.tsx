@@ -192,3 +192,5 @@ export * as designTokens from '@balena/design-tokens';
 export * as ReactQuery from '@tanstack/react-query';
 export { default as dayjs } from 'dayjs';
 export * as XDatePickers from '@mui/x-date-pickers';
+export { getHasGuidesAndSurveysEnabled } from './utils/amplitude';
+import './typings/window-augmentation';
