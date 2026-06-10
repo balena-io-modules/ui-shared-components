@@ -4,8 +4,9 @@ import type {
 	ButtonGroupProps,
 	ButtonProps,
 	TooltipProps,
+	IconButtonProps,
 } from '@mui/material';
-import { Button, ButtonGroup, MenuItem, Menu } from '@mui/material';
+import { Button, ButtonGroup, MenuItem, Menu, IconButton } from '@mui/material';
 import { ButtonWithTracking } from '../ButtonWithTracking';
 import { useAnalyticsContext } from '../../contexts/AnalyticsContext';
 import { groupBy } from 'es-toolkit';
@@ -17,6 +18,7 @@ import {
 	faChevronDown,
 	faChevronUp,
 } from '@fortawesome/free-solid-svg-icons';
+import type { IconProp } from '@fortawesome/fontawesome-svg-core';
 
 type MenuItemType<T> = MenuItemWithTrackingProps &
 	T & {
@@ -32,6 +34,8 @@ export interface DropDownButtonProps<T = unknown>
 		event: React.MouseEvent<HTMLButtonElement | HTMLLIElement>,
 		item: MenuItemWithTrackingProps,
 	) => void;
+	icon?: IconProp;
+	iconOnly?: boolean;
 }
 
 /**
@@ -45,6 +49,8 @@ export const DropDownButton = <T extends unknown>({
 	groupByProp,
 	onClick,
 	children,
+	icon,
+	iconOnly,
 	...buttonProps
 }: DropDownButtonProps<T>) => {
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -87,7 +93,7 @@ export const DropDownButton = <T extends unknown>({
 	) => {
 		setSelectedIndex(index);
 		setAnchorEl(null);
-		if (children) {
+		if (children || iconOnly) {
 			return (
 				memoizedItems?.[index]?.onClick?.(event) ??
 				onClick?.(event, memoizedItems[selectedIndex])
@@ -101,7 +107,22 @@ export const DropDownButton = <T extends unknown>({
 
 	return (
 		<>
-			{children ? (
+			{iconOnly ? (
+				<IconButton
+					onClick={(event) => {
+						setAnchorEl(event.currentTarget);
+					}}
+					{...(buttonProps as IconButtonProps)}
+				>
+					{icon != null ? (
+						<FontAwesomeIcon icon={icon} />
+					) : anchorEl ? (
+						<FontAwesomeIcon icon={faChevronUp} />
+					) : (
+						<FontAwesomeIcon icon={faChevronDown} />
+					)}
+				</IconButton>
+			) : children ? (
 				<Button
 					aria-controls={anchorEl ? 'dropdown' : undefined}
 					aria-expanded={anchorEl ? 'true' : undefined}
@@ -109,7 +130,9 @@ export const DropDownButton = <T extends unknown>({
 						setAnchorEl(event.currentTarget);
 					}}
 					endIcon={
-						anchorEl ? (
+						icon != null ? (
+							<FontAwesomeIcon icon={icon} />
+						) : anchorEl ? (
 							<FontAwesomeIcon icon={faChevronUp} />
 						) : (
 							<FontAwesomeIcon icon={faChevronDown} />
