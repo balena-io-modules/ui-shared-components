@@ -27,7 +27,7 @@ type MenuItemType<T> = MenuItemWithTrackingProps &
 
 export interface DropDownButtonProps<T = unknown>
 	extends Omit<ButtonGroupProps & ButtonProps, 'onClick'> {
-	items: Array<MenuItemType<T>>;
+	items: Array<MenuItemType<T> & { closeMenuOnClick?: boolean }>;
 	selectedItemIndex?: number;
 	groupByProp?: keyof T;
 	onClick?: (
@@ -90,9 +90,12 @@ export const DropDownButton = <T extends unknown>({
 	const handleMenuItemClick = (
 		event: React.MouseEvent<HTMLLIElement | HTMLButtonElement>,
 		index: number,
+		closeMenuOnClick?: boolean,
 	) => {
 		setSelectedIndex(index);
-		setAnchorEl(null);
+		if (closeMenuOnClick !== false) {
+			setAnchorEl(null);
+		}
 		if (children || iconOnly) {
 			return (
 				memoizedItems?.[index]?.onClick?.(event) ??
@@ -181,7 +184,7 @@ export const DropDownButton = <T extends unknown>({
 						key={index}
 						{...item}
 						onClick={(event) => {
-							handleMenuItemClick(event, index);
+							handleMenuItemClick(event, index, item.closeMenuOnClick);
 						}}
 					>
 						{item.children}
