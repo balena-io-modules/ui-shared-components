@@ -5,6 +5,7 @@ import type {
 	ButtonProps,
 	TooltipProps,
 	IconButtonProps,
+	MenuProps,
 } from '@mui/material';
 import { Button, ButtonGroup, MenuItem, Menu, IconButton } from '@mui/material';
 import { ButtonWithTracking } from '../ButtonWithTracking';
@@ -36,6 +37,7 @@ export interface DropDownButtonProps<T = unknown>
 	) => void;
 	icon?: IconProp;
 	iconOnly?: boolean;
+	menuSx?: MenuProps['sx'];
 }
 
 /**
@@ -51,6 +53,7 @@ export const DropDownButton = <T extends unknown>({
 	children,
 	icon,
 	iconOnly,
+	menuSx,
 	...buttonProps
 }: DropDownButtonProps<T>) => {
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -178,6 +181,7 @@ export const DropDownButton = <T extends unknown>({
 				onClose={() => {
 					setAnchorEl(null);
 				}}
+				sx={menuSx}
 			>
 				{memoizedItems.map((item, index) => (
 					<MenuItemWithTracking
