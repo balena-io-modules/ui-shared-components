@@ -1,11 +1,11 @@
-import type { Dictionary, OptionalNavigationResource } from './models';
+import type { OptionalNavigationResource } from './models';
 import { OsTypesEnum } from './models';
 
 // TODO: find a way to no release to a link but also not duplicate
 export const FALLBACK_LOGO_UNKNOWN_DEVICE =
 	'https://dashboard.balena-cloud.com/img/unknown-device.svg';
 
-export const OS_VARIANT_FULL_DISPLAY_TEXT_MAP: Dictionary<string> = {
+export const OS_VARIANT_FULL_DISPLAY_TEXT_MAP: Record<string, string> = {
 	dev: 'Development',
 	prod: 'Production',
 };

@@ -23,7 +23,7 @@ import type { DropDownButtonProps } from '../DropDownButton';
 import { DropDownButton } from '../DropDownButton';
 
 import { pickBy, debounce } from 'es-toolkit';
-import type { DeviceType, Dictionary, OsVersionsByDeviceType } from './models';
+import type { DeviceType, OsVersionsByDeviceType } from './models';
 import { OsTypesEnum } from './models';
 import { uniq } from '../../utils/arrays';
 import { enqueueSnackbar } from 'notistack';
@@ -185,7 +185,9 @@ export interface DownloadImageDialogProps {
 		rawVersion: string | null,
 	) => Promise<string> | undefined;
 	getDockerArtifact: (deviceTypeSlug: string, rawVersion: string) => string;
-	hasEsrVersions?: (deviceTypeSlugs: string[]) => Promise<Dictionary<boolean>>;
+	hasEsrVersions?: (
+		deviceTypeSlugs: string[],
+	) => Promise<Record<string, boolean>>;
 	onClose: () => void;
 	dialogActions?: DropDownButtonProps['items'];
 	authToken?: string;
@@ -226,7 +228,9 @@ export const DownloadImageDialog = ({
 		getUniqueOsTypes(osVersions, initialDeviceType?.slug),
 	);
 
-	const [deviceTypeHasEsr, setDeviceTypeHasEsr] = useState<Dictionary<boolean>>(
+	const [deviceTypeHasEsr, setDeviceTypeHasEsr] = useState<
+		Record<string, boolean>
+	>(
 		initialDeviceType?.slug
 			? {
 					[initialDeviceType.slug]: osTypes.includes(OsTypesEnum.ESR),

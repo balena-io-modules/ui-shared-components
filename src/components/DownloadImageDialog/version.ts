@@ -1,6 +1,6 @@
 import { uniq } from '../../utils/arrays';
 import { partition } from 'es-toolkit';
-import type { Dictionary, OsVersion } from './models';
+import type { OsVersion } from './models';
 
 export type VersionSelectionOptions = {
 	title: string;
@@ -24,7 +24,7 @@ export type VersionSelectionOptions = {
 );
 
 export const transformVersions = (versions: OsVersion[]) => {
-	const optsByVersion: Dictionary<VersionSelectionOptions> = {};
+	const optsByVersion: Record<string, VersionSelectionOptions> = {};
 	versions.forEach((version) => {
 		const existingSelectionOpt = optsByVersion[version.strippedVersion];
 		// We always want to use the 'prod' variant's formatted version as it can contain additional information (such as recommended label).

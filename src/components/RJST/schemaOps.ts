@@ -33,7 +33,7 @@ export interface Priorities<T> {
 export interface RJSTRawModel<T> {
 	resource: string;
 	schema: JSONSchema;
-	permissions: Dictionary<Permissions<T>>;
+	permissions: Record<string, Permissions<T>>;
 	priorities?: Priorities<T>;
 }
 
@@ -136,7 +136,7 @@ export interface RJSTContext<T> {
 		longitudeField?: string;
 	};
 	actions?: Array<RJSTAction<T>>;
-	customSort?: Dictionary<((a: T, b: T) => number) | string | string[]>;
+	customSort?: Record<string, ((a: T, b: T) => number) | string | string[]>;
 	sdk?: RJSTSdk<T>;
 	internalPineFilter?: PineFilterObject | null;
 	checkedState: CheckedState;
