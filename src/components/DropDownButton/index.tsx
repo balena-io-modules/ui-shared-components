@@ -4,8 +4,10 @@ import type {
 	ButtonGroupProps,
 	ButtonProps,
 	TooltipProps,
+	IconButtonProps,
+	MenuProps,
 } from '@mui/material';
-import { Button, ButtonGroup, MenuItem, Menu } from '@mui/material';
+import { Button, ButtonGroup, MenuItem, Menu, IconButton } from '@mui/material';
 import { ButtonWithTracking } from '../ButtonWithTracking';
 import { useAnalyticsContext } from '../../contexts/AnalyticsContext';
 import { groupBy } from 'es-toolkit';
@@ -17,6 +19,7 @@ import {
 	faChevronDown,
 	faChevronUp,
 } from '@fortawesome/free-solid-svg-icons';
+import type { IconProp } from '@fortawesome/fontawesome-svg-core';
 
 type MenuItemType<T> = MenuItemWithTrackingProps &
 	T & {
@@ -25,13 +28,16 @@ type MenuItemType<T> = MenuItemWithTrackingProps &
 
 export interface DropDownButtonProps<T = unknown>
 	extends Omit<ButtonGroupProps & ButtonProps, 'onClick'> {
-	items: Array<MenuItemType<T>>;
+	items: Array<MenuItemType<T> & { closeMenuOnClick?: boolean }>;
 	selectedItemIndex?: number;
 	groupByProp?: keyof T;
 	onClick?: (
 		event: React.MouseEvent<HTMLButtonElement | HTMLLIElement>,
 		item: MenuItemWithTrackingProps,
 	) => void;
+	icon?: IconProp;
+	iconOnly?: boolean;
+	menuSx?: MenuProps['sx'];
 }
 
 /**
@@ -45,6 +51,9 @@ export const DropDownButton = <T extends unknown>({
 	groupByProp,
 	onClick,
 	children,
+	icon,
+	iconOnly,
+	menuSx,
 	...buttonProps
 }: DropDownButtonProps<T>) => {
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -84,10 +93,13 @@ export const DropDownButton = <T extends unknown>({
 	const handleMenuItemClick = (
 		event: React.MouseEvent<HTMLLIElement | HTMLButtonElement>,
 		index: number,
+		closeMenuOnClick?: boolean,
 	) => {
 		setSelectedIndex(index);
-		setAnchorEl(null);
-		if (children) {
+		if (closeMenuOnClick !== false) {
+			setAnchorEl(null);
+		}
+		if (children || iconOnly) {
 			return (
 				memoizedItems?.[index]?.onClick?.(event) ??
 				onClick?.(event, memoizedItems[selectedIndex])
@@ -101,7 +113,22 @@ export const DropDownButton = <T extends unknown>({
 
 	return (
 		<>
-			{children ? (
+			{iconOnly ? (
+				<IconButton
+					onClick={(event) => {
+						setAnchorEl(event.currentTarget);
+					}}
+					{...(buttonProps as IconButtonProps)}
+				>
+					{icon != null ? (
+						<FontAwesomeIcon icon={icon} />
+					) : anchorEl ? (
+						<FontAwesomeIcon icon={faChevronUp} />
+					) : (
+						<FontAwesomeIcon icon={faChevronDown} />
+					)}
+				</IconButton>
+			) : children ? (
 				<Button
 					aria-controls={anchorEl ? 'dropdown' : undefined}
 					aria-expanded={anchorEl ? 'true' : undefined}
@@ -109,7 +136,9 @@ export const DropDownButton = <T extends unknown>({
 						setAnchorEl(event.currentTarget);
 					}}
 					endIcon={
-						anchorEl ? (
+						icon != null ? (
+							<FontAwesomeIcon icon={icon} />
+						) : anchorEl ? (
 							<FontAwesomeIcon icon={faChevronUp} />
 						) : (
 							<FontAwesomeIcon icon={faChevronDown} />
@@ -152,13 +181,14 @@ export const DropDownButton = <T extends unknown>({
 				onClose={() => {
 					setAnchorEl(null);
 				}}
+				sx={menuSx}
 			>
 				{memoizedItems.map((item, index) => (
 					<MenuItemWithTracking
 						key={index}
 						{...item}
 						onClick={(event) => {
-							handleMenuItemClick(event, index);
+							handleMenuItemClick(event, index, item.closeMenuOnClick);
 						}}
 					>
 						{item.children}

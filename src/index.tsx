@@ -75,6 +75,8 @@ export { SurroundingOverlay } from './components/SurroundingOverlay';
 export type { SurroundingOverlayProps } from './components/SurroundingOverlay';
 export type { TooltipProps } from './components/Tooltip';
 export { Tooltip } from './components/Tooltip';
+export { Collapsible } from './components/Collapsible';
+export type { CollapsibleProps } from './components/Collapsible';
 export type { TabsProps } from './components/Tabs';
 export { Tabs } from './components/Tabs';
 export type { VirtualizedAutocompleteWithPaginationProps } from './components/VirtualizedAutocomplete';

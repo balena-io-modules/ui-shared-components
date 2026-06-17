@@ -16,10 +16,6 @@ import {
 	IconButton,
 	Autocomplete,
 	Stack,
-	Accordion,
-	AccordionSummary,
-	AccordionDetails,
-	accordionSummaryClasses,
 	Switch,
 	Dialog,
 	DialogTitle,
@@ -41,7 +37,6 @@ import { FALLBACK_LOGO_UNKNOWN_DEVICE } from './utils';
 import type { ChipProps } from '../Chip';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-	faChevronRight,
 	faEye,
 	faEyeSlash,
 	faQuestionCircle,
@@ -53,6 +48,7 @@ import { getFromLocalStorage, setToLocalStorage } from '../../utils/storage';
 import { NewChip } from '../NewChip';
 import { useAnalyticsContext } from '../../contexts/AnalyticsContext';
 import { token } from '../../utils/token';
+import { Collapsible } from '../Collapsible';
 
 const POLL_INTERVAL_DOCS =
 	'https://www.balena.io/docs/reference/supervisor/bandwidth-reduction/#side-effects--warnings';
@@ -126,7 +122,6 @@ export const ImageForm = memo(function ImageForm({
 }: ImageFormProps) {
 	const { state } = useAnalyticsContext();
 
-	const [showAdvancedSettings, setShowAdvancedSettings] = useState(false);
 	const [
 		showSecureBootConfirmationDialog,
 		setShowSecureBootConfirmationDialog,
@@ -600,94 +595,75 @@ export const ImageForm = memo(function ImageForm({
 					</>
 				)}
 				<Divider variant="fullWidth" sx={{ borderStyle: 'dashed' }} />
-				<Accordion
-					disableGutters
-					elevation={0}
-					expanded={showAdvancedSettings}
-					onChange={() => {
-						setShowAdvancedSettings(!showAdvancedSettings);
-					}}
-					sx={{
-						border: 'none',
-						'&::before': {
-							display: 'none',
-						},
-						[`& .${accordionSummaryClasses.expandIconWrapper}.${accordionSummaryClasses.expanded}`]:
-							{
-								transform: 'rotate(90deg)',
-							},
-					}}
-				>
-					<AccordionSummary
-						expandIcon={<FontAwesomeIcon icon={faChevronRight} />}
-						sx={{ flexDirection: 'row-reverse', gap: 2 }}
-					>
-						<Typography variant="titleSm">Advanced settings</Typography>
-					</AccordionSummary>
-					<AccordionDetails
-						sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}
-					>
-						<TextField
-							value={model.appUpdatePollInterval}
-							slotProps={{
-								htmlInput: {
-									name: 'appUpdatePollInterval',
-									autoComplete: 'appUpdatePollInterval-auto-complete',
-								},
-							}}
-							onChange={(event) => {
-								onChange({ appUpdatePollInterval: Number(event.target.value) });
-							}}
-							label={
-								<Stack direction="row" alignItems="center" gap={1}>
-									Check for updates every X minutes{' '}
-									<MUILinkWithTracking
-										eventProperties={{
-											source:
-												'Application Add Device Modal Poll Interval Doc Icon',
-										}}
-										href={POLL_INTERVAL_DOCS}
-										sx={{
-											display: 'flex',
-											alignItems: 'center',
-											height: '1.5rem',
-										}}
-									>
-										<FontAwesomeIcon icon={faFileLines} fontSize="1.15rem" />
-									</MUILinkWithTracking>
-								</Stack>
-							}
-						/>
-						<TextField
-							name="provisioningKeyName"
-							value={model.provisioningKeyName ?? ''}
-							slotProps={{
-								htmlInput: {
-									name: 'provisioningKeyName',
-									autoComplete: 'provisioningKeyName-auto-complete',
-								},
-							}}
-							onChange={(event) => {
-								onChange({ provisioningKeyName: event.target.value });
-							}}
-							label="Provisioning Key name"
-						/>
-						<TextField
-							type="date"
-							value={model.provisioningKeyExpiryDate ?? ''}
-							slotProps={{
-								htmlInput: {
-									name: 'provisioningKeyExpiryDate',
-									autoComplete: 'provisioningKeyExpiryDate-auto-complete',
-								},
-							}}
-							onChange={(event) => {
-								onChange({ provisioningKeyExpiryDate: event.target.value });
-							}}
-							label="Provisioning Key expiring on"
-						/>
-					</AccordionDetails>
-				</Accordion>
+				<Collapsible
+					defaultIconDirection="right"
+					summary={<Typography variant="titleSm">Advanced settings</Typography>}
+					details={
+						<Stack gap={3}>
+							<TextField
+								value={model.appUpdatePollInterval}
+								slotProps={{
+									htmlInput: {
+										name: 'appUpdatePollInterval',
+										autoComplete: 'appUpdatePollInterval-auto-complete',
+									},
+								}}
+								onChange={(event) => {
+									onChange({
+										appUpdatePollInterval: Number(event.target.value),
+									});
+								}}
+								label={
+									<Stack direction="row" alignItems="center" gap={1}>
+										Check for updates every X minutes{' '}
+										<MUILinkWithTracking
+											eventProperties={{
+												source:
+													'Application Add Device Modal Poll Interval Doc Icon',
+											}}
+											href={POLL_INTERVAL_DOCS}
+											sx={{
+												display: 'flex',
+												alignItems: 'center',
+												height: '1.5rem',
+											}}
+										>
+											<FontAwesomeIcon icon={faFileLines} fontSize="1.15rem" />
+										</MUILinkWithTracking>
+									</Stack>
+								}
+							/>
+							<TextField
+								name="provisioningKeyName"
+								value={model.provisioningKeyName ?? ''}
+								slotProps={{
+									htmlInput: {
+										name: 'provisioningKeyName',
+										autoComplete: 'provisioningKeyName-auto-complete',
+									},
+								}}
+								onChange={(event) => {
+									onChange({ provisioningKeyName: event.target.value });
+								}}
+								label="Provisioning Key name"
+							/>
+							<TextField
+								type="date"
+								value={model.provisioningKeyExpiryDate ?? ''}
+								slotProps={{
+									htmlInput: {
+										name: 'provisioningKeyExpiryDate',
+										autoComplete: 'provisioningKeyExpiryDate-auto-complete',
+									},
+								}}
+								onChange={(event) => {
+									onChange({ provisioningKeyExpiryDate: event.target.value });
+								}}
+								label="Provisioning Key expiring on"
+							/>
+						</Stack>
+					}
+				/>
 			</Stack>
 			<Dialog
 				open={showSecureBootConfirmationDialog}
