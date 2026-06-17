@@ -1,4 +1,17 @@
 - commits:
+    - subject: Switch from custom `Dictionary` type to built in `Record` typing
+      hash: c20831ae85f43f1a20f906a3b7e5ec34d84f7a14
+      body: |
+        This reduces the number of custom typings we maintain/need to know
+        about
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Pagan Gazzard
+  version: 15.9.1
+  title: ""
+  date: 2026-06-17T13:12:09.491Z
+- commits:
     - subject: "DropDownButton: Add `menuSx` prop for passing `sx` props for the `Menu`"
       hash: cac499d31a64c21789386dba131380529a33eb9b
       body: ""
