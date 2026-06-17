@@ -20,9 +20,6 @@ const deleteMatchingCookies = (stringsToDelete: string[]) => {
 	}
 };
 
-interface Dictionary<T> {
-	[key: string]: T;
-}
 export interface Cookie {
 	title: string;
 	description: string;
@@ -32,12 +29,12 @@ export interface Cookie {
 
 export interface CookiesBannerProps {
 	show: boolean;
-	cookies: Dictionary<Cookie>;
+	cookies: Record<string, Cookie>;
 	productName: string;
 	removeCookies?: string[];
-	onInit?: (cookies?: Dictionary<Cookie>) => void;
-	onChange?: (cookies: Dictionary<Cookie>) => void;
-	onClose?: (cookies: Dictionary<Cookie>) => void;
+	onInit?: (cookies?: Record<string, Cookie>) => void;
+	onChange?: (cookies: Record<string, Cookie>) => void;
+	onClose?: (cookies: Record<string, Cookie>) => void;
 }
 
 export const CookiesBanner = ({
@@ -67,11 +64,11 @@ export const CookiesBanner = ({
 	);
 
 	const [localStorageCookies, setLocalStorageCookies] = useState<
-		Dictionary<Cookie> | undefined
+		Record<string, Cookie> | undefined
 	>(() => getFromLocalStorage(localStorageKey));
 
 	const handleSaveOrAcceptAll = useCallback(() => {
-		const newCookies: Dictionary<Cookie> = { ...cookies };
+		const newCookies: Record<string, Cookie> = { ...cookies };
 
 		for (const cookieKey of Object.keys(cookies)) {
 			newCookies[cookieKey].value = !showCustomizeView
@@ -84,7 +81,7 @@ export const CookiesBanner = ({
 	}, [localStorageKey, showCustomizeView, internalCookies, cookies, onClose]);
 
 	const handleReject = useCallback(() => {
-		const newCookies: Dictionary<Cookie> = { ...cookies };
+		const newCookies: Record<string, Cookie> = { ...cookies };
 		for (const cookieKey of Object.keys(cookies)) {
 			newCookies[cookieKey].value = false;
 		}

@@ -32,7 +32,7 @@ import { VariantSelector } from './VariantSelector';
 import type { DownloadImageFormModel } from '.';
 import { faFileLines } from '@fortawesome/free-solid-svg-icons/faFileLines';
 import { MUILinkWithTracking } from '../MUILinkWithTracking';
-import type { DeviceType, Dictionary, OsVersionsByDeviceType } from './models';
+import type { DeviceType, OsVersionsByDeviceType } from './models';
 import { FALLBACK_LOGO_UNKNOWN_DEVICE } from './utils';
 import type { ChipProps } from '../Chip';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -74,7 +74,7 @@ const getCategorizedVersions = (
 	};
 };
 
-const lineMap: Dictionary<ChipProps['color']> = {
+const lineMap: Record<string, ChipProps['color']> = {
 	next: 'green',
 	current: 'teal',
 	sunset: 'yellow',

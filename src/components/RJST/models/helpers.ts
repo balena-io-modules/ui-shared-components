@@ -3,8 +3,8 @@ import type { Permissions, RJSTModel, RJSTRawModel } from '../schemaOps';
 import { rjstJsonSchemaPick } from '../schemaOps';
 
 type Transformers<
-	T extends Dictionary<any>,
-	TTransformer extends Dictionary<any>,
+	T extends Record<string, any>,
+	TTransformer extends Record<string, any>,
 	TContext,
 > = {
 	[field in keyof TTransformer]: (
@@ -21,7 +21,7 @@ export const rjstDefaultPermissions = {
 };
 
 export const rjstRunTransformers = <
-	T extends Dictionary<any>,
+	T extends Record<string, any>,
 	TResult extends T,
 	TContext = null,
 >(

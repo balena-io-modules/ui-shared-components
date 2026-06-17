@@ -1,7 +1,3 @@
-export interface Dictionary<T> {
-	[key: string]: T;
-}
-
 export type KeysOfUnion<T> = T extends T ? keyof T : never;
 
 export interface WithId {

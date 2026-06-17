@@ -4,7 +4,7 @@ import type { NavigateFunction } from 'react-router-dom';
 export interface UiSharedComponentsContextProviderInterface {
 	navigate?: NavigateFunction;
 	t?: TFunction;
-	externalTranslationMap?: Dictionary<string>;
+	externalTranslationMap?: Record<string, string>;
 }
 
 export const UiSharedComponentsContextProvider =
