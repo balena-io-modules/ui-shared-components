@@ -1,4 +1,36 @@
 - commits:
+    - subject: "DropDownButton: Add `menuSx` prop for passing `sx` props for the `Menu`"
+      hash: cac499d31a64c21789386dba131380529a33eb9b
+      body: ""
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: Matthew Yarmolinsky
+    - subject: Add Collapsible component
+      hash: dd36a720910387e8e9eded0249512f11ae1d1c15
+      body: ""
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: Matthew Yarmolinsky
+    - subject: "DropDownButton: Add `closeMenuOnClick` to allow keeping the menu open"
+      hash: 7ccf373bdae7b29aac2a6a845d6bd5d7205c6b1b
+      body: ""
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: Matthew Yarmolinsky
+    - subject: "DropDownButton: Allow changing the icon and displaying icon only"
+      hash: b3f078bf1edfd6b20e8db676a9e86d17156a9a17
+      body: ""
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: Matthew Yarmolinsky
+  version: 15.9.0
+  title: ""
+  date: 2026-06-17T11:59:04.507Z
+- commits:
     - subject: Add Amplitude Engagement Guides & Surveys helper and typing
       hash: dddda7f66ecf53d3422e8f36911a60c3d63dd4ab
       body: ""
