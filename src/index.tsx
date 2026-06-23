@@ -34,8 +34,6 @@ export { Code } from './components/Code';
 export { CookiesBanner } from './components/CookiesBanner';
 export type { CollapsedListProps } from './components/CollapsedList';
 export { CollapsedList } from './components/CollapsedList';
-export type { CustomHelmetProps } from './components/CustomHelmet';
-export { CustomHelmet } from './components/CustomHelmet';
 export { DialogWithCloseButton } from './components/DialogWithCloseButton';
 export type { DialogWithCloseButtonProps } from './components/DialogWithCloseButton';
 export {
