@@ -1,4 +1,16 @@
 - commits:
+    - subject: Update dependency storybook to v10.2.10 [SECURITY]
+      hash: 72d26706194698deebe7df951f7e2e893cbda0f0
+      body: |
+        Update storybook from 10.1.10 to 10.2.10
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: balena-renovate[bot]
+  version: 15.9.2
+  title: ""
+  date: 2026-06-29T12:35:47.746Z
+- commits:
     - subject: Switch from custom `Dictionary` type to built in `Record` typing
       hash: c20831ae85f43f1a20f906a3b7e5ec34d84f7a14
       body: |
