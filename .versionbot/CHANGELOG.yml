@@ -1,4 +1,16 @@
 - commits:
+    - subject: Update dependency ajv to v8.18.0 [SECURITY]
+      hash: a9d7ad3ea11522af63cd0a060c242d29707122c1
+      body: |
+        Update ajv from 8.17.1 to 8.18.0
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: balena-renovate[bot]
+  version: 15.9.3
+  title: ""
+  date: 2026-06-29T14:28:11.013Z
+- commits:
     - subject: Update dependency storybook to v10.2.10 [SECURITY]
       hash: 72d26706194698deebe7df951f7e2e893cbda0f0
       body: |
