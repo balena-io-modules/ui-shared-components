@@ -1,4 +1,16 @@
 - commits:
+    - subject: Update dependency balena-semver to v4
+      hash: fa13489812a9b0ac2c999fbb031a7e30eec43626
+      body: |
+        Update balena-semver from 3.0.10 to 4.1.7
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: balena-renovate[bot]
+  version: 15.9.6
+  title: ""
+  date: 2026-06-29T19:37:53.822Z
+- commits:
     - subject: Update dependency qs to v6.15.2 [SECURITY]
       hash: 63e952f3cab4312983c1172dd4520cd408d665cc
       body: |
