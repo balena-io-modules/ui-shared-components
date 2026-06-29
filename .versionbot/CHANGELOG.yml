@@ -1,4 +1,16 @@
 - commits:
+    - subject: Update dependency webpack to v5.104.1 [SECURITY]
+      hash: f35e9d172be654da4cd0fe45c8526d7a30feb137
+      body: |
+        Update webpack from 5.94.0 to 5.104.1
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: balena-renovate[bot]
+  version: 15.9.4
+  title: ""
+  date: 2026-06-29T16:37:00.382Z
+- commits:
     - subject: Update dependency ajv to v8.18.0 [SECURITY]
       hash: a9d7ad3ea11522af63cd0a060c242d29707122c1
       body: |
