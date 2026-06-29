@@ -1,4 +1,16 @@
 - commits:
+    - subject: Update dependency qs to v6.15.2 [SECURITY]
+      hash: 63e952f3cab4312983c1172dd4520cd408d665cc
+      body: |
+        Update qs from 6.14.1 to 6.15.2
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: balena-renovate[bot]
+  version: 15.9.5
+  title: ""
+  date: 2026-06-29T19:08:05.898Z
+- commits:
     - subject: Update dependency webpack to v5.104.1 [SECURITY]
       hash: f35e9d172be654da4cd0fe45c8526d7a30feb137
       body: |
