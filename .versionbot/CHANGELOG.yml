@@ -1,4 +1,16 @@
 - commits:
+    - subject: Update dependency react-dropzone to v15
+      hash: 309875d0bcfd4e975e1a236b0e37656d15adcbd8
+      body: |
+        Update react-dropzone from 14.2.3 to 15.0.0
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: balena-renovate[bot]
+  version: 15.9.8
+  title: ""
+  date: 2026-06-30T16:06:25.500Z
+- commits:
     - subject: Update dependency lint-staged to v17
       hash: 4acaa1192b65c23c8cab3424520826bf62254655
       body: |
