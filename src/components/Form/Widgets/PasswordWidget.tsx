@@ -34,10 +34,6 @@ export const PasswordWidget = ({
 }: WidgetProps) => {
 	const [showPassword, setShowPassword] = useState(false);
 
-	const change = ({ target: { value: val } }: any) => {
-		onChange(value === '' ? options.emptyValue : val);
-	};
-
 	return (
 		<FormControl>
 			<TextField
@@ -51,7 +47,12 @@ export const PasswordWidget = ({
 					name,
 					placeholder,
 				}}
-				onChange={change}
+				onChange={
+					onChange &&
+					((event: React.FocusEvent<HTMLInputElement>) => {
+						onChange(event.target.value);
+					})
+				}
 				onBlur={
 					onBlur &&
 					((event: React.FocusEvent<HTMLInputElement>) => {
