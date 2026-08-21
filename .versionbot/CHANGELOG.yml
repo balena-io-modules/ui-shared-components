@@ -1,4 +1,15 @@
 - commits:
+    - subject: Fix password widget issues when pasting or using a password manager
+      hash: d06cb22210c1de9922480bb4d04ebb993d823b2c
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Jonathan Berger
+  version: 15.9.10
+  title: ""
+  date: 2026-08-21T09:01:18.677Z
+- commits:
     - subject: Update storybook
       hash: f7a56a42fe1476dd528b00230a5aab36a4c5082c
       body: ""
