@@ -10,8 +10,7 @@ import { getCreateDisabledReason } from '../utils';
 import { ActionContent, LOADING_DISABLED_REASON } from './ActionContent';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagic } from '@fortawesome/free-solid-svg-icons/faMagic';
-import { Box, Button } from '@mui/material';
-import { Spinner } from '../../Spinner';
+import { Box, Button, CircularProgress } from '@mui/material';
 import { useTranslation } from '../../../hooks/useTranslations';
 import { Tooltip } from '../../Tooltip';
 
@@ -91,12 +90,18 @@ export const Create = <T extends RJSTBaseResource<T>>({
 							}));
 						}}
 					>
-						<Box display="flex" justifyContent="space-between">
+						<Box
+							display="flex"
+							justifyContent="space-between"
+							alignItems="center"
+						>
 							{action.title}
-							<Spinner
-								sx={{ ml: 2 }}
-								show={disabledReason === LOADING_DISABLED_REASON}
-							/>
+							{disabledReason === LOADING_DISABLED_REASON && (
+								<CircularProgress
+									size="1rem"
+									sx={{ ml: 2, color: 'currentcolor' }}
+								/>
+							)}
 						</Box>
 					</ActionContent>
 				</Button>
