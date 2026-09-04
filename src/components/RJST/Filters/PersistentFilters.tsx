@@ -72,7 +72,7 @@ export function listFilterQuery(filters: JSONSchema[], stringify = true) {
 			}: FilterDescription & { operatorSlug?: string }) => ({
 				n: field,
 				o: operatorSlug ?? operator,
-				v: value,
+				v: JSON.stringify(value),
 			}),
 		);
 	});
@@ -119,9 +119,16 @@ export const loadRulesFromUrl = (
 					// https://github.com/ljharb/qs#parsing-primitivescalar-values-numbers-booleans-null-etc
 					// To handle this, we use a transformer to avoid scattering parsing logic across multiple filters.
 					let value: any = v;
-					const num = Number(v);
-					// Only try to transform the value from a string if the operator is not full text search and the field cannot be a string
+					if (typeof value === 'string') {
+						try {
+							value = JSON.parse(value);
+						} catch {
+							// If parsing fails, keep as string
+						}
+					}
+					// JSON.parse already handles numbers, booleans, null. Only handle remaining strings.
 					if (
+						typeof value === 'string' &&
 						o !== FULL_TEXT_SLUG &&
 						typeof properties[n] === 'object' &&
 						'type' in properties[n] &&
@@ -129,10 +136,11 @@ export const loadRulesFromUrl = (
 							? !properties[n].type.includes('string')
 							: properties[n].type !== 'string')
 					) {
+						const num = Number(value);
 						if (!isNaN(num)) {
 							value = num;
 						} else {
-							switch (v) {
+							switch (value) {
 								case 'true':
 									value = true;
 									break;
