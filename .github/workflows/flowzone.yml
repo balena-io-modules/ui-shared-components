@@ -15,7 +15,7 @@ permissions:
 jobs:
   flowzone:
     name: Flowzone
-    uses: product-os/flowzone/.github/workflows/flowzone.yml@master
+    uses: product-os/flowzone/.github/workflows/flowzone.yml@master # flowzonify 0.4.9
     secrets: inherit
     with:
       cloudflare_website: balena-design-system
