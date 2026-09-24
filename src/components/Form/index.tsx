@@ -110,7 +110,7 @@ export const RJSForm = forwardRef<RJSFCoreForm, RJSFormProps>(function RJSForm(
 							variant="contained"
 							type="submit"
 						>
-							Submit
+							{submitButtonProps?.children ?? 'Submit'}
 						</Button>
 					)}
 					{children}
