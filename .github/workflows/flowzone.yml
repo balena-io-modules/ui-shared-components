@@ -6,6 +6,8 @@ on:
     branches:
       - 'master'
       - 'main'
+  push:
+    branches: [master, main]
 
 permissions:
   id-token: write
@@ -15,7 +17,7 @@ permissions:
 jobs:
   flowzone:
     name: Flowzone
-    uses: product-os/flowzone/.github/workflows/flowzone.yml@master
+    uses: product-os/flowzone/.github/workflows/flowzone.yml@master # flowzonify 0.4.12
     secrets: inherit
     with:
       cloudflare_website: balena-design-system
