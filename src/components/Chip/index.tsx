@@ -14,9 +14,9 @@ export type ChipProps<
  * @param props
  * @constructor
  */
-export const Chip = React.forwardRef<HTMLDivElement, ChipProps>(function Chip(
-	props: ChipProps,
-	ref,
-) {
+export const Chip = React.forwardRef<
+	HTMLDivElement,
+	ChipProps & { color: string }
+>(function Chip(props: ChipProps & { color: string }, ref) {
 	return <MuiChip {...props} ref={ref} />;
 });
