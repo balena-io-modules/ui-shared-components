@@ -1,4 +1,15 @@
 - commits:
+    - subject: Move Typescript to a devDependency
+      hash: 34fb89501f7673293b2e3b7ee8b1e0a0cff59dc5
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Thodoris Greasidis
+  version: 15.9.12
+  title: ""
+  date: 2026-10-07T13:28:53.613Z
+- commits:
     - subject: "Form: Fix not being able to override the Submit button text"
       hash: 1c47de692f83717ec6763b5ecfaac8d80732df2f
       body: ""
