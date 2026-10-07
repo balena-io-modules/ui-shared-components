@@ -52,7 +52,6 @@
     "react-router-dom": "^6.28.0",
     "remark-breaks": "^4.0.0",
     "remark-gfm": "^4.0.0",
-    "typescript": "^5.9.2",
     "zxcvbn": "^4.4.2"
   },
   "devDependencies": {
@@ -80,6 +79,7 @@
     "storybook": "^10.5.8",
     "ts-jest": "^29.4.6",
     "ts-loader": "^9.5.1",
+    "typescript": "^5.9.3",
     "webpack": "^5.88.2"
   },
   "scripts": {
