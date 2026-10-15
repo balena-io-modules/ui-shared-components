@@ -12,10 +12,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons/faPenToSquare';
 import type { CheckedState } from '../components/Table/utils';
 import { useTranslation } from '../../../hooks/useTranslations';
-import { Box, Button, useMediaQuery, useTheme } from '@mui/material';
+import {
+	Box,
+	Button,
+	CircularProgress,
+	useMediaQuery,
+	useTheme,
+} from '@mui/material';
 import type { DropDownButtonProps } from '../../DropDownButton';
 import { DropDownButton } from '../../DropDownButton';
-import { Spinner } from '../../Spinner';
 import { Tooltip } from '../../Tooltip';
 
 interface UpdateProps<T extends RJSTBaseResource<T>> {
@@ -101,6 +106,7 @@ export const Update = <T extends RJSTBaseResource<T>>({
 						<Box
 							display="flex"
 							justifyContent="space-between"
+							alignItems="center"
 							gap={2}
 							color={
 								action.isDangerous && !disabledReasonsByAction[action.title]
@@ -109,9 +115,9 @@ export const Update = <T extends RJSTBaseResource<T>>({
 							}
 						>
 							{action.title}
-							<Spinner
-								show={disabledActionReason === LOADING_DISABLED_REASON}
-							/>
+							{disabledActionReason === LOADING_DISABLED_REASON && (
+								<CircularProgress size="1rem" sx={{ color: 'currentcolor' }} />
+							)}
 						</Box>
 					</ActionContent>
 				),
@@ -209,12 +215,18 @@ export const Update = <T extends RJSTBaseResource<T>>({
 								}));
 							}}
 						>
-							<Box display="flex" justifyContent="space-between">
+							<Box
+								display="flex"
+								justifyContent="space-between"
+								alignItems="center"
+							>
 								{action.title}
-								<Spinner
-									sx={{ ml: 2 }}
-									show={disabledUpdateReason === LOADING_DISABLED_REASON}
-								/>
+								{disabledUpdateReason === LOADING_DISABLED_REASON && (
+									<CircularProgress
+										size="1rem"
+										sx={{ ml: 2, color: 'currentcolor' }}
+									/>
+								)}
 							</Box>
 						</ActionContent>
 					</Button>
