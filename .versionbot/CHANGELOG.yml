@@ -1,4 +1,16 @@
 - commits:
+    - subject: Update dependency storybook to v10.6.2 [SECURITY]
+      hash: b115b2c73c913f0d3ecb84b488338a43cbdb0fbe
+      body: |
+        Update storybook from 10.5.8 to 10.6.2
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: balena-renovate[bot]
+  version: 15.9.13
+  title: ""
+  date: 2026-10-29T14:15:08.069Z
+- commits:
     - subject: Move Typescript to a devDependency
       hash: 34fb89501f7673293b2e3b7ee8b1e0a0cff59dc5
       body: ""
