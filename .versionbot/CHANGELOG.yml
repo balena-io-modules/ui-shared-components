@@ -1,4 +1,16 @@
 - commits:
+    - subject: Update dependency react-router-dom to v6.30.6 [SECURITY]
+      hash: 186c289d65b72bad37abc288e89d61aa4d101fec
+      body: |
+        Update react-router-dom from 6.30.4 to 6.30.6
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: balena-renovate[bot]
+  version: 15.9.16
+  title: ""
+  date: 2026-10-29T17:03:21.571Z
+- commits:
     - subject: Update dependency react-dropzone to v17
       hash: 938d3479d4abf09da77e3d1cf1bdaba1165833fb
       body: |
