@@ -1,4 +1,16 @@
 - commits:
+    - subject: Update dependency react-dropzone to v17
+      hash: 938d3479d4abf09da77e3d1cf1bdaba1165833fb
+      body: |
+        Update react-dropzone from 16.0.0 to 17.0.0
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: balena-renovate[bot]
+  version: 15.9.15
+  title: ""
+  date: 2026-10-29T16:15:02.953Z
+- commits:
     - subject: Update dependency react-dropzone to v16
       hash: 85f15759b10ee6a5f5984dadd8878f504a15cd98
       body: |
