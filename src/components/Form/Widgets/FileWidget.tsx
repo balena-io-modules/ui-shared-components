@@ -3,6 +3,7 @@ import type {
 	DropzoneOptions,
 	ErrorCode,
 	FileRejection,
+	FileWithPath,
 } from 'react-dropzone';
 import { useDropzone } from 'react-dropzone';
 import {
@@ -161,7 +162,8 @@ export const FileWidget = ({
 				const reader = new FileReader();
 				reader.onerror = () => {
 					rejectedFiles.push({
-						file,
+						// react-dropzone's default getFilesFromEvent always adds path/relativePath
+						file: file as FileWithPath,
 						errors: [{ code: '', message: 'Failed to upload' }],
 					});
 				};
