@@ -1,4 +1,16 @@
 - commits:
+    - subject: Update dependency flowzonify to v0.4.23
+      hash: a1b61ceb9db39a89c703a9a28b04cd23085c559a
+      body: |
+        Update flowzonify from 0.0.0 to 0.4.23
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: balena-renovate[bot]
+  version: 15.9.17
+  title: ""
+  date: 2026-11-02T22:38:47.770Z
+- commits:
     - subject: Update dependency react-router-dom to v6.30.6 [SECURITY]
       hash: 186c289d65b72bad37abc288e89d61aa4d101fec
       body: |
