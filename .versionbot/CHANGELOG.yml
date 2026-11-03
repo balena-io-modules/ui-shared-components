@@ -1,4 +1,16 @@
 - commits:
+    - subject: Update dependency @balena/lint to v11
+      hash: cb5ba15d99545452c595022c9a64fe32f68b5856
+      body: |
+        Update @balena/lint from 9.3.8 to 11.0.0
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: balena-renovate[bot]
+  version: 15.9.19
+  title: ""
+  date: 2026-11-03T01:13:28.325Z
+- commits:
     - subject: Update dependency typescript to v6
       hash: 3c8bc7ab5f8fbca69a26caf95657bee42e3db8f2
       body: |
