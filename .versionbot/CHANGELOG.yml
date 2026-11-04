@@ -1,4 +1,36 @@
 - commits:
+    - subject: Address lint errors
+      hash: f97e3feb83be832b104d73185ef1881d7974fc64
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Matthew Yarmolinsky
+    - subject: "tsconfig: enable noUnusedLocals and noUnusedParameters"
+      hash: 683675d900e5953415dae0f0523c37fa7ddd41c5
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Matthew Yarmolinsky
+    - subject: Removed unused eslint configuration
+      hash: 155e9fc974b70b08e78fc2177cbb44f0e2b4b8b9
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Matthew Yarmolinsky
+    - subject: Remove eslint.config.js
+      hash: 8951a2239fdf2e44f06bfa58401bebff924ec19b
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Matthew Yarmolinsky
+  version: 15.9.20
+  title: ""
+  date: 2026-11-04T23:05:38.618Z
+- commits:
     - subject: Update dependency @balena/lint to v11
       hash: cb5ba15d99545452c595022c9a64fe32f68b5856
       body: |
