@@ -16,16 +16,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // TODO: replace with PRO version if we will have access to it
 import { faFileLines } from '@fortawesome/free-solid-svg-icons';
 
-interface OsTypeSelectorProps<T>
-	extends Omit<
-		SelectProps<T>,
-		| 'options'
-		| 'onChange'
-		| 'valueKey'
-		| 'disabledKey'
-		| 'valueLabel'
-		| 'children'
-	> {
+interface OsTypeSelectorProps<T> extends Omit<
+	SelectProps<T>,
+	| 'options'
+	| 'onChange'
+	| 'valueKey'
+	| 'disabledKey'
+	| 'valueLabel'
+	| 'children'
+> {
 	supportedOsTypes: string[];
 	hasEsrVersions: boolean;
 	selectedOsTypeSlug: string | null;

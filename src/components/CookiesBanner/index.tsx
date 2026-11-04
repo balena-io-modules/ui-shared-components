@@ -93,7 +93,7 @@ export const CookiesBanner = ({
 
 	useEffect(() => {
 		onInit?.(localStorageCookies);
-		// eslint-disable-next-line react-hooks/exhaustive-deps -- We only want to run this on mount
+		// eslint-disable-next-line @eslint-react/exhaustive-deps -- We only want to run this on mount
 	}, []);
 
 	if (!show || !!localStorageCookies) {

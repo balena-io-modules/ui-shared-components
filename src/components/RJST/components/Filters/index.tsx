@@ -41,12 +41,7 @@ export interface FiltersView {
 }
 
 export type FilterRenderMode =
-	| 'all'
-	| 'add'
-	| 'search'
-	| 'views'
-	| 'summary'
-	| 'summaryWithSaveViews';
+	'all' | 'add' | 'search' | 'views' | 'summary' | 'summaryWithSaveViews';
 
 export interface FiltersProps {
 	schema: JSONSchema;
@@ -116,7 +111,7 @@ export const Filters = ({
 		[viewsRestorationKey, setStoredViews, onViewsChange, analytics.webTracker],
 	);
 
-	const formData = React.useMemo(() => {
+	const formData = React.useMemo((): FormData[] | FormData | undefined => {
 		if (!editFilter) {
 			return;
 		}
@@ -156,7 +151,7 @@ export const Filters = ({
 					value: description.value,
 				};
 			})
-			.filter((f) => !!f) as FormData[];
+			.filter((f) => !!f);
 	}, [editFilter, schema]);
 
 	const handleFilterChange = React.useCallback(

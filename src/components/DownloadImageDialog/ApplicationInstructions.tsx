@@ -29,107 +29,109 @@ export const getUserOs = () => {
 
 const SECURE_BOOT_INSTRUCTION_TO_REPLACE_START = 'Press the F10 key while BIOS';
 
-export const ApplicationInstructions = memo(function ApplicationInstructions({
-	deviceType,
-	templateData,
-	secureboot,
-}: {
-	deviceType: DeviceType;
-	templateData: { dockerImage: string };
-	secureboot: boolean;
-}) {
-	const [currentOs, setCurrentOs] = useState<OsOptions>(getUserOs());
+export const ApplicationInstructions = memo(
+	function ApplicationInstructionsFunction({
+		deviceType,
+		templateData,
+		secureboot,
+	}: {
+		deviceType: DeviceType;
+		templateData: { dockerImage: string };
+		secureboot: boolean;
+	}) {
+		const [currentOs, setCurrentOs] = useState<OsOptions>(getUserOs());
 
-	const hasOsSpecificInstructions = !Array.isArray(deviceType.instructions);
-	const normalizedOs = currentOs === 'Unknown' ? 'Linux' : currentOs;
+		const hasOsSpecificInstructions = !Array.isArray(deviceType.instructions);
+		const normalizedOs = currentOs === 'Unknown' ? 'Linux' : currentOs;
 
-	useEffect(() => {
-		if (hasOsSpecificInstructions && deviceType.instructions) {
-			const oses = Object.keys(deviceType.instructions);
-			if (!oses.includes(currentOs) && oses.length > 0) {
-				setCurrentOs(oses[0] as OsOptions);
+		useEffect(() => {
+			if (hasOsSpecificInstructions && deviceType.instructions) {
+				const oses = Object.keys(deviceType.instructions);
+				if (!oses.includes(currentOs) && oses.length > 0) {
+					setCurrentOs(oses[0] as OsOptions);
+				}
 			}
-		}
-	}, [
-		currentOs,
-		setCurrentOs,
-		deviceType.instructions,
-		hasOsSpecificInstructions,
-	]);
+		}, [
+			currentOs,
+			setCurrentOs,
+			deviceType.instructions,
+			hasOsSpecificInstructions,
+		]);
 
-	if (!deviceType.instructions) {
-		return (
-			<Typography variant="body1">
-				Instructions for this device type are not currently available. Please
-				try again later.
-			</Typography>
-		);
-	}
-
-	const interpolatedInstructions = (
-		hasOsSpecificInstructions
-			? (deviceType.instructions as OsSpecificContractInstructions)[
-					normalizedOs
-				]
-			: (deviceType.instructions as string[])
-	)?.map((instruction: string) =>
-		interpolateMustache(
-			templateData,
-			instruction.replace(/<a/, '<a target="_blank"'),
-		),
-	);
-
-	const finalInstructions = [
-		'Use the form on the left to configure and download balenaOS for your new device.',
-		...interpolatedInstructions,
-		'Your device should appear in your application dashboard within a few minutes. Have fun!',
-	];
-
-	return (
-		<Box display="flex" flexDirection="column" alignItems="flex-start">
-			<Typography variant="h5">Instructions</Typography>
-
-			{hasOsSpecificInstructions && (
-				<Box mb={3}>
-					<Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-						<Tabs
-							value={Object.keys(deviceType.instructions).find(
-								(key) => key === currentOs,
-							)}
-							onChange={(_event, value) => {
-								setCurrentOs(value ?? 'Unknown');
-							}}
-							aria-label="os tabs"
-						>
-							{(Object.keys(deviceType.instructions) as OsOptions[]).map(
-								(os) => {
-									return <Tab key={os} label={os} value={os} />;
-								},
-							)}
-						</Tabs>
-					</Box>
-				</Box>
-			)}
-
-			<InstructionsList
-				instructions={finalInstructions}
-				secureboot={secureboot}
-			/>
-
-			<Box mt={2}>
-				<Typography>
-					For more details please refer to our{' '}
-					<MUILinkWithTracking
-						href={`https://www.balena.io/docs/learn/getting-started/${deviceType.slug}/nodejs/`}
-					>
-						Getting Started Guide
-					</MUILinkWithTracking>
-					.
+		if (!deviceType.instructions) {
+			return (
+				<Typography variant="body1">
+					Instructions for this device type are not currently available. Please
+					try again later.
 				</Typography>
+			);
+		}
+
+		const interpolatedInstructions = (
+			hasOsSpecificInstructions
+				? (deviceType.instructions as OsSpecificContractInstructions)[
+						normalizedOs
+					]
+				: (deviceType.instructions as string[])
+		)?.map((instruction: string) =>
+			interpolateMustache(
+				templateData,
+				instruction.replace(/<a/, '<a target="_blank"'),
+			),
+		);
+
+		const finalInstructions = [
+			'Use the form on the left to configure and download balenaOS for your new device.',
+			...interpolatedInstructions,
+			'Your device should appear in your application dashboard within a few minutes. Have fun!',
+		];
+
+		return (
+			<Box display="flex" flexDirection="column" alignItems="flex-start">
+				<Typography variant="h5">Instructions</Typography>
+
+				{hasOsSpecificInstructions && (
+					<Box mb={3}>
+						<Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+							<Tabs
+								value={Object.keys(deviceType.instructions).find(
+									(key) => key === currentOs,
+								)}
+								onChange={(_event, value) => {
+									setCurrentOs(value ?? 'Unknown');
+								}}
+								aria-label="os tabs"
+							>
+								{(Object.keys(deviceType.instructions) as OsOptions[]).map(
+									(os) => {
+										return <Tab key={os} label={os} value={os} />;
+									},
+								)}
+							</Tabs>
+						</Box>
+					</Box>
+				)}
+
+				<InstructionsList
+					instructions={finalInstructions}
+					secureboot={secureboot}
+				/>
+
+				<Box mt={2}>
+					<Typography>
+						For more details please refer to our{' '}
+						<MUILinkWithTracking
+							href={`https://www.balena.io/docs/learn/getting-started/${deviceType.slug}/nodejs/`}
+						>
+							Getting Started Guide
+						</MUILinkWithTracking>
+						.
+					</Typography>
+				</Box>
 			</Box>
-		</Box>
-	);
-});
+		);
+	},
+);
 
 interface InstructionsItemProps {
 	instruction: string;

@@ -3,7 +3,7 @@ import { Alert } from '@mui/material';
 import type { CustomContentProps, SnackbarProviderProps } from 'notistack';
 import { closeSnackbar, SnackbarProvider } from 'notistack';
 
-const Toast = React.forwardRef(function Toast(
+const Toast = React.forwardRef(function ToastFunction(
 	{ message, id, variant }: CustomContentProps,
 	ref,
 ) {

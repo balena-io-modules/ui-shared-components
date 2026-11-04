@@ -23,7 +23,7 @@ export const groupResourcesByTags = <
 >(
 	items: T[],
 	tagField: P,
-) => {
+): Array<ResourceTagInfo<T>> => {
 	const resourceTagInfos = items.flatMap((item) => {
 		const tags = getResourceTags(item, tagField);
 		return tags.map((tag) => ({
@@ -47,7 +47,7 @@ export const groupResourcesByTags = <
 				tag_key: firstTag.tag_key,
 				value: firstTag.value,
 				items: tags.map((tag) => tag.item),
-			} as ResourceTagInfo<T>;
+			};
 		});
 
 	return tagsWithItems;

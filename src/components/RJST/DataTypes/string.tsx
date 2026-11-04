@@ -16,8 +16,7 @@ export const operators = () => ({
 });
 
 export type OperatorSlug =
-	| keyof ReturnType<typeof operators>
-	| typeof FULL_TEXT_SLUG;
+	keyof ReturnType<typeof operators> | typeof FULL_TEXT_SLUG;
 
 export const createFilter: CreateFilter<OperatorSlug> = (
 	field,

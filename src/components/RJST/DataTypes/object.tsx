@@ -159,8 +159,7 @@ const getTitleForOperation = (
 };
 
 export type OperatorSlug =
-	| KeysOfUnion<ReturnType<typeof operators>>
-	| typeof FULL_TEXT_SLUG;
+	KeysOfUnion<ReturnType<typeof operators>> | typeof FULL_TEXT_SLUG;
 
 export const createFilter: CreateFilter<OperatorSlug> = (
 	field,

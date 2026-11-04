@@ -14,8 +14,7 @@ import type { JSONSchemaDefinition } from '../../../../typings/shared';
 
 const ajv = new Ajv();
 ajvKeywords(ajv, ['regexp']);
-// TODO: check why is this needed
-addFormats(ajv as any);
+addFormats(ajv);
 
 export interface FilterDescription {
 	schema: JSONSchema;

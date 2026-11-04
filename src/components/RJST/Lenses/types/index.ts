@@ -11,8 +11,10 @@ import type {
 import type { BoxProps } from '@mui/material';
 export { table } from './table';
 
-export interface LensRendererBaseProps<T extends { id: number }>
-	extends Pick<BoxProps, 'flex'> {
+export interface LensRendererBaseProps<T extends { id: number }> extends Pick<
+	BoxProps,
+	'flex'
+> {
 	properties: Array<RJSTEntityPropertyDefinition<T>>;
 	rjstContext: RJSTContext<T>;
 	model: RJSTModel<T>;
@@ -23,8 +25,9 @@ export interface LensRendererBaseProps<T extends { id: number }>
 	) => void;
 }
 
-export interface CollectionLensRendererProps<T extends { id: number }>
-	extends LensRendererBaseProps<T> {
+export interface CollectionLensRendererProps<
+	T extends { id: number },
+> extends LensRendererBaseProps<T> {
 	filtered: T[];
 	selected?: Array<Subset<T>>;
 	checkedState?: CheckedState;

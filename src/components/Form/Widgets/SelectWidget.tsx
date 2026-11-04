@@ -97,7 +97,7 @@ export const SelectWidget = ({
 					tagValues.map((option, index) => {
 						const tagProps = getTagProps({ index });
 						return (
-							// eslint-disable-next-line react/jsx-key -- `key` is provided by getTagProps
+							// eslint-disable-next-line @eslint-react/no-missing-key -- `key` is provided by getTagProps
 							<Chip
 								label={option.label}
 								{...(option.schema?.disabled

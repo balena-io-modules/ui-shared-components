@@ -358,8 +358,8 @@ export const FileWidget = ({
 									bgcolor={token('color.bg')}
 									p={3}
 									borderRadius={token('shape.borderRadius.md')}
-									{...(mobile && { flexWrap: 'wrap' })}
 									key={file.name}
+									{...(mobile && { flexWrap: 'wrap' })}
 								>
 									<Stack
 										direction="row"

@@ -186,7 +186,7 @@ export const TagManagementDialog = <T extends TaggedResource>({
 		setPartialTags($partialTags);
 		// TODO: This snapshots the item at the moment the dialog is open.
 		// Consider using a separate state for editing tags.
-		// eslint-disable-next-line react-hooks/exhaustive-deps -- We want to update this at the moment the dialog is open
+		// eslint-disable-next-line @eslint-react/exhaustive-deps -- We want to update this at the moment the dialog is open
 	}, [items.length > 0]);
 
 	if (!tags || !partialTags) {

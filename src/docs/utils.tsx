@@ -120,8 +120,7 @@ export const getCategoriesFromTokens = (tokens: JsonToken[]) => {
 	}, []);
 };
 
-interface LensToggleProps
-	extends React.PropsWithChildren<ToggleButtonGroupProps> {
+interface LensToggleProps extends React.PropsWithChildren<ToggleButtonGroupProps> {
 	withWrapAroundLabel?: boolean;
 	segments: Array<{
 		icon?: IconDefinition;

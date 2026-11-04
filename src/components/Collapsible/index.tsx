@@ -15,8 +15,10 @@ import { useState } from 'react';
 import { getFromLocalStorage, setToLocalStorage } from '../../utils/storage';
 
 // Omit expanded from AccordionProps since we manage it internally, but we can revisit it if the use case arises where the parent component needs to control the expanded state
-export interface CollapsibleProps
-	extends Omit<AccordionProps, 'children' | 'expanded'> {
+export interface CollapsibleProps extends Omit<
+	AccordionProps,
+	'children' | 'expanded'
+> {
 	initiallyCollapsed?: boolean;
 	summary: AccordionSummaryProps['children'];
 	details: AccordionDetailsProps['children'];

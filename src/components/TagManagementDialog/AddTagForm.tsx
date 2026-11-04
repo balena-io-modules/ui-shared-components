@@ -121,8 +121,8 @@ export const AddTagForm = <T extends object>({
 	const [confirmationDialogOptions, setConfirmationDialogOptions] =
 		React.useState<SimpleConfirmationDialogProps>();
 
-	const tagKeyInput = React.useRef<HTMLInputElement>(null);
-	const valueInput = React.useRef<HTMLInputElement>(null);
+	const tagKeyInputRef = React.useRef<HTMLInputElement>(null);
+	const valueInputRef = React.useRef<HTMLInputElement>(null);
 	const formId = useRandomUUID();
 	const formUuid = `add-tag-form-${formId}`;
 
@@ -197,11 +197,11 @@ export const AddTagForm = <T extends object>({
 			setError(undefined);
 			setCanSubmit(false);
 
-			if (tagKeyInput?.current) {
-				tagKeyInput.current.blur();
+			if (tagKeyInputRef?.current) {
+				tagKeyInputRef.current.blur();
 			}
-			if (valueInput?.current) {
-				valueInput.current.blur();
+			if (valueInputRef?.current) {
+				valueInputRef.current.blur();
 			}
 		});
 	});
@@ -224,7 +224,7 @@ export const AddTagForm = <T extends object>({
 						},
 					}}
 					fullWidth
-					ref={tagKeyInput}
+					ref={tagKeyInputRef}
 					onChange={(e) => {
 						setTagKey(e.target.value);
 						checkNewTagValidity(e.target.value);
@@ -241,7 +241,7 @@ export const AddTagForm = <T extends object>({
 						},
 					}}
 					fullWidth
-					ref={valueInput}
+					ref={valueInputRef}
 					onChange={(e) => {
 						setValue(e.target.value);
 					}}

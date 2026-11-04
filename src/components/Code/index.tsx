@@ -7,7 +7,7 @@ import { token } from '../../utils/token';
  * This component will display a text as code.
  */
 export const Code = forwardRef<TypographyProps['ref'], TypographyProps>(
-	function Code({ children, sx, ...props }, ref) {
+	function CodeFunction({ children, sx, ...props }, ref) {
 		return (
 			<Typography
 				sx={[

@@ -242,130 +242,131 @@ export const FiltersDialog = ({
 	};
 
 	const internalSchemaAndUiSchema:
-		| { schema: JSONSchema; uiSchema: UiSchema }
-		| undefined = React.useMemo(() => {
-		const { properties } = schema;
-		if (!properties) {
-			return undefined;
-		}
+		{ schema: JSONSchema; uiSchema: UiSchema } | undefined =
+		React.useMemo(() => {
+			const { properties } = schema;
+			if (!properties) {
+				return undefined;
+			}
 
-		if (!Array.isArray(formData)) {
-			return {
-				schema: {
-					type: 'object',
-					properties: {
-						field: {
-							title: '',
-							type: 'string',
-						},
-						operator: {
-							title: '',
-							type: 'string',
-						},
-						value: {
-							title: '',
-							type: 'string',
+			if (!Array.isArray(formData)) {
+				return {
+					schema: {
+						type: 'object',
+						properties: {
+							field: {
+								title: '',
+								type: 'string',
+							},
+							operator: {
+								title: '',
+								type: 'string',
+							},
+							value: {
+								title: '',
+								type: 'string',
+							},
 						},
 					},
-				},
-				uiSchema: {
+					uiSchema: {
+						'ui:grid': {
+							field: { size: { xs: 4, sm: 4 } },
+							operator: { size: { xs: 4, sm: 4 } },
+							value: { size: { xs: 4, sm: 4 } },
+						},
+						field: {
+							'ui:readonly': true,
+						},
+						operator: {
+							'ui:readonly': true,
+						},
+					},
+				};
+			}
+
+			const oneOf = Object.entries(properties)
+				/* since properties is of type JSONSchemaDefinition = JSONSchema | boolean,
+				 * we need to remove all possible boolean values
+				 */
+				.filter(([_k, v]) => typeof v !== 'boolean')
+				.map(([key, property]) => ({
+					title: (property as JSONSchema).title,
+					const: key,
+				}));
+
+			const uiSchema = {
+				'ui:ArrayFieldTemplate': ArrayFieldTemplate,
+				'ui:ArrayFieldItemTemplate': ArrayFieldItemTemplate,
+				items: {
 					'ui:grid': {
 						field: { size: { xs: 4, sm: 4 } },
 						operator: { size: { xs: 4, sm: 4 } },
 						value: { size: { xs: 4, sm: 4 } },
 					},
-					field: {
-						'ui:readonly': true,
-					},
-					operator: {
-						'ui:readonly': true,
-					},
+					value: {},
 				},
 			};
-		}
 
-		const oneOf = Object.entries(properties)
-			/* since properties is of type JSONSchemaDefinition = JSONSchema | boolean,
-			 * we need to remove all possible boolean values
-			 */
-			.filter(([_k, v]) => typeof v !== 'boolean')
-			.map(([key, property]) => ({
-				title: (property as JSONSchema).title,
-				const: key,
-			}));
-
-		const uiSchema = {
-			'ui:ArrayFieldTemplate': ArrayFieldTemplate,
-			'ui:ArrayFieldItemTemplate': ArrayFieldItemTemplate,
-			items: {
-				'ui:grid': {
-					field: { size: { xs: 4, sm: 4 } },
-					operator: { size: { xs: 4, sm: 4 } },
-					value: { size: { xs: 4, sm: 4 } },
-				},
-				value: {},
-			},
-		};
-
-		return {
-			schema: {
-				type: 'array',
-				minItems: 1,
-				items: formData.map((fd, index) => {
-					const schemaField: JSONSchema = {
-						$id: `filter-dialog-item-${index}`,
-						title: 'Field',
-						type: 'string',
-						oneOf,
-					};
-					const { propertySchema, model } = getPropertySchemaAndModel(
-						fd?.field ?? oneOf[0].const,
-						schema,
-					);
-					if (!model || !propertySchema) {
-						return {};
-					}
-					const rendererSchema =
-						model.rendererSchema(schemaField, index, propertySchema, fd) ?? {};
-					// This if statement is needed to display objects in a nice way.
-					// Would be nice to find a better way and keep schema and uiSchema separated
-					const enumNames = (
-						propertySchema as JSONSchema & { enumNames?: string[] }
-					).enumNames;
-					if (enumNames) {
-						uiSchema.items.value = {
-							'ui:enumNames': enumNames,
+			return {
+				schema: {
+					type: 'array',
+					minItems: 1,
+					items: formData.map((fd, index) => {
+						const schemaField: JSONSchema = {
+							$id: `filter-dialog-item-${index}`,
+							title: 'Field',
+							type: 'string',
+							oneOf,
 						};
-					}
-					if (propertySchema?.type === 'object') {
-						if (!propertySchema.properties) {
-							return rendererSchema;
-						}
-						uiSchema.items.value = Object.fromEntries(
-							Object.entries(propertySchema.properties).map(
-								([key, value]: [string, JSONSchemaDefinition]) => [
-									key,
-									{
-										'ui:title': '',
-										'ui:placeholder':
-											typeof value !== 'boolean' ? value.title + '*' : '*',
-									},
-								],
-							),
+						const { propertySchema, model } = getPropertySchemaAndModel(
+							fd?.field ?? oneOf[0].const,
+							schema,
 						);
-					}
-					return rendererSchema;
-				}),
-				additionalItems: {
-					$id: 'filter-dialog-additional-item-0',
-					field: formData?.[0].field,
-					operator: formData?.[0].operator,
-					value: undefined,
+						if (!model || !propertySchema) {
+							return {};
+						}
+						const rendererSchema =
+							model.rendererSchema(schemaField, index, propertySchema, fd) ??
+							{};
+						// This if statement is needed to display objects in a nice way.
+						// Would be nice to find a better way and keep schema and uiSchema separated
+						const enumNames = (
+							propertySchema as JSONSchema & { enumNames?: string[] }
+						).enumNames;
+						if (enumNames) {
+							uiSchema.items.value = {
+								'ui:enumNames': enumNames,
+							};
+						}
+						if (propertySchema?.type === 'object') {
+							if (!propertySchema.properties) {
+								return rendererSchema;
+							}
+							uiSchema.items.value = Object.fromEntries(
+								Object.entries(propertySchema.properties).map(
+									([key, value]: [string, JSONSchemaDefinition]) => [
+										key,
+										{
+											'ui:title': '',
+											'ui:placeholder':
+												typeof value !== 'boolean' ? value.title + '*' : '*',
+										},
+									],
+								),
+							);
+						}
+						return rendererSchema;
+					}),
+					additionalItems: {
+						$id: 'filter-dialog-additional-item-0',
+						field: formData?.[0].field,
+						operator: formData?.[0].operator,
+						value: undefined,
+					},
 				},
-			},
-			uiSchema,
-		};
-	}, [formData, schema]);
+				uiSchema,
+			};
+		}, [formData, schema]);
 
 	if (!internalSchemaAndUiSchema) {
 		return null;
