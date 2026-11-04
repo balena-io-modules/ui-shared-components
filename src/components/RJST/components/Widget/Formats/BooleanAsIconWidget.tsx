@@ -11,7 +11,7 @@ export const BooleanAsIconWidget = widgetFactory('BooleanAsIcon', [
 ])(({ value }) => {
 	const text = value ? 'true' : 'false';
 	return (
-		<Box alignItems="center" gap={2}>
+		<Box sx={{ alignItems: 'center', gap: 2 }}>
 			<FontAwesomeIcon icon={value ? faCheckCircle : faTimesCircle} />{' '}
 			<Typography>{text}</Typography>
 		</Box>

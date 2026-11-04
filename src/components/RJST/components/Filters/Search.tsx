@@ -20,7 +20,7 @@ export const Search = ({
 	value,
 	onEnter,
 	onChange,
-	InputProps,
+	slotProps,
 	dark,
 	...textFieldProps
 }: SearchProps) => {
@@ -41,48 +41,51 @@ export const Search = ({
 			onChange={onChange}
 			placeholder={placeholder}
 			value={value}
-			InputProps={{
-				startAdornment: (
-					<InputAdornment position="start">
-						<FontAwesomeIcon
-							icon={faSearch}
-							style={{ color: dark ? 'white' : 'inherit' }} // TODO remove when we have implemented a dark theme
-						/>
-					</InputAdornment>
-				),
-				...(value.length > 0 && {
-					endAdornment: (
-						<InputAdornment position="end">
-							<IconButton
-								onClick={() => {
-									onChange?.(undefined);
-								}}
-							>
-								<FontAwesomeIcon
-									icon={faTimes}
-									style={{
-										color: dark ? 'white' : 'inherit', // TODO remove when we have implemented a dark theme
-									}}
-								/>
-							</IconButton>
+			{...textFieldProps}
+			slotProps={{
+				...slotProps,
+				input: {
+					startAdornment: (
+						<InputAdornment position="start">
+							<FontAwesomeIcon
+								icon={faSearch}
+								style={{ color: dark ? 'white' : 'inherit' }} // TODO remove when we have implemented a dark theme
+							/>
 						</InputAdornment>
 					),
-				}),
-				// TODO remove when we have implemented a dark theme
-				...(dark && {
-					sx: {
-						color: 'white',
-						'&::before': {
-							borderBottom: 'solid rgba(255, 255, 255, 0.6) 1px',
+					...(value.length > 0 && {
+						endAdornment: (
+							<InputAdornment position="end">
+								<IconButton
+									onClick={() => {
+										onChange?.(undefined);
+									}}
+								>
+									<FontAwesomeIcon
+										icon={faTimes}
+										style={{
+											color: dark ? 'white' : 'inherit', // TODO remove when we have implemented a dark theme
+										}}
+									/>
+								</IconButton>
+							</InputAdornment>
+						),
+					}),
+					// TODO remove when we have implemented a dark theme
+					...(dark && {
+						sx: {
+							color: 'white',
+							'&::before': {
+								borderBottom: 'solid rgba(255, 255, 255, 0.6) 1px',
+							},
+							'&:hover:not(.Mui-disabled, .Mui-error)::before': {
+								borderBottom: 'solid white 1px',
+							},
 						},
-						'&:hover:not(.Mui-disabled, .Mui-error)::before': {
-							borderBottom: 'solid white 1px',
-						},
-					},
-				}),
-				...InputProps,
+					}),
+					...slotProps?.input,
+				},
 			}}
-			{...textFieldProps}
 		/>
 	);
 };

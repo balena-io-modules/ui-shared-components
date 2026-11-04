@@ -278,6 +278,9 @@ export const theme = createTheme({
 		},
 	},
 	palette: {
+		DataGrid: {
+			headerBg: '#f2f4fa', // TODO use a design token
+		},
 		primary: {
 			main: color.palette.blue['600'].value,
 		},
@@ -794,6 +797,77 @@ export const theme = createTheme({
 						opacity: 0.4,
 					},
 				},
+				{
+					props: { variant: 'text', color: 'primary' },
+					style: {
+						color: color.text.accent.value,
+					},
+				},
+				{
+					props: { variant: 'text', color: 'secondary' },
+					style: {
+						color: color.text.value,
+					},
+				},
+				{
+					props: { variant: 'text', color: 'info' },
+					style: {
+						color: color.text.info.value,
+					},
+				},
+				{
+					props: { variant: 'text', color: 'success' },
+					style: {
+						color: color.text.success.value,
+					},
+				},
+				{
+					props: { variant: 'text', color: 'warning' },
+					style: {
+						color: color.text.warning.value,
+					},
+				},
+				{
+					props: { variant: 'text', color: 'error' },
+					style: {
+						color: color.text.danger.value,
+					},
+				},
+				{
+					props: { variant: 'contained', color: 'secondary' },
+					style: {
+						color: color.text.inverse.value,
+						backgroundColor: color.bg.strong.value,
+					},
+				},
+				{
+					props: { variant: 'contained', color: 'info' },
+					style: {
+						color: color.text.inverse.value,
+						backgroundColor: color.bg.info.strong.value,
+					},
+				},
+				{
+					props: { variant: 'contained', color: 'success' },
+					style: {
+						color: color.text.inverse.value,
+						backgroundColor: color.bg.success.strong.value,
+					},
+				},
+				{
+					props: { variant: 'contained', color: 'warning' },
+					style: {
+						color: color.text.inverse.value,
+						backgroundColor: color.bg.warning.strong.value,
+					},
+				},
+				{
+					props: { variant: 'contained', color: 'error' },
+					style: {
+						color: color.text.inverse.value,
+						backgroundColor: color.bg.danger.strong.value,
+					},
+				},
 			],
 			styleOverrides: {
 				root: ({ theme }) => ({
@@ -824,44 +898,6 @@ export const theme = createTheme({
 					'.MuiTouchRipple-root': {
 						display: 'none',
 					},
-				},
-				textPrimary: {
-					color: color.text.accent.value,
-				},
-				textSecondary: {
-					color: color.text.value,
-				},
-				textInfo: {
-					color: color.text.info.value,
-				},
-				textSuccess: {
-					color: color.text.success.value,
-				},
-				textWarning: {
-					color: color.text.warning.value,
-				},
-				textError: {
-					color: color.text.danger.value,
-				},
-				containedSecondary: {
-					color: color.text.inverse.value,
-					backgroundColor: color.bg.strong.value,
-				},
-				containedInfo: {
-					color: color.text.inverse.value,
-					backgroundColor: color.bg.info.strong.value,
-				},
-				containedSuccess: {
-					color: color.text.inverse.value,
-					backgroundColor: color.bg.success.strong.value,
-				},
-				containedWarning: {
-					color: color.text.inverse.value,
-					backgroundColor: color.bg.warning.strong.value,
-				},
-				containedError: {
-					color: color.text.inverse.value,
-					backgroundColor: color.bg.danger.strong.value,
 				},
 				startIcon: {
 					' > :nth-of-type(1)': {
@@ -1187,7 +1223,6 @@ export const theme = createTheme({
 			styleOverrides: {
 				root: {
 					'--DataGrid-rowBorderColor': color.border.subtle.value,
-					'--DataGrid-containerBackground': '#f2f4fa', // TODO use a design token when we get rid of rendition in autoui
 					border: 'none',
 					fontSize: '1rem',
 					'.MuiDataGrid-columnHeaderTitle': {
@@ -1270,7 +1305,7 @@ export const theme = createTheme({
 					},
 				}),
 				input: {
-					'&:not(.MuiInputBase-inputMultiline)': {
+					'.MuiInputBase-root:not(.MuiInputBase-multiline) &': {
 						paddingTop: '14px',
 						paddingBottom: '12px',
 					},
@@ -1685,144 +1720,144 @@ export const theme = createTheme({
 							color: color.bg.palette.red.strong.value,
 						},
 					},
-					'&.MuiChip-strongDefault': {
+					'&.MuiChip-strong.MuiChip-colorDefault': {
 						color: color.text.inverse.value,
 						backgroundColor: color.bg.palette.neutral.strong.value,
 						'.MuiChip-deleteIcon': {
 							color: color.bg.palette.neutral.value,
 						},
 					},
-					'&.MuiChip-strongPrimary': {
+					'&.MuiChip-strong.MuiChip-colorPrimary': {
 						color: color.text.inverse.value,
 						backgroundColor: color.bg.accent.strong.value,
 						'.MuiChip-deleteIcon': {
 							color: color.bg.accent.value,
 						},
 					},
-					'&.MuiChip-strongSecondary': {
+					'&.MuiChip-strong.MuiChip-colorSecondary': {
 						color: color.text.inverse.value,
 						backgroundColor: color.bg.strong.value,
 						'.MuiChip-deleteIcon': {
 							color: color.bg.value,
 						},
 					},
-					'&.MuiChip-strongInfo': {
+					'&.MuiChip-strong.MuiChip-colorInfo': {
 						color: color.text.inverse.value,
 						backgroundColor: color.bg.info.strong.value,
 						'.MuiChip-deleteIcon': {
 							color: color.bg.info.value,
 						},
 					},
-					'&.MuiChip-strongSuccess': {
+					'&.MuiChip-strong.MuiChip-colorSuccess': {
 						color: color.text.inverse.value,
 						backgroundColor: color.bg.success.strong.value,
 						'.MuiChip-deleteIcon': {
 							color: color.bg.success.value,
 						},
 					},
-					'&.MuiChip-strongWarning': {
+					'&.MuiChip-strong.MuiChip-colorWarning': {
 						color: color.text.inverse.value,
 						backgroundColor: color.bg.warning.strong.value,
 						'.MuiChip-deleteIcon': {
 							color: color.bg.warning.value,
 						},
 					},
-					'&.MuiChip-strongError': {
+					'&.MuiChip-strong.MuiChip-colorError': {
 						color: color.text.inverse.value,
 						backgroundColor: color.bg.danger.strong.value,
 						'.MuiChip-deleteIcon': {
 							color: color.bg.danger.value,
 						},
 					},
-					'&.MuiChip-strongGreen': {
+					'&.MuiChip-strong.MuiChip-colorGreen': {
 						color: color.text.inverse.value,
 						backgroundColor: color.bg.palette.green.strong.value,
 						'.MuiChip-deleteIcon': {
 							color: color.bg.palette.green.value,
 						},
 					},
-					'&.MuiChip-strongTeal': {
+					'&.MuiChip-strong.MuiChip-colorTeal': {
 						color: color.text.inverse.value,
 						backgroundColor: color.bg.palette.teal.strong.value,
 						'.MuiChip-deleteIcon': {
 							color: color.bg.palette.teal.value,
 						},
 					},
-					'&.MuiChip-strongBlue': {
+					'&.MuiChip-strong.MuiChip-colorBlue': {
 						color: color.text.inverse.value,
 						backgroundColor: color.bg.palette.blue.strong.value,
 						'.MuiChip-deleteIcon': {
 							color: color.bg.palette.blue.value,
 						},
 					},
-					'&.MuiChip-strongPurple': {
+					'&.MuiChip-strong.MuiChip-colorPurple': {
 						color: color.text.inverse.value,
 						backgroundColor: color.bg.palette.purple.strong.value,
 						'.MuiChip-deleteIcon': {
 							color: color.bg.palette.purple.value,
 						},
 					},
-					'&.MuiChip-strongYellow': {
+					'&.MuiChip-strong.MuiChip-colorYellow': {
 						color: color.text.inverse.value,
 						backgroundColor: color.bg.palette.yellow.strong.value,
 						'.MuiChip-deleteIcon': {
 							color: color.bg.palette.yellow.value,
 						},
 					},
-					'&.MuiChip-strongOrange': {
+					'&.MuiChip-strong.MuiChip-colorOrange': {
 						color: color.text.inverse.value,
 						backgroundColor: color.bg.palette.orange.strong.value,
 						'.MuiChip-deleteIcon': {
 							color: color.bg.palette.orange.value,
 						},
 					},
-					'&.MuiChip-strongRed': {
+					'&.MuiChip-strong.MuiChip-colorRed': {
 						color: color.text.inverse.value,
 						backgroundColor: color.bg.palette.red.strong.value,
 						'.MuiChip-deleteIcon': {
 							color: color.bg.palette.red.value,
 						},
 					},
-					'&.MuiChip-outlinedDefault': {
+					'&.MuiChip-outlined.MuiChip-colorDefault': {
 						borderColor: color.border.palette.neutral.value,
 					},
-					'&.MuiChip-outlinedPrimary': {
+					'&.MuiChip-outlined.MuiChip-colorPrimary': {
 						borderColor: color.border.accent.value,
 					},
-					'&.MuiChip-outlinedSecondary': {
+					'&.MuiChip-outlined.MuiChip-colorSecondary': {
 						borderColor: color.border.value,
 					},
-					'&.MuiChip-outlinedInfo': {
+					'&.MuiChip-outlined.MuiChip-colorInfo': {
 						borderColor: color.border.info.value,
 					},
-					'&.MuiChip-outlinedSuccess': {
+					'&.MuiChip-outlined.MuiChip-colorSuccess': {
 						borderColor: color.border.success.value,
 					},
-					'&.MuiChip-outlinedWarning': {
+					'&.MuiChip-outlined.MuiChip-colorWarning': {
 						borderColor: color.border.warning.value,
 					},
-					'&.MuiChip-outlinedError': {
+					'&.MuiChip-outlined.MuiChip-colorError': {
 						borderColor: color.border.danger.value,
 					},
-					'&.MuiChip-outlinedGreen': {
+					'&.MuiChip-outlined.MuiChip-colorGreen': {
 						borderColor: color.border.palette.green.value,
 					},
-					'&.MuiChip-outlinedTeal': {
+					'&.MuiChip-outlined.MuiChip-colorTeal': {
 						borderColor: color.border.palette.teal.value,
 					},
-					'&.MuiChip-outlinedBlue': {
+					'&.MuiChip-outlined.MuiChip-colorBlue': {
 						borderColor: color.border.palette.blue.value,
 					},
-					'&.MuiChip-outlinedPurple': {
+					'&.MuiChip-outlined.MuiChip-colorPurple': {
 						borderColor: color.border.palette.purple.value,
 					},
-					'&.MuiChip-outlinedYellow': {
+					'&.MuiChip-outlined.MuiChip-colorYellow': {
 						borderColor: color.border.palette.yellow.value,
 					},
-					'&.MuiChip-outlinedOrange': {
+					'&.MuiChip-outlined.MuiChip-colorOrange': {
 						borderColor: color.border.palette.orange.value,
 					},
-					'&.MuiChip-outlinedRed': {
+					'&.MuiChip-outlined.MuiChip-colorRed': {
 						borderColor: color.border.palette.red.value,
 					},
 				},

@@ -14,9 +14,11 @@ export const DisabledTextWidget = widgetFactory('DisabledText', [
 	return (
 		<Tooltip title={val}>
 			<Typography
-				display="block"
-				color={token('color.text.subtle')}
-				maxWidth={300}
+				sx={{
+					display: 'block',
+					color: token('color.text.subtle'),
+					maxWidth: 300,
+				}}
 				noWrap
 			>
 				{val ?? t('info.not_defined')}

@@ -24,10 +24,10 @@ export const TableToolbar = <T extends object>({
 		<Stack direction="row">
 			{numSelected > 0 && (
 				<Typography
-					color="inherit"
 					variant="bodySm"
 					component="div"
 					sx={(theme) => ({
+						color: 'inherit',
 						alignSelf: 'flex-end',
 						px: theme.spacing(2),
 						py: theme.spacing(1),

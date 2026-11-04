@@ -47,8 +47,8 @@ import { getLenses } from './Lenses';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import type { CollectionLensRendererProps } from './Lenses/types';
 import { NoRecordsFoundView } from './NoRecordsFoundView';
-import type { BoxProps } from '@mui/material';
-import { Box, Link, styled } from '@mui/material';
+import type { StackProps } from '@mui/material';
+import { Box, Stack, Link, styled } from '@mui/material';
 import type { Format } from './components/Widget/utils';
 import type {
 	CheckedState,
@@ -86,7 +86,7 @@ export interface NoDataInfo {
 	docsLabel?: string;
 }
 
-export interface RJSTProps<T> extends Omit<BoxProps, 'onChange'> {
+export interface RJSTProps<T> extends Omit<StackProps, 'onChange'> {
 	/** Model is the property that describe the data to display with a JSON structure */
 	model: RJSTModel<T>;
 	/** Array of data or data entity to display */
@@ -156,7 +156,7 @@ export const RJST = <T extends RJSTBaseResource<T>>({
 	rowKey,
 	noDataInfo,
 	persistFilters = true,
-	...boxProps
+	...stackProps
 }: RJSTProps<T>) => {
 	const { t } = useTranslation();
 	const { state: analytics } = useAnalyticsContext();
@@ -453,9 +453,17 @@ export const RJST = <T extends RJSTBaseResource<T>>({
 	}
 
 	return (
-		<Box display="flex" flex={1} flexDirection="column" {...boxProps}>
+		<Stack
+			{...stackProps}
+			sx={[
+				{
+					flex: 1,
+				},
+				...(Array.isArray(stackProps.sx) ? stackProps.sx : [stackProps.sx]),
+			]}
+		>
 			<Spinner label={isBusyMessage} show={!!isBusyMessage || loading}>
-				<Box display="flex" height="100%" flexDirection="column">
+				<Stack sx={{ height: '100%' }}>
 					{
 						// We need to mount the Filters component so that it can load the filters
 						// & pagination state from the url (or use defaults) and provide them to
@@ -465,18 +473,21 @@ export const RJST = <T extends RJSTBaseResource<T>>({
 							<>
 								{!hideUtils ? (
 									<Box
-										mb={1}
-										display={
+										sx={{
+											mb: 1,
+
 											// This hides the Filters component during the initial load but keeps them mounted so that
 											// it can trigger onChange on mount to communicate to the parent component the pineOptions
 											// that need to be used.
-											data == null ? 'none' : undefined
-										}
+											display: data == null ? 'none' : undefined,
+										}}
 									>
 										<HeaderGrid
-											flexWrap="wrap"
-											justifyContent="space-between"
-											alignItems="center"
+											sx={{
+												flexWrap: 'wrap',
+												justifyContent: 'space-between',
+												alignItems: 'center',
+											}}
 										>
 											<Create
 												model={model}
@@ -494,8 +505,10 @@ export const RJST = <T extends RJSTBaseResource<T>>({
 												checkedState={checkedState}
 											/>
 											<Box
-												order={[-1, -1, -1, 0]}
-												flex={['1 0 100%', '1 0 100%', '1 0 100%', 'auto']}
+												sx={{
+													order: [-1, -1, -1, 0],
+													flex: ['1 0 100%', '1 0 100%', '1 0 100%', 'auto'],
+												}}
 											>
 												<Filters
 													renderMode={['add', 'search', 'views']}
@@ -628,9 +641,9 @@ export const RJST = <T extends RJSTBaseResource<T>>({
 						},
 						setSelected: $setSelected,
 					})}
-				</Box>
+				</Stack>
 			</Spinner>
-		</Box>
+		</Stack>
 	);
 };
 

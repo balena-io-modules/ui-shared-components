@@ -1,5 +1,5 @@
 import { interpolateMustache } from './utils';
-import { Box, List, Tab, Tabs, Typography } from '@mui/material';
+import { Box, Stack, List, Tab, Tabs, Typography } from '@mui/material';
 import { memo, useEffect, useState } from 'react';
 import { MUILinkWithTracking } from '../MUILinkWithTracking';
 import type { DeviceType, OsSpecificContractInstructions } from './models';
@@ -87,11 +87,11 @@ export const ApplicationInstructions = memo(
 		];
 
 		return (
-			<Box display="flex" flexDirection="column" alignItems="flex-start">
+			<Stack sx={{ alignItems: 'flex-start' }}>
 				<Typography variant="h5">Instructions</Typography>
 
 				{hasOsSpecificInstructions && (
-					<Box mb={3}>
+					<Box sx={{ mb: 3 }}>
 						<Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
 							<Tabs
 								value={Object.keys(deviceType.instructions).find(
@@ -117,7 +117,7 @@ export const ApplicationInstructions = memo(
 					secureboot={secureboot}
 				/>
 
-				<Box mt={2}>
+				<Box sx={{ mt: 2 }}>
 					<Typography>
 						For more details please refer to our{' '}
 						<MUILinkWithTracking
@@ -128,7 +128,7 @@ export const ApplicationInstructions = memo(
 						.
 					</Typography>
 				</Box>
-			</Box>
+			</Stack>
 		);
 	},
 );
@@ -182,10 +182,12 @@ const InstructionsItem = ({
 										)[0]
 									}
 									<Box
-										mt={2}
-										borderLeft={1}
-										borderColor={token('color.border.subtle')}
-										pl={2}
+										sx={{
+											mt: 2,
+											borderLeft: 1,
+											borderColor: token('color.border.subtle'),
+											pl: 2,
+										}}
 									>
 										<Chip
 											sx={{ marginRight: 1 }}

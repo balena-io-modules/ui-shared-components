@@ -459,7 +459,7 @@ export const DownloadImageDialog = ({
 	return (
 		<DialogWithCloseButton
 			title={
-				<Stack direction="row" alignItems="center" gap={2}>
+				<Stack direction="row" sx={{ alignItems: 'center', gap: 2 }}>
 					<Avatar
 						variant="square"
 						alt={defaultDisplayName}
@@ -517,7 +517,7 @@ export const DownloadImageDialog = ({
 							)}
 						</Grid>
 						<Grid
-							pb={0}
+							sx={{ pb: 0 }}
 							size={{
 								xs: 12,
 								sm: 12,
@@ -552,7 +552,7 @@ export const DownloadImageDialog = ({
 						</Grid>
 						{(formModel.deviceType.imageDownloadAlerts ?? []).map((alert) => {
 							return (
-								<Grid pt={0} key={alert.message} size={12}>
+								<Grid key={alert.message} size={12} sx={{ pt: 0 }}>
 									<Callout
 										key={alert.message}
 										severity={alert.type as CalloutProps['severity']}

@@ -288,7 +288,7 @@ export const TagManagementDialog = <T extends TaggedResource>({
 			open
 			title={
 				<Stack>
-					<Typography variant="h3" mt={0} mb={10}>
+					<Typography variant="h3" sx={{ mt: 0, mb: 10 }}>
 						{items.length > 1 && <span>{t('labels.shared')} </span>}
 						{t('labels.tags')}
 					</Typography>
@@ -370,7 +370,7 @@ export const TagManagementDialog = <T extends TaggedResource>({
 															startTagEdit(tag);
 														}}
 													>
-														<Typography noWrap mr={3}>
+														<Typography noWrap sx={{ mr: 3 }}>
 															{tag.value || NBSP}
 														</Typography>
 														<FontAwesomeIcon
@@ -402,11 +402,12 @@ export const TagManagementDialog = <T extends TaggedResource>({
 													}}
 													value={editingTag.value}
 													placeholder={t('labels.tag_value')}
-													inputProps={
-														tagValueMaxLength != null
-															? { maxLength: tagValueMaxLength }
-															: undefined
-													}
+													slotProps={{
+														htmlInput:
+															tagValueMaxLength != null
+																? { maxLength: tagValueMaxLength }
+																: undefined,
+													}}
 												/>
 											)}
 										</TableCell>

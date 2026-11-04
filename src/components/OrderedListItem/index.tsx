@@ -13,7 +13,10 @@ export const OrderedListItem = ({
 	...orderedListItemProps
 }: OrderedListItemProps) => {
 	return (
-		<ListItem sx={{ pl: 0, ...sx }} {...orderedListItemProps}>
+		<ListItem
+			sx={[{ pl: 0 }, ...(Array.isArray(sx) ? sx : [sx])]}
+			{...orderedListItemProps}
+		>
 			<ListItemIcon>
 				<Box
 					sx={{
@@ -26,7 +29,10 @@ export const OrderedListItem = ({
 						justifyContent: 'center',
 					}}
 				>
-					<Typography variant="bodySm" color={token('color.text.inverse')}>
+					<Typography
+						variant="bodySm"
+						sx={{ color: token('color.text.inverse') }}
+					>
 						{index}
 					</Typography>
 				</Box>

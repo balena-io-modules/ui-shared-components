@@ -19,11 +19,13 @@ const Template = (props: Omit<SurroundingOverlayProps, 'targetElement'>) => {
 		<SurroundingOverlay targetElement={element} {...props}>
 			<Box sx={{ height: '100vh', position: 'relative' }}>
 				<Box
-					width="100%"
-					height="100%"
-					display="flex"
-					alignItems="center"
-					justifyContent="center"
+					sx={{
+						width: '100%',
+						height: '100%',
+						display: 'flex',
+						alignItems: 'center',
+						justifyContent: 'center',
+					}}
 				>
 					<Button
 						onClick={(e) => {

@@ -47,7 +47,7 @@ export function useTagActions<T extends object>(
 					setShowAddTagDialog(true);
 				},
 				children: (
-					<Stack direction="row" gap={2} alignItems="center">
+					<Stack direction="row" sx={{ gap: 2, alignItems: 'center' }}>
 						<FontAwesomeIcon icon={faPlus} />
 						Add tag column
 					</Stack>
