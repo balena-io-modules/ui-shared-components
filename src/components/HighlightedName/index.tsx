@@ -24,6 +24,7 @@ export const HighlightedName = ({
 	children,
 	className,
 	color,
+	sx,
 	...props
 }: HighlightedNameProps) => {
 	const bgColor = useMemo(
@@ -33,15 +34,18 @@ export const HighlightedName = ({
 
 	return (
 		<Typography
-			sx={{
-				borderRadius: token('shape.borderRadius.xs'),
-				display: 'inline-block',
-				p: 2,
-				color: token(
-					color || isLight(bgColor) ? 'color.text' : 'color.text.inverse',
-				),
-				background: bgColor,
-			}}
+			sx={[
+				{
+					borderRadius: token('shape.borderRadius.xs'),
+					display: 'inline-block',
+					p: 2,
+					color: token(
+						color || isLight(bgColor) ? 'color.text' : 'color.text.inverse',
+					),
+					background: bgColor,
+				},
+				...(Array.isArray(sx) ? sx : [sx]),
+			]}
 			{...props}
 		>
 			{children}

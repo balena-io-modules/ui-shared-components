@@ -7,6 +7,7 @@ import type { IChangeEvent } from '../../../Form';
 import { RJSForm } from '../../../Form';
 import {
 	Box,
+	Stack,
 	Button,
 	DialogActions,
 	DialogContent,
@@ -50,13 +51,21 @@ export const Summary = ({
 	const [viewData, setViewData] = React.useState<ViewData | undefined>();
 
 	return (
-		<Box display="flex" flexDirection="column" my={2}>
-			<Box display="flex" justifyContent="space-between" alignItems="center">
-				<Box
-					display="flex"
-					gap={1}
-					alignItems="center"
-					sx={{ color: dark ? 'white' : 'primary' }}
+		<Stack sx={{ my: 2 }}>
+			<Stack
+				sx={{
+					flexDirection: 'row',
+					justifyContent: 'space-between',
+					alignItems: 'center',
+				}}
+			>
+				<Stack
+					sx={{
+						flexDirection: 'row',
+						gap: 1,
+						alignItems: 'center',
+						color: dark ? 'white' : 'primary',
+					}}
 				>
 					<Typography sx={{ fontWeight: 'bold' }}>
 						{t('labels.filter_other')}
@@ -69,7 +78,7 @@ export const Summary = ({
 					>
 						{t('actions.clear_all')}
 					</Button>
-				</Box>
+				</Stack>
 				{showSaveView && (
 					<Button
 						variant="text"
@@ -80,8 +89,8 @@ export const Summary = ({
 						{t('actions.save_view')}
 					</Button>
 				)}
-			</Box>
-			<Box display="flex" flexWrap="wrap">
+			</Stack>
+			<Box sx={{ display: 'flex', flexWrap: 'wrap' }}>
 				{filters.map((filter, index) => (
 					<FilterDescription
 						key={filter.$id ?? index}
@@ -133,6 +142,6 @@ export const Summary = ({
 					</Button>
 				</DialogActions>
 			</DialogWithCloseButton>
-		</Box>
+		</Stack>
 	);
 };

@@ -66,22 +66,25 @@ export const SettingsCardItem = ({
 	action,
 }: SettingsCardItemProps) => (
 	<Stack
-		gap={2}
 		direction={['column', 'column', 'row']}
-		justifyContent="space-between"
-		alignItems={['start', 'start', 'center']}
 		sx={{
+			gap: 2,
+			justifyContent: 'space-between',
+			alignItems: ['start', 'start', 'center'],
+
 			'&:not(&:last-child)': {
 				borderBottom: `dashed ${token('color.border.subtle')} 1px`,
 				pb: 3,
 			},
 		}}
 	>
-		<Stack gap={2} maxWidth={[undefined, undefined, '70%']}>
+		<Stack sx={{ gap: 2, maxWidth: [undefined, undefined, '70%'] }}>
 			<Typography className={settingsCardItemTitleClass} variant="bodyLg">
 				{title}
 			</Typography>
-			<Typography color={token('color.text.subtle')}>{description}</Typography>
+			<Typography sx={{ color: token('color.text.subtle') }}>
+				{description}
+			</Typography>
 		</Stack>
 		<Box>{action}</Box>
 	</Stack>

@@ -289,16 +289,17 @@ const VirtualizedAutocompleteBase = <
 			getOptionLabel={getOptionLabel}
 			value={value}
 			{...(loadNext === undefined ? {} : { filterOptions: (o) => o })}
-			renderInput={({ InputProps, ...params }) => (
+			renderInput={({ slotProps, ...params }) => (
 				<TextField
 					{...params}
 					slotProps={{
+						...slotProps,
 						input: {
-							...InputProps,
+							...slotProps.input,
 							endAdornment: (
-								<Stack direction="row" gap={1} alignItems="center">
+								<Stack direction="row" sx={{ gap: 1, alignItems: 'center' }}>
 									<Spinner show={isNextPageLoading} />
-									{InputProps.endAdornment}
+									{slotProps.input.endAdornment}
 								</Stack>
 							),
 						},

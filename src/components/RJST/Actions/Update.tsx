@@ -99,14 +99,16 @@ export const Update = <T extends RJSTBaseResource<T>>({
 						}}
 					>
 						<Box
-							display="flex"
-							justifyContent="space-between"
-							gap={2}
-							color={
-								action.isDangerous && !disabledReasonsByAction[action.title]
-									? 'error.main'
-									: undefined
-							}
+							sx={{
+								display: 'flex',
+								justifyContent: 'space-between',
+								gap: 2,
+
+								color:
+									action.isDangerous && !disabledReasonsByAction[action.title]
+										? 'error.main'
+										: undefined,
+							}}
 						>
 							{action.title}
 							<Spinner
@@ -169,7 +171,7 @@ export const Update = <T extends RJSTBaseResource<T>>({
 				t,
 			) ?? disabledReasonsByAction[action.title];
 		return (
-			<Box alignSelf="flex-start">
+			<Box sx={{ alignSelf: 'flex-start' }}>
 				<Tooltip
 					title={
 						typeof disabledUpdateReason === 'string'
@@ -209,7 +211,7 @@ export const Update = <T extends RJSTBaseResource<T>>({
 								}));
 							}}
 						>
-							<Box display="flex" justifyContent="space-between">
+							<Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
 								{action.title}
 								<Spinner
 									sx={{ ml: 2 }}

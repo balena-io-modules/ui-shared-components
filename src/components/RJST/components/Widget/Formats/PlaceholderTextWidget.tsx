@@ -16,8 +16,10 @@ export const PlaceholderTextWidget = widgetFactory('PlaceholderText', [
 	return (
 		<Typography
 			noWrap
-			sx={{ maxWidth: '300px' }}
-			{...(!value && { color: token('color.text.subtle') })}
+			sx={{
+				maxWidth: '300px',
+				...(!value && { color: token('color.text.subtle') }),
+			}}
 		>
 			{val}
 		</Typography>

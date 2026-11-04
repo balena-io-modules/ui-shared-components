@@ -82,7 +82,7 @@ export const AddTagHandler = <T extends { id: number }>({
 									/>
 								}
 								label={
-									<Typography noWrap maxWidth={200}>
+									<Typography noWrap sx={{ maxWidth: 200 }}>
 										{tagKey}
 									</Typography>
 								}

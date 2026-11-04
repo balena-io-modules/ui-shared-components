@@ -20,7 +20,7 @@ export const Default: Story = {
 				<SettingsCardItem
 					title="Username"
 					description={
-						<Stack gap={2}>
+						<Stack sx={{ gap: 2 }}>
 							<Code sx={{ width: 'fit-content' }}>johndoe113</Code>
 							<Typography component="p">
 								Your username is auto-generated. Currently it&apos;s impossible
@@ -40,13 +40,13 @@ export const Default: Story = {
 				/>
 				<SettingsCardItem
 					title={
-						<Stack direction="row" alignItems="center" gap={1}>
+						<Stack direction="row" sx={{ alignItems: 'center', gap: 1 }}>
 							2FA <Chip color="green" label="Enabled" />
 						</Stack>
 					}
 					description="Two-factor authentication protects you if your password is guessed or stolen, by requiring you to enter a token generated on your mobile phone to log in, in addition to your username & password. Learn more."
 					action={
-						<Stack gap={1} alignItems={['start', 'start', 'end']}>
+						<Stack sx={{ gap: 1, alignItems: ['start', 'start', 'end'] }}>
 							<Switch defaultChecked edge="end" />
 							<Link>Regenerate recovery codes</Link>
 						</Stack>

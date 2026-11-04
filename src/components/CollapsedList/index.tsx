@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, Collapse, Typography } from '@mui/material';
+import { Avatar, Stack, Button, Collapse, Typography } from '@mui/material';
 import { useMemo, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons/faCaretDown';
@@ -24,14 +24,16 @@ export const CollapsedList = ({
 	const [showMore, setShowMore] = useState(false);
 	const listItems = useMemo(
 		() => (
-			<Box display="flex" flexDirection="column">
+			<Stack>
 				{list?.map((item, index) => (
 					<Typography
 						variant="body2"
-						display="flex"
-						alignItems="center"
 						key={index}
-						my={1}
+						sx={{
+							display: 'flex',
+							alignItems: 'center',
+							my: 1,
+						}}
 					>
 						{item.logo && (
 							<Avatar
@@ -49,7 +51,7 @@ export const CollapsedList = ({
 						{item.name}
 					</Typography>
 				))}
-			</Box>
+			</Stack>
 		),
 		[list],
 	);
@@ -57,7 +59,7 @@ export const CollapsedList = ({
 		return null;
 	}
 	return (
-		<Box display="flex" flexDirection="column" justifyContent="center">
+		<Stack sx={{ justifyContent: 'center' }}>
 			<Collapse in={showMore} collapsedSize={collapseItems * 33}>
 				{listItems}
 			</Collapse>
@@ -75,6 +77,6 @@ export const CollapsedList = ({
 					)}
 				</Button>
 			)}
-		</Box>
+		</Stack>
 	);
 };

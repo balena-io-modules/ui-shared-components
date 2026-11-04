@@ -80,10 +80,8 @@ export const Copy = ({
 			disableHoverListener
 			disableTouchListener
 			open={open}
-			PopperProps={{
-				disablePortal: true,
-			}}
 			placement="top"
+			slotProps={{ popper: { disablePortal: true } }}
 		>
 			<FontAwesomeIcon
 				icon={faCopy}

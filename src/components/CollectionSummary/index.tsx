@@ -36,11 +36,11 @@ export const CollectionSummary = ({
 	return (
 		<Box>
 			{items.length === 1 ? (
-				<Typography color={token('color.text.subtle')}>
+				<Typography sx={{ color: token('color.text.subtle') }}>
 					{stringifyItems}
 				</Typography>
 			) : (
-				<Stack alignItems="start">
+				<Stack sx={{ alignItems: 'start' }}>
 					<Button
 						onClick={() => {
 							setIsExpanded(!isExpanded);
@@ -60,7 +60,10 @@ export const CollectionSummary = ({
 					</Button>
 
 					<Fade in={isExpanded} appear={!isExpanded} unmountOnExit>
-						<Typography variant="bodySm" color={token('color.text.subtle')}>
+						<Typography
+							variant="bodySm"
+							sx={{ color: token('color.text.subtle') }}
+						>
 							{stringifyItems}
 						</Typography>
 					</Fade>

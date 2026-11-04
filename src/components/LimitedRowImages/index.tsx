@@ -1,4 +1,4 @@
-import { Avatar, Box, Typography } from '@mui/material';
+import { Avatar, Stack, Typography } from '@mui/material';
 
 export interface LimitedRowImagesProps {
 	items: Array<{ logo: string | null; name: string }> | undefined;
@@ -20,7 +20,7 @@ export const LimitedRowImages = ({
 	const slicedItems = items.slice(0, numberBeforeTruncate ?? 3);
 
 	return (
-		<Box display="flex" flexDirection="row" alignItems="center">
+		<Stack sx={{ flexDirection: 'row', alignItems: 'center' }}>
 			{slicedItems.map((item, index) => (
 				<Avatar
 					key={index}
@@ -35,10 +35,10 @@ export const LimitedRowImages = ({
 				/>
 			))}{' '}
 			{items.length > slicedItems.length && (
-				<Typography height="fit-content" variant="bodySm">
+				<Typography variant="bodySm" sx={{ height: 'fit-content' }}>
 					+ {items.length - slicedItems.length} more
 				</Typography>
 			)}
-		</Box>
+		</Stack>
 	);
 };

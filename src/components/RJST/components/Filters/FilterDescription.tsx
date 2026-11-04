@@ -103,5 +103,7 @@ export const FilterDescription = ({
 			.filter((f) => Boolean(f));
 	}, [filter]) as TagItem[];
 
-	return tagProps ? <Tag mt={2} multiple={tagProps} {...props} /> : null;
+	return tagProps ? (
+		<Tag sx={{ mt: 2 }} multiple={tagProps} {...props} />
+	) : null;
 };
