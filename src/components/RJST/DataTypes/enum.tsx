@@ -10,8 +10,7 @@ export const operators = () => ({
 });
 
 export type OperatorSlug =
-	| keyof ReturnType<typeof operators>
-	| typeof FULL_TEXT_SLUG;
+	keyof ReturnType<typeof operators> | typeof FULL_TEXT_SLUG;
 
 const notNullObj = { not: { const: null } };
 const isNotNullObj = (value: unknown): boolean => isEqual(value, notNullObj);

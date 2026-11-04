@@ -27,7 +27,7 @@ const ListboxComponent = React.forwardRef<
 		isNextPageLoading?: boolean;
 		estimatedOptionSize?: number;
 	}
->(function ListboxComponent(
+>(function ListboxComponentFunction(
 	{
 		pagination,
 		isNextPageLoading,
@@ -150,15 +150,9 @@ export interface VirtualizedAutocompleteWithPaginationProps<
 	FreeSolo extends boolean | undefined = false,
 	ChipComponent extends React.ElementType = ChipTypeMap['defaultComponent'],
 > extends Omit<
-		AutocompleteProps<
-			Value,
-			Multiple,
-			DisableClearable,
-			FreeSolo,
-			ChipComponent
-		>,
-		'ListboxComponent' | 'options' | 'filterOptions'
-	> {
+	AutocompleteProps<Value, Multiple, DisableClearable, FreeSolo, ChipComponent>,
+	'ListboxComponent' | 'options' | 'filterOptions'
+> {
 	/** function to fetch next page of items */
 	loadNext: (
 		page: number,

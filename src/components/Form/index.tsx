@@ -37,7 +37,8 @@ const FormWrapper = styled('div')({
 });
 
 export interface RJSFormProps
-	extends Omit<RjsFormProps, 'validator' | 'onFocus' | 'onBlur'>,
+	extends
+		Omit<RjsFormProps, 'validator' | 'onFocus' | 'onBlur'>,
 		Pick<BoxProps, 'sx' | 'onFocus' | 'onBlur' | 'onClick'>,
 		Partial<Pick<RjsFormProps, 'validator'>> {
 	/** If true, do not display the form submit button */
@@ -48,77 +49,81 @@ export interface RJSFormProps
 	actionButtons?: ButtonProps[];
 }
 
-export const RJSForm = forwardRef<RJSFCoreForm, RJSFormProps>(function RJSForm(
-	{
-		hideSubmitButton,
-		submitButtonProps,
-		actionButtons,
-		validator = ajvValidator,
-		widgets,
-		children,
-		sx,
-		onFocus,
-		onBlur,
-		onClick,
-		templates,
-		...otherProps
-	},
-	ref,
-) {
-	// paddingY is resolving an outline glitch that is truncated when inside a container.
-	return (
-		<FormWrapper>
-			<Box
-				sx={{ paddingY: '1px', ...sx }}
-				onFocus={onFocus}
-				onBlur={onBlur}
-				onClick={onClick}
-			>
-				<Form
-					ref={ref}
-					validator={validator}
-					showErrorList={false}
-					widgets={{ ...internalWidgets, ...(widgets ?? {}) }}
-					templates={{ ObjectFieldTemplate, ...templates }}
-					{...otherProps}
+export const RJSForm = forwardRef<RJSFCoreForm, RJSFormProps>(
+	function RJSFormFunction(
+		{
+			hideSubmitButton,
+			submitButtonProps,
+			actionButtons,
+			validator = ajvValidator,
+			widgets,
+			children,
+			sx,
+			onFocus,
+			onBlur,
+			onClick,
+			templates,
+			...otherProps
+		},
+		ref,
+	) {
+		// paddingY is resolving an outline glitch that is truncated when inside a container.
+		return (
+			<FormWrapper>
+				<Box
+					sx={{ paddingY: '1px', ...sx }}
+					onFocus={onFocus}
+					onBlur={onBlur}
+					onClick={onClick}
 				>
-					{/* RJSF need a child to not show the submit button https://github.com/rjsf-team/react-jsonschema-form/issues/1602  */}
-					{hideSubmitButton && <Fragment />}
+					<Form
+						ref={ref}
+						validator={validator}
+						showErrorList={false}
+						widgets={{ ...internalWidgets, ...(widgets ?? {}) }}
+						templates={{ ObjectFieldTemplate, ...templates }}
+						{...otherProps}
+					>
+						{/* RJSF need a child to not show the submit button https://github.com/rjsf-team/react-jsonschema-form/issues/1602  */}
+						{hideSubmitButton && <Fragment />}
 
-					{actionButtons?.map(
-						({ sx: actionButtonSx, ...buttonProps }, index) => (
+						{actionButtons?.map(
+							({ sx: actionButtonSx, ...buttonProps }, index) => (
+								<Button
+									sx={[
+										{
+											mr:
+												index < actionButtons.length || !hideSubmitButton
+													? 1
+													: 0,
+										},
+										...(Array.isArray(actionButtonSx)
+											? actionButtonSx
+											: [actionButtonSx]),
+									]}
+									key={index}
+									{...buttonProps}
+								/>
+							),
+						)}
+
+						{!hideSubmitButton && (
 							<Button
-								sx={[
-									{
-										mr:
-											index < actionButtons.length || !hideSubmitButton ? 1 : 0,
-									},
-									...(Array.isArray(actionButtonSx)
-										? actionButtonSx
-										: [actionButtonSx]),
-								]}
-								key={index}
-								{...buttonProps}
-							/>
-						),
-					)}
-
-					{!hideSubmitButton && (
-						<Button
-							{...submitButtonProps}
-							color="primary"
-							variant="contained"
-							type="submit"
-						>
-							{submitButtonProps?.children ?? 'Submit'}
-						</Button>
-					)}
-					{children}
-				</Form>
-			</Box>
-		</FormWrapper>
-	);
-});
+								{...submitButtonProps}
+								color="primary"
+								variant="contained"
+								type="submit"
+							>
+								{submitButtonProps?.children ?? 'Submit'}
+							</Button>
+						)}
+						{children}
+					</Form>
+				</Box>
+			</FormWrapper>
+		);
+	},
+);
 
 export type {
 	IChangeEvent,

@@ -62,6 +62,7 @@ export const Widget = ({
 		return null;
 	}
 
+	// eslint-disable-next-line @eslint-react/static-components -- getWidget returns an existing widget component, it does not create one
 	const WidgetComponent = getWidget(
 		processedValue,
 		format,
@@ -70,6 +71,7 @@ export const Widget = ({
 	);
 
 	return (
+		// eslint-disable-next-line @eslint-react/static-components -- see above
 		<WidgetComponent
 			resource={resource}
 			value={processedValue ?? null}

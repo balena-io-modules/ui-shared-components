@@ -65,14 +65,14 @@ export const Tabs = ({
 						<Tab
 							label={label}
 							value={index.toString()}
-							{...tabProps}
 							key={label}
+							{...tabProps}
 						/>
 					))}
 				</TabList>
 			</Box>
 			{tabs.map(({ render, tabPanelProps, label }, index) => (
-				<TabPanel value={index.toString()} {...tabPanelProps} key={label}>
+				<TabPanel value={index.toString()} key={label} {...tabPanelProps}>
 					{render}
 				</TabPanel>
 			))}

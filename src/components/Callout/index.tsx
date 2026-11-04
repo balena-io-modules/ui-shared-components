@@ -72,7 +72,7 @@ const CalloutMessage = styled('div', {
  * As such, it can be modified in the theme.
  */
 export const Callout = React.forwardRef<HTMLDivElement, CalloutProps>(
-	function Callout(inProps, ref) {
+	function CalloutFunction(inProps, ref) {
 		const props = useThemeProps({ props: inProps, name: 'Callout' });
 		const {
 			severity = 'info',

@@ -16,22 +16,22 @@ export const AnimatedText = ({
 	animationTimeout = 4000,
 }: AnimatedTextProps) => {
 	const [wordIndex, setWordIndex] = useState(0);
-	const [showSlide, setSetShowSlide] = useState(true);
-	const indexInterval = useRef<any>();
-	const slideInterval = useRef<any>();
+	const [showSlide, setShowSlide] = useState(true);
+	const indexIntervalRef = useRef<any>();
+	const slideIntervalRef = useRef<any>();
 
 	useEffect(() => {
 		const setupTimeouts = () => {
-			indexInterval.current = setTimeout(() => {
-				setSetShowSlide(false);
-				slideInterval.current = setTimeout(
+			indexIntervalRef.current = setTimeout(() => {
+				setShowSlide(false);
+				slideIntervalRef.current = setTimeout(
 					() => {
 						if (wordIndex + 1 === words.length) {
 							setWordIndex(0);
 						} else {
 							setWordIndex(wordIndex + 1);
 						}
-						setSetShowSlide(true);
+						setShowSlide(true);
 					},
 					animationTimeout - (animationTimeout - 1200),
 				);
@@ -39,8 +39,8 @@ export const AnimatedText = ({
 		};
 		setupTimeouts();
 		return () => {
-			clearInterval(indexInterval.current);
-			clearInterval(slideInterval.current);
+			clearInterval(indexIntervalRef.current);
+			clearInterval(slideIntervalRef.current);
 		};
 	}, [animationTimeout, wordIndex, words.length]);
 

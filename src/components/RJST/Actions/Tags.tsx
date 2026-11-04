@@ -127,7 +127,7 @@ export const Tags = <T extends RJSTBaseResource<T>>({
 				items={items}
 				itemType={rjstContext.resource}
 				titleField={getItemName ?? (rjstContext.nameField as keyof T)}
-				tagField={rjstContext.tagField as keyof T}
+				tagField={rjstContext.tagField}
 				tagSchema={
 					tagSchema != null && typeof tagSchema === 'object'
 						? tagSchema

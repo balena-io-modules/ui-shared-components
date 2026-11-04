@@ -36,11 +36,13 @@ export const ObjectFieldTemplate = <
 		registry,
 	} = props;
 	const uiOptions = getUiOptions<T, S, F>(uiSchema);
+	// eslint-disable-next-line @eslint-react/static-components -- getTemplate returns existing templates from the registry, it does not create components
 	const TitleFieldTemplate = getTemplate<'TitleFieldTemplate', T, S, F>(
 		'TitleFieldTemplate',
 		registry,
 		uiOptions,
 	);
+	// eslint-disable-next-line @eslint-react/static-components
 	const DescriptionFieldTemplate = getTemplate<
 		'DescriptionFieldTemplate',
 		T,
@@ -54,6 +56,7 @@ export const ObjectFieldTemplate = <
 	return (
 		<>
 			{title && (
+				// eslint-disable-next-line @eslint-react/static-components -- see getTemplate above
 				<TitleFieldTemplate
 					id={titleId(fieldPathId)}
 					title={title}
@@ -67,6 +70,7 @@ export const ObjectFieldTemplate = <
 				/>
 			)}
 			{description && (
+				// eslint-disable-next-line @eslint-react/static-components -- see getTemplate above
 				<DescriptionFieldTemplate
 					id={descriptionId(fieldPathId)}
 					description={description}

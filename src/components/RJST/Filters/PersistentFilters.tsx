@@ -259,7 +259,7 @@ export const PersistentFilters = ({
 		if (normalizedRenderMode.has('all') || normalizedRenderMode.has('add')) {
 			onFiltersUpdate?.(storedFilters);
 		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
+		// eslint-disable-next-line @eslint-react/exhaustive-deps
 	}, []);
 
 	return (

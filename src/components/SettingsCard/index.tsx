@@ -29,7 +29,7 @@ export const SettingsCard = ({
 	danger,
 }: SettingsCardProps) => (
 	<Card>
-		{title && (
+		{!!title && (
 			<CardHeader
 				title={title}
 				{...(danger && {

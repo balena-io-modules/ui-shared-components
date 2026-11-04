@@ -10,10 +10,7 @@ export interface PineDeferred {
 
 export type NavigationResource<T = WithId> = [T] | PineDeferred;
 export type OptionalNavigationResource<T = WithId> =
-	| []
-	| [T]
-	| PineDeferred
-	| null;
+	[] | [T] | PineDeferred | null;
 
 export enum OsTypesEnum {
 	DEFAULT = 'default',
@@ -21,11 +18,7 @@ export enum OsTypesEnum {
 }
 
 export declare type OsLines =
-	| 'next'
-	| 'current'
-	| 'sunset'
-	| 'outdated'
-	| undefined;
+	'next' | 'current' | 'sunset' | 'outdated' | undefined;
 export interface OsVersion {
 	id: number;
 	raw_version: string;

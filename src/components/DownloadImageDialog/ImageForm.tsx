@@ -105,7 +105,7 @@ interface ImageFormProps {
 export const GENERIC_X86_SLUG = 'generic-amd64';
 export const GENERIC_X86_MINIMUM_SUPPORTED_SECUREBOOT_VERSION = '6.6.10';
 
-export const ImageForm = memo(function ImageForm({
+export const ImageForm = memo(function ImageFormFunction({
 	compatibleDeviceTypes,
 	osVersions,
 	isInitialDefault,
@@ -220,7 +220,7 @@ export const ImageForm = memo(function ImageForm({
 	// TODO: Revisit this as it is clearly not using hooks as intended
 	useEffect(() => {
 		handleVersionChange(undefined);
-		// eslint-disable-next-line react-hooks/exhaustive-deps -- we only want to run this effect when the device type changes
+		// eslint-disable-next-line @eslint-react/exhaustive-deps -- we only want to run this effect when the device type changes
 	}, [model.deviceType, osType]);
 
 	const handleShowAllVersions = (e: React.ChangeEvent<HTMLInputElement>) => {

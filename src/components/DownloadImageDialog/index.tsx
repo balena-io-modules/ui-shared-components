@@ -215,7 +215,7 @@ export const DownloadImageDialog = ({
 	dialogActions,
 	authToken,
 }: DownloadImageDialogProps) => {
-	const formElement = useRef<HTMLFormElement | null>(null);
+	const formElementRef = useRef<HTMLFormElement | null>(null);
 	const [formModel, setFormModel] = useState(
 		getInitialState(initialDeviceType, applicationId, releaseId),
 	);
@@ -300,11 +300,11 @@ export const DownloadImageDialog = ({
 					downloadUrl,
 				},
 				onClick: withUrlValidation(() => {
-					if (!formElement?.current) {
+					if (!formElementRef?.current) {
 						return;
 					}
 					onDownloadStart?.(formModel, ActionType.downloadOs);
-					formElement.current.submit();
+					formElementRef.current.submit();
 				}),
 				children: (
 					<>
@@ -503,7 +503,7 @@ export const DownloadImageDialog = ({
 											hasEsrVersions={
 												deviceTypeHasEsr[formModel.deviceType.slug]
 											}
-											formElement={formElement}
+											formElement={formElementRef}
 											downloadUrl={downloadUrl}
 											authToken={authToken}
 											osType={osType}

@@ -74,7 +74,7 @@ export const Table = <T extends object>({
 	onColumnPreferencesChange,
 }: TableProps<T>) => {
 	const { state: analytics } = useAnalyticsContext();
-	const lastSelected = React.useRef<T>();
+	const lastSelectedRef = React.useRef<T>();
 
 	const totalItems = pagination?.totalItems ?? data.length;
 
@@ -157,7 +157,7 @@ export const Table = <T extends object>({
 				if (!visibleRowsMap) {
 					return;
 				}
-				const lastSelectedRow = lastSelected.current;
+				const lastSelectedRow = lastSelectedRef.current;
 				const isDifferentRowSelected =
 					lastSelectedRow && lastSelectedRow[rowKey] !== row[rowKey];
 				const isShiftClick =
@@ -180,7 +180,7 @@ export const Table = <T extends object>({
 							checkedRowsMap.delete(key);
 						}
 					}
-					lastSelected.current = undefined;
+					lastSelectedRef.current = undefined;
 					// Handle select all case
 				} else if (checkedState === 'all') {
 					for (const [key, value] of visibleRowsMap) {
@@ -196,7 +196,7 @@ export const Table = <T extends object>({
 					} else {
 						checkedRowsMap.delete(row[rowKey]);
 					}
-					lastSelected.current = row;
+					lastSelectedRef.current = row;
 				}
 
 				const filteredArray = Array.from(checkedRowsMap.values());

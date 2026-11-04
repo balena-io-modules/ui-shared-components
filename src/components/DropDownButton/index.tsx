@@ -26,8 +26,10 @@ type MenuItemType<T> = MenuItemWithTrackingProps &
 		tooltip?: Omit<TooltipProps, 'children'> | TooltipProps['title'];
 	};
 
-export interface DropDownButtonProps<T = unknown>
-	extends Omit<ButtonGroupProps & ButtonProps, 'onClick'> {
+export interface DropDownButtonProps<T = unknown> extends Omit<
+	ButtonGroupProps & ButtonProps,
+	'onClick'
+> {
 	items: Array<MenuItemType<T> & { closeMenuOnClick?: boolean }>;
 	selectedItemIndex?: number;
 	groupByProp?: keyof T;
@@ -144,16 +146,12 @@ export const DropDownButton = <T extends unknown>({
 							<FontAwesomeIcon icon={faChevronDown} />
 						)
 					}
-					{...(buttonProps as ButtonProps)}
+					{...buttonProps}
 				>
 					{children}
 				</Button>
 			) : (
-				<ButtonGroup
-					variant="contained"
-					disableElevation
-					{...(buttonProps as ButtonGroupProps)}
-				>
+				<ButtonGroup variant="contained" disableElevation {...buttonProps}>
 					<ButtonWithTracking
 						onClick={handleClick}
 						eventName={memoizedItems[selectedIndex].eventName}
@@ -199,8 +197,10 @@ export const DropDownButton = <T extends unknown>({
 	);
 };
 
-export interface MenuItemWithTrackingProps
-	extends Omit<MenuItemProps, 'onClick'> {
+export interface MenuItemWithTrackingProps extends Omit<
+	MenuItemProps,
+	'onClick'
+> {
 	eventName: string;
 	eventProperties?: { [key: string]: any };
 	tooltip?: Omit<TooltipProps, 'children'> | TooltipProps['title'];

@@ -192,12 +192,10 @@ const TableRenderer = <T extends { id: number }>({
 			`${model.resource}__sort`,
 		);
 
-		const sortPref =
-			sortPreferences ??
-			({
-				direction: 'asc',
-				...columns[0],
-			} as TableSortOptions<T>);
+		const sortPref = sortPreferences ?? {
+			direction: 'asc',
+			...columns[0],
+		};
 
 		onSort?.(sortPref);
 
@@ -247,7 +245,7 @@ const TableRenderer = <T extends { id: number }>({
 
 		// This analytics event should only be fired on page load,
 		// so we make sure the useEffect only runs on mount.
-		// eslint-disable-next-line react-hooks/exhaustive-deps
+		// eslint-disable-next-line @eslint-react/exhaustive-deps
 	}, []);
 
 	return (
@@ -287,13 +285,16 @@ const TableRenderer = <T extends { id: number }>({
 					});
 				}}
 			/>
-			{showAddTagDialog && tagKeys?.length && handleAddTagClose != null && (
-				<AddTagHandler
-					columns={columns}
-					tagKeys={tagKeys}
-					onClose={handleAddTagClose}
-				/>
-			)}
+			{showAddTagDialog &&
+				tagKeys != null &&
+				tagKeys.length > 0 &&
+				handleAddTagClose != null && (
+					<AddTagHandler
+						columns={columns}
+						tagKeys={tagKeys}
+						onClose={handleAddTagClose}
+					/>
+				)}
 		</>
 	);
 };

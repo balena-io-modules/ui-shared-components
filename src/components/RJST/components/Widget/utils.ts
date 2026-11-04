@@ -7,12 +7,7 @@ const DATE_FORMAT = 'MMM do yyyy';
 const TIME_FORMAT = 'h:mm a';
 
 export type DefinedValue =
-	| number
-	| string
-	| boolean
-	| { [key: string]: any }
-	| any[]
-	| undefined;
+	number | string | boolean | { [key: string]: any } | any[] | undefined;
 
 export type Value = DefinedValue | null;
 
