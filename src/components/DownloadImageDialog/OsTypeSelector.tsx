@@ -62,7 +62,7 @@ const OsTypeOption = ({ osType }: { osType: OsTypeObj | undefined }) => {
 					<Chip label="no versions yet" color="blue" />
 				)}
 				{!osType.supportedForApp && (
-					<Chip label="production and enterprise plan only" color="orange" />
+					<Chip label="paid plan only" color="orange" />
 				)}
 			</Box>
 		</Tooltip>
