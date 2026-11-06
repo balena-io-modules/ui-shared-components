@@ -95,7 +95,7 @@ export const ObjectFieldTemplate = <
 						<Grid
 							size={{ xs: 12 }}
 							// TODO: remove as soon as MUI versions are same between RJSF and our internal.
-							width="100%"
+							sx={{ width: '100%' }}
 							key={index}
 							style={{ marginBottom: '10px' }}
 							{...(uiSchema?.[element.name]?.['ui:grid']?.item ??
@@ -109,7 +109,7 @@ export const ObjectFieldTemplate = <
 				)}
 			</Grid>
 			{canExpand<T, S, F>(schema, uiSchema, formData) && (
-				<Grid container justifyContent="flex-end">
+				<Grid container sx={{ justifyContent: 'flex-end' }}>
 					<Grid>
 						<AddButton
 							id={fieldPathId.$id + 'add'}

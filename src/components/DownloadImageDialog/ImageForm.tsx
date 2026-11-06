@@ -277,14 +277,14 @@ export const ImageForm = memo(function ImageFormFunction({
 				noValidate
 				autoComplete="off"
 				ref={formElement}
-				gap={3}
+				sx={{ gap: 3 }}
 			>
 				<input type="hidden" name="deviceType" value={model.deviceType.slug} />
 				<input type="hidden" name="_token" value={authToken} />
 				<input type="hidden" name="appId" value={applicationId} />
 				<input type="hidden" name="fileType" value=".zip" />
 				<input type="hidden" name="version" value={model.version} />
-				<Stack direction="row" flexWrap="wrap" gap={2}>
+				<Stack direction="row" sx={{ flexWrap: 'wrap', gap: 2 }}>
 					{compatibleDeviceTypes && compatibleDeviceTypes.length > 1 && (
 						<Autocomplete
 							fullWidth
@@ -301,11 +301,14 @@ export const ImageForm = memo(function ImageFormFunction({
 									<Typography noWrap>{option.name}</Typography>
 								</Box>
 							)}
-							renderInput={({ InputProps, ...params }) => (
+							renderInput={({ slotProps, ...params }) => (
 								<TextField
 									{...params}
 									label={
-										<Stack direction="row" alignItems="center" gap={1}>
+										<Stack
+											direction="row"
+											sx={{ alignItems: 'center', gap: 1 }}
+										>
 											Device type
 											<Tooltip title="Applications can support any devices that share the same architecture as their default device type.">
 												<FontAwesomeIcon
@@ -317,8 +320,9 @@ export const ImageForm = memo(function ImageFormFunction({
 										</Stack>
 									}
 									slotProps={{
+										...slotProps,
 										input: {
-											...InputProps,
+											...slotProps.input,
 											startAdornment: (
 												<Avatar
 													variant="square"
@@ -361,10 +365,12 @@ export const ImageForm = memo(function ImageFormFunction({
 				{!isInitialDefault && version && (
 					<Stack
 						direction="row"
-						flexWrap="wrap"
-						maxWidth="100%"
-						gap={2}
-						alignItems="center"
+						sx={{
+							flexWrap: 'wrap',
+							maxWidth: '100%',
+							gap: 2,
+							alignItems: 'center',
+						}}
 					>
 						<Autocomplete
 							fullWidth
@@ -387,12 +393,13 @@ export const ImageForm = memo(function ImageFormFunction({
 									/>
 								</Box>
 							)}
-							renderInput={({ InputProps, ...params }) => (
+							renderInput={({ slotProps, ...params }) => (
 								<TextField
 									{...params}
 									slotProps={{
+										...slotProps,
 										input: {
-											...InputProps,
+											...slotProps.input,
 											endAdornment: (
 												<>
 													{version.value === recommendedVersion && (
@@ -410,7 +417,7 @@ export const ImageForm = memo(function ImageFormFunction({
 															/>
 														</Tooltip>
 													)}
-													{InputProps.endAdornment}
+													{slotProps.input.endAdornment}
 												</>
 											),
 										},
@@ -477,7 +484,7 @@ export const ImageForm = memo(function ImageFormFunction({
 						</RadioGroup>
 					</FormControl>
 					{model.network === 'wifi' && (
-						<Stack gap={3}>
+						<Stack sx={{ gap: 3 }}>
 							<TextField
 								value={model.wifiSsid}
 								id="device-wifi-ssid"
@@ -538,7 +545,7 @@ export const ImageForm = memo(function ImageFormFunction({
 						<Divider variant="fullWidth" sx={{ borderStyle: 'dashed' }} />
 						<FormControl>
 							<FormLabel id="secure-boot-and-full-disk-encryption-label">
-								<Stack direction="row" alignItems="center" gap={1}>
+								<Stack direction="row" sx={{ alignItems: 'center', gap: 1 }}>
 									<Typography variant="titleSm">
 										Secure Boot and Full Disk Encryption
 									</Typography>
@@ -570,7 +577,7 @@ export const ImageForm = memo(function ImageFormFunction({
 									/>
 								}
 								label={
-									<Stack direction="row" gap={1}>
+									<Stack direction="row" sx={{ gap: 1 }}>
 										<Typography>
 											Enable Secure Boot and Full Disk Encryption
 										</Typography>
@@ -599,7 +606,7 @@ export const ImageForm = memo(function ImageFormFunction({
 					defaultIconDirection="right"
 					summary={<Typography variant="titleSm">Advanced settings</Typography>}
 					details={
-						<Stack gap={3}>
+						<Stack sx={{ gap: 3 }}>
 							<TextField
 								value={model.appUpdatePollInterval}
 								slotProps={{
@@ -614,7 +621,7 @@ export const ImageForm = memo(function ImageFormFunction({
 									});
 								}}
 								label={
-									<Stack direction="row" alignItems="center" gap={1}>
+									<Stack direction="row" sx={{ alignItems: 'center', gap: 1 }}>
 										Check for updates every X minutes{' '}
 										<MUILinkWithTracking
 											eventProperties={{
@@ -786,8 +793,14 @@ const VersionSelectItem = ({
 	isRecommended?: boolean;
 }) => {
 	return (
-		<Stack flexWrap="wrap" maxWidth="100%" rowGap={1}>
-			<Typography noWrap maxWidth="100%" variant="titleSm">
+		<Stack
+			sx={{
+				flexWrap: 'wrap',
+				maxWidth: '100%',
+				rowGap: 1,
+			}}
+		>
+			<Typography noWrap variant="titleSm" sx={{ maxWidth: '100%' }}>
 				{option.title}
 				{!!option.line && (
 					<Chip

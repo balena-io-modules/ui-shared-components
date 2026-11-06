@@ -6,7 +6,7 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons/faTrash';
 import { useTranslation } from '../../../../hooks/useTranslations';
 import type { SxProps } from '@mui/material';
 import {
-	Box,
+	Stack,
 	IconButton,
 	Typography,
 	useMediaQuery,
@@ -58,21 +58,23 @@ export const Views = ({ views, setFilters, deleteView, dark }: ViewsProps) => {
 					...view,
 					eventName: `Open saved view`,
 					children: (
-						<Box
-							display="flex"
-							alignItems="center"
-							justifyContent="space-between"
-							minWidth="200px"
+						<Stack
+							sx={{
+								flexDirection: 'row',
+								alignItems: 'center',
+								justifyContent: 'space-between',
+								minWidth: '200px',
+							}}
 						>
-							<Box display="flex" flexDirection="column">
+							<Stack>
 								<Typography>{view.name}</Typography>
-								<Typography color={token('color.text.subtle')}>
+								<Typography sx={{ color: token('color.text.subtle') }}>
 									{view.filters.length}{' '}
 									{view.filters.length === 1
 										? t('labels.filter_one').toLowerCase()
 										: t('labels.filter_other').toLowerCase()}
 								</Typography>
-							</Box>
+							</Stack>
 							<IconButton
 								aria-label={t('aria_labels.remove_view')}
 								onClick={(event: React.MouseEvent<HTMLElement> | undefined) => {
@@ -84,7 +86,7 @@ export const Views = ({ views, setFilters, deleteView, dark }: ViewsProps) => {
 							>
 								<FontAwesomeIcon icon={faTrash} />
 							</IconButton>
-						</Box>
+						</Stack>
 					),
 					onClick: () => {
 						const filters = view.filters;

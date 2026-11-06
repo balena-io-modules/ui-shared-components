@@ -1,4 +1,4 @@
-import { Box, Button, Drawer, Link, Switch, Typography } from '@mui/material';
+import { Stack, Button, Drawer, Link, Switch, Typography } from '@mui/material';
 import { useCallback, useEffect, useState } from 'react';
 import { getFromLocalStorage, setToLocalStorage } from '../../utils/storage';
 
@@ -105,17 +105,24 @@ export const CookiesBanner = ({
 	}
 
 	return (
-		<Drawer anchor="bottom" open={show} disableEscapeKeyDown>
-			<Box display="flex" flexDirection="column" p={4}>
+		<Drawer anchor="bottom" open={show}>
+			<Stack sx={{ p: 4 }}>
 				{showCustomizeView ? (
-					<Box display="flex" flexDirection="column">
+					<Stack>
 						{Object.entries(internalCookies).map(([key, cookie]) => (
-							<Box display="flex" alignItems="center" mb={3} key={key}>
-								<Box display="flex" flexDirection="column" width="90%">
+							<Stack
+								key={key}
+								sx={{
+									flexDirection: 'row',
+									alignItems: 'center',
+									mb: 3,
+								}}
+							>
+								<Stack sx={{ width: '90%' }}>
 									<Typography variant="h5">{cookie.title}</Typography>
 									<Typography variant="body1">{cookie.description}</Typography>
-								</Box>
-								<Box display="flex">
+								</Stack>
+								<Stack direction="row">
 									<Switch
 										checked={cookie.value}
 										onChange={() => {
@@ -123,12 +130,12 @@ export const CookiesBanner = ({
 										}}
 										disabled={cookie.required}
 									/>
-								</Box>
-							</Box>
+								</Stack>
+							</Stack>
 						))}
-					</Box>
+					</Stack>
 				) : (
-					<Box display="flex" justifyContent="center">
+					<Stack sx={{ flexDirection: 'row', justifyContent: 'center' }}>
 						<Typography variant="body1">
 							We use cookies to enhance your browsing experience and analyze our
 							traffic. By clicking &quot;Accept All&quot; you consent to our use
@@ -138,14 +145,16 @@ export const CookiesBanner = ({
 							</Link>
 							.
 						</Typography>
-					</Box>
+					</Stack>
 				)}
-				<Box
-					display="flex"
-					mt={4}
-					ml="auto"
-					justifyContent="space-around"
-					width="400px"
+				<Stack
+					sx={{
+						flexDirection: 'row',
+						mt: 4,
+						ml: 'auto',
+						justifyContent: 'space-around',
+						width: '400px',
+					}}
 				>
 					<Button variant="outlined" onClick={handleReject}>
 						Reject all
@@ -161,8 +170,8 @@ export const CookiesBanner = ({
 					<Button variant="contained" onClick={handleSaveOrAcceptAll}>
 						{showCustomizeView ? 'Save selection' : 'Accept all'}
 					</Button>
-				</Box>
-			</Box>
+				</Stack>
+			</Stack>
 		</Drawer>
 	);
 };

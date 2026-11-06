@@ -209,9 +209,7 @@ export const AddTagForm = <T extends object>({
 	return (
 		<>
 			<Stack
-				gap={2}
-				mb={2}
-				alignItems="center"
+				sx={{ gap: 2, mb: 2, alignItems: 'center' }}
 				direction="row"
 				onKeyDown={(e) => {
 					stopKeyDownEvent(e, 13, internalAddTag);

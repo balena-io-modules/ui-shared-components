@@ -24,13 +24,15 @@ const variantInfo: (selected: BuildVariant) => {
 } = (selected) => ({
 	dev: {
 		title: (
-			<Stack gap={1} direction="row" alignItems="center">
+			<Stack direction="row" sx={{ gap: 1, alignItems: 'center' }}>
 				<Typography>{getOsVariantDisplayText('dev')}</Typography>
 				<Typography
 					variant="bodySm"
-					color={token('color.text.accent')}
-					alignItems="center"
-					display="flex"
+					sx={{
+						color: token('color.text.accent'),
+						alignItems: 'center',
+						display: 'flex',
+					}}
 				>
 					<FontAwesomeIcon icon={faLightbulb} width={14} height={14} />
 					Recommended for first time users
@@ -38,7 +40,7 @@ const variantInfo: (selected: BuildVariant) => {
 			</Stack>
 		),
 		description: (
-			<Stack gap={1}>
+			<Stack sx={{ gap: 1 }}>
 				<Typography>
 					Development images should be used when you are developing an
 					application and want to use the fast{' '}

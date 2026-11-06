@@ -278,6 +278,9 @@ export const theme = createTheme({
 		},
 	},
 	palette: {
+		DataGrid: {
+			headerBg: '#f2f4fa', // TODO use a design token
+		},
 		primary: {
 			main: color.palette.blue['600'].value,
 		},
@@ -794,6 +797,77 @@ export const theme = createTheme({
 						opacity: 0.4,
 					},
 				},
+				{
+					props: { variant: 'text', color: 'primary' },
+					style: {
+						color: color.text.accent.value,
+					},
+				},
+				{
+					props: { variant: 'text', color: 'secondary' },
+					style: {
+						color: color.text.value,
+					},
+				},
+				{
+					props: { variant: 'text', color: 'info' },
+					style: {
+						color: color.text.info.value,
+					},
+				},
+				{
+					props: { variant: 'text', color: 'success' },
+					style: {
+						color: color.text.success.value,
+					},
+				},
+				{
+					props: { variant: 'text', color: 'warning' },
+					style: {
+						color: color.text.warning.value,
+					},
+				},
+				{
+					props: { variant: 'text', color: 'error' },
+					style: {
+						color: color.text.danger.value,
+					},
+				},
+				{
+					props: { variant: 'contained', color: 'secondary' },
+					style: {
+						color: color.text.inverse.value,
+						backgroundColor: color.bg.strong.value,
+					},
+				},
+				{
+					props: { variant: 'contained', color: 'info' },
+					style: {
+						color: color.text.inverse.value,
+						backgroundColor: color.bg.info.strong.value,
+					},
+				},
+				{
+					props: { variant: 'contained', color: 'success' },
+					style: {
+						color: color.text.inverse.value,
+						backgroundColor: color.bg.success.strong.value,
+					},
+				},
+				{
+					props: { variant: 'contained', color: 'warning' },
+					style: {
+						color: color.text.inverse.value,
+						backgroundColor: color.bg.warning.strong.value,
+					},
+				},
+				{
+					props: { variant: 'contained', color: 'error' },
+					style: {
+						color: color.text.inverse.value,
+						backgroundColor: color.bg.danger.strong.value,
+					},
+				},
 			],
 			styleOverrides: {
 				root: ({ theme }) => ({
@@ -824,44 +898,6 @@ export const theme = createTheme({
 					'.MuiTouchRipple-root': {
 						display: 'none',
 					},
-				},
-				textPrimary: {
-					color: color.text.accent.value,
-				},
-				textSecondary: {
-					color: color.text.value,
-				},
-				textInfo: {
-					color: color.text.info.value,
-				},
-				textSuccess: {
-					color: color.text.success.value,
-				},
-				textWarning: {
-					color: color.text.warning.value,
-				},
-				textError: {
-					color: color.text.danger.value,
-				},
-				containedSecondary: {
-					color: color.text.inverse.value,
-					backgroundColor: color.bg.strong.value,
-				},
-				containedInfo: {
-					color: color.text.inverse.value,
-					backgroundColor: color.bg.info.strong.value,
-				},
-				containedSuccess: {
-					color: color.text.inverse.value,
-					backgroundColor: color.bg.success.strong.value,
-				},
-				containedWarning: {
-					color: color.text.inverse.value,
-					backgroundColor: color.bg.warning.strong.value,
-				},
-				containedError: {
-					color: color.text.inverse.value,
-					backgroundColor: color.bg.danger.strong.value,
 				},
 				startIcon: {
 					' > :nth-of-type(1)': {
@@ -1187,7 +1223,6 @@ export const theme = createTheme({
 			styleOverrides: {
 				root: {
 					'--DataGrid-rowBorderColor': color.border.subtle.value,
-					'--DataGrid-containerBackground': '#f2f4fa', // TODO use a design token when we get rid of rendition in autoui
 					border: 'none',
 					fontSize: '1rem',
 					'.MuiDataGrid-columnHeaderTitle': {
@@ -1786,10 +1821,10 @@ export const theme = createTheme({
 					'&.MuiChip-outlinedDefault': {
 						borderColor: color.border.palette.neutral.value,
 					},
-					'&.MuiChip-outlinedPrimary': {
+					'&.MuiChip-outlined.MuiChip-colorPrimary': {
 						borderColor: color.border.accent.value,
 					},
-					'&.MuiChip-outlinedSecondary': {
+					'&.MuiChip-outlined.MuiChip-colorSecondary': {
 						borderColor: color.border.value,
 					},
 					'&.MuiChip-outlinedInfo': {

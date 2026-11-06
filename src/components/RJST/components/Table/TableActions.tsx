@@ -147,7 +147,7 @@ export const TableActions = <T extends object>({
 			>
 				<FontAwesomeIcon icon={faCog} />
 				{matches && (
-					<Typography variant="bodySm" ml={1}>
+					<Typography variant="bodySm" sx={{ ml: 1 }}>
 						Manage columns
 					</Typography>
 				)}

@@ -8,13 +8,10 @@ import type {
 	Pagination,
 	TableSortOptions,
 } from '../../components/Table/utils';
-import type { BoxProps } from '@mui/material';
 export { table } from './table';
 
-export interface LensRendererBaseProps<T extends { id: number }> extends Pick<
-	BoxProps,
-	'flex'
-> {
+export interface LensRendererBaseProps<T extends { id: number }> {
+	flex?: React.CSSProperties['flex'];
 	properties: Array<RJSTEntityPropertyDefinition<T>>;
 	rjstContext: RJSTContext<T>;
 	model: RJSTModel<T>;

@@ -15,7 +15,7 @@ export const Default: Story = {
 	args: {
 		summary: "Bulbasaur's moves",
 		details: (
-			<Stack gap={1}>
+			<Stack sx={{ gap: 1 }}>
 				<div>Tackle</div>
 				<div>Growl</div>
 				<div>Vine Whip</div>

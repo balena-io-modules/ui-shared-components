@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from '../../../../hooks/useNavigate';
 import { debounce } from 'es-toolkit';
 import { ajvFilter, createFullTextSearchFilter } from './SchemaSieve';
-import { Box, styled, Typography } from '@mui/material';
+import { Box, Stack, styled, Typography } from '@mui/material';
 import { convertToPineClientFilter } from '../../oData/jsonToOData';
 import { Spinner } from '../../../..';
 import type { RJSTContext, RJSTModel } from '../../schemaOps';
@@ -119,15 +119,20 @@ export const FocusSearch = <T extends { id: number; [key: string]: any }>({
 		<Focus sx={{ top: '30px' }}>
 			<Spinner show={isLoading}>
 				{!searchResults?.length ? (
-					<Box display="flex" justifyContent="space-around" py={2}>
+					<Stack
+						sx={{
+							flexDirection: 'row',
+							justifyContent: 'space-around',
+							py: 2,
+						}}
+					>
 						<em>no results</em>
-					</Box>
+					</Stack>
 				) : (
 					<FocusContent>
 						{searchResults.map((entity) => (
 							<FocusItem
-								px={1}
-								py={2}
+								sx={{ px: 1, py: 2 }}
 								key={entity[rowKey]}
 								onClick={(e) => {
 									e.preventDefault();
@@ -142,16 +147,16 @@ export const FocusSearch = <T extends { id: number; [key: string]: any }>({
 								}}
 								hasGetBaseUrl={!!rjstContext.getBaseUrl}
 							>
-								<Box display="flex" flexDirection="row" alignItems="center">
-									<Box
-										display="flex"
-										flexDirection="column"
-										alignItems="center"
-										p={1}
-									>
+								<Stack
+									sx={{
+										flexDirection: 'row',
+										alignItems: 'center',
+									}}
+								>
+									<Stack sx={{ alignItems: 'center', p: 1 }}>
 										<Typography>{getEntityValue(entity)}</Typography>
-									</Box>
-								</Box>
+									</Stack>
+								</Stack>
 							</FocusItem>
 						))}
 					</FocusContent>

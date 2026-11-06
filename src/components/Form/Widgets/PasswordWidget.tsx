@@ -65,26 +65,28 @@ export const PasswordWidget = ({
 						onFocus(id, event.target.value);
 					})
 				}
-				InputProps={{
-					endAdornment: (
-						<InputAdornment position="end">
-							<IconButton
-								onClick={() => {
-									setShowPassword((show) => !show);
-								}}
-								onMouseDown={(event: React.MouseEvent<HTMLButtonElement>) => {
-									event.preventDefault();
-								}}
-								edge="end"
-							>
-								{showPassword ? (
-									<FontAwesomeIcon icon={faEyeSlash} />
-								) : (
-									<FontAwesomeIcon icon={faEye} />
-								)}
-							</IconButton>
-						</InputAdornment>
-					),
+				slotProps={{
+					input: {
+						endAdornment: (
+							<InputAdornment position="end">
+								<IconButton
+									onClick={() => {
+										setShowPassword((show) => !show);
+									}}
+									onMouseDown={(event: React.MouseEvent<HTMLButtonElement>) => {
+										event.preventDefault();
+									}}
+									edge="end"
+								>
+									{showPassword ? (
+										<FontAwesomeIcon icon={faEyeSlash} />
+									) : (
+										<FontAwesomeIcon icon={faEye} />
+									)}
+								</IconButton>
+							</InputAdornment>
+						),
+					},
 				}}
 			/>
 			{options.showPasswordStrengthMeter && (

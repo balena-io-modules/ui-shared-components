@@ -35,12 +35,11 @@ export const TagLabel = ({ value }: TagLabelProps) => {
 		<Tooltip title={value}>
 			<TagContainer>
 				<Copy copy={value} variant="absolute">
-					<Box display="flex" gap={1} mx={2} my={1}>
+					<Box sx={{ display: 'flex', gap: 1, mx: 2, my: 1 }}>
 						<Typography
 							variant="bodySm"
 							noWrap
-							fontWeight="bold"
-							maxWidth="100px"
+							sx={{ fontWeight: 'bold', maxWidth: '100px' }}
 						>
 							{value}
 						</Typography>
