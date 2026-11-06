@@ -1,4 +1,16 @@
 - commits:
+    - subject: Update dependency react-dropzone to v18
+      hash: e9570d7278f076075b09bd71ee2ed9c562451df5
+      body: |
+        Update react-dropzone from 17.0.0 to 18.3.0
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: balena-renovate[bot]
+  version: 15.9.21
+  title: ""
+  date: 2026-11-06T15:38:50.525Z
+- commits:
     - subject: Address lint errors
       hash: f97e3feb83be832b104d73185ef1881d7974fc64
       body: ""
