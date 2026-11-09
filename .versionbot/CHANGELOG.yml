@@ -1,4 +1,15 @@
 - commits:
+    - subject: Update @balena/lint to 11.1.0
+      hash: e2cd52e9e7753d62013c4d0525a478371076bbf6
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Matthew Yarmolinsky
+  version: 16.0.2
+  title: ""
+  date: 2026-11-09T21:17:51.501Z
+- commits:
     - subject: Fix autocomplete input height
       hash: b5b361925bf860e872bccc63813e81cf0b847c1b
       body: ""
