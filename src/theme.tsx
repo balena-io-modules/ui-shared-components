@@ -1304,16 +1304,20 @@ export const theme = createTheme({
 						height: '20px',
 					},
 				}),
-				input: {
-					'.MuiInputBase-root:not(.MuiInputBase-multiline) &': {
-						paddingTop: '14px',
-						paddingBottom: '12px',
-					},
+				input: ({ ownerState }) => ({
+					// `&&` matches the specificity of the former `&:not(.MuiInputBase-inputMultiline)`
+					// selector (MUI v9 dropped that class), so component rules like Autocomplete's still win.
+					...(!ownerState.multiline && {
+						'&&': {
+							paddingTop: '14px',
+							paddingBottom: '12px',
+						},
+					}),
 					'&:-webkit-autofill': {
 						'-webkit-box-shadow': `0 0 0 100px ${color.bg.value} inset`,
 						'-webkit-text-fill-color': color.text.value,
 					},
-				},
+				}),
 			},
 		},
 		MuiInput: {
