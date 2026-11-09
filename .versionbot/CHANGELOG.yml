@@ -1,4 +1,20 @@
 - commits:
+    - subject: "OsTypeSelector: Update the ESR access tooltip for it being available
+        only to paid plans"
+      hash: 4b1f8b6fefa32322fcdf5678474ec27380baad03
+      body: ""
+      footer:
+        Depends-on: https://github.com/balena-io/balena-api/pull/6880
+        depends-on: https://github.com/balena-io/balena-api/pull/6880
+        Change-type: patch
+        change-type: patch
+        See: https://balena.fibery.io/Work/Project/3101
+        see: https://balena.fibery.io/Work/Project/3101
+      author: Thodoris Greasidis
+  version: 15.9.22
+  title: ""
+  date: 2026-11-09T09:59:11.842Z
+- commits:
     - subject: Update dependency react-dropzone to v18
       hash: e9570d7278f076075b09bd71ee2ed9c562451df5
       body: |
