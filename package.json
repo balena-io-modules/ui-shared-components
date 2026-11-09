@@ -56,7 +56,7 @@
     "zxcvbn": "^4.4.2"
   },
   "devDependencies": {
-    "@balena/lint": "^11.0.0",
+    "@balena/lint": "^11.1.0",
     "@fortawesome/fontawesome-svg-core": "^7.1.0",
     "@storybook/addon-docs": "^10.5.8",
     "@storybook/addon-links": "^10.5.8",
