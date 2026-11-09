@@ -93,19 +93,24 @@ export const SelectWidget = ({
 				filterSelectedOptions={multiple}
 				disabled={disabled}
 				options={selectOptions}
-				renderTags={(tagValues, getTagProps) =>
-					tagValues.map((option, index) => {
-						const tagProps = getTagProps({ index });
-						return (
-							// eslint-disable-next-line @eslint-react/no-missing-key -- `key` is provided by getTagProps
-							<Chip
-								label={option.label}
-								{...(option.schema?.disabled
-									? omit(tagProps, ['onDelete'])
-									: tagProps)}
-							/>
-						);
-					})
+				renderValue={
+					multiple
+						? (tagValues, getItemProps) =>
+								!Array.isArray(tagValues)
+									? null
+									: tagValues.map((option, index) => {
+											const tagProps = getItemProps({ index });
+											return (
+												// eslint-disable-next-line @eslint-react/no-missing-key -- `key` is provided by getItemProps
+												<Chip
+													label={option.label}
+													{...(option.schema?.disabled
+														? omit(tagProps, ['onDelete'])
+														: tagProps)}
+												/>
+											);
+										})
+						: undefined
 				}
 				isOptionEqualToValue={(option, val) => isEqual(option, val)}
 				getOptionLabel={(option) =>
@@ -118,12 +123,13 @@ export const SelectWidget = ({
 						? option.some((o) => o.disabled)
 						: !!option.disabled
 				}
-				renderInput={(params) => (
+				renderInput={({ slotProps, ...params }) => (
 					<TextField
 						{...params}
 						slotProps={{
+							...slotProps,
 							htmlInput: {
-								...params.inputProps,
+								...slotProps.htmlInput,
 								...(inputProps ?? {}),
 							},
 						}}
@@ -143,8 +149,10 @@ export const SelectWidget = ({
 						option.value === null ? (
 							<Typography
 								{...props}
-								fontStyle="italic"
-								color={token('color.text.subtle')}
+								sx={{
+									fontStyle: 'italic',
+									color: token('color.text.subtle'),
+								}}
 								component="li"
 							>
 								{option.label}

@@ -150,7 +150,7 @@ const BaseMap = <T extends object>({
 	);
 
 	return (
-		<Box height="100%" className={className}>
+		<Box className={className} sx={{ height: '100%' }}>
 			{apiKey && (
 				<LoadScript googleMapsApiKey={apiKey} version="3" language="en">
 					<GoogleMap

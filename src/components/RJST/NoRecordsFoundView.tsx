@@ -37,7 +37,7 @@ export const NoRecordsFoundView = <T extends RJSTBaseResource<T>>({
 				gap: 3,
 			}}
 		>
-			<Typography variant="titleLg" fontWeight="bold">
+			<Typography variant="titleLg" sx={{ fontWeight: 'bold' }}>
 				{noDataInfo?.title ??
 					t('no_data.no_resource_data_title', {
 						resource: t(`resource.${model.resource}_other`).toLowerCase(),

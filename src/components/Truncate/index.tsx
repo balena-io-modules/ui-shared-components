@@ -13,6 +13,7 @@ export const Truncate = ({
 	children,
 	lineCamp,
 	tooltip,
+	sx,
 	...typographyProps
 }: React.PropsWithChildren<TruncateProps>) => {
 	return (
@@ -22,14 +23,17 @@ export const Truncate = ({
 			<Typography
 				component="span"
 				{...typographyProps}
-				sx={{
-					lineHeight: '2rem',
-					display: '-webkit-box',
-					overflow: 'hidden !important',
-					textOverflow: 'ellipsis',
-					WebkitLineClamp: lineCamp,
-					WebkitBoxOrient: 'vertical',
-				}}
+				sx={[
+					{
+						lineHeight: '2rem',
+						display: '-webkit-box',
+						overflow: 'hidden !important',
+						textOverflow: 'ellipsis',
+						WebkitLineClamp: lineCamp,
+						WebkitBoxOrient: 'vertical',
+					},
+					...(Array.isArray(sx) ? sx : [sx]),
+				]}
 			>
 				{children}
 			</Typography>

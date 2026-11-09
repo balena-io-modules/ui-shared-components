@@ -51,11 +51,13 @@ const OsTypeOption = ({ osType }: { osType: OsTypeObj | undefined }) => {
 			}
 		>
 			<Box
-				display="flex"
-				width="100%"
-				justifyContent="space-between"
-				alignItems="center"
-				gap={1}
+				sx={{
+					display: 'flex',
+					width: '100%',
+					justifyContent: 'space-between',
+					alignItems: 'center',
+					gap: 1,
+				}}
 			>
 				<Typography variant="body1">{getOsTypeName(osType.slug)}</Typography>
 				{!osType.supportedForDeviceType && (
@@ -98,8 +100,8 @@ export const OsTypeSelector = ({
 	);
 
 	return (
-		<Stack flex={1}>
-			<Stack direction="row" alignItems="center" gap={1}>
+		<Stack sx={{ flex: 1 }}>
+			<Stack direction="row" sx={{ alignItems: 'center', gap: 1 }}>
 				<InputLabel
 					id="newAppApplicationType-label"
 					sx={{ display: 'flex', alignItems: 'center', gap: 1 }}
@@ -119,7 +121,7 @@ export const OsTypeSelector = ({
 				disabled={supportedOsTypes.length === 0}
 				value={selectedOsType?.slug ?? OsTypesEnum.DEFAULT}
 				renderValue={(selected) => (
-					<Box display="flex" width="100%">
+					<Box sx={{ display: 'flex', width: '100%' }}>
 						<OsTypeOption
 							osType={selectOsTypes.find((osType) => selected === osType.slug)}
 						/>

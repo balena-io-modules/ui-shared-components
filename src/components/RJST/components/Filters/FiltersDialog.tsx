@@ -97,10 +97,12 @@ const ArrayFieldItemTemplate = ({
 			>
 				{children}
 				<Box
-					display="flex"
-					width="50px"
-					alignItems="center"
-					justifyContent="center"
+					sx={{
+						display: 'flex',
+						width: '50px',
+						alignItems: 'center',
+						justifyContent: 'center',
+					}}
 				>
 					{index !== 0 && (
 						<IconButton

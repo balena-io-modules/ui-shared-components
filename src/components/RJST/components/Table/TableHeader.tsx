@@ -67,9 +67,7 @@ export const TableHeader = <T extends object>({
 									state,
 								);
 							}}
-							inputProps={{
-								'aria-label': 'select all rows',
-							}}
+							slotProps={{ input: { 'aria-label': 'select all rows' } }}
 						/>
 					</TableCell>
 				)}

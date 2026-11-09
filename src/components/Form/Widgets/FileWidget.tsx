@@ -287,8 +287,7 @@ export const FileWidget = ({
 					<input type="file" {...getInputProps()} />
 					<Stack
 						direction={isSmall ? 'row' : 'column'}
-						gap={isSmall ? 1 : 3}
-						alignItems="center"
+						sx={{ gap: isSmall ? 1 : 3, alignItems: 'center' }}
 					>
 						{/* TODO: remove `uploadIcon` prop when we are able to have pro icons in ui shared */}
 						<FontAwesomeIcon
@@ -311,14 +310,20 @@ export const FileWidget = ({
 						</Typography>
 					</Stack>
 					{!!descriptiveText && (
-						<Typography color={token('color.text.subtle')} component="p">
+						<Typography
+							sx={{ color: token('color.text.subtle') }}
+							component="p"
+						>
 							{descriptiveText}
 						</Typography>
 					)}
 				</Stack>
-				<Stack gap={2}>
-					<Stack direction="row" justifyContent="space-between" gap={3}>
-						<Typography color={token('color.text.subtle')}>
+				<Stack sx={{ gap: 2 }}>
+					<Stack
+						direction="row"
+						sx={{ justifyContent: 'space-between', gap: 3 }}
+					>
+						<Typography sx={{ color: token('color.text.subtle') }}>
 							{accept == null
 								? ''
 								: `Supported formats: ${uniq(
@@ -330,14 +335,17 @@ export const FileWidget = ({
 									).join(', ')}`}
 						</Typography>
 						{maxSize != null && (
-							<Typography color={token('color.text.subtle')} align="right">
+							<Typography
+								sx={{ color: token('color.text.subtle') }}
+								align="right"
+							>
 								Maximum size: {fileSizeToReadable(maxSize)}
 							</Typography>
 						)}
 					</Stack>
 
 					{hideUploadedFiles && !!errorFiles.length && (
-						<Stack color={token('color.text.danger')} gap={1}>
+						<Stack sx={{ color: token('color.text.danger'), gap: 1 }}>
 							{errorFiles
 								.flatMap((errorFile) => errorFile.errors)
 								.map((error) =>
@@ -350,37 +358,45 @@ export const FileWidget = ({
 						</Stack>
 					)}
 					{!hideUploadedFiles && (
-						<Stack gap={1}>
+						<Stack sx={{ gap: 1 }}>
 							{files.map((file, index) => (
 								<Stack
 									direction="row"
-									justifyContent="space-between"
-									alignItems="center"
-									gap={2}
-									bgcolor={token('color.bg')}
-									p={3}
-									borderRadius={token('shape.borderRadius.md')}
+									sx={{
+										justifyContent: 'space-between',
+										alignItems: 'center',
+										gap: 2,
+										bgcolor: token('color.bg'),
+										p: 3,
+										borderRadius: token('shape.borderRadius.md'),
+										...(mobile && { flexWrap: 'wrap' }),
+									}}
 									key={file.name}
-									{...(mobile && { flexWrap: 'wrap' })}
 								>
 									<Stack
 										direction="row"
-										{...(mobile && { justifyContent: 'space-between' })}
-										gap={2}
-										alignItems="center"
-										width="100%"
+										sx={{
+											...(mobile && { justifyContent: 'space-between' }),
+											gap: 2,
+											alignItems: 'center',
+											width: '100%',
+										}}
 									>
 										<Stack
 											direction="row"
-											gap={2}
-											alignItems="center"
-											maxWidth="45%"
+											sx={{
+												gap: 2,
+												alignItems: 'center',
+												maxWidth: '45%',
+											}}
 										>
 											<FontAwesomeIcon icon={getFileTypeIcon(file.type)} />
 											<Typography
-												{...(mobile
-													? { maxWidth: '100%' }
-													: { width: '150px' })}
+												sx={{
+													...(mobile
+														? { maxWidth: '100%' }
+														: { width: '150px' }),
+												}}
 												noWrap
 											>
 												{file.name}
@@ -400,16 +416,18 @@ export const FileWidget = ({
 									</Stack>
 									<Stack
 										direction="row"
-										{...(mobile
-											? { justifyContent: 'space-between', width: '100%' }
-											: { gap: 2 })}
-										alignItems="center"
+										sx={{
+											...(mobile
+												? { justifyContent: 'space-between', width: '100%' }
+												: { gap: 2 }),
+											alignItems: 'center',
+										}}
 									>
-										<Stack direction="row" gap={2}>
-											<Typography color={token('color.text.subtle')}>
+										<Stack direction="row" sx={{ gap: 2 }}>
+											<Typography sx={{ color: token('color.text.subtle') }}>
 												{file.type}
 											</Typography>
-											<Typography color={token('color.text.subtle')}>
+											<Typography sx={{ color: token('color.text.subtle') }}>
 												{fileSizeToReadable(file.size)}
 											</Typography>
 										</Stack>
@@ -429,46 +447,57 @@ export const FileWidget = ({
 							))}
 							{errorFiles.map(({ file, errors }) => (
 								<Stack
-									gap={1}
-									bgcolor={token('color.bg')}
-									p={3}
-									borderRadius={token('shape.borderRadius.md')}
-									border="1px solid"
-									borderColor={token('color.border.danger')}
+									sx={{
+										gap: 1,
+										bgcolor: token('color.bg'),
+										p: 3,
+										borderRadius: token('shape.borderRadius.md'),
+										border: '1px solid',
+										borderColor: token('color.border.danger'),
+									}}
 									key={file.name}
 								>
 									<Stack
 										direction="row"
-										justifyContent="space-between"
-										alignItems="center"
-										gap={2}
+										sx={{
+											justifyContent: 'space-between',
+											alignItems: 'center',
+											gap: 2,
+										}}
 									>
 										<Stack
 											direction="row"
-											gap={2}
-											alignItems="center"
-											width="100%"
+											sx={{
+												gap: 2,
+												alignItems: 'center',
+												width: '100%',
+											}}
 										>
 											<FontAwesomeIcon icon={getFileTypeIcon(file.type)} />
 											<Typography>{file.name}</Typography>
 										</Stack>
-										<Stack direction="row" gap={2} alignItems="center">
-											<Typography color={token('color.text.subtle')}>
+										<Stack
+											direction="row"
+											sx={{ gap: 2, alignItems: 'center' }}
+										>
+											<Typography sx={{ color: token('color.text.subtle') }}>
 												{file.type}
 											</Typography>
-											<Typography color={token('color.text.subtle')}>
+											<Typography sx={{ color: token('color.text.subtle') }}>
 												{fileSizeToReadable(file.size)}
 											</Typography>
 										</Stack>
 									</Stack>
-									<Stack gap={1}>
+									<Stack sx={{ gap: 1 }}>
 										{errors.map((error) => (
 											<Stack
-												gap={2}
-												color={token('color.text.danger')}
 												direction="row"
-												alignItems="center"
 												key={error.message}
+												sx={{
+													gap: 2,
+													color: token('color.text.danger'),
+													alignItems: 'center',
+												}}
 											>
 												<FontAwesomeIcon icon={faCircleExclamation} />
 												{getErrorMessage(

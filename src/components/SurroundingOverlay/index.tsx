@@ -75,7 +75,7 @@ export const SurroundingOverlay = ({
 	}, [scrollingElement, targetElement, updateRect, containerRef]);
 
 	return (
-		<Box ref={containerRef} position="relative">
+		<Box ref={containerRef} sx={{ position: 'relative' }}>
 			{children}
 			{clickedRect && Object.values(clickedRect).every((v) => v != null) && (
 				<>

@@ -36,7 +36,10 @@ export const Spinner = ({
 			/>
 			{label != null && (
 				<Typography
-					color={bgVariant === 'dark' ? token('color.text.inverse') : 'default'}
+					sx={{
+						color:
+							bgVariant === 'dark' ? token('color.text.inverse') : undefined,
+					}}
 				>
 					{label}
 				</Typography>

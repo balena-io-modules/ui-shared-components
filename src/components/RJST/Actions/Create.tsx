@@ -60,7 +60,7 @@ export const Create = <T extends RJSTBaseResource<T>>({
 		getCreateDisabledReason(model.permissions, hasOngoingAction, t) ??
 		disabledReasonsByAction[action.title];
 	return (
-		<Box display="flex">
+		<Box sx={{ display: 'flex' }}>
 			<Tooltip
 				title={typeof disabledReason === 'string' ? disabledReason : undefined}
 			>
@@ -91,7 +91,7 @@ export const Create = <T extends RJSTBaseResource<T>>({
 							}));
 						}}
 					>
-						<Box display="flex" justifyContent="space-between">
+						<Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
 							{action.title}
 							<Spinner
 								sx={{ ml: 2 }}

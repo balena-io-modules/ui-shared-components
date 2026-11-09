@@ -91,7 +91,10 @@ export const HorizontalBarChart = ({
 				{filteredItems.map((item) => (
 					<Tooltip key={item.title} title={getTotalResourcesLabel(item.count)}>
 						<LegendItem style={{ color: item.color }}>
-							<Typography variant="bodySm" color={token('color.text.subtle')}>
+							<Typography
+								variant="bodySm"
+								sx={{ color: token('color.text.subtle') }}
+							>
 								{item.title}
 							</Typography>
 						</LegendItem>

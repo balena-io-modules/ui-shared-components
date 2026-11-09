@@ -62,9 +62,7 @@ export const TableRow = <T extends object>({
 						color="primary"
 						onClick={handleToggleCheck(row)}
 						checked={checkedState === 'all' || checked}
-						inputProps={{
-							'aria-labelledby': labelId,
-						}}
+						slotProps={{ input: { 'aria-labelledby': labelId } }}
 					/>
 				</MaterialTableCell>
 			)}
