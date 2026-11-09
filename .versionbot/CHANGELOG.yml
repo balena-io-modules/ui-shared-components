@@ -1,4 +1,15 @@
 - commits:
+    - subject: Update MaterialUI to v9
+      hash: 243b8b829734627c61e67af3acb314c66df45394
+      body: ""
+      footer:
+        Change-type: major
+        change-type: major
+      author: Matthew Yarmolinsky
+  version: 16.0.0
+  title: ""
+  date: 2026-11-09T16:54:46.892Z
+- commits:
     - subject: "OsTypeSelector: Update the ESR access tooltip for it being available
         only to paid plans"
       hash: 4b1f8b6fefa32322fcdf5678474ec27380baad03
