@@ -1,4 +1,15 @@
 - commits:
+    - subject: Fix autocomplete input height
+      hash: b5b361925bf860e872bccc63813e81cf0b847c1b
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Matthew Yarmolinsky
+  version: 16.0.1
+  title: ""
+  date: 2026-11-09T18:51:21.844Z
+- commits:
     - subject: Update MaterialUI to v9
       hash: 243b8b829734627c61e67af3acb314c66df45394
       body: ""
