@@ -3,7 +3,7 @@
 		"module": "es2020",
 		"moduleResolution": "bundler",
 		"target": "es2017",
-		"lib": ["dom", "dom.iterable", "es6"],
+		"lib": ["dom", "dom.iterable", "es6", "es2022.array"],
 		"declaration": true,
 		"outDir": "dist",
 		"rootDir": "src",
