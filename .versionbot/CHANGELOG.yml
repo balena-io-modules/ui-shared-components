@@ -1,4 +1,15 @@
 - commits:
+    - subject: Update @types/node to v26
+      hash: a88a88a0abf201d032a90bf81a576753522b3154
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Matthew Yarmolinsky
+  version: 16.0.3
+  title: ""
+  date: 2026-11-11T17:52:03.272Z
+- commits:
     - subject: Update @balena/lint to 11.1.0
       hash: e2cd52e9e7753d62013c4d0525a478371076bbf6
       body: ""
