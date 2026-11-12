@@ -1,4 +1,22 @@
 - commits:
+    - subject: Enabled react-router-dom v7 future flag `v7_relativeSplatPath`
+      hash: 8db1f4d5d782280f4213fe43b37c00bc944b3df4
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Matthew Yarmolinsky
+    - subject: Update react-router-dom to the latest v6
+      hash: 8eddbb0b2f832939ff0bb80a8d9d4525a239a7c4
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Matthew Yarmolinsky
+  version: 16.0.4
+  title: ""
+  date: 2026-11-12T10:27:41.756Z
+- commits:
     - subject: Update @types/node to v26
       hash: a88a88a0abf201d032a90bf81a576753522b3154
       body: ""
