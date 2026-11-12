@@ -228,7 +228,7 @@ export const FileWidget = ({
 			if (multiple) {
 				onChange(
 					newFiles
-						.filter((file) => file.loadingPercentage === null)
+						.filter((file) => file.loadingPercentage == null)
 						.map(
 							(file) =>
 								`data:${file.type};name=${file.name};base64,${file.base64Data}`,
@@ -369,7 +369,7 @@ export const FileWidget = ({
 										bgcolor: token('color.bg'),
 										p: 3,
 										borderRadius: token('shape.borderRadius.md'),
-										...(mobile && { flexWrap: 'wrap' }),
+										flexWrap: 'wrap',
 									}}
 									key={file.name}
 								>
