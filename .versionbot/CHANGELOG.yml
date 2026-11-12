@@ -1,4 +1,15 @@
 - commits:
+    - subject: "react-router-dom: Enable `v7_startTransition` future flag"
+      hash: 2a645ab37b33f17dc45e45d12648bbdcd8385b6b
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Matthew Yarmolinsky
+  version: 16.0.7
+  title: ""
+  date: 2026-11-12T16:22:03.675Z
+- commits:
     - subject: Update dependency react-dropzone to v20
       hash: 6a1fcdeb8016c36039de2a7d30f036d0d095b04b
       body: |
