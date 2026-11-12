@@ -1,4 +1,16 @@
 - commits:
+    - subject: Update dependency react-dropzone to v20
+      hash: 6a1fcdeb8016c36039de2a7d30f036d0d095b04b
+      body: |
+        Update react-dropzone from 18.3.0 to 20.2.0
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: balena-renovate[bot]
+  version: 16.0.6
+  title: ""
+  date: 2026-11-12T15:34:36.092Z
+- commits:
     - subject: Preserve remaining files on deletion and prevent delete button overflow
       hash: 448173de374676b592ca4fdb5de112fd9d4795bc
       body: ""
