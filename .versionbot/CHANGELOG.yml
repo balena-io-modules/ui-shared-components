@@ -1,4 +1,15 @@
 - commits:
+    - subject: Preserve remaining files on deletion and prevent delete button overflow
+      hash: 448173de374676b592ca4fdb5de112fd9d4795bc
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Andrea Rosci
+  version: 16.0.5
+  title: ""
+  date: 2026-11-12T14:38:22.988Z
+- commits:
     - subject: Enabled react-router-dom v7 future flag `v7_relativeSplatPath`
       hash: 8db1f4d5d782280f4213fe43b37c00bc944b3df4
       body: ""
