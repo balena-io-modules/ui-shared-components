@@ -1174,7 +1174,7 @@ export const theme = createTheme({
 				root: {
 					background: 'white',
 					'&:nth-of-type(even)': {
-						backgroundColor: color.components.table.row.value,
+						backgroundColor: color.bg.components.table.row.value,
 					},
 					'&:hover': {
 						backgroundColor: color.bg.accent.value,
@@ -1195,7 +1195,7 @@ export const theme = createTheme({
 					fontSize: '1rem',
 					borderBottom: 'none',
 					[`&.${tableCellClasses.head}`]: {
-						backgroundColor: color.components.table.header.value,
+						backgroundColor: color.bg.components.table.header.value,
 						borderBottom: `1px solid ${color.border.value}`,
 						fontWeight: 'bold',
 					},
