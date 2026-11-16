@@ -1,4 +1,16 @@
 - commits:
+    - subject: Pin dependencies
+      hash: 5b6a9ea858bca1ae3fde3f496afd2c844af67679
+      body: |
+        Update @storybook/addon-docs
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: balena-renovate[bot]
+  version: 16.0.8
+  title: ""
+  date: 2026-11-16T15:21:33.052Z
+- commits:
     - subject: "react-router-dom: Enable `v7_startTransition` future flag"
       hash: 2a645ab37b33f17dc45e45d12648bbdcd8385b6b
       body: ""
