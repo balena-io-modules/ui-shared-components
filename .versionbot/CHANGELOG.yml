@@ -1,4 +1,16 @@
 - commits:
+    - subject: Pin dependency @fortawesome/fontawesome-svg-core to v7.1.0
+      hash: 166c209211e131bf4a551a5ecea5284096ac0135
+      body: |
+        Update @fortawesome/fontawesome-svg-core
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: balena-renovate[bot]
+  version: 16.0.10
+  title: ""
+  date: 2026-11-17T20:05:16.823Z
+- commits:
     - subject: Pin dependencies
       hash: 01a26e9015742dd9a8b01dd2280649410b54d872
       body: |
