@@ -1,5 +1,17 @@
 - commits:
     - subject: Pin dependencies
+      hash: 01a26e9015742dd9a8b01dd2280649410b54d872
+      body: |
+        Update @types/react
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: balena-renovate[bot]
+  version: 16.0.9
+  title: ""
+  date: 2026-11-17T19:55:25.643Z
+- commits:
+    - subject: Pin dependencies
       hash: 5b6a9ea858bca1ae3fde3f496afd2c844af67679
       body: |
         Update @storybook/addon-docs
