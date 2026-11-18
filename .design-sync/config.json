@@ -1,0 +1,31 @@
+{
+  "projectId": "4ddb6f76-8bc6-4d35-a916-4ef962b00cf4",
+  "pkg": "@balena/ui-shared-components",
+  "shape": "storybook",
+  "storybookConfigDir": ".storybook",
+  "storybookStatic": ".design-sync/sb-reference",
+  "buildCmd": "npm run build",
+  "readmeHeader": ".design-sync/conventions.md",
+  "cssEntry": ".storybook/global.css",
+  "extraEntries": ["react-router-dom"],
+  "libOverrides": {
+    "story-imports.mjs": "map story imports of @mui/material, @mui/lab, @mui/x-data-grid, @mui/x-date-pickers and @tanstack/react-query onto the bundle's Material/MaterialLab/MaterialDataGrid/XDatePickers/ReactQuery namespace exports — one shared vendor instance (theme context stays intact) with no star-merge name collisions",
+    "dts.mjs": "exempt RJST from the all-caps enum/constant name rejection in isComponentName — it is a real storied component (React JSON Schema Table) that the stock heuristic drops from the build"
+  },
+  "tokensGlob": "build/css/*.css",
+  "provider": {
+    "component": "AnalyticsContextProvider",
+    "inner": {
+      "component": "Material.ThemeProvider",
+      "props": { "theme": { "$ref": "theme" } },
+      "inner": { "component": "Material.ScopedCssBaseline" }
+    }
+  },
+  "titleMap": {
+    "Collectionsummary": "CollectionSummary",
+    "RJSTable": "RJST",
+    "Alert": null,
+    "Autocomplete": null,
+    "SimpleConfirmationDialog": null
+  }
+}
