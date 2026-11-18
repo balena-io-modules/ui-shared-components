@@ -196,10 +196,17 @@ const TableRenderer = <T extends { id: number }>({
 			...columns[0],
 		};
 
-		onSort?.(sortPref);
-
 		return sortPref;
-	}, [sort, model, columns, onSort]);
+	}, [sort, model, columns]);
+
+	// `onSort` sets state and calls the consumer's `onChange`, so it must not run while rendering.
+	// Doing so breaks under concurrent rendering: every discarded/restarted render pass would
+	// re-trigger the consumer's updates (e.g. a store dispatch), which in turn restarts the render.
+	React.useEffect(() => {
+		if (!sort) {
+			onSort?.(order);
+		}
+	}, [sort, order, onSort]);
 
 	const { tagField } = rjstContext;
 	const handleAddTagClose =
