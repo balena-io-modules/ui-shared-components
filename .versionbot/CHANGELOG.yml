@@ -1,4 +1,15 @@
 - commits:
+    - subject: "RJST: Fix onSort restarting renders"
+      hash: 2d87f4c961f5039714a4955ed07f78648816617b
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Matthew Yarmolinsky
+  version: 16.0.11
+  title: ""
+  date: 2026-11-18T17:08:06.655Z
+- commits:
     - subject: Pin dependency @fortawesome/fontawesome-svg-core to v7.1.0
       hash: 166c209211e131bf4a551a5ecea5284096ac0135
       body: |
