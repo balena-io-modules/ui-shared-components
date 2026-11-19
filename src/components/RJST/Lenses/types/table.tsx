@@ -202,8 +202,14 @@ const TableRenderer = <T extends { id: number }>({
 	// `onSort` sets state and calls the consumer's `onChange`, so it must not run while rendering.
 	// Doing so breaks under concurrent rendering: every discarded/restarted render pass would
 	// re-trigger the consumer's updates (e.g. a store dispatch), which in turn restarts the render.
+	//
+	// It must only run once: `onSort` has a new identity on every render and `onChange` commonly
+	// dispatches a sync-priority store update. That sync render skips the pending `setSort` update, so
+	// without this guard the effect would see `sort` still unset, call `onSort` again, and loop.
+	const hasAppliedDefaultSortRef = React.useRef(false);
 	React.useEffect(() => {
-		if (!sort) {
+		if (!sort && !hasAppliedDefaultSortRef.current) {
+			hasAppliedDefaultSortRef.current = true;
 			onSort?.(order);
 		}
 	}, [sort, order, onSort]);
