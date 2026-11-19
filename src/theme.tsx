@@ -834,13 +834,6 @@ export const theme = createTheme({
 					},
 				},
 				{
-					props: { variant: 'contained', color: 'primary' },
-					style: {
-						color: `${color.text.components.button.primary.value} !important`,
-						backgroundColor: `${color.bg.components.button.primary.value} !important`,
-					},
-				},
-				{
 					props: { variant: 'contained', color: 'secondary' },
 					style: {
 						color: color.text.components.button.secondary.value,
@@ -1093,13 +1086,6 @@ export const theme = createTheme({
 				},
 			},
 		},
-		MuiButtonGroup: {
-			styleOverrides: {
-				firstButton: {
-					borderColor: 'white',
-				},
-			},
-		},
 		MuiToggleButton: {
 			defaultProps: {
 				disableRipple: true, // needs to be disabled to target with :only-child (see below)
@@ -1140,9 +1126,6 @@ export const theme = createTheme({
 						'&.Mui-selected': {
 							backgroundColor: color.bg.components.button.primary.value,
 							color: color.text.components.button.primary.value,
-						},
-						'&:not(.Mui-selected):hover': {
-							backgroundColor: color.bg.value,
 						},
 					},
 					'&.MuiToggleButton-secondary': {
