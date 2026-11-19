@@ -48,3 +48,11 @@ export const WithALabel: Story = {
 		children: 'Modify',
 	},
 };
+
+export const Transparent: Story = {
+	args: {
+		variant: 'text',
+		...Default.args,
+		children: 'Modify',
+	},
+};

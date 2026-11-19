@@ -146,6 +146,13 @@ export const DropDownButton = <T extends unknown>({
 							<FontAwesomeIcon icon={faChevronDown} />
 						)
 					}
+					sx={{
+						// make sure there's no underline on hover when using the text variant
+						textDecoration: 'none !important',
+						...(Array.isArray(buttonProps.sx)
+							? buttonProps.sx
+							: [buttonProps.sx]),
+					}}
 					{...buttonProps}
 				>
 					{children}
