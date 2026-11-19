@@ -1,4 +1,15 @@
 - commits:
+    - subject: 'RJST: Fix onSort "Maximum update depth exceeded" issue'
+      hash: 987f3d85fb993f91b5fe19c7ebfa8324ff434875
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Matthew Yarmolinsky
+  version: 16.0.12
+  title: ""
+  date: 2026-11-19T10:03:40.640Z
+- commits:
     - subject: "RJST: Fix onSort restarting renders"
       hash: 2d87f4c961f5039714a4955ed07f78648816617b
       body: ""
