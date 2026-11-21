@@ -63,7 +63,7 @@
     "@storybook/addon-onboarding": "10.5.8",
     "@storybook/addon-webpack5-compiler-swc": "4.0.3",
     "@storybook/react-webpack5": "10.5.8",
-    "@types/color": "4.2.0",
+    "@types/color": "4.2.1",
     "@types/color-hash": "2.0.0",
     "@types/jest": "30.0.0",
     "@types/node": "26.6.6",
