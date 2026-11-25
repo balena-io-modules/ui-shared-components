@@ -159,19 +159,6 @@ const debounceDownloadSize = debounce(
 	200,
 );
 
-const EtcherLogo = ({ variant }: { variant: 'light' | 'light-contained' }) => {
-	return (
-		<Stack direction="row" spacing={1}>
-			<img
-				width="20px"
-				alt="etcher"
-				src={variant === 'light' ? etcherLogoMain : etcherLogo}
-			/>
-			<Typography>Flash</Typography>
-		</Stack>
-	);
-};
-
 export interface DownloadImageDialogProps {
 	open: boolean;
 	applicationId: number;
@@ -293,8 +280,18 @@ export const DownloadImageDialog = ({
 					onDownloadStart?.(formModel, ActionType.flash);
 					flashWithEtcher(formModel, downloadUrl, authToken);
 				}),
-				mainButtonChildren: <EtcherLogo variant="light" />,
-				children: <EtcherLogo variant="light-contained" />,
+				mainButtonChildren: (
+					<Stack direction="row" sx={{ alignItems: 'center' }} spacing={2}>
+						<img height="15px" alt="etcher" src={etcherLogoMain} />
+						<Typography>Flash</Typography>
+					</Stack>
+				),
+				children: (
+					<Stack direction="row" sx={{ alignItems: 'center' }} spacing={1}>
+						<img height="15px" alt="etcher" src={etcherLogo} />
+						<Typography>Flash</Typography>
+					</Stack>
+				),
 				tooltip: {
 					title: 'Etcher v1.7.2 or greater is required',
 					placement: 'top',
