@@ -297,7 +297,7 @@ export const FileWidget = ({
 								: // TODO: icon sizes need to be properly added to the design tokens
 									{ fontSize: '48px' })}
 						/>
-						<Typography variant="bodyLg">
+						<Typography variant="bodyLg" sx={{ textAlign: 'center' }}>
 							Drag and drop or{' '}
 							<Typography
 								className="browse-files-text"
