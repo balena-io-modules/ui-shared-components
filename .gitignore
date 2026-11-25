@@ -105,3 +105,10 @@ storybook-static
 
 .reg
 reg.json
+# design-sync (claude.ai/design) transient state
+.design-sync/sb-reference/
+.design-sync/learnings/
+.design-sync/.cache/
+.design-sync/node_modules
+.ds-sync/
+ds-bundle/
