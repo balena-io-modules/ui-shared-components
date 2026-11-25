@@ -12,8 +12,8 @@ export const Code = forwardRef<TypographyProps['ref'], TypographyProps>(
 			<Typography
 				sx={[
 					{
-						backgroundColor: token('color.bg.code'),
-						color: token('color.text.code'),
+						backgroundColor: token('color.bg.components.code'),
+						color: token('color.text.components.code'),
 						borderRadius: token('shape.borderRadius.sm'),
 						px: 1,
 						py: '2px',

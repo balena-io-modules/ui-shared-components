@@ -197,7 +197,7 @@ export const theme = createTheme({
 			'@media (min-width:600px)': {
 				fontSize: '4.25rem',
 			},
-			fontWeight: 'bold',
+			fontWeight: 500,
 		},
 		h2: {
 			fontSize: '2.375rem',
@@ -485,7 +485,7 @@ export const theme = createTheme({
 					a: {
 						color: 'inherit',
 						textDecoration: 'underline',
-						fontWeight: 'bold',
+						fontWeight: 500,
 						'&:hover': {
 							color: 'inherit',
 							textDecoration: 'none',
@@ -836,8 +836,8 @@ export const theme = createTheme({
 				{
 					props: { variant: 'contained', color: 'secondary' },
 					style: {
-						color: color.text.inverse.value,
-						backgroundColor: color.bg.strong.value,
+						color: color.text.components.button.secondary.value,
+						backgroundColor: color.bg.components.button.secondary.value,
 					},
 				},
 				{
@@ -929,9 +929,10 @@ export const theme = createTheme({
 				{
 					props: { variant: 'contained', color: 'primary' },
 					style: {
-						backgroundColor: color.bg.accent.strong.value,
+						color: color.text.components.button.primary.value,
+						backgroundColor: color.bg.components.button.primary.value,
 						'&:hover': {
-							backgroundColor: color.bg.accent.strong.value,
+							backgroundColor: color.bg.components.button.primary.value,
 						},
 					},
 				},
@@ -1123,11 +1124,8 @@ export const theme = createTheme({
 					'&.MuiToggleButton-primary': {
 						color: color.text.value,
 						'&.Mui-selected': {
-							backgroundColor: color.bg.accent.strong.value,
-							color: color.text.inverse.value,
-						},
-						'&:not(.Mui-selected):hover': {
-							backgroundColor: color.bg.accent.value,
+							backgroundColor: color.bg.components.button.primary.value,
+							color: color.text.components.button.primary.value,
 						},
 					},
 					'&.MuiToggleButton-secondary': {
@@ -1174,7 +1172,7 @@ export const theme = createTheme({
 				root: {
 					background: 'white',
 					'&:nth-of-type(even)': {
-						backgroundColor: color.components.table.row.value,
+						backgroundColor: color.bg.components.table.row.value,
 					},
 					'&:hover': {
 						backgroundColor: color.bg.accent.value,
@@ -1195,9 +1193,9 @@ export const theme = createTheme({
 					fontSize: '1rem',
 					borderBottom: 'none',
 					[`&.${tableCellClasses.head}`]: {
-						backgroundColor: color.components.table.header.value,
+						backgroundColor: color.bg.components.table.header.value,
 						borderBottom: `1px solid ${color.border.value}`,
-						fontWeight: 'bold',
+						fontWeight: 500,
 					},
 					'&:not(.MuiTableCell-paddingNone):not(.MuiTableCell-paddingCheckbox)':
 						{
@@ -1226,7 +1224,7 @@ export const theme = createTheme({
 					border: 'none',
 					fontSize: '1rem',
 					'.MuiDataGrid-columnHeaderTitle': {
-						fontWeight: 'bold',
+						fontWeight: 500,
 					},
 					'.MuiDataGrid-columnSeparator': {
 						color: color.border.strong.value,

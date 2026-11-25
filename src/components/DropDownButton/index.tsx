@@ -24,6 +24,11 @@ import type { IconProp } from '@fortawesome/fontawesome-svg-core';
 type MenuItemType<T> = MenuItemWithTrackingProps &
 	T & {
 		tooltip?: Omit<TooltipProps, 'children'> | TooltipProps['title'];
+		/**
+		 * Content rendered when this item is the selected (main) action of the button.
+		 * Falls back to `children` when not provided, which is always used in the menu.
+		 */
+		mainButtonChildren?: React.ReactNode;
 	};
 
 export interface DropDownButtonProps<T = unknown> extends Omit<
@@ -146,6 +151,13 @@ export const DropDownButton = <T extends unknown>({
 							<FontAwesomeIcon icon={faChevronDown} />
 						)
 					}
+					sx={{
+						// make sure there's no underline on hover when using the text variant
+						textDecoration: 'none !important',
+						...(Array.isArray(buttonProps.sx)
+							? buttonProps.sx
+							: [buttonProps.sx]),
+					}}
 					{...buttonProps}
 				>
 					{children}
@@ -158,7 +170,8 @@ export const DropDownButton = <T extends unknown>({
 						eventProperties={memoizedItems[selectedIndex].eventProperties}
 						tooltip={memoizedItems[selectedIndex].tooltip}
 					>
-						{memoizedItems[selectedIndex].children}
+						{memoizedItems[selectedIndex].mainButtonChildren ??
+							memoizedItems[selectedIndex].children}
 					</ButtonWithTracking>
 					<Button
 						onClick={handleToggle}
@@ -181,7 +194,7 @@ export const DropDownButton = <T extends unknown>({
 				}}
 				sx={menuSx}
 			>
-				{memoizedItems.map((item, index) => (
+				{memoizedItems.map(({ mainButtonChildren, ...item }, index) => (
 					<MenuItemWithTracking
 						key={index}
 						{...item}
