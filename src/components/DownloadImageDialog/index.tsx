@@ -35,7 +35,7 @@ import { faDownload } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import * as semver from 'balena-semver';
 import { isObjectEmpty } from '../../utils/objects';
-import { etcherLogo } from './etcherLogo';
+import { etcherLogo, etcherLogoMain } from './etcherLogo';
 
 const ETCHER_OPEN_IMAGE_URL = 'https://www.balena.io/etcher/open-image-url';
 
@@ -159,6 +159,19 @@ const debounceDownloadSize = debounce(
 	200,
 );
 
+const EtcherLogo = ({ variant }: { variant: 'light' | 'light-contained' }) => {
+	return (
+		<Stack direction="row" spacing={1}>
+			<img
+				width="20px"
+				alt="etcher"
+				src={variant === 'light' ? etcherLogoMain : etcherLogo}
+			/>
+			<Typography>Flash</Typography>
+		</Stack>
+	);
+};
+
 export interface DownloadImageDialogProps {
 	open: boolean;
 	applicationId: number;
@@ -280,12 +293,8 @@ export const DownloadImageDialog = ({
 					onDownloadStart?.(formModel, ActionType.flash);
 					flashWithEtcher(formModel, downloadUrl, authToken);
 				}),
-				children: (
-					<Stack direction="row" spacing={1}>
-						<img width="20px" alt="etcher" src={etcherLogo} />
-						<Typography>Flash</Typography>
-					</Stack>
-				),
+				mainButtonChildren: <EtcherLogo variant="light" />,
+				children: <EtcherLogo variant="light-contained" />,
 				tooltip: {
 					title: 'Etcher v1.7.2 or greater is required',
 					placement: 'top',
